@@ -35,7 +35,7 @@ class UIFramework(InitializeFramework):
         LINK_TEXT = "link_text"
         PARTIAL_LINK_TEXT = "partial_link_text"
         NAME = "name"  # text
-        ACCESSIBILITY_ID = "accessibility_id"  #1. content-desc 2. equal to name in some cases
+        ACCESSIBILITY_ID = "accessibility_id"  #1. content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
         TAG_NAME = "tag_name"
         CLASS_NAME = "class_name"
         CSS_SELECTOR = "css_selector"
@@ -53,6 +53,7 @@ class UIFramework(InitializeFramework):
 
     def wait(self, time):
         try:
+            self.logger.info("Wait " + time + "s.")
             self.UtilTime.sleep(time)
         except Exception as e:
             pass
