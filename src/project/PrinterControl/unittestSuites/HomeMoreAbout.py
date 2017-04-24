@@ -95,6 +95,7 @@ class HomeMoreAbout(unittest.TestCase):
 
 
     def test_endUserLicenseAgreement_back(self):
+        self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step. Tap on the Back key.")
         self.Result.setExpectedResult("Back to About screen displayed.")
         self.Portal.back()
@@ -112,9 +113,9 @@ class HomeMoreAbout(unittest.TestCase):
         self.Pages.Page_hpOnlinePrivacyStatement.image_logo().verifyIsShown()
 
     def test_hpOnlinePrivacyStatement_back(self):
+        self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step. Tap on the OK button.")
         self.Result.setExpectedResult("Back to About screen displayed.")
-        self.Result.isStepBlockOrContinue()
         self.Portal.back()
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
@@ -147,9 +148,9 @@ class HomeMoreAbout(unittest.TestCase):
         # self.Pages.Page_shareThisApp.text_sina().verifyIsShown()
 
     def test_shareThisApp_back(self):
+        self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step.")
         self.Result.setExpectedResult("Back to About screen displayed after tapping the Back key.")
-        self.Result.isStepBlockOrContinue()
         self.Portal.back()
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
