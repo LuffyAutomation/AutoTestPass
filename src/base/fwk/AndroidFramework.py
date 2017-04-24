@@ -54,8 +54,8 @@ class Android(UIFramework):
 
         timeOut = None
         self.logger.info("Swiping " + type + ".")
-        windows_x = self.getX()
-        windows_y = self.getY()
+        windows_x = self.getWindowX()
+        windows_y = self.getWindowY()
 
         # Sliding screen to the left
         if type.lower() == self.SwipeTo.LEFT.lower():
@@ -88,10 +88,10 @@ class Android(UIFramework):
         return self
 
     # x and y (1-10)
-    def swipe(self,start_x,start_y,end_x,end_y, ):
+    def swipe(self, start_x, start_y, end_x, end_y):
         self.logger.info("Swipe from [" + str(start_x) + ":" + str(start_y) + "] to [" + str(end_x) + ":" + str(end_y) + "].")
-        windowlenX = self.getX()
-        windowlenY = self.getY()
+        windowlenX = self.getElementWidth()
+        windowlenY = self.getElementWidthHeight()
         self.swipeTo((windowlenX * start_x / 10), (windowlenY * start_y / 10), (windowlenX * end_x / 10), (windowlenY * end_y / 10), 1500)
         return self
 
@@ -164,28 +164,32 @@ class Android(UIFramework):
         os.system("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
         return self
 
-    def getWidth(self, elementName, item=None):
-        return int(self.getElementObjectFrom(elementName, item).size["width"])
+    def getElementWidth(self, element_name, item=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return int(self.getElementObjectFrom(element_name, item).size["width"])
 
-    def getHeight(self, elementName, item=None):
-        return int(self.getElementObjectFrom(elementName, item).size["height"])
+    def getElementWidthHeight(self, element_name, item=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return int(self.getElementObjectFrom(element_name, item).size["height"])
 
-    def getX(self, elementName, item=None):
-        return self.getElementObjectFrom(elementName).location["x"]
+    def getElemenX(self, element_name, item=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return self.getElementObjectFrom(element_name).location["x"]
 
-    def getY(self, elementName, item=None):
-        return self.getElementObjectFrom(elementName).location["y"]
+    def getElementY(self, element_name, item=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return self.getElementObjectFrom(element_name).location["y"]
 
-    def getX2(self):
+    def getWindowX(self):
         width = self._driver.get_window_size()['width']
         return width
 
-    def getY2(self):
+    def getWindowY(self):
         height = self._driver.get_window_size()['height']
         return height
 
     def crop(self, element, direction):
-        x = self.getElementX(element)
+        x = self.getElemenX(element)
         y = self.getElementY(element)
         if direction == "left":
             self.swipeTo(x + self.getElementWidth(element) - 1, y, x + self.getElementWidth(element) - 200, y, 1500)
