@@ -53,7 +53,7 @@ class Android(UIFramework):
         #self.waitForTimeOut(0.5)
 
         timeOut = None
-        self.logger.log("Swiping " + type + ".")
+        self.logger.info("Swiping " + type + ".")
         windows_x = self.getX()
         windows_y = self.getY()
 
@@ -89,7 +89,7 @@ class Android(UIFramework):
 
     # x and y (1-10)
     def swipe(self,start_x,start_y,end_x,end_y, ):
-        self.logger.log("Swipe from [" + str(start_x) + ":" + str(start_y) + "] to [" + str(end_x) + ":" + str(end_y) + "].")
+        self.logger.info("Swipe from [" + str(start_x) + ":" + str(start_y) + "] to [" + str(end_x) + ":" + str(end_y) + "].")
         windowlenX = self.getX()
         windowlenY = self.getY()
         self.swipeTo((windowlenX * start_x / 10), (windowlenY * start_y / 10), (windowlenX * end_x / 10), (windowlenY * end_y / 10), 1500)
@@ -131,14 +131,14 @@ class Android(UIFramework):
         contextName = self._driver.contexts
         for context in iter(contextName):
             if context == webView:
-                self.logger.log("Switch to web view : " + context)
+                self.logger.info("Switch to web view : " + context)
                 self.switchToWebView(context)
         return self
 
     def logContext(self):
         contextName = self._driver.contexts
         for context in iter(contextName):
-            self.logger.log("Context : " + context)
+            self.logger.info("Context : " + context)
         return self
 
     def set_networkConnection(self, name):
@@ -155,12 +155,12 @@ class Android(UIFramework):
            These are available through the enumeration `appium.webdriver.ConnectionType"""
         return self
     def setValueByAdbInput(self, value):
-        self.logger.log("adb -s " + self.udid + " shell input text " + value)
+        self.logger.info("adb -s " + self.udid + " shell input text " + value)
         os.system("adb -s " + self.udid + " shell input text " + value)
         return self
 
     def setValueByAdbInputDoubleByte(self, value):
-        self.logger.log("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
+        self.logger.info("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
         os.system("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
         return self
 
