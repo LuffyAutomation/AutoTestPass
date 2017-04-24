@@ -1,6 +1,6 @@
-features/*
-.idea/*
-wheelhouse/*
+features
+.idea
+wheelhouse
 *.pyc
-web/*
+web
 startWeb.py
