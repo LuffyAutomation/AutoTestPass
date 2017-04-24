@@ -231,13 +231,13 @@ class InitializeFramework(object):
         def setResultToBlockIfFail(self):  # for skip
             self._value_nonPass_result = self._r_block
 
-        def setStepContinueFromFailIfBlock(self):
+        def setStepContinueFromFailBlock(self):
             self._value_nonPass_result = self._r_fail
 
         def setResultToTBD(self):  # for skip
             pass
 
-        def setStepBlock(self):
+        def isStepBlockOrContinue(self):
             if self._value_nonPass_result == self._r_block:
                 raise Exception("This step is failed since the last step was not successful.")
 
@@ -376,7 +376,7 @@ class InitializeFramework(object):
                 else:
                     tmp += expectedResult[idx]
             self._dict_report[self._expectedResult] = tmp
-            self.setStepBlock()
+            self.isStepBlockOrContinue()
 
         def setDescription(self, *description):
             tmp = ""

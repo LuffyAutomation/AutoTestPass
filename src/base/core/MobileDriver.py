@@ -36,10 +36,8 @@ class MobileDriver:
             self.NEW_COMMAND_TIMEOUT: self._RunTimeConf.newCommandTimeout,
             self.APP_PACKAGE: self._RunTimeConf.appPackage,
             self.APP_ACTIVITY: self._RunTimeConf.appActivity,
+            # self.APP_WAIT_ACTIVITY: self._RunTimeConf.appWaitActivity,
+            # self.AUTOMATION_NAME: self._RunTimeConf.automationName,
             self.APP: PATH(self._RunTimeConf.app)
         }
-        if self._RunTimeConf.automationName is not None:
-            self.desired_caps[self.AUTOMATION_NAME] = self._RunTimeConf.automationName
-        if self._RunTimeConf.automationName is not None:
-            self.desired_caps[self.APP_WAIT_ACTIVITY] = self._RunTimeConf.appWaitActivity
         return self.desired_caps
