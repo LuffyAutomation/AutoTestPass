@@ -1,3 +1,6 @@
 features/*
 .idea/*
 wheelhouse/*
+*.pyc
+web/*
+startWeb.py
