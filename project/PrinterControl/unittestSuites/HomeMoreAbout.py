@@ -1,44 +1,12 @@
 # coding: utf-8
-import traceback
-import unittest
-
-from project.PrinterControl.AndroidPortal import AndroidPortal
-
-from project.PrinterControl.po.wrapper.Pages import Pages
 
 
-class HomeMoreAbout(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        try:
-            cls.Portal = AndroidPortal()
-            cls.Pages = Pages(cls.Portal)
-            cls.Portal.openApp()
-            cls.Result = cls.Portal.Result(cls.Portal)
-            cls.Result.setTestName(cls.__name__)
-            cls.Result.beforeClass(cls)
-        except Exception as e:
-            traceback.print_exc()
-            cls.Portal.logger.error(e.__str__())
-            cls.Portal.quit()
+from project.PrinterControl.unittestSuites.CommonUnittest import CommonUnittest
 
-    @classmethod
-    def tearDownClass(cls):
-        try:
-            cls.Result.afterClass(cls)
-        except Exception as e:
-            #traceback.print_exc()
-            cls.Portal.logger.error(e.__str__())
 
-    def setUp(self):
-        self.Result.beforeEachFunction(self)
+class HomeMoreAbout(CommonUnittest):
 
-    def tearDown(self):
-        self.Result.afterEachFunction(self)
-
-    # 1. All of above is almost general and can be just copy & paste to your test file. only package path and cls.Portal = AndroidPortal()
-    # need to be modified according to your test.
-    # 2. self.Result.setDescription and self.Result.setExpectedResult can be ignored.
+    # self.Result.setDescription and self.Result.setExpectedResult can be ignored.
 
     # def test_exmaple(self):
     #     self.Result.setDescription("1. xxxxx.",
@@ -123,6 +91,7 @@ class HomeMoreAbout(unittest.TestCase):
         self.Result.setDescription("Follow the last step. Tap on the OK button.")
         self.Result.setExpectedResult("Back to About screen displayed.")
         self.Portal.back()
+
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
     def test_shareThisApp(self):

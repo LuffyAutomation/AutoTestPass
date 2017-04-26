@@ -12,8 +12,7 @@ class TestBrowser(unittest.TestCase):
         try:
             cls.Portal = WebPortal()
             cls.Pages = Pages(cls.Portal)
-            cls.Result = cls.Portal.Result(cls.Portal)
-            cls.Result.setTestName(cls.__name__)
+            cls.Result = cls.Portal.Result(cls.Portal, cls.__name__)
         except Exception as e:
             traceback.print_exc()
             cls.Portal.logger.info(e.__str__())

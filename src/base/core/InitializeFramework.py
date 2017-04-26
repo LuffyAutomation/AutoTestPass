@@ -72,7 +72,7 @@ class InitializeFramework(object):
         # caseRunTime = ""
         # TestRunTime = ""
 
-        def __init__(self, Portal):
+        def __init__(self, Portal, testName=None):
             self._Portal = Portal
             self._UtilTime = self._Portal.UtilTime
             self._UtilFolder = self._Portal.UtilFolder
@@ -139,6 +139,8 @@ class InitializeFramework(object):
             self._list_testcaseAttribute = [self._testcaseName, self._testcaseClassName, self._runTime]
 
             self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
+            self.setTestName(testName)
+            self.beforeClass()
 
         def _setAsLink(self, str):
             return "#$#" + str + "#$#" + self._setLine("")
@@ -301,7 +303,7 @@ class InitializeFramework(object):
             self._Portal.logger.debug("********End Testcase**********************************************************")
             self._Portal.logger.debug("******************************************************************************")
 
-        def beforeClass(self, TestCase):
+        def beforeClass(self):
             self.__addLoggingForEachTestCase()
             self._setBaseInfo()
             self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest,
