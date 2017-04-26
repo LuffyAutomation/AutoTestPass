@@ -164,21 +164,21 @@ class Android(UIFramework):
         os.system("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
         return self
 
-    def getElementWidth(self, element_name, item=None):
+    def getElementWidth(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
         return int(self.getElementObjectFrom(element_name, item).size["width"])
 
-    def getElementWidthHeight(self, element_name, item=None):
+    def getElementWidthHeight(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
         return int(self.getElementObjectFrom(element_name, item).size["height"])
 
-    def getElemenX(self, element_name, item=None):
+    def getElemenX(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return self.getElementObjectFrom(element_name).location["x"]
+        return self.getElementObjectFrom(element_name, item).location["x"]
 
-    def getElementY(self, element_name, item=None):
+    def getElementY(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return self.getElementObjectFrom(element_name).location["y"]
+        return self.getElementObjectFrom(element_name, item).location["y"]
 
     def getWindowX(self):
         width = self._driver.get_window_size()['width']
