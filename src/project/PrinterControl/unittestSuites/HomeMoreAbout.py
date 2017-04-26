@@ -34,6 +34,10 @@ class HomeMoreAbout(unittest.TestCase):
     def tearDown(self):
         self.Result.afterEachFunction(self)
 
+    # 1. All of above is almost general and can be just copy & paste to your test file. only package path and cls.Portal = AndroidPortal()
+    # need to be modified according to your test.
+    # 2. self.Result.setDescription and self.Result.setExpectedResult can be ignored.
+
     # def test_exmaple(self):
     #     self.Result.setDescription("1. xxxxx.",
     #                                "2. xxxxx.")
