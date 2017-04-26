@@ -368,6 +368,9 @@ class InitializeFramework(object):
         def setTestName(self, name):
             self._dict_report[self._testName] = name
 
+        def setDescriptionExpectedFromXlsx(self, stepId):
+            pass
+
         def setExpectedResult(self, *expectedResult):
             tmp = ""
             for idx in range(len(expectedResult)):
