@@ -2,7 +2,7 @@
 import traceback
 import unittest
 
-from project.WebExample import Pages
+from project.WebExample.po.wrapper import Pages
 from project.WebExample import WebPortal
 
 
