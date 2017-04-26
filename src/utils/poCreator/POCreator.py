@@ -83,7 +83,7 @@ if __name__ == '__main__':
     #     r"D:\Dev\DevicePass\script\AutoTestPass\src\project\PrinterControl\po")
     # POCreator.create()
     POCreator = POCreator(
-        r"D:\Dev\DevicePass\script\AutoTestPass\src\project\WebExample\data\web\uiMaps\WebExample.xml",
-        r"D:\Dev\DevicePass\script\AutoTestPass\src\project\WebExample\po")
+        r"D:\Dev\DevicePass\script\AutoTestPass\project\WebExample\data\web\uiMaps\WebExample.xml",
+        r"D:\Dev\DevicePass\script\AutoTestPass\project\WebExample\po")
     POCreator.create()
 

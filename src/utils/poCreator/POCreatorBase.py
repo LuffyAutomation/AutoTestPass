@@ -13,7 +13,8 @@ class POCreatorBase:
         DESCRIPION = "description"
 
     def __init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject=True):
-        self.__IMPORT_STRING_BEGIN_WITH = "src"
+        # self.__IMPORT_STRING_BEGIN_WITH = "src"
+        self.__IMPORT_STRING_BEGIN_WITH = "project"
         self. __isGenerateInProject = isGenerateInProject
         self._COMMONPAGE = "CommonPage"
         self._PAGES_TEMPLATE = "Pages_template"
@@ -80,6 +81,7 @@ class POCreatorBase:
 
     def __getClassImportStringHead(self):
         if self.__isGenerateInProject == True:
+            # tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
             tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
             self.__classImportStringHead = "from " + tmpPath.replace("/", ".").replace("\\", ".")
             return self.__classImportStringHead

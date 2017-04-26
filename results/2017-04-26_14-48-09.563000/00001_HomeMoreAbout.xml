@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href = "xmlReport.xsl"?>
+<testsuite blocks="0" blocksPercent="0.0%" deviceModel="SM-G9200" deviceName="06157df6b1e60d06" errors="0" errorsPercent="0.0%" failsPercent="0.0%" failures="0" language="en_US" name="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" os="Android" passes="11" passesPercent="100.0%" project="PrinterControl" region="US" tbds="0" tbdsPercent="0.0%" testName="HomeMoreAbout" tests="11" time="45" version="6.0.1">
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_flow" time="23">
+		<step>1</step>
+		<description>1. Install AiO app / clear data of AiO app.~!~2. Launch AiO app.~!~3. Go to Home screen.</description>
+		<expectedResult>AiO Home screen is displayed.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\1_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																																</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_aioVersion" time="2">
+		<step>2</step>
+		<description>1. Tap on the top right drop down menu.~!~2. Tap on the item About.</description>
+		<expectedResult>1. AiO application version text and version number is display correctly.(Check the number on log or screenshot)~!~2. AiO application name is displayed correctly.~!~3. AiO application icon is displayed correctly.</expectedResult>
+		<manualCheck>The Aio application version is 4.3.19?~!~#$#Step ended@@@00001_HomeMoreAbout\2_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																													</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_copyRight" time="0">
+		<step>3</step>
+		<description>Fllow the last step.</description>
+		<expectedResult>1. AiO application copy right text is display correctly~!~2. AiO application copy right start year is displayed correctly~!~3. AiO application copy right end year is displayed correctly</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\3_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																										</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_legalInformaion" time="4">
+		<step>4</step>
+		<description>Fllow the last step.~!~1. Tap on the Legal Information link.~!~2. Tap on the OK button.</description>
+		<expectedResult>1. Legal information popup is opened.~!~2. Popup tile is Legal information.~!~3. Popup content matches the latest wireframe (Only verify this exists.)</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\4_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																							</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_endUserLicenseAgreement" time="7">
+		<step>5</step>
+		<description>Fllow the last step.~!~1. Tap on the License agreement link.</description>
+		<expectedResult>1. License agreement web page is opened.~!~2. HP logo is displayed.~!~3. HP license content is correct.(Ignore this step, since there is no correct result now.)</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\5_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																				</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_endUserLicenseAgreement_back" time="1">
+		<step>6</step>
+		<description>Follow the last step. Tap on the Back key.</description>
+		<expectedResult>Back to About screen displayed.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\6_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>																	</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_hpOnlinePrivacyStatement" time="4">
+		<step>7</step>
+		<description>Follow the last step. Tap on the HP Online Privacy link.</description>
+		<expectedResult>1. HP Online Privacy web page is opened.~!~2. HP logo is displayed.~!~3. HP Privacy statement is displayed correctly.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\7_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>														</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_hpOnlinePrivacyStatement_back" time="1">
+		<step>8</step>
+		<description>Follow the last step. Tap on the OK button.</description>
+		<expectedResult>Back to About screen displayed.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\8_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>											</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_shareThisApp" time="2">
+		<step>9</step>
+		<description>Follow the last step. Tap on the Share this app button.</description>
+		<expectedResult>1. Share with popup is opened.~!~2. Email is displayed under Android 6, QQ is displayed under Android 5.~!~3. Back to About screen displayed after tapping the Back key.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\9_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>								</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_shareThisApp_back" time="1">
+		<step>10</step>
+		<description>Follow the last step.</description>
+		<expectedResult>Back to About screen displayed after tapping the Back key.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\10_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>					</failure>
+	</testcase>
+	<testcase classname="project.PrinterControl.unittestSuites.HomeMoreAbout.HomeMoreAbout" name="test_headerDisplay" time="0">
+		<step>11</step>
+		<description>Follow the last step.~!~Tap on the Back icon.</description>
+		<expectedResult>Screen goes back to AiO Home.</expectedResult>
+		<manualCheck>#$#Step ended@@@00001_HomeMoreAbout\11_stepEnd.png#$#~!~</manualCheck>
+		<result>Pass</result>
+		<failure message="NA" type="Exception">
+<![CDATA[NA]]>		</failure>
+	</testcase>
+</testsuite>

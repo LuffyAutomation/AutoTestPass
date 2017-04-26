@@ -1,0 +1,203 @@
+2017-04-26 14:48:21,661 INFO - project: [NA]
+2017-04-26 14:48:21,663 INFO - testName: [HomeMoreAbout]
+2017-04-26 14:48:21,663 INFO - os: [Android]
+2017-04-26 14:48:21,663 INFO - version: [6.0.1]
+2017-04-26 14:48:21,663 INFO - language: [en]
+2017-04-26 14:48:21,663 INFO - region: [US]
+2017-04-26 14:48:21,663 INFO - deviceName: [06157df6b1e60d06]
+2017-04-26 14:48:21,664 INFO - deviceModel: [SM-G9200]
+2017-04-26 14:48:22,164 DEBUG - ******************************************************************************
+2017-04-26 14:48:22,164 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:48:22,187 INFO - Waiting for that the element [checkbox_accept] is shown on page['page_agreements'].
+2017-04-26 14:48:25,359 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 3s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:27,461 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 5s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:29,910 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 7s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:33,056 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 10s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:36,615 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 14s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:39,861 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 17s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:42,467 INFO - ......Finding element [checkbox_accept] of page [page_agreements]. 20s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:48:42,982 INFO - Click element [checkbox_accept] on [page_agreements] page.
+2017-04-26 14:48:43,680 INFO - Click element [button_continue] on [page_agreements] page.
+2017-04-26 14:48:44,131 INFO - Waiting for that the element [link_setupLater] is shown on page['page_welcome'].
+2017-04-26 14:48:44,661 INFO - Click element [link_setupLater] on [page_welcome] page.
+2017-04-26 14:48:46,816 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:48:46,816 DEBUG - [[[Step]]]: 1
+2017-04-26 14:48:46,818 DEBUG - [[[Description]]]: 1. Install AiO app / clear data of AiO app.~!~2. Launch AiO app.~!~3. Go to Home screen.
+2017-04-26 14:48:46,818 DEBUG - [[[ExpectedResult]]]: AiO Home screen is displayed.
+2017-04-26 14:48:46,818 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:48:46,818 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\1_stepEnd.png#$#~!~
+2017-04-26 14:48:46,818 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:48:46,818 DEBUG - [[[Time(s)]]]: 23
+2017-04-26 14:48:46,818 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:48:46,818 DEBUG - ******************************************************************************
+2017-04-26 14:48:46,818 DEBUG - ******************************************************************************
+2017-04-26 14:48:46,818 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:48:46,819 INFO - Waiting for that the element [button_MoreOptions] is shown on page['page_home'].
+2017-04-26 14:48:46,875 INFO - Click element [button_MoreOptions] on [page_home] page.
+2017-04-26 14:48:47,332 INFO - Waiting for that the element [menuItem_about_] is shown on page['page_home\menu_moreOptions'].
+2017-04-26 14:48:48,115 INFO - Click element [menuItem_about_] on [page_home\menu_moreOptions] page.
+2017-04-26 14:48:48,309 INFO - Verify that the element [image_appIcon] is shown on page['page_about'].
+2017-04-26 14:48:49,450 INFO - Passed!
+2017-04-26 14:48:49,555 INFO - Verify the element [text_versionLable]'s value is [Version:].
+2017-04-26 14:48:49,555 INFO - Passed!
+2017-04-26 14:48:49,642 INFO - Verify the element [text_appName]'s value is [HP All-in-One Printer Remote].
+2017-04-26 14:48:49,642 INFO - Passed!
+2017-04-26 14:48:51,331 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:48:51,331 DEBUG - [[[Step]]]: 2
+2017-04-26 14:48:51,331 DEBUG - [[[Description]]]: 1. Tap on the top right drop down menu.~!~2. Tap on the item About.
+2017-04-26 14:48:51,331 DEBUG - [[[ExpectedResult]]]: 1. AiO application version text and version number is display correctly.(Check the number on log or screenshot)~!~2. AiO application name is displayed correctly.~!~3. AiO application icon is displayed correctly.
+2017-04-26 14:48:51,331 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:48:51,331 DEBUG - [[[ManualCheck]]]: The Aio application version is 4.3.19?~!~#$#Step ended@@@00001_HomeMoreAbout\2_stepEnd.png#$#~!~
+2017-04-26 14:48:51,331 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:48:51,332 DEBUG - [[[Time(s)]]]: 2
+2017-04-26 14:48:51,332 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:48:51,332 DEBUG - ******************************************************************************
+2017-04-26 14:48:51,332 DEBUG - ******************************************************************************
+2017-04-26 14:48:51,332 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:48:51,469 INFO - Verify the element [text_copyRightCompany]'s value is [Copyright © 2012–2017 
+HP Inc.].
+2017-04-26 14:48:51,469 INFO - Passed!
+2017-04-26 14:48:53,125 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:48:53,125 DEBUG - [[[Step]]]: 3
+2017-04-26 14:48:53,125 DEBUG - [[[Description]]]: Fllow the last step.
+2017-04-26 14:48:53,125 DEBUG - [[[ExpectedResult]]]: 1. AiO application copy right text is display correctly~!~2. AiO application copy right start year is displayed correctly~!~3. AiO application copy right end year is displayed correctly
+2017-04-26 14:48:53,125 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:48:53,125 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\3_stepEnd.png#$#~!~
+2017-04-26 14:48:53,125 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:48:53,125 DEBUG - [[[Time(s)]]]: 0
+2017-04-26 14:48:53,125 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:48:53,125 DEBUG - ******************************************************************************
+2017-04-26 14:48:53,125 DEBUG - ******************************************************************************
+2017-04-26 14:48:53,127 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:48:53,154 INFO - Click element [link_legalInformation] on [page_about] page.
+2017-04-26 14:48:53,611 INFO - Verify that the element [text_title_legalInformation] is shown on page['dialog_legalInformation'].
+2017-04-26 14:48:54,237 INFO - Passed!
+2017-04-26 14:48:54,240 INFO - Verify that the element [area_content_legalInformation] is shown on page['dialog_legalInformation'].
+2017-04-26 14:48:54,467 INFO - Passed!
+2017-04-26 14:48:54,503 INFO - Click element [button_ok] on [dialog_legalInformation] page.
+2017-04-26 14:48:57,713 INFO - Verify that the element [text_title_about] is shown on page['page_about'].
+2017-04-26 14:48:57,773 INFO - Passed!
+2017-04-26 14:48:59,398 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:48:59,398 DEBUG - [[[Step]]]: 4
+2017-04-26 14:48:59,398 DEBUG - [[[Description]]]: Fllow the last step.~!~1. Tap on the Legal Information link.~!~2. Tap on the OK button.
+2017-04-26 14:48:59,398 DEBUG - [[[ExpectedResult]]]: 1. Legal information popup is opened.~!~2. Popup tile is Legal information.~!~3. Popup content matches the latest wireframe (Only verify this exists.)
+2017-04-26 14:48:59,398 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:48:59,398 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\4_stepEnd.png#$#~!~
+2017-04-26 14:48:59,398 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:48:59,398 DEBUG - [[[Time(s)]]]: 4
+2017-04-26 14:48:59,398 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:48:59,398 DEBUG - ******************************************************************************
+2017-04-26 14:48:59,398 DEBUG - ******************************************************************************
+2017-04-26 14:48:59,398 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:48:59,398 INFO - Verify that the element [link_endUserLicenseAgreement] is shown on page['page_about'].
+2017-04-26 14:48:59,446 INFO - Passed!
+2017-04-26 14:48:59,446 INFO - Click element [link_endUserLicenseAgreement] on [page_about] page.
+2017-04-26 14:49:01,704 INFO - Verify that the element [image_logo] is shown on page['page_endUserLicenseAgreement'].
+2017-04-26 14:49:03,773 INFO - ......Finding element [image_logo] of page [page_endUserLicenseAgreement]. 2s elapsed. Timeout is 120s. Interval is 2.
+2017-04-26 14:49:05,881 INFO - ......Finding element [image_logo] of page [page_endUserLicenseAgreement]. 4s elapsed. Timeout is 120s. Interval is 2.
+2017-04-26 14:49:06,973 INFO - Passed!
+2017-04-26 14:49:08,694 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:08,694 DEBUG - [[[Step]]]: 5
+2017-04-26 14:49:08,694 DEBUG - [[[Description]]]: Fllow the last step.~!~1. Tap on the License agreement link.
+2017-04-26 14:49:08,694 DEBUG - [[[ExpectedResult]]]: 1. License agreement web page is opened.~!~2. HP logo is displayed.~!~3. HP license content is correct.(Ignore this step, since there is no correct result now.)
+2017-04-26 14:49:08,694 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:08,694 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\5_stepEnd.png#$#~!~
+2017-04-26 14:49:08,694 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:08,694 DEBUG - [[[Time(s)]]]: 7
+2017-04-26 14:49:08,694 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:08,694 DEBUG - ******************************************************************************
+2017-04-26 14:49:08,694 DEBUG - ******************************************************************************
+2017-04-26 14:49:08,694 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:09,769 INFO - Verify that the element [text_title_about] is shown on page['page_about'].
+2017-04-26 14:49:09,808 INFO - Passed!
+2017-04-26 14:49:11,401 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:11,401 DEBUG - [[[Step]]]: 6
+2017-04-26 14:49:11,401 DEBUG - [[[Description]]]: Follow the last step. Tap on the Back key.
+2017-04-26 14:49:11,401 DEBUG - [[[ExpectedResult]]]: Back to About screen displayed.
+2017-04-26 14:49:11,401 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:11,401 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\6_stepEnd.png#$#~!~
+2017-04-26 14:49:11,401 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:11,401 DEBUG - [[[Time(s)]]]: 1
+2017-04-26 14:49:11,401 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:11,403 DEBUG - ******************************************************************************
+2017-04-26 14:49:11,403 DEBUG - ******************************************************************************
+2017-04-26 14:49:11,403 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:11,404 INFO - Verify that the element [link_hpOnlinePrivacyStatement] is shown on page['page_about'].
+2017-04-26 14:49:11,434 INFO - Passed!
+2017-04-26 14:49:11,434 INFO - Click element [link_hpOnlinePrivacyStatement] on [page_about] page.
+2017-04-26 14:49:12,530 INFO - Verify that the element [text_hpPrivacyStatementWorldwide] is shown on page['page_hpOnlinePrivacyStatement'].
+2017-04-26 14:49:14,598 INFO - ......Finding element [text_hpPrivacyStatementWorldwide] of page [page_hpOnlinePrivacyStatement]. 2s elapsed. Timeout is 90s. Interval is 2.
+2017-04-26 14:49:14,805 INFO - Passed!
+2017-04-26 14:49:14,806 INFO - Verify that the element [image_logo] is shown on page['page_hpOnlinePrivacyStatement'].
+2017-04-26 14:49:16,391 INFO - Passed!
+2017-04-26 14:49:18,209 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:18,209 DEBUG - [[[Step]]]: 7
+2017-04-26 14:49:18,209 DEBUG - [[[Description]]]: Follow the last step. Tap on the HP Online Privacy link.
+2017-04-26 14:49:18,209 DEBUG - [[[ExpectedResult]]]: 1. HP Online Privacy web page is opened.~!~2. HP logo is displayed.~!~3. HP Privacy statement is displayed correctly.
+2017-04-26 14:49:18,209 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:18,209 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\7_stepEnd.png#$#~!~
+2017-04-26 14:49:18,209 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:18,209 DEBUG - [[[Time(s)]]]: 4
+2017-04-26 14:49:18,209 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:18,209 DEBUG - ******************************************************************************
+2017-04-26 14:49:18,209 DEBUG - ******************************************************************************
+2017-04-26 14:49:18,209 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:19,322 INFO - Verify that the element [text_title_about] is shown on page['page_about'].
+2017-04-26 14:49:19,371 INFO - Passed!
+2017-04-26 14:49:21,030 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:21,030 DEBUG - [[[Step]]]: 8
+2017-04-26 14:49:21,030 DEBUG - [[[Description]]]: Follow the last step. Tap on the OK button.
+2017-04-26 14:49:21,030 DEBUG - [[[ExpectedResult]]]: Back to About screen displayed.
+2017-04-26 14:49:21,030 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:21,030 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\8_stepEnd.png#$#~!~
+2017-04-26 14:49:21,030 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:21,030 DEBUG - [[[Time(s)]]]: 1
+2017-04-26 14:49:21,032 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:21,032 DEBUG - ******************************************************************************
+2017-04-26 14:49:21,032 DEBUG - ******************************************************************************
+2017-04-26 14:49:21,032 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:21,032 INFO - Verify that the element [button_shareThisApp] is shown on page['page_about'].
+2017-04-26 14:49:21,056 INFO - Passed!
+2017-04-26 14:49:21,056 INFO - Click element [button_shareThisApp] on [page_about] page.
+2017-04-26 14:49:21,786 INFO - Verify that the element [text_email] is shown on page['sys_general'].
+2017-04-26 14:49:23,823 INFO - ......Finding element [text_email] of page [sys_general]. 2s elapsed. Timeout is 30.0s. Interval is 2.
+2017-04-26 14:49:23,936 INFO - Passed!
+2017-04-26 14:49:25,760 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:25,760 DEBUG - [[[Step]]]: 9
+2017-04-26 14:49:25,760 DEBUG - [[[Description]]]: Follow the last step. Tap on the Share this app button.
+2017-04-26 14:49:25,760 DEBUG - [[[ExpectedResult]]]: 1. Share with popup is opened.~!~2. Email is displayed under Android 6, QQ is displayed under Android 5.~!~3. Back to About screen displayed after tapping the Back key.
+2017-04-26 14:49:25,760 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:25,760 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\9_stepEnd.png#$#~!~
+2017-04-26 14:49:25,760 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:25,760 DEBUG - [[[Time(s)]]]: 2
+2017-04-26 14:49:25,762 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:25,762 DEBUG - ******************************************************************************
+2017-04-26 14:49:25,762 DEBUG - ******************************************************************************
+2017-04-26 14:49:25,762 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:26,815 INFO - Verify that the element [text_title_about] is shown on page['page_about'].
+2017-04-26 14:49:26,842 INFO - Passed!
+2017-04-26 14:49:28,257 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:28,257 DEBUG - [[[Step]]]: 10
+2017-04-26 14:49:28,257 DEBUG - [[[Description]]]: Follow the last step.
+2017-04-26 14:49:28,259 DEBUG - [[[ExpectedResult]]]: Back to About screen displayed after tapping the Back key.
+2017-04-26 14:49:28,259 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:28,259 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\10_stepEnd.png#$#~!~
+2017-04-26 14:49:28,259 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:28,259 DEBUG - [[[Time(s)]]]: 1
+2017-04-26 14:49:28,259 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:28,259 DEBUG - ******************************************************************************
+2017-04-26 14:49:28,259 DEBUG - ******************************************************************************
+2017-04-26 14:49:28,259 DEBUG - ********Start Testcase********************************************************
+2017-04-26 14:49:28,269 INFO - Click element [button_back] on [page_about] page.
+2017-04-26 14:49:28,601 INFO - Verify that the element [button_MoreOptions] is shown on page['page_home\menu_moreOptions'].
+2017-04-26 14:49:29,177 INFO - Passed!
+2017-04-26 14:49:30,631 DEBUG - ------------------------------------------------------------------------------
+2017-04-26 14:49:30,631 DEBUG - [[[Step]]]: 11
+2017-04-26 14:49:30,631 DEBUG - [[[Description]]]: Follow the last step.~!~Tap on the Back icon.
+2017-04-26 14:49:30,631 DEBUG - [[[ExpectedResult]]]: Screen goes back to AiO Home.
+2017-04-26 14:49:30,631 DEBUG - [[[ErrorMessage]]]: NA
+2017-04-26 14:49:30,631 DEBUG - [[[ManualCheck]]]: #$#Step ended@@@00001_HomeMoreAbout\11_stepEnd.png#$#~!~
+2017-04-26 14:49:30,631 DEBUG - [[[Result]]]: Pass
+2017-04-26 14:49:30,631 DEBUG - [[[Time(s)]]]: 0
+2017-04-26 14:49:30,631 DEBUG - ********End Testcase**********************************************************
+2017-04-26 14:49:30,632 DEBUG - ******************************************************************************
