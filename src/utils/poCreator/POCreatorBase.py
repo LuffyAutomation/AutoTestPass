@@ -4,6 +4,7 @@ from abc import abstractmethod
 from src.utils.utilString.UtilString import UtilString
 from src.utils.utilIO.UtilFile import UtilFile
 from src.utils.utilXml.UtilXml import UtilXml
+from src.utils.utilIO.UtilFolder import UtilFolder
 
 
 class POCreatorBase:
@@ -13,11 +14,16 @@ class POCreatorBase:
         DESCRIPION = "description"
 
     def __init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject=True):
+        self._UtilFolder = UtilFolder
+        self._UtilFile = UtilFile
+        self._UtilString = UtilString
+        self._UtilXml = UtilXml
+        self.scriptFolderName = path_folder_uiMaps.split("data" + os.path.sep)[1].split(os.path.sep + "uiMaps")[0]
         # self.__IMPORT_STRING_BEGIN_WITH = "src"
         self.__IMPORT_STRING_BEGIN_WITH = "project"
         self. __isGenerateInProject = isGenerateInProject
         self._COMMONPAGE = "CommonPage"
-        self._PAGES_TEMPLATE = "Pages_template"
+        self._PAGES_TEMPLATE = "Pages_%s_template" % self._UtilString.capitalizeFirstLetter(self.scriptFolderName)
         self._PO_SUFFIX = "_model"
         self._PO_MODELS = "models"
         self._PO_PAGES = "pages"
@@ -27,15 +33,22 @@ class POCreatorBase:
         self._descriptionWrapper = "'''"
 
         self.__path_folder_po = path_folder_po
-        self.__path_folder_pages = os.path.join(path_folder_po, self._PO_PAGES)
-        self.__path_folder_models = os.path.join(path_folder_po, self._PO_MODELS)
+        self.__path_folder_pages = os.path.join(path_folder_po, self._PO_PAGES, self.scriptFolderName)
+        self._UtilFolder.createFolder(self.__path_folder_pages)
+        self._writeFile(os.path.join(self.__path_folder_pages, "__init__.py"))
+        self.__path_folder_models = os.path.join(path_folder_po, self._PO_MODELS, self.scriptFolderName)
+        self._UtilFolder.createFolder(self.__path_folder_models)
+        self._writeFile(os.path.join(self.__path_folder_models, "__init__.py"))
         self.__path_folder_wrapper = os.path.join(path_folder_po, self._PO_WRAPPER)
+        self._UtilFolder.createFolder(self.__path_folder_wrapper)
+        self._writeFile(os.path.join(self.__path_folder_wrapper, "__init__.py"))
+        self._writeFile(os.path.join(self.__path_folder_wrapper, "Pages_Android.py"))
+        self._writeFile(os.path.join(self.__path_folder_wrapper, "Pages_Web.py"), "class Pages_Web: pass")
+        self._writeFile(os.path.join(self.__path_folder_wrapper, "Pages_Ios.py"), "class Pages_Ios: pass")
         self.__path_folder_po = path_folder_po
         self.__path_folder_uiMaps = path_folder_uiMaps
 
-        self._UtilFile = UtilFile
-        self._UtilString = UtilString
-        self._UtilXml = UtilXml
+
         self.__xmlTree = self._UtilXml.getTree(self.__path_folder_uiMaps)
         self._root = self._UtilXml.getRootElement(self.__xmlTree)
 
@@ -92,6 +105,7 @@ class POCreatorBase:
         pOModelClassName = self._getPOModelClassName(po_name)
         if self._COMMONPAGE not in pOModelClassName:
             classImportString += "." + self._PO_MODELS
+            classImportString += "." + self.scriptFolderName
         tmp = "import inspect" + self._newLine
         return tmp + "%s.%s import %s" % (classImportString, pOModelClassName, pOModelClassName)
 
@@ -109,7 +123,7 @@ class POCreatorBase:
         return tmp
 
     def _getPagesBodyHead(self, level=0):
-        return self._newLine + self._getIndent(level) + "class Pages:" \
+        return self._newLine + self._getIndent(level) + "class Pages_%s:" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI = UI" \
             + self._newLine
@@ -133,7 +147,7 @@ class POCreatorBase:
     def _getPOFileName(self, po_name):
         return self._getPOClassName(po_name) + ".py"
 
-    def _writeFile(self, path_file, txt):
+    def _writeFile(self, path_file, txt=""):
         if not UtilFile.isPathExists(path_file):
             UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
 

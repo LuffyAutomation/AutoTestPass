@@ -192,5 +192,6 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         try:
             if self._drive is not None:
                 self._driver.quit()
+                self._driver = None
         except Exception as e:
             pass

@@ -17,26 +17,26 @@ from project.PrinterControl.po.wrapper.MultiplePagesLogic import MultiplePagesLo
 from project.PrinterControl.po.pages.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
 
 
-class Pages:
-    def __init__(self, Portal):
-        self._Portal = Portal
-        self.Page_agreements = Page_agreements(self._Portal)
-        self.Page_welcome = Page_welcome(self._Portal)
-        self.Page_findNewPrinter = Page_findNewPrinter(self._Portal)
-        self.Page_foundANetworkPrinter = Page_foundANetworkPrinter(self._Portal)
-        self.Sys_packageinstaller = Sys_packageinstaller(self._Portal)
-        self.Page_foundYourPrinter = Page_foundYourPrinter(self._Portal)
-        self.Page_setup = Page_setup(self._Portal)
-        self.Page_printerList = Page_printerList(self._Portal)
-        self.Page_home = Page_home(self._Portal)
-        self.Page_about = Page_about(self._Portal)
-        self.Dialog_legalInformation = Dialog_legalInformation(self._Portal)
-        self.Page_endUserLicenseAgreement = Page_endUserLicenseAgreement(self._Portal)
-        self.Page_hpOnlinePrivacyStatement = Page_hpOnlinePrivacyStatement(self._Portal)
-        self.Page_shareThisApp = Page_shareThisApp(self._Portal)
-        self.Sys_general = Sys_general(self._Portal)
+class Pages_Android:
+    def __init__(self, UI):
+        self._UI = UI
+        self.Page_agreements = Page_agreements(self._UI)
+        self.Page_welcome = Page_welcome(self._UI)
+        self.Page_findNewPrinter = Page_findNewPrinter(self._UI)
+        self.Page_foundANetworkPrinter = Page_foundANetworkPrinter(self._UI)
+        self.Sys_packageinstaller = Sys_packageinstaller(self._UI)
+        self.Page_foundYourPrinter = Page_foundYourPrinter(self._UI)
+        self.Page_setup = Page_setup(self._UI)
+        self.Page_printerList = Page_printerList(self._UI)
+        self.Page_home = Page_home(self._UI)
+        self.Page_about = Page_about(self._UI)
+        self.Dialog_legalInformation = Dialog_legalInformation(self._UI)
+        self.Page_endUserLicenseAgreement = Page_endUserLicenseAgreement(self._UI)
+        self.Page_hpOnlinePrivacyStatement = Page_hpOnlinePrivacyStatement(self._UI)
+        self.Page_shareThisApp = Page_shareThisApp(self._UI)
+        self.Sys_general = Sys_general(self._UI)
 
-        self.Mpl = MultiplePagesLogic(self, self._Portal)
+        self.Mpl = MultiplePagesLogic(self, self._UI)
 
     def flow_goTo_PageHomeWithSpecifiedPrinter(self):
         self.Page_agreements.flow_agreements()

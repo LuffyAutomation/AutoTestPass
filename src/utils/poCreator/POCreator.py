@@ -1,4 +1,5 @@
 from src.utils.poCreator.POCreatorBase import POCreatorBase
+import os
 
 class POCreator(POCreatorBase):
     def __init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject=True):
@@ -77,14 +78,4 @@ class POCreator(POCreatorBase):
     #     tmp += "%s.%s import %s" % (importPath, self._getPOClassName(po_name), self._getPOClassName(po_name))
     #     return tmp
 
-if __name__ == '__main__':
-    # POCreator = POCreator(
-    #     r"D:\Dev\DevicePass\script\AutoTestPass\src\project\PrinterControl\data\android\uiMaps\printerControl.xml",
-    #     r"D:\Dev\DevicePass\script\AutoTestPass\src\project\PrinterControl\po")
-    # POCreator.create()
-    project = "PrinterControl"
-    POCreator = POCreator(
-        r"D:\Dev\DevicePass\script\AutoTestPass\project\%s\data\android\uiMaps\%s.xml" % (project, project),
-        r"D:\Dev\DevicePass\script\AutoTestPass\project\%s\po" % project)
-    POCreator.create()
 
