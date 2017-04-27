@@ -4,8 +4,8 @@ from project.PrinterControl.po.models.Page_about_model import Page_about_model
 
 '''about page.'''
 class Page_about(Page_about_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_about_model.__init__(self)
 
     def verify_Icon_Version_APPName(self):

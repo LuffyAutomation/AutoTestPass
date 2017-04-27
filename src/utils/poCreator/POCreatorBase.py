@@ -110,12 +110,12 @@ class POCreatorBase:
 
     def _getPagesBodyHead(self, level=0):
         return self._newLine + self._getIndent(level) + "class Pages:" \
-            + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, Portal):" \
-            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._Portal = Portal" \
+            + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI = UI" \
             + self._newLine
 
     def _getPagesBodyBody(self, po_name, level=0):
-        tmp = self._getIndent(level) + self._indent + self._indent + "self.%s = %s(self._Portal)" % (self._getPOClassName(po_name), self._getPOClassName(po_name)) \
+        tmp = self._getIndent(level) + self._indent + self._indent + "self.%s = %s(self._UI)" % (self._getPOClassName(po_name), self._getPOClassName(po_name)) \
             + self._newLine
         return tmp
 

@@ -67,3 +67,46 @@
 #             return xmlrunner.XMLTestRunner(output=xml, **kwargs).run(suite)
 #     else :
 #         return xmlrunner.XMLTestRunner(output=output_dir, **kwargs).run(suite)
+# @abstractmethod
+# def getAndroidSDK(self, uuid=None):
+#     pass
+#
+# @abstractmethod
+# def getBuildInMobileLanguage(self, uuid=None):
+#     pass
+#
+# @abstractmethod
+# def getProjectName(self):
+#     pass
+#
+# @abstractmethod
+# def getProjectPath(self):
+#     pass
+#
+# @abstractmethod
+# def updateCurrentElementStatus(self, element_name):
+#     pass
+#
+# @abstractmethod
+# def setCurrentElementName(self, element_name):
+#     pass
+#
+# @abstractmethod
+# def getCurrentElementName(self):
+#     pass
+#
+# @abstractmethod
+# def setCurrentPage(self, page):
+#     pass
+#
+# @abstractmethod
+# def getCurrentPage(self):
+#     pass
+#
+# @abstractmethod
+# def setCurrentElementObject(self, element):
+#     pass
+#
+# @abstractmethod
+# def getCurrentElementObject(self):
+#     pass

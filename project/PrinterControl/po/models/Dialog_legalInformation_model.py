@@ -1,6 +1,6 @@
 import inspect
-
 from project.PrinterControl.po.CommonPage import CommonPage
+
 
 '''dialog_legalInformation'''
 class Dialog_legalInformation_model(CommonPage):

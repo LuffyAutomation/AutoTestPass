@@ -1,11 +1,11 @@
-from project.PrinterControl.AndroidPortal import AndroidPortal
+from project.PrinterControl.ProjectPortal import ProjectPortal
 
 
 class CommonPage:
     def __init__(self):
         self._elementsMap = self.Portal.getUiMap(self.page_name)
         if 3 > 3:
-            self.Portal = AndroidPortal()
+            self.Portal = ProjectPortal()
         return self
 
     def updateCurrentElementStatus(self, element_name, child_page_name=None, elementsMap=None):

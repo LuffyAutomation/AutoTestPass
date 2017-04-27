@@ -1,15 +1,15 @@
 import os
-from src.base.fwk.WebFramework import Web
+from src.base.fwk.WebFwk import WebFwk
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
 
-class WebPortal(Web):
+class WebFwkPortal(WebFwk):
 
     def __init__(self):
-        Web.__init__(self)
+        WebFwk.__init__(self)
 
     def getProjectName(self):
         # return PATH("").split("\\")[-1]

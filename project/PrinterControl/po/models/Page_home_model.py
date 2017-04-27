@@ -1,6 +1,6 @@
 import inspect
-
 from project.PrinterControl.po.CommonPage import CommonPage
+
 
 '''main page.'''
 class Page_home_model(CommonPage):
@@ -39,7 +39,7 @@ class Page_home_model(CommonPage):
         def __init__(self, outer=CommonPage):
             self.page_name = 'menu_moreOptions'
             self.__outer = outer
-            self._elementsMap = self.__outer.Portal.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
 
         def menuItem_appSettings_(self):
             return self.__outer.updateCurrentElementStatus(inspect.stack()[0][3], self.page_name, self._elementsMap)

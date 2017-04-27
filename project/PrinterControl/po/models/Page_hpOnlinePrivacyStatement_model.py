@@ -1,6 +1,6 @@
 import inspect
-
 from project.PrinterControl.po.CommonPage import CommonPage
+
 
 '''page_hpOnlinePrivacyStatement'''
 class Page_hpOnlinePrivacyStatement_model(CommonPage):

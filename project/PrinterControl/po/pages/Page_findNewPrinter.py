@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_findNewPrinter_model import Page_find
 
 '''We find new printer.'''
 class Page_findNewPrinter(Page_findNewPrinter_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_findNewPrinter_model.__init__(self)
 
     # This is function template to write your Business wrapper here.

@@ -1,6 +1,6 @@
 import os
 import subprocess
-from src.base.core.UiFramework import UIFramework
+from src.base.core.UiFwk import UiFwk
 from src.base.core.MobileDriver import MobileDriver
 from src.utils.ApiRequest import wdaRun
 
@@ -9,16 +9,16 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class Android(UIFramework):
-
-    def __init__(self):
-        UIFramework.__init__(self)
+class AndroidFwk(UiFwk):
+    def __init__(self, Init):
+        UiFwk.__init__(self, Init)
+        self._getCurrentTestArgs(self.TestType.ANDROID)
 
     def __launch_app(self):
         self._driver = MobileDriver(self).getDriver()
         self.wait(5)
 
-    def openApp(self):
+    def getDriver(self):
         self.__launch_app()
         self.RunTimeConf.getMobileInfo(self)
     # def __launch_browser(self):

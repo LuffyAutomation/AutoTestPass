@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 from project.PrinterControl.unittestSuites.HomeMoreAbout import HomeMoreAbout
+
 import unittest
 
 

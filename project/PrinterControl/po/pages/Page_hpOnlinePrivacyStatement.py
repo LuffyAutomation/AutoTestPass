@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_hpOnlinePrivacyStatement_model import
 
 '''page_hpOnlinePrivacyStatement'''
 class Page_hpOnlinePrivacyStatement(Page_hpOnlinePrivacyStatement_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_hpOnlinePrivacyStatement_model.__init__(self)
 
     # This is function template of how to write your Buissness Logic.

@@ -16,10 +16,10 @@ class MobileDriver:
     APP_WAIT_ACTIVITY = "appWaitActivity"
     APP_ACTIVITY = "appActivity"
 
-    def __init__(self, Portal):
+    def __init__(self, UI):
         self.desired_caps = {}
-        self._Portal = Portal
-        self._RunTimeConf = self._Portal.RunTimeConf
+        self._UI = UI
+        self._RunTimeConf = self._UI.RunTimeConf
         self.__getDesiredCapsList()
 
     def getDriver(self):

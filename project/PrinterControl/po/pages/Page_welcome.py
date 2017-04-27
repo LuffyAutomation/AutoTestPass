@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_welcome_model import Page_welcome_mod
 
 '''Welcome page'''
 class Page_welcome(Page_welcome_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_welcome_model.__init__(self)
 
     def flow_welcome(self):

@@ -1,6 +1,6 @@
-from src.utils.commonUtils import Common
+from configparser import ConfigParser
 
-class ConfigParser:
+class ConfigParse:
     def __init__(self):
         pass
 
@@ -37,19 +37,29 @@ class ConfigParser:
 
     def getRunTimeConfigCapsValue(self, key):
         try:
-            return Common.getConfigValue(self._RunTimeConfig, self.SECTION_CAPS, key)
+            return self.getConfigValue(self._RunTimeConfig, self.SECTION_CAPS, key)
         except:
             return None
 
     def getRunTimeConfigArgsValue(self, key):
         try:
-            return Common.getConfigValue(self._RunTimeConfig, self.SECTION_ARGS, key)
+            return self.getConfigValue(self._RunTimeConfig, self.SECTION_ARGS, key)
         except:
             return None
 
     def getMainConfigValue(self, section, key):
         try:
-            return Common.getConfigValue(self._MainConfig, section, key)
+            return self.getConfigValue(self._MainConfig, section, key)
         except:
             return None
 
+    def getConf(self, path):
+        conf = ConfigParser()
+        conf.read(path, "utf-8")
+        return conf
+
+    def getSection(self, conf):
+        return conf.sections()
+
+    def getConfigValue(self, conf, section, key):
+        return conf.get(section, key)

@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_printerList_model import Page_printer
 
 '''Printer list.'''
 class Page_printerList(Page_printerList_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_printerList_model.__init__(self)
 
     def flow_selectPrinter(self):

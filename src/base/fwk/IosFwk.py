@@ -1,6 +1,6 @@
 import os
 
-from src.base.core.UiFramework import UIFramework
+from src.base.core.UiFwk import UiFwk
 
 from src.utils.ApiRequest import wdaRun
 
@@ -8,10 +8,10 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class Ios(UIFramework):
+class IosFwk(UiFwk):
 
     def __init__(self):
-        UIFramework.__init__(self)
+        UiBaseFwk.__init__(self)
 
     def openApp(self,bundleId=None, page=""):
         self.UiMapSetPage(page)

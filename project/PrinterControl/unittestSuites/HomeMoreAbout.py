@@ -1,20 +1,18 @@
 # coding: utf-8
+import unittest
 
-
-from project.PrinterControl.unittestSuites.CommonUnittest import CommonUnittest
-
+from src.base.testFwk.CommonUnittest import CommonUnittest
 
 class HomeMoreAbout(CommonUnittest):
-
     # self.Result.setDescription and self.Result.setExpectedResult can be ignored.
 
-    # def test_exmaple(self):
-    #     self.Result.setDescription("1. xxxxx.",
-    #                                "2. xxxxx.")
-    #     self.Result.setExpectedResult("xxxxxx is displayed.")
-    #     self.Result.setScreenshot("begin", "This is a begin.")
-    #     self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
-    #     self.Pages.xxxxxxxxx
+    def test_exmaple(self):
+        self.Result.setDescription("1. xxxxx.",
+                                   "2. xxxxx.")
+        self.Result.setExpectedResult("xxxxxx is displayed.")
+        self.Result.setScreenshot("begin", "This is a begin.")
+        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Pages.xxxxxxxxx
 
 
     def test_flow(self):
@@ -72,7 +70,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step. Tap on the Back key.")
         self.Result.setExpectedResult("Back to About screen displayed.")
-        self.Portal.back()
+        self.UI.back()
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
     def test_hpOnlinePrivacyStatement(self):
@@ -90,7 +88,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step. Tap on the OK button.")
         self.Result.setExpectedResult("Back to About screen displayed.")
-        self.Portal.back()
+        self.UI.back()
 
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
@@ -111,9 +109,9 @@ class HomeMoreAbout(CommonUnittest):
                                       "2. Email is displayed under Android 6, QQ is displayed under Android 5.",
                                       "3. Back to About screen displayed after tapping the Back key.")
         self.Pages.Page_about.button_shareThisApp().verifyIsShown().click().wait(1)
-        if "5." in self.Portal.RunTimeConf.platformVersion:
+        if "5." in self.UI.RunTimeConf.platformVersion:
             self.Pages.Page_shareThisApp.text_qq().verifyIsShown()
-        elif "6." in self.Portal.RunTimeConf.platformVersion:
+        elif "6." in self.UI.RunTimeConf.platformVersion:
             self.Pages.Sys_general.text_email().verifyIsShown()
         # self.Pages.Page_shareThisApp.text_163().verifyIsShown()
         # self.Pages.Page_shareThisApp.text_chooseAMailProvider().verifyIsShown()
@@ -126,7 +124,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Result.setStepContinueFromFailIfBlock()
         self.Result.setDescription("Follow the last step.")
         self.Result.setExpectedResult("Back to About screen displayed after tapping the Back key.")
-        self.Portal.back()
+        self.UI.back()
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
     def test_headerDisplay(self):

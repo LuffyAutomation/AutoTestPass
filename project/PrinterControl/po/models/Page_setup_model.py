@@ -1,6 +1,6 @@
 import inspect
-
 from project.PrinterControl.po.CommonPage import CommonPage
+
 
 '''set up printer.'''
 class Page_setup_model(CommonPage):

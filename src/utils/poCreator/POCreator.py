@@ -23,7 +23,7 @@ class POCreator(POCreatorBase):
                 + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, outer=%s):" % self._COMMONPAGE \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.page_name = '%s'" % child_page_name \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.__outer = outer" \
-                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._elementsMap = self.__outer.Portal.getUiMapOfSubPage(self.__outer.page_name, self.page_name)" \
+                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)" \
                 + self._newLine
         return tmp
 
@@ -51,8 +51,8 @@ class POCreator(POCreatorBase):
             tmp = self._getPOModelClassImportString(po_name) + self._newLine + self._newLine
         tmp += self._newLine + self._getIndent(level) + self._descriptionWrapper + page_description + self._descriptionWrapper \
             + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOClassName(po_name), self._getPOModelClassName(po_name)) \
-            + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, Portal):" \
-            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.Portal = Portal" \
+            + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.UI = UI" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "%s.__init__(self)" % self._getPOModelClassName(po_name) \
             + self._newLine \
             + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Buissness Logic." \
@@ -82,8 +82,9 @@ if __name__ == '__main__':
     #     r"D:\Dev\DevicePass\script\AutoTestPass\src\project\PrinterControl\data\android\uiMaps\printerControl.xml",
     #     r"D:\Dev\DevicePass\script\AutoTestPass\src\project\PrinterControl\po")
     # POCreator.create()
+    project = "PrinterControl"
     POCreator = POCreator(
-        r"D:\Dev\DevicePass\script\AutoTestPass\project\WebExample\data\web\uiMaps\WebExample.xml",
-        r"D:\Dev\DevicePass\script\AutoTestPass\project\WebExample\po")
+        r"D:\Dev\DevicePass\script\AutoTestPass\project\%s\data\android\uiMaps\%s.xml" % (project, project),
+        r"D:\Dev\DevicePass\script\AutoTestPass\project\%s\po" % project)
     POCreator.create()
 

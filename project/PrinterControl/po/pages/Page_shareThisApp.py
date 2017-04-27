@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_shareThisApp_model import Page_shareT
 
 '''page_shareThisApp'''
 class Page_shareThisApp(Page_shareThisApp_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_shareThisApp_model.__init__(self)
 
     # This is function template to write your Business wrapper here.

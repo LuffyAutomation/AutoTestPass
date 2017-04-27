@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_agreements_model import Page_agreemen
 
 '''Default first page.'''
 class Page_agreements(Page_agreements_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_agreements_model.__init__(self)
 
     def flow_agreements(self):

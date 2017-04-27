@@ -3,8 +3,8 @@ from project.PrinterControl.po.models.Page_home_model import Page_home_model
 
 '''main page.'''
 class Page_home(Page_home_model):
-    def __init__(self, Portal):
-        self.Portal = Portal
+    def __init__(self, UI):
+        self.UI = UI
         Page_home_model.__init__(self)
 
     def __open_menuMoreOptions(self):
