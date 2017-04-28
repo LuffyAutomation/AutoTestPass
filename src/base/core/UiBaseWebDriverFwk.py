@@ -190,7 +190,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def quit(self):
         try:
-            if self._drive is not None:
+            if self._driver is not None:
                 self._driver.quit()
                 self._driver = None
         except Exception as e:

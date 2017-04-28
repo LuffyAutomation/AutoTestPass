@@ -5,7 +5,8 @@ class GlobalArgs:
     __GLOBAL_START_TIME = UtilTime.getCurrentTime()
     __global_testSuiteNum = 0
     __path_xml_result = ""
-
+    __name_project = ""
+    __path_project = ""
     @staticmethod
     def getGlobalStartTime():
         return GlobalArgs.__GLOBAL_START_TIME
@@ -24,6 +25,22 @@ class GlobalArgs:
     @staticmethod
     def getPathXmlResult():
         return GlobalArgs.__path_xml_result
+
+    @staticmethod
+    def setProjectName(name_project):
+        GlobalArgs.__name_project = name_project
+
+    @staticmethod
+    def setProjectPath(path_project):
+        GlobalArgs.__path_project = path_project
+
+    @staticmethod
+    def getProjectName():
+        return GlobalArgs.__name_project
+
+    @staticmethod
+    def getProjectPath():
+        return GlobalArgs.__path_project
 
 # __GLOBAL_START_TIME = UtilTime.getCurrentTime()
 # global_testSuiteNum = 0

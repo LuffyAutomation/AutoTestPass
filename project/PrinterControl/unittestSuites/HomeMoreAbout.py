@@ -2,20 +2,26 @@
 import unittest
 
 from src.base.testFwk.CommonUnittest import CommonUnittest
+from project.PrinterControl.po.wrapper.Pages_Android import Pages_Android
+from project.PrinterControl.po.wrapper.Pages_Ios import Pages_Ios
+from project.PrinterControl.po.wrapper.Pages_Web import Pages_Web
 
 class HomeMoreAbout(CommonUnittest):
-    # self.Result.setDescription and self.Result.setExpectedResult can be ignored.
-
-    def test_exmaple(self):
-        self.Result.setDescription("1. xxxxx.",
-                                   "2. xxxxx.")
-        self.Result.setExpectedResult("xxxxxx is displayed.")
-        self.Result.setScreenshot("begin", "This is a begin.")
-        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
-        self.Pages.xxxxxxxxx
-
+    # 1. self.Result.setDescription and self.Result.setExpectedResult can be ignored.
+    # 2. Do not write setUpClass, tearDownClass, setUp and tearDown
+    # def test_exmaple(self):
+    #     self.Result.setDescription("1. xxxxx.",
+    #                                "2. xxxxx.")
+    #     self.Result.setExpectedResult("xxxxxx is displayed.")
+    #     self.Result.setScreenshot("begin", "This is a begin.")
+    #     self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+    #     self.Pages.xxxxxxxxx
 
     def test_flow(self):
+        self.Pages_Android = Pages_Android(self.UI_Android)
+        self.Pages = self.Pages_Android
+        #self.Pages_Ios = Pages_Android(self.UI_Ios)
+        #self.Pages_Web = Pages_Android(self.UI_Web)
         self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")

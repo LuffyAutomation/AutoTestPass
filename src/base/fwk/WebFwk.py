@@ -11,11 +11,12 @@ class WebFwk(UiBaseFwk):
 
     def __init__(self):
         UiBaseFwk.__init__(self)
-        self.__get_driver()
+        self.getDriver()
 
-    def __get_driver(self):
-        self._driver = WebDriver(self).getDriver()
-        self.wait(2)
+    def getDriver(self):
+        if self._driver == None:
+            self._driver = WebDriver(self).getDriver()
+            self.wait(2)
 
     def openUrl(self, url):
         self.logger.info("Navigate to [" + url + "].")

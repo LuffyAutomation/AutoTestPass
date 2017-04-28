@@ -2,13 +2,10 @@
 import traceback
 import unittest
 from src.base.core.InitFwk import InitFwk
-
-from project.PrinterControl.ProjectPortal import ProjectPortal
+from src.base.core.GlobalArgs import GlobalArgs
 from src.base.fwk.WebFwk import WebFwk
 from src.base.fwk.IosFwk import IosFwk
-from project.PrinterControl.po.wrapper.Pages_Android import Pages_Android
-from project.PrinterControl.po.wrapper.Pages_Ios import Pages_Ios
-from project.PrinterControl.po.wrapper.Pages_Web import Pages_Web
+from abc import abstractmethod
 from src.base.fwk.AndroidFwk import AndroidFwk
 from src.base.fwk.Result import Result
 
@@ -24,22 +21,22 @@ class CommonUnittest(unittest.TestCase):
         cls.UI_Android = None
         cls.UI_Web = None
         try:
-            cls.InitFwk = InitFwk(ProjectPortal.getProjectName(), ProjectPortal.getProjectPath())
+            cls.InitFwk = InitFwk(GlobalArgs.getProjectName(), GlobalArgs.getProjectPath())
             if cls.InitFwk.TestType.ANDROID.lower() == cls.InitFwk.testType.lower():
                 cls.UI_Android = AndroidFwk(cls.InitFwk)
-                cls.Pages_Android = Pages_Android(cls.UI_Android)
+                # cls.Pages_Android = Pages_Android(cls.UI_Android)
                 cls.UI = cls.UI_Android
-                cls.Pages = cls.Pages_Android
+                # cls.Pages = cls.Pages_Android
             elif cls.InitFwk.TestType.IOS.lower() == cls.InitFwk.testType.lower():
                 cls.UI_Ios = IosFwk(cls.InitFwk)
-                cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
+                # cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
                 cls.UI = cls.UI_Ios
-                cls.Pages = cls.Pages_Ios
+                # cls.Pages = cls.Pages_Ios
             elif cls.InitFwk.TestType.WEB.lower() == cls.InitFwk.testType.lower():
                 cls.UI_Web = WebFwk(cls.InitFwk)
-                cls.Pages_Web = Pages_Web(cls.UI_Web)
+                # cls.Pages_Web = Pages_Web(cls.UI_Web)
                 cls.UI = cls.UI_Web
-                cls.Pages = cls.Pages_Web
+                # cls.Pages = cls.Pages_Web
             cls.UI.getDriver()
             cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)
         except Exception as e:
@@ -71,3 +68,6 @@ class CommonUnittest(unittest.TestCase):
     def tearDown(self):
         self.Result.afterEachFunction(self)
 
+    @abstractmethod
+    def initTestCase(self):
+        pass

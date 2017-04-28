@@ -4,11 +4,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 from project.PrinterControl.unittestSuites.HomeMoreAbout import HomeMoreAbout
-
+from src.base.core.GlobalArgs import GlobalArgs
+from project.PrinterControl.ProjectPortal import ProjectPortal
 import unittest
 
-
 if __name__ == '__main__':
+    GlobalArgs.setProjectName(ProjectPortal.getProjectName())
+    GlobalArgs.setProjectPath(ProjectPortal.getProjectPath())
+
     suite = unittest.TestSuite()
     suite.addTest(HomeMoreAbout("test_flow"))
     # suite.addTest(HomeMoreAbout("test_aioVersion"))
