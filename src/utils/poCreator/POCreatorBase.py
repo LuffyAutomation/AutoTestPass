@@ -109,14 +109,15 @@ class POCreatorBase:
         if self._COMMONPAGE not in pOModelClassName:
             classImportString += "." + self._PO_MODELS
             classImportString += "." + self.scriptFolderName
-        tmp = "import inspect" + self._newLine
+        tmp = "# coding: utf-8" + self._newLine
+        # tmp = "import inspect" + self._newLine
         return tmp + "%s.%s import %s" % (classImportString, pOModelClassName, pOModelClassName)
 
     def _getPagesClassImportString(self, po_name):
         po_name = self._getPOClassName(po_name)
         classImportString = self.__classImportStringHead
         # pOModelClassName = self._getPOModelClassName(po_name)
-        classImportString += "." + self._PO_PAGES
+        classImportString += "." + self._PO_PAGES + "." + self.scriptFolderName
         return "%s.%s import %s" % (classImportString, po_name, po_name) + self._newLine
 
     def _getIndent(self, level=0):

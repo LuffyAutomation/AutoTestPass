@@ -1,4 +1,4 @@
-import inspect
+# coding: utf-8
 from project.PrinterControl.po.models.android.Page_endUserLicenseAgreement_model import Page_endUserLicenseAgreement_model
 
 

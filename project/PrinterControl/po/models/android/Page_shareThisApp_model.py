@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''page_shareThisApp'''
 class Page_shareThisApp_model(CommonPage):

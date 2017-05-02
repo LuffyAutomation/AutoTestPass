@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''Printer list.'''
 class Page_printerList_model(CommonPage):

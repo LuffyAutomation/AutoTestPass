@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''We found your printer.'''
 class Page_foundYourPrinter_model(CommonPage):

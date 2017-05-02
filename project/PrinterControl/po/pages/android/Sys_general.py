@@ -1,4 +1,4 @@
-import inspect
+# coding: utf-8
 from project.PrinterControl.po.models.android.Sys_general_model import Sys_general_model
 
 

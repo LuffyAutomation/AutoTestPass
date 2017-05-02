@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''set up printer.'''
 class Page_setup_model(CommonPage):

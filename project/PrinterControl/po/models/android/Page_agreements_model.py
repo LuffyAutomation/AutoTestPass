@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''Default first page.'''
 class Page_agreements_model(CommonPage):

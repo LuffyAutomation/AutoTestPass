@@ -151,7 +151,8 @@ class UiBaseFwk(object):
 
     #some elements' locator may change after they appear. So need to clear the found ele and re-find.
     def clearForRefinding(self):
-        self.urrentElementObject()
+        self.setCurrentElementObject(None)
+        return self
 
     def setCurrentElementName(self, element_name):
         self._currentElementName = element_name

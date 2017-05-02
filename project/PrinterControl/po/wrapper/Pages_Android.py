@@ -1,20 +1,20 @@
-from project.PrinterControl.po.pages.Dialog_legalInformation import Dialog_legalInformation
-from project.PrinterControl.po.pages.Page_about import Page_about
-from project.PrinterControl.po.pages.Page_agreements import Page_agreements
-from project.PrinterControl.po.pages.Page_endUserLicenseAgreement import Page_endUserLicenseAgreement
-from project.PrinterControl.po.pages.Page_findNewPrinter import Page_findNewPrinter
-from project.PrinterControl.po.pages.Page_foundANetworkPrinter import Page_foundANetworkPrinter
-from project.PrinterControl.po.pages.Page_foundYourPrinter import Page_foundYourPrinter
-from project.PrinterControl.po.pages.Page_home import Page_home
-from project.PrinterControl.po.pages.Page_printerList import Page_printerList
-from project.PrinterControl.po.pages.Page_setup import Page_setup
-from project.PrinterControl.po.pages.Page_shareThisApp import Page_shareThisApp
-from project.PrinterControl.po.pages.Page_welcome import Page_welcome
-from project.PrinterControl.po.pages.Sys_general import Sys_general
-from project.PrinterControl.po.pages.Sys_packageinstaller import Sys_packageinstaller
+from project.PrinterControl.po.pages.android.Dialog_legalInformation import Dialog_legalInformation
+from project.PrinterControl.po.pages.android.Page_about import Page_about
+from project.PrinterControl.po.pages.android.Page_agreements import Page_agreements
+from project.PrinterControl.po.pages.android.Page_endUserLicenseAgreement import Page_endUserLicenseAgreement
+from project.PrinterControl.po.pages.android.Page_findNewPrinter import Page_findNewPrinter
+from project.PrinterControl.po.pages.android.Page_foundANetworkPrinter import Page_foundANetworkPrinter
+from project.PrinterControl.po.pages.android.Page_foundYourPrinter import Page_foundYourPrinter
+from project.PrinterControl.po.pages.android.Page_home import Page_home
+from project.PrinterControl.po.pages.android.Page_printerList import Page_printerList
+from project.PrinterControl.po.pages.android.Page_setup import Page_setup
+from project.PrinterControl.po.pages.android.Page_shareThisApp import Page_shareThisApp
+from project.PrinterControl.po.pages.android.Page_welcome import Page_welcome
+from project.PrinterControl.po.pages.android.Sys_general import Sys_general
+from project.PrinterControl.po.pages.android.Sys_packageinstaller import Sys_packageinstaller
 from project.PrinterControl.po.wrapper.MultiplePagesLogic import MultiplePagesLogic
 
-from project.PrinterControl.po.pages.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
+from project.PrinterControl.po.pages.android.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
 
 
 class Pages_Android:

@@ -1,6 +1,6 @@
 import inspect
-
 from src.base.fwk.CommonPage import CommonPage
+
 
 '''page_hpOnlinePrivacyStatement'''
 class Page_hpOnlinePrivacyStatement_model(CommonPage):

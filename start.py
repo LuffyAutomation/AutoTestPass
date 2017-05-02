@@ -2,7 +2,7 @@
 
 import sys
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
 from project.PrinterControl.unittestSuites.HomeMoreAbout import HomeMoreAbout
 from src.base.core.GlobalArgs import GlobalArgs
 from project.PrinterControl.ProjectPortal import ProjectPortal

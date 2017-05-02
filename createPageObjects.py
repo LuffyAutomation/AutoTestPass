@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     path_folder_po = os.path.join(PATH(""), "project", project, "po")
     path_folder_data = os.path.join(PATH(""), "project", project, "data")
-    path_folder_p = os.path.join("uiMaps", "%s.xml" % project)
+    path_folder_p = os.path.join("uiMaps", "uiMap.xml")
     path_folder_uiMaps = os.path.join(path_folder_data, "android", path_folder_p)
     _POCreator = POCreator(path_folder_uiMaps, path_folder_po)
     _POCreator.create()
