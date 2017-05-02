@@ -1,6 +1,6 @@
 import inspect
-from project.PrinterControl.po.CommonPage import CommonPage
 
+from src.base.fwk.CommonPage import CommonPage
 
 '''page_endUserLicenseAgreement'''
 class Page_endUserLicenseAgreement_model(CommonPage):

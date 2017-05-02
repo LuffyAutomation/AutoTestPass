@@ -1,6 +1,6 @@
 import inspect
-from project.PrinterControl.po.CommonPage import CommonPage
 
+from src.base.fwk.CommonPage import CommonPage
 
 '''about page.'''
 class Page_about_model(CommonPage):

@@ -1,6 +1,6 @@
 import inspect
-from project.PrinterControl.po.CommonPage import CommonPage
 
+from src.base.fwk.CommonPage import CommonPage
 
 '''We found a network printer!'''
 class Page_foundANetworkPrinter_model(CommonPage):

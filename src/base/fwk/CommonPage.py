@@ -1,4 +1,3 @@
-# from project.PrinterControl.AndroidUI import AndroidFwkUI
 
 
 class CommonPage:

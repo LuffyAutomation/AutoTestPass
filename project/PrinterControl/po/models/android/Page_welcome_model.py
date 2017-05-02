@@ -1,6 +1,6 @@
 import inspect
-from project.PrinterControl.po.CommonPage import CommonPage
 
+from src.base.fwk.CommonPage import CommonPage
 
 '''Welcome page'''
 class Page_welcome_model(CommonPage):

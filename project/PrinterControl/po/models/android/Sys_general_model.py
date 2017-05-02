@@ -1,6 +1,6 @@
 import inspect
-from project.PrinterControl.po.CommonPage import CommonPage
 
+from src.base.fwk.CommonPage import CommonPage
 
 '''for android 6.0 'Allow xxxx to access device's location'.'''
 class Sys_general_model(CommonPage):
