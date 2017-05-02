@@ -1,9 +1,22 @@
 from src.utils.poCreator.POCreatorBase import POCreatorBase
+from src.utils.utilIO.UtilFile import UtilFile
+
+from src.utils.utilIO.UtilFolder import UtilFolder
+
 import os
 
 class POCreator(POCreatorBase):
-    def __init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject=True):
-        POCreatorBase.__init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject)
+    def __init__(self, path_folder_uiMaps, path_folder_po, isGeneratedInProject=True):
+        if not UtilFile.isPathExists(path_folder_uiMaps):
+            return
+        if not UtilFile.isPathExists(path_folder_po):
+            UtilFolder.createFolder(path_folder_po)
+        POCreatorBase.__init__(self, path_folder_uiMaps, path_folder_po, isGeneratedInProject)
+
+    def findFile(self, rootdir):
+        for parent, dirnames, filenames in os.walk(rootdir):
+            for dirname in dirnames:
+                pass
 
     def _getPOModelHead(self, page_name, child_page_name=None, page_description="NA", level=0):
         if page_description is None:

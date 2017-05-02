@@ -13,7 +13,7 @@ class POCreatorBase:
         PAGE = "page"
         DESCRIPION = "description"
 
-    def __init__(self, path_folder_uiMaps, path_folder_po, isGenerateInProject=True):
+    def __init__(self, path_folder_uiMaps, path_folder_po, isGeneratedInProject=True):
         self._UtilFolder = UtilFolder
         self._UtilFile = UtilFile
         self._UtilString = UtilString
@@ -21,7 +21,7 @@ class POCreatorBase:
         self.scriptFolderName = path_folder_uiMaps.split("data" + os.path.sep)[1].split(os.path.sep + "uiMaps")[0]
         # self.__IMPORT_STRING_BEGIN_WITH = "src"
         self.__IMPORT_STRING_BEGIN_WITH = "project"
-        self. __isGenerateInProject = isGenerateInProject
+        self. __isGeneratedInProject = isGeneratedInProject
         self._COMMONPAGE = "CommonPage"
         self._PAGES_TEMPLATE = "Pages_%s_template" % self._UtilString.capitalizeFirstLetter(self.scriptFolderName)
         self._PO_SUFFIX = "_model"
@@ -55,7 +55,10 @@ class POCreatorBase:
         self.__classImportStringHead = self.__getClassImportStringHead()
 
     def create(self):
-        list = self._UtilXml.getElements(self._root, ".//pages/")
+        try:
+            list = self._UtilXml.getElements(self._root, ".//pages/")
+        except:
+            return
         pagesTemplateHead = ""
         pagesTemplateBodyBody = ""
         for index in range(len(list)):
@@ -89,11 +92,11 @@ class POCreatorBase:
                     _pOModelModelBody += self._getPOModelBody(children_name, 0)
             _pOModelHead += self._getPOModelHeadSubClass(list_subClass, level)
             tmpStr = _pOModelHead + _pOModelModelBody + _pOModelHeadSubClass + _pOModelSubModelBody
-            self._writeFile(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
-        self._writeFile(os.path.join(self.__path_folder_wrapper, self._getPOFileName(self._PAGES_TEMPLATE)), pagesTemplateHead + self._getPagesBodyHead() + pagesTemplateBodyBody)
+            self._writeFileAndOverwrite(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
+        self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, self._getPOFileName(self._PAGES_TEMPLATE)), pagesTemplateHead + self._getPagesBodyHead() + pagesTemplateBodyBody)
 
     def __getClassImportStringHead(self):
-        if self.__isGenerateInProject == True:
+        if self.__isGeneratedInProject == True:
             # tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
             tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
             self.__classImportStringHead = "from " + tmpPath.replace("/", ".").replace("\\", ".")
@@ -150,7 +153,8 @@ class POCreatorBase:
     def _writeFile(self, path_file, txt=""):
         if not UtilFile.isPathExists(path_file):
             UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
-
+    def _writeFileAndOverwrite(self, path_file, txt=""):
+            UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
     @abstractmethod
     def _getPOModelHead(self, page_name, child_page_name, level):
         pass
