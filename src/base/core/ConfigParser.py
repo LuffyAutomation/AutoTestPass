@@ -14,8 +14,8 @@ class ConfigParse:
     SECTION_CAPS = "caps"
     SECTION_ARGS = "args"
     TEST_TIMEOUT_ELEMENT = "test.timeout.element"
-    TEST_RESULT_FOLDERPATH = "test.result.folderPath "
-    TEST_SCREENSHOT_FOLDERPATH = "test.screenshot.folderPath"
+    TEST_RESULTS_FOLDERPATH = "test.results.folderPath "
+    TEST_SCREENSHOTS_FOLDERPATH = "test.screenshots.folderPath"
     TEST_UIMAP_FILENAME = "test.uiMap.fileName"
     CURRENT_TEST_TYPE = "current.test.type"
 

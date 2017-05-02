@@ -73,7 +73,7 @@ class InitFwk:
         self._osLanguage = self.UtilOS.getOSLocale() # not work in dp
 
     def __setupENV(self):
-
+        # self._ConfigParser.getRunTimeConfigArgsValue(self._ConfigParser.TEST_TIMEOUT_ELEMENT)
         self.path_folder_results = os.path.join(self._path_folder_AutoTestPass, "results")
 
         #self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())
