@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+	<UiMap>
+		<pages>
+			<page name="page_welcome" description="Welcome page">
+                <element name="button_a_">
+                    abc
+                </element>
+                <element name="button_b_">
+                    def
+                </element>
+                <element name="button_c_">
+                    hij
+                </element>
+            </page>
+		</pages>
+	</UiMap>
+</test-data>

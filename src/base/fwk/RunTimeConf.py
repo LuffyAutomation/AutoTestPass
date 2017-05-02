@@ -70,7 +70,7 @@ class RunTimeConf:
                 self._ConfigParser.APP_APPIUM_SERVERPORT)
             self.appiumUrl = "http://" + self.appiumServerIP + ":" + self.appiumServerPort + "/wd/hub"
             self.automationName = "LocalTest"
-        else:  # web
+        else:  # ui
             self.isDevicePassTest = False
 
             self.isMobileTest = False

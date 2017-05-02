@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+	<UiMap>
+		<pages>
+            <page name="page_home" description = "Default home page." >
+                <element name="edit_search">
+                    <id>kw</id>
+                </element>
+                <element name="button_continue">
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                </element>
+			</page>
+		</pages>
+	</UiMap>
+</test-data>

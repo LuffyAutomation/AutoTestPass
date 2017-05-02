@@ -49,7 +49,7 @@ class InitFwk:
         self.__setupENV()
 
     class TestType:
-        WEB = "web"
+        WEB = "ui"
         ANDROID = "android"
         IOS = "ios"
 

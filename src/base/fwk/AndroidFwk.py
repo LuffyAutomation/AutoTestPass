@@ -132,7 +132,7 @@ class AndroidFwk(UiFwk):
         contextName = self._driver.contexts
         for context in iter(contextName):
             if context == webView:
-                self.logger.info("Switch to web view : " + context)
+                self.logger.info("Switch to ui view : " + context)
                 self.switchToWebView(context)
         return self
 

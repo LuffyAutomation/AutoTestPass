@@ -61,7 +61,7 @@ class HomeMoreAbout(CommonUnittest):
     def test_endUserLicenseAgreement(self):
         self.Result.setDescription("Fllow the last step.",
                                    "1. Tap on the License agreement link.")
-        self.Result.setExpectedResult("1. License agreement web page is opened.",
+        self.Result.setExpectedResult("1. License agreement ui page is opened.",
                                       "2. HP logo is displayed.",
                                       "3. HP license content is correct.(Ignore this step, since there is no correct result now.)")
         self.Pages.Page_about.link_endUserLicenseAgreement().verifyIsShown().click().wait(3)
@@ -81,7 +81,7 @@ class HomeMoreAbout(CommonUnittest):
 
     def test_hpOnlinePrivacyStatement(self):
         self.Result.setDescription("Follow the last step. Tap on the HP Online Privacy link.")
-        self.Result.setExpectedResult("1. HP Online Privacy web page is opened.",
+        self.Result.setExpectedResult("1. HP Online Privacy ui page is opened.",
                                       "2. HP logo is displayed.",
                                       "3. HP Privacy statement is displayed correctly.")
         self.Pages.Page_about.link_hpOnlinePrivacyStatement().verifyIsShown().click().wait(3)
