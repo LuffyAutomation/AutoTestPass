@@ -139,7 +139,7 @@ class POCreatorBase:
         return tmp
 
     def _getPOModelClassName(self, po_name):
-        if po_name != self._COMMONPAGE:
+        if self._COMMONPAGE not in po_name:
             return self._getPOClassName(po_name) + self._PO_SUFFIX
         return self._getPOClassName(po_name)
 

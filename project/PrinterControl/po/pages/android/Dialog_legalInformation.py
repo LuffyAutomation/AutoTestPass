@@ -11,3 +11,7 @@ class Dialog_legalInformation(Dialog_legalInformation_model):
     def verify_TitleLegalInformation(self):
         self.text_title_legalInformation().verifyIsShown()
         self.area_content_legalInformation().verifyIsShown()
+
+
+
+

@@ -1,13 +1,13 @@
 import inspect
-from src.base.fwk.CommonPage import CommonPage
+from src.base.pageFwk.AndroidCommonPage import AndroidCommonPage
 
 
 '''for android 6.0 'Allow xxxx to access device's location'.'''
-class Sys_packageinstaller_model(CommonPage):
+class Sys_packageinstaller_model(AndroidCommonPage):
     page_name = 'sys_packageinstaller'
 
     def __init__(self):
-        self.__CommonPage = CommonPage.__init__(self)
+        self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
 
     def link_AllowAccessLocation(self):
-        return self.updateCurrentElementStatus(inspect.stack()[0][3])
+        return self.get(inspect.stack()[0][3])

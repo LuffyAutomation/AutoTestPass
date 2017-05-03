@@ -1,13 +1,13 @@
 import inspect
-from src.base.fwk.CommonPage import CommonPage
+from src.base.pageFwk.AndroidCommonPage import AndroidCommonPage
 
 
 '''We found a network printer!'''
-class Page_foundANetworkPrinter_model(CommonPage):
+class Page_foundANetworkPrinter_model(AndroidCommonPage):
     page_name = 'page_foundANetworkPrinter'
 
     def __init__(self):
-        self.__CommonPage = CommonPage.__init__(self)
+        self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
 
     def button_continue(self):
-        return self.updateCurrentElementStatus(inspect.stack()[0][3])
+        return self.get(inspect.stack()[0][3])

@@ -18,6 +18,14 @@ class POCreator(POCreatorBase):
             for dirname in dirnames:
                 pass
 
+    def __getWhichPage(self):
+        if self.scriptFolderName.lower() == "android":
+            return "AndroidCommonPage"
+        elif self.scriptFolderName.lower() == "web":
+            return "AndroidCommonPage"
+        elif self.scriptFolderName.lower() == "ios":
+            return "IosCommonPage"
+
     def _getPOModelHead(self, page_name, child_page_name=None, page_description="NA", level=0):
         if page_description is None:
             page_description = "NA"
@@ -25,18 +33,18 @@ class POCreator(POCreatorBase):
         if level == 0:
             # tmp = self._getPOModelClassImportString(self._COMMONPAGE)
             tmp = "import inspect" + self._newLine
-            tmp += "from src.base.fwk.CommonPage import CommonPage"
+            tmp += "from src.base.pageFwk.%s import %s" % (self.__getWhichPage(), self.__getWhichPage())
             tmp += self._newLine + self._newLine \
                 + self._newLine + self._getIndent(level) + self._descriptionWrapper + page_description + self._descriptionWrapper \
-                + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOModelClassName(page_name), self._COMMONPAGE) \
+                + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOModelClassName(page_name), self.__getWhichPage()) \
                 + self._newLine + self._getIndent(level) + self._indent + "page_name = '%s'" % page_name \
                 + self._newLine + self._newLine + self._getIndent(level) + self._indent + "def __init__(self):" \
-                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.__%s = %s.__init__(self)" % (self._COMMONPAGE, self._COMMONPAGE) \
+                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.__%s = %s.__init__(self)" % (self.__getWhichPage(), self.__getWhichPage()) \
                 + self._newLine
         else:
             tmp += self._newLine + self._getIndent(level) + self._descriptionWrapper + page_description + self._descriptionWrapper \
                 + self._newLine + self._getIndent(level) + "class _%s:" % self._getPOModelClassName(child_page_name) \
-                + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, outer=%s):" % self._COMMONPAGE \
+                + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, outer=%s):" % self.__getWhichPage() \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.page_name = '%s'" % child_page_name \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.__outer = outer" \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)" \
@@ -46,17 +54,17 @@ class POCreator(POCreatorBase):
     def _getPOModelHeadSubClass(self, list_headSubClass, level=1):
         tmp = ""
         for headSubClass in list_headSubClass:
-            tmp += self._getIndent(level) + self._indent + "self.%s = self._%s(self.__%s)" % (self._getPOClassName(headSubClass), self._getPOModelClassName(headSubClass), self._COMMONPAGE) \
+            tmp += self._getIndent(level) + self._indent + "self.%s = self._%s(self.__%s)" % (self._getPOClassName(headSubClass), self._getPOModelClassName(headSubClass), self.__getWhichPage()) \
                    + self._newLine
         return tmp
         # self.SubPagePlaceholder = self._SubPagePlaceholder_Model(self.__CommonPage)
 
     def _getPOModelBody(self, element_name, level=0):
-        # tmp = "return self.updateCurrentElementStatus('%s')" % element_name
-        tmp = "return self.updateCurrentElementStatus(%s)" % "inspect.stack()[0][3]"
+        # tmp = "return self.get('%s')" % element_name
+        tmp = "return self.get(%s)" % "inspect.stack()[0][3]"
         if level != 0:
-            # tmp = "return self.__outer.updateCurrentElementStatus('%s', self._elementsMap)" % element_name
-            tmp = "return self.__outer.updateCurrentElementStatus(%s, self.page_name, self._elementsMap)" % "inspect.stack()[0][3]"
+            # tmp = "return self.__outer.get('%s', self._elementsMap)" % element_name
+            tmp = "return self.__outer.get(%s, self.page_name, self._elementsMap)" % "inspect.stack()[0][3]"
         return self._newLine + self._getIndent(level) + self._indent + "def %s(self):" % element_name \
                + self._newLine + self._getIndent(level) + self._indent + self._indent + tmp \
                + self._newLine
