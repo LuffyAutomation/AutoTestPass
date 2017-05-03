@@ -378,29 +378,29 @@ class Result:
     def getWebInfo(self, UI):
         self.UI = UI
 
-    def __setMobileDetails(self, lines):
-        # self.UI.logger.info(self.platform.lower().strip() == "android")
-        if self.platform.lower().strip() == "android":
-            for line in lines:
-                if line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.language":
-                    self.language = line.decode('utf-8').strip().split("=")[1]
-                elif line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.region":
-                    self.region = line.decode('utf-8').strip().split("=")[1]
-                elif line.decode('utf-8').strip().split("=")[0] == "ro.product.model":
-                    self.deviceModel = line.decode('utf-8').strip().split("=")[1]
-                elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.release":
-                    self.platformVersion = line.decode('utf-8').strip().split("=")[1]
-                elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.sdk":
-                    self.sdk = line.decode('utf-8').strip().split("=")[1]
-        if self.language == "" or self.region == "":  # 6.0
-            t = self.UI.getBuildInMobileLanguage(self.deviceName)
-            self.language = t.split("-")[0]
-            self.region = t.split("-")[1]
-        self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps,
-                                                self.UI.getLanguageRegion() + ".xml")
-        if self.language != "en":  # en_US.xml needn't be loaded.
-            self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
-            self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
+    # def __setMobileDetails(self, lines):
+    #     # self.UI.logger.info(self.platform.lower().strip() == "android")
+    #     if self.platform.lower().strip() == "android":
+    #         for line in lines:
+    #             if line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.language":
+    #                 self.language = line.decode('utf-8').strip().split("=")[1]
+    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.region":
+    #                 self.region = line.decode('utf-8').strip().split("=")[1]
+    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.product.model":
+    #                 self.deviceModel = line.decode('utf-8').strip().split("=")[1]
+    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.release":
+    #                 self.platformVersion = line.decode('utf-8').strip().split("=")[1]
+    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.sdk":
+    #                 self.sdk = line.decode('utf-8').strip().split("=")[1]
+    #     if self.language == "" or self.region == "":  # 6.0
+    #         t = self.UI.getBuildInMobileLanguage(self.deviceName)
+    #         self.language = t.split("-")[0]
+    #         self.region = t.split("-")[1]
+    #     self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps,
+    #                                             self.UI.getLanguageRegion() + ".xml")
+    #     if self.language != "en":  # en_US.xml needn't be loaded.
+    #         self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
+    #         self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
 
     def __setupENV(self):
         self.name_project = self._Init._name_project

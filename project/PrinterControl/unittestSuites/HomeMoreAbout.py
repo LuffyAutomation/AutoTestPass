@@ -9,7 +9,15 @@ from project.PrinterControl.po.wrapper.Pages_Web import Pages_Web
 class HomeMoreAbout(CommonUnittest):
     # 1. self.Result.setDescription and self.Result.setExpectedResult can be ignored.
     # 2. Do not write setUpClass, tearDownClass, setUp and tearDown
+    # 3. Please use following 3 instance for the invocking of page objects of whole Test Case.
+    # self.Pages_Android = Pages_Android(self.UI_Android)
+    # self.Pages_Ios = Pages_Ios(self.UI_Ios)
+    # self.Pages_Web = Pages_Web(self.UI_Web)
+    # self.Pages = self.Pages_Android
+
     # def test_exmaple(self):
+    # self.Pages_Android = Pages_Android(self.UI_Android)
+    # self.Pages = self.Pages_Android
     #     self.Result.setDescription("1. xxxxx.",
     #                                "2. xxxxx.")
     #     self.Result.setExpectedResult("xxxxxx is displayed.")
@@ -17,18 +25,20 @@ class HomeMoreAbout(CommonUnittest):
     #     self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
     #     self.Pages.xxxxxxxxx
 
+    @classmethod
+    def setUpClass(cls):
+        cls.setUpBeforClass()
+        cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
+        cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
+
     def test_flow(self):
-        self.Pages_Android = Pages_Android(self.UI_Android)
-        self.Pages = self.Pages_Android
-        #self.Pages_Ios = Pages_Android(self.UI_Ios)
-        #self.Pages_Web = Pages_Android(self.UI_Web)
+
         self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
         self.Result.setExpectedResult("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
 
-    # @unittest.skip("temporarilly")
     def test_aioVersion(self):
         self.Result.setDescription("1. Tap on the top right drop down menu.",
                                    "2. Tap on the item About.")

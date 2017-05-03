@@ -53,13 +53,6 @@ class InitFwk:
         ANDROID = "android"
         IOS = "ios"
 
-    class Language:
-        en_US = "en_US"
-        list = (en_US)
-        def __init__(self, language):
-            if language.lower() == "en" or language.lower() == self.en_US.lower():
-                return self.en_US
-
     def __addLogForCountDown(self, log, interval):
         self.logger.info(log)
         self.UtilTime.sleep(interval)

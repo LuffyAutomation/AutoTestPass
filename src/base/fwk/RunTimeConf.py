@@ -86,6 +86,8 @@ class RunTimeConf:
     def getMobileInfo(self, UI):
         self.UI = UI
         lines = self.UI.getMobilePropReadlines(self.deviceName)
+        if len(lines) == 0:
+            raise Exception("Can not get mobile infomation. Please check if mobile [%s] connected correctly." % self.deviceName)
         self.__setMobileDetails(lines)
 
     def getWebInfo(self, UI):

@@ -10,7 +10,13 @@ class UiBaseFwk(object):
     class StringConverter:
         VALUE_PLACEHOLDER = 'VALUE_PLACEHOLDER'
         MARK_DYNAMIC_VALUE = ' : '
-
+        
+    class Language:
+        en_US = "en_US"
+        list = (en_US)
+        def __init__(self, language):
+            if language.lower() == "en" or language.lower() == self.en_US.lower():
+                return self.en_US
     class SwipeTo:
         LEFT = "left"
         LEFT_SIDE = "leftSide"

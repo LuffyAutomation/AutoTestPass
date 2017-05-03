@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     suite = unittest.TestSuite()
     suite.addTest(HomeMoreAbout("test_flow"))
-    # suite.addTest(HomeMoreAbout("test_aioVersion"))
+    suite.addTest(HomeMoreAbout("test_aioVersion"))
     # suite.addTest(HomeMoreAbout("test_copyRight"))
     # suite.addTest(HomeMoreAbout("test_legalInformaion"))
     # suite.addTest(HomeMoreAbout("test_endUserLicenseAgreement"))
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # suite.addTest(HomeMoreAbout("test_shareThisApp_back"))
     # suite.addTest(HomeMoreAbout("test_headerDisplay"))
 
-    # suite.addTest(unittest.makeSuite(HomeMoreAbout, 'test'))
+
     # suite.addTest(TestBrowser("test_flow"))
 
 

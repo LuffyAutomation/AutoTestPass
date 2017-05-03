@@ -74,7 +74,7 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Buissness Logic." \
             + self._newLine + self._getIndent(level) + self._indent \
             + \
-        '''def flow_example(self):
+        '''def example(self):
         pass
         # self.checkbox_accept().waitForShown().click()
         # self.Pages.Page_endUserLicenseAgreement.text_always().clickIfPresent().wait(1)
