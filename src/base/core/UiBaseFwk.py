@@ -10,7 +10,7 @@ class UiBaseFwk(object):
     class StringConverter:
         VALUE_PLACEHOLDER = 'VALUE_PLACEHOLDER'
         MARK_DYNAMIC_VALUE = ' : '
-        
+
     class Language:
         en_US = "en_US"
         list = (en_US)

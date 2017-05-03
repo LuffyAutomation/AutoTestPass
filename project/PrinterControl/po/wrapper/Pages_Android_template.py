@@ -17,6 +17,7 @@ from project.PrinterControl.po.pages.android.Sys_general import Sys_general
 class Pages_Android:
     def __init__(self, UI):
         self._UI = UI
+        self._UI.getDriver()
         self.Page_agreements = Page_agreements(self._UI)
         self.Page_welcome = Page_welcome(self._UI)
         self.Page_findNewPrinter = Page_findNewPrinter(self._UI)

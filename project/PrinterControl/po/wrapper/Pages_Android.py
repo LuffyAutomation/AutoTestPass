@@ -38,6 +38,7 @@ class Pages_Android:
 
         self.Mpl = MultiplePagesLogic(self, self._UI)
 
+
     def flow_goTo_PageHomeWithSpecifiedPrinter(self):
         self.Page_agreements.flow_agreements()
         self.Page_welcome.flow_welcome()

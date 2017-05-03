@@ -130,6 +130,7 @@ class POCreatorBase:
         return self._newLine + self._getIndent(level) + "class Pages_%s:" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI = UI" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI.getDriver()" \
             + self._newLine
 
     def _getPagesBodyBody(self, po_name, level=0):

@@ -27,7 +27,7 @@ class HomeMoreAbout(CommonUnittest):
 
     @classmethod
     def setUpClass(cls):
-        cls.setUpBeforClass()
+        cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
 

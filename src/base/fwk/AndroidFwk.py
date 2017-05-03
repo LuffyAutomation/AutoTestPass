@@ -17,11 +17,14 @@ class AndroidFwk(UiFwk):
     def __launch_app(self):
         self._driver = MobileDriver(self).getDriver()
         self.wait(5)
+        return self._driver
 
     def getDriver(self):
         if self._driver == None:
            self.__launch_app()
            self.RunTimeConf.getMobileInfo(self)
+        return self._driver
+
     # def __launch_browser(self):
     #     #os.system(r'taskkill /f /im node.exe')
     #     #os.system(r'start E:\Autotest\Tools\Appium_1_4_6\Appium\node.exe E:\Autotest\Tools\Appium_1_4_6\Appium\node_modules\appium\lib\server\main.js --address 127.0.0.1 --port 4723 --no-reset --platform-name Android')
