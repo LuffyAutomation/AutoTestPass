@@ -67,46 +67,22 @@
 #             return xmlrunner.XMLTestRunner(output=xml, **kwargs).run(suite)
 #     else :
 #         return xmlrunner.XMLTestRunner(output=output_dir, **kwargs).run(suite)
-# @abstractmethod
-# def getAndroidSDK(self, uuid=None):
-#     pass
-#
-# @abstractmethod
-# def getBuildInMobileLanguage(self, uuid=None):
-#     pass
-#
-# @abstractmethod
-# def getProjectName(self):
-#     pass
-#
-# @abstractmethod
-# def getProjectPath(self):
-#     pass
-#
-# @abstractmethod
-# def updateCurrentElementStatus(self, element_name):
-#     pass
-#
-# @abstractmethod
-# def setCurrentElementName(self, element_name):
-#     pass
-#
-# @abstractmethod
-# def getCurrentElementName(self):
-#     pass
-#
-# @abstractmethod
-# def setCurrentPage(self, page):
-#     pass
-#
-# @abstractmethod
-# def getCurrentPage(self):
-#     pass
-#
-# @abstractmethod
-# def setCurrentElementObject(self, element):
-#     pass
-#
-# @abstractmethod
-# def getCurrentElementObject(self):
-#     pass
+
+# suite = unittest.TestSuite()
+    # suite.addTest(HomeMoreAbout("test_flow"))
+    # test_result = unittest.TextTestRunner(verbosity=2).run(suite)
+
+    # suite =  unittest.TestLoader().loadTestsFromTestCase(MyTest)
+    # pass
+    # test_result = run_suite_output_xml_report(suite)
+    # print('All case number')
+    # print(test_result.testsRun)
+    # print('Failed case number')
+    # print(len(test_result.failures))
+    # print('Failed case and reason')
+    # print(test_result.failures)
+    # for case, reason in test_result.errors:
+    #     print('case.id')
+    #     print(case.id())
+    #     print('reason')
+    #     print(reason)
