@@ -4,13 +4,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from src.base.core.GlobalArgs import GlobalArgs
+from fwk.base.GlobalArgs import GlobalArgs
 
-# from project.PrinterControl.unittestSuites.HomeMoreAbout import HomeMoreAbout
-# from project.PrinterControl.ProjectPortal import ProjectPortal
+from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
+from projects.PrinterControl.ProjectPortal import ProjectPortal
 
-from project.WebExample.unittestSuites.TestBrowser import TestBrowser
-from project.WebExample.ProjectPortal import ProjectPortal
+from projects.WebExample.cases.TestBrowser import TestBrowser
+from projects.WebExample.ProjectPortal import ProjectPortal
+
 import unittest
 
 if __name__ == '__main__':
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     # suite.addTest(HomeMoreAbout("test_shareThisApp_back"))
     # suite.addTest(HomeMoreAbout("test_headerDisplay"))
 
-    #WebExample
-    suite.addTest(TestBrowser("test_flow"))
+
+    suite.addTest(TestBrowser("test_flow"))    # WebExample
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
