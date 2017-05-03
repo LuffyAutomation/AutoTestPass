@@ -9,9 +9,9 @@ PATH = lambda p: os.path.abspath(
 
 class WebFwk(UiBaseFwk):
 
-    def __init__(self):
-        UiBaseFwk.__init__(self)
-        self.getDriver()
+    def __init__(self, Init):
+        UiBaseFwk.__init__(self, Init)
+        self._getCurrentTestArgs(self.TestType.WEB)
 
     def getDriver(self):
         if self._driver == None:

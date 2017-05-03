@@ -70,14 +70,14 @@ class RunTimeConf:
                 self._ConfigParser.APP_APPIUM_SERVERPORT)
             self.appiumUrl = "http://" + self.appiumServerIP + ":" + self.appiumServerPort + "/wd/hub"
             self.automationName = "LocalTest"
-        else:  # ui
+        else:  # web
             self.isDevicePassTest = False
-
             self.isMobileTest = False
             self.isWebTest = True
             self.deviceName = "NA"
             self.deviceModel = "NA"
             self.browser = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.BROWSER)
+            self.browserDriverFolderPath = PATH(self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.TEST_BROWSERDRIVER_FOLDERPATH))
             self.language = self._UtilOS.getOSLocale().split("_")[0]
             self.region = self._UtilOS.getOSLocale().split("_")[1]
             self.platform = self._UtilOS.getOSName()

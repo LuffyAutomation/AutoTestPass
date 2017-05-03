@@ -22,7 +22,7 @@ class POCreator(POCreatorBase):
         if self.scriptFolderName.lower() == "android":
             return "AndroidCommonPage"
         elif self.scriptFolderName.lower() == "web":
-            return "AndroidCommonPage"
+            return "WebCommonPage"
         elif self.scriptFolderName.lower() == "ios":
             return "IosCommonPage"
 

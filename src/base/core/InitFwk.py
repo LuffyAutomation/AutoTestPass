@@ -48,11 +48,6 @@ class InitFwk:
         # self.RunTimeConf = self.RunTimeConf(self._ConfigParser)
         self.__setupENV()
 
-    class TestType:
-        WEB = "ui"
-        ANDROID = "android"
-        IOS = "ios"
-
     def __addLogForCountDown(self, log, interval):
         self.logger.info(log)
         self.UtilTime.sleep(interval)
@@ -86,7 +81,7 @@ class InitFwk:
         self._path_folder_src = PATH("../../../src")
         self._path_folder_conf = os.path.join(self._path_folder_resources, "conf")
         # self._path_folder_browserDriver = os.path.join(self._path_folder_resources, "browserDriver")
-        self._path_folder_browserDriver = PATH("./../../../../browserDriver")
+        # self._path_folder_browserDriver = PATH("./../../../../browserDriver")
         self._path_file_mainConf = os.path.join(self._path_folder_conf, "main.conf")
         self._path_folder_data = os.path.join(self._path_folder_project, "data")
 

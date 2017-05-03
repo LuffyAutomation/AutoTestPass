@@ -14,12 +14,13 @@ class ConfigParse:
     SECTION_CAPS = "caps"
     SECTION_ARGS = "args"
     TEST_TIMEOUT_ELEMENT = "test.timeout.element"
-    TEST_RESULTS_FOLDERPATH = "test.results.folderPath "
+    TEST_RESULTS_FOLDERPATH = "test.results.folderPath"
     TEST_SCREENSHOTS_FOLDERPATH = "test.screenshots.folderPath"
     TEST_UIMAP_FILENAME = "test.uiMap.fileName"
     CURRENT_TEST_TYPE = "current.test.type"
 
     BROWSER = "browser"
+    TEST_BROWSERDRIVER_FOLDERPATH = "test.browserDriver.folderPath"
 
     APP_DEVICE_PLATFORMNAME = "app.device.platformName"
     APP_DEVICE_VERSION = "app.device.version"
