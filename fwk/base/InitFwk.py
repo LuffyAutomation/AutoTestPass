@@ -86,8 +86,12 @@ class InitFwk:
         self._ConfigParser.setMainConfig(self.__MainConfig)
         if self.name_project is None or self.name_project == "":
             self.name_project = self._ConfigParser.getMainConfigValue(self._ConfigParser.DEFAULTPROJECT, self._ConfigParser.DEFAULT_PROJECT)
-
+        self._path_folder_po = os.path.join(self._path_folder_projects, self.name_project, "po")
         self._path_folder_data = os.path.join(self._path_folder_projects, self.name_project, "data")
+
+        self._path_folder_uiMaps_android = os.path.join(self._path_folder_data, "android", "uiMaps", "uiMap.xml")
+        self._path_folder_uiMaps_web = os.path.join(self._path_folder_data, "web", "uiMaps", "uiMap.xml")
+        self._path_folder_uiMaps_ios = os.path.join(self._path_folder_data, "ios", "uiMaps", "uiMap.xml")
         self.testType = self._ConfigParser.getMainConfigValue(self.name_project, self._ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 
