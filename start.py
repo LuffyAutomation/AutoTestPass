@@ -26,7 +26,7 @@ if __name__ == '__main__':
         suite.addTest(HomeMoreAbout("test_shareThisApp"))
         suite.addTest(HomeMoreAbout("test_shareThisApp_back"))
         suite.addTest(HomeMoreAbout("test_headerDisplay"))
-    elif initFwk.name_project == "PrintControl":
+    elif initFwk.name_project == "WebExample":
         suite.addTest(TestBrowser("test_flow"))    # WebExample
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 

@@ -1,6 +1,6 @@
 import inspect
-
 from fwk.page.WebCommonPage import WebCommonPage
+
 
 '''Default home page.'''
 class Page_home_model(WebCommonPage):
