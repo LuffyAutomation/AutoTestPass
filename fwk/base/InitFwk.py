@@ -26,7 +26,7 @@ class InitFwk:
         IOS = "Ios"
         WEB = "Web"
 
-    def __init__(self, name_project, path_folder_project):
+    def __init__(self, name_project=None, path_folder_project=None):
         self.UtilFolder = UtilFolder
         self.UtilTime = UtilTime
         self.UtilFile = UtilFile
@@ -34,17 +34,14 @@ class InitFwk:
         self.UtilOS = UtilOS
         self.UtilConsole = UtilConsole
         self.UtilWaitEvent = UtilWaitEvent
-        self._name_project = name_project
+        self.name_project = name_project
         self._path_folder_project = path_folder_project
         self.__setup()
 
     def __setup(self):
         self.__getFrameworkBasePaths()
         self.__getCurrentProjectArgs()
-        # self.__getConfigurationParameters()
         self.__initializeLogging()
-        # self.RunTimeConf = self.RunTimeConf(self._ConfigParser)
-        self.__setupENV()
 
     def __addLogForCountDown(self, log, interval):
         self.logger.info(log)
@@ -56,9 +53,9 @@ class InitFwk:
         self.UtilTime.countDown(range_max, reLog, interval, range_min)
 
     def __getOSLanguage(self):
-        self._osLanguage = self.UtilOS.getOSLocale() # not work in dp
+        self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp
 
-    def __setupENV(self):
+    def createResultFolder(self):
         # self._ConfigParser.getRunTimeConfigArgsValue(self._ConfigParser.TEST_TIMEOUT_ELEMENT)
         self.path_folder_results = os.path.join(self._path_folder_AutoTestPass, "results")
 
@@ -76,54 +73,58 @@ class InitFwk:
     def __getFrameworkBasePaths(self):
         self._path_folder_AutoTestPass = PATH("../..")
         self._path_folder_fwk = os.path.join(self._path_folder_AutoTestPass, "fwk")
+        self._path_folder_projects = os.path.join(self._path_folder_AutoTestPass, "projects")
         self._path_folder_env = os.path.join(self._path_folder_fwk, "env")
         self._path_folder_conf = os.path.join(self._path_folder_env, "conf")
         # self._path_folder_browserDriver = os.path.join(self._path_folder_resources, "browserDriver")
         # self._path_folder_browserDriver = PATH("./../../../../browserDriver")
         self._path_file_mainConf = os.path.join(self._path_folder_conf, "main.conf")
-        self._path_folder_data = os.path.join(self._path_folder_project, "data")
 
     def __getCurrentProjectArgs(self):
         self._ConfigParser = ConfigParse()
         self.__MainConfig = self._ConfigParser.getConf(self._path_file_mainConf)
         self._ConfigParser.setMainConfig(self.__MainConfig)
-        self.testType = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.CURRENT_TEST_TYPE)
+        if self.name_project is None or self.name_project == "":
+            self.name_project = self._ConfigParser.getMainConfigValue(self._ConfigParser.DEFAULTPROJECT, self._ConfigParser.DEFAULT_PROJECT)
+
+        self._path_folder_data = os.path.join(self._path_folder_projects, self.name_project, "data")
+        self.testType = self._ConfigParser.getMainConfigValue(self.name_project, self._ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 
     def __initializeLogging(self):
         logging.config.fileConfig(os.path.join(self._path_folder_conf, "log.conf"))
         self.logger = logging.getLogger("simpleExample")
 
-    def _getAppInfo(self):
-        self._DefaultPage = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//DefaultPage"))
-        self.__appConfFolderName = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//AppName"))
-        self.__Version = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Version"))
-        self.__Environment = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Environment"))
-        self.__TestCategory = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//TestCategory"))
-        self.__NetWork = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Network"))
-        self.__Description = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Description"))
+    # def _getAppInfo(self):
+    #     self._DefaultPage = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//DefaultPage"))
+    #     self.__appConfFolderName = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//AppName"))
+    #     self.__Version = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Version"))
+    #     self.__Environment = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Environment"))
+    #     self.__TestCategory = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//TestCategory"))
+    #     self.__NetWork = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Network"))
+    #     self.__Description = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Description"))
+    #
+    #     self.logger.info("Default Page : " + self._DefaultPage)
+    #     self.logger.info("App Name : " + self.__appConfFolderName)
+    #     self.logger.info("App Version : " + self.__Version)
+    #     self.logger.info("Test Environment : " + self.__Environment)
+    #     self.logger.info(self.__TestCategory)
+    #     self.logger.info("Test NewWork : " + self.__NetWork)
+    #     self.logger.info("Description : " + self.__Description)
 
-        self.logger.info("Default Page : " + self._DefaultPage)
-        self.logger.info("App Name : " + self.__appConfFolderName)
-        self.logger.info("App Version : " + self.__Version)
-        self.logger.info("Test Environment : " + self.__Environment)
-        self.logger.info(self.__TestCategory)
-        self.logger.info("Test NewWork : " + self.__NetWork)
-        self.logger.info("Description : " + self.__Description)
-
-    def __defaultIfEmpty(self, str, defaultStr):
+    def isEmpty(self, str, defaultStr):
         if str == "" or str is None:
             return defaultStr
         else:
             return str
 
-    def log(self, message, level=1):
-        if level == 1:
-            self.logger.info(message)
-        if level == 2:
-            self.logger.warning(message)
-        if level == 3:
-            self.logger.debug(message)
-        if level == 4:
-            self.logger.error(message)
+    # def log(self, message, level=1):
+    #     if level == 1:
+    #         self.logger.info(message)
+    #     if level == 2:
+    #         self.logger.warning(message)
+    #     if level == 3:
+    #         self.logger.debug(message)
+    #     if level == 4:
+    #         self.logger.error(message)
 

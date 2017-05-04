@@ -404,7 +404,7 @@ class Result:
     #         self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
 
     def __setupENV(self):
-        self.name_project = self._Init._name_project
+        self.name_project = self._Init.name_project
         self.path_folder_results = self._Init.path_folder_results
 
         #self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())

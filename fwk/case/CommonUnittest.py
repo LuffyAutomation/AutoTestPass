@@ -27,7 +27,9 @@ class CommonUnittest(unittest.TestCase):
         self.Pages_Ios = None
         self.Pages_Web = None
         try:
-            self.InitFwk = InitFwk(GlobalArgs.getProjectName(), GlobalArgs.getProjectPath())
+            self.InitFwk = InitFwk()
+            self.InitFwk.createResultFolder()
+            # self.InitFwk = InitFwk(GlobalArgs.getProjectName(), GlobalArgs.getProjectPath())
             if self.InitFwk.TestType.ANDROID.lower() == self.InitFwk.testType.lower():
                 self.UI_Android = AndroidFwk(self.InitFwk)
                 # self.Pages_Android = Pages_Android(self.UI_Android)

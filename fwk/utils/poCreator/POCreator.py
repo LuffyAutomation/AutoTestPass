@@ -34,7 +34,7 @@ class POCreator(POCreatorBase):
         if level == 0:
             # tmp = self._getPOModelClassImportString(self._COMMONPAGE)
             tmp = "import inspect" + self._newLine
-            tmp += "from object.page.%s import %s" % (self.__getWhichPage(), self.__getWhichPage())
+            tmp += "from fwk.page.%s import %s" % (self.__getWhichPage(), self.__getWhichPage())
             tmp += self._newLine + self._newLine \
                 + self._newLine + self._getIndent(level) + self._descriptionWrapper + page_description + self._descriptionWrapper \
                 + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOModelClassName(page_name), self.__getWhichPage()) \

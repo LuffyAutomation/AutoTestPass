@@ -1,5 +1,5 @@
 import os
-
+from fwk.base.InitFwk import InitFwk
 from fwk.utils.poCreator.POCreator import POCreator
 
 PATH = lambda p: os.path.abspath(
@@ -7,12 +7,10 @@ PATH = lambda p: os.path.abspath(
 )
 
 if __name__ == '__main__':
-    # Only next row needs to be modified according to your existed projects name.
-    project = "PrinterControl"
-    #project = "WebExample"
+    # project is defined in env>main.conf>[DefaultProject].
 
-
-
+    initFwk = InitFwk()
+    project = initFwk.name_project
 
     path_folder_po = os.path.join(PATH(""), "projects", project, "po")
     path_folder_data = os.path.join(PATH(""), "projects", project, "data")

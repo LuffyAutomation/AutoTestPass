@@ -11,6 +11,10 @@ class ConfigParse:
     #     self._MainConfigSection = section
     #     self._MainConfig = MainConfig
 
+    DEFAULT_PROJECT = "default.project"
+
+    DEFAULTPROJECT = "DefaultProject"
+
     SECTION_CAPS = "caps"
     SECTION_ARGS = "args"
     TEST_TIMEOUT_ELEMENT = "test.timeout.element"
