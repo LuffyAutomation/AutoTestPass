@@ -116,12 +116,6 @@ class InitFwk:
     #     self.logger.info("Test NewWork : " + self.__NetWork)
     #     self.logger.info("Description : " + self.__Description)
 
-    def isEmpty(self, str, defaultStr):
-        if str == "" or str is None:
-            return defaultStr
-        else:
-            return str
-
     # def log(self, message, level=1):
     #     if level == 1:
     #         self.logger.info(message)

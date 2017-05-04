@@ -265,3 +265,8 @@ class UiBaseFwk(object):
     def getLanguageRegion(self):
         return self.RunTimeConf.language + "_" + self.RunTimeConf.region
 
+    def isEmpty(self, obj):
+        if obj == "" or obj is None:
+            return True
+        else:
+            return False

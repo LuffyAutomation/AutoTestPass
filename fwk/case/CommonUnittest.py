@@ -75,7 +75,3 @@ class CommonUnittest(unittest.TestCase):
 
     def tearDown(self):
         self.Result.afterEachFunction(self)
-
-    @abstractmethod
-    def initTestCase(self):
-        pass
