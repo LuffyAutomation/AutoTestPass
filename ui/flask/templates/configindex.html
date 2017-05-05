@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block page_title %}Upload Result File Step - 1{% endblock %}
+
+{% block right_content %}
+                <div class="hero-unit">
+                    <h2>Please Select which the type of Test</h2>
+                    <hr />
+                    <p>
+                        <a class="btn btn-primary btn-large" href="/cpTestConfig">
+                            Compatibility Test
+                        </a>
+                        <a class="btn btn-primary btn-large" href="/exTestConfig">
+                            Exploration Test
+                        </a>
+                        <a class="btn btn-primary btn-large" href="/wpTestConfig">
+                            Web Publish Test
+                        </a>
+                        <a class="btn btn-primary btn-large" href="/airPrintIndex">
+                            AirPrint Test
+                        </a>
+                    </p>
+                </div>
+{% endblock %}

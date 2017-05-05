@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block page_title %}Settings{% endblock %}
+
+
+{% block right_content %}
+<form action="" method=post enctype=multipart/form-data name="settingsForm">
+    <table border="0" width="800" name="test">
+        {% for row in selected_Xml_list %}
+            <tr>
+                <td width="30%"><input border="0" type="text" name="key" readonly value = "{{ row.keys()[0]}}" ></td>
+                <td width="70%"><input style="width:400px;color:#666666;background-color:#FBFBF3;border:1px solid #CCCCCC;" type="text" name="value" value= "{{ row.values()[0] }}"></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <button type="submit" style="width:90px" onclick="saveCancelSettings(document.settingsForm, 0)">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button>
+    <button type="submit" style="width:90px" onclick="saveCancelSettings(document.settingsForm, 1)">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+    <input type="hidden" name="handleSetSettingsEvent" value= {{ handleSetSettingsEvent }}>
+</form>
+{% endblock %}
+
+

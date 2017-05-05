@@ -74,6 +74,9 @@ class InitFwk:
         self._path_folder_AutoTestPass = PATH("../..")
         self._path_folder_fwk = os.path.join(self._path_folder_AutoTestPass, "fwk")
         self._path_folder_projects = os.path.join(self._path_folder_AutoTestPass, "projects")
+
+        self.list_all_projects = self.UtilFolder.walkFolder(self._path_folder_projects, self.UtilFolder.FolderMode.LIST_SUB_FOLDER_NAMES)
+
         self._path_folder_env = os.path.join(self._path_folder_fwk, "env")
         self._path_folder_conf = os.path.join(self._path_folder_env, "conf")
         # self._path_folder_browserDriver = os.path.join(self._path_folder_resources, "browserDriver")
@@ -81,18 +84,18 @@ class InitFwk:
         self._path_file_mainConf = os.path.join(self._path_folder_conf, "main.conf")
 
     def __getCurrentProjectArgs(self):
-        self._ConfigParser = ConfigParse()
-        self.__MainConfig = self._ConfigParser.getConf(self._path_file_mainConf)
-        self._ConfigParser.setMainConfig(self.__MainConfig)
+        self.ConfigParser = ConfigParse()
+        self.__MainConfig = self.ConfigParser.getConf(self._path_file_mainConf)
+        self.ConfigParser.setMainConfig(self.__MainConfig)
         if self.name_project is None or self.name_project == "":
-            self.name_project = self._ConfigParser.getMainConfigValue(self._ConfigParser.DEFAULTPROJECT, self._ConfigParser.DEFAULT_PROJECT)
+            self.name_project = self.ConfigParser.getMainConfigValue(self.ConfigParser.SECTION_DEFAULTPROJECT, self.ConfigParser.DEFAULT_PROJECT)
         self._path_folder_po = os.path.join(self._path_folder_projects, self.name_project, "po")
         self._path_folder_data = os.path.join(self._path_folder_projects, self.name_project, "data")
 
         self._path_folder_uiMaps_android = os.path.join(self._path_folder_data, "android", "uiMaps", "uiMap.xml")
         self._path_folder_uiMaps_web = os.path.join(self._path_folder_data, "web", "uiMaps", "uiMap.xml")
         self._path_folder_uiMaps_ios = os.path.join(self._path_folder_data, "ios", "uiMaps", "uiMap.xml")
-        self.testType = self._ConfigParser.getMainConfigValue(self.name_project, self._ConfigParser.CURRENT_TEST_TYPE)
+        self.testType = self.ConfigParser.getMainConfigValue(self.name_project, self.ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 
     def __initializeLogging(self):

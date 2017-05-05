@@ -45,3 +45,19 @@ class UtilFolder:
     def isPathExists(p):
            return os.path.exists(p)
 
+    class FolderMode:
+        LIST_SUB_FOLDER_NAMES = "LIST_SUB_FOLDER_NAMES"
+        LIST_SUB_FILE_NAMES = "LIST_SUB_FOLDER_NAMES"
+
+    @staticmethod
+    def walkFolder(p, folderMode=FolderMode.LIST_SUB_FOLDER_NAMES):
+        for parent, list_subFolderName, list_subfileName in os.walk(p):
+            if folderMode == UtilFolder.FolderMode.LIST_SUB_FOLDER_NAMES:
+                return list_subFolderName
+            elif folderMode == UtilFolder.FolderMode.LIST_SUB_FILE_NAMES:
+                return list_subfileName
+            for dirname in list_subFolderName:
+                pass
+                for filename in list_subfileName:
+                    os.path.join(parent, filename)
+                    pass

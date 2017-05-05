@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block page_title %}Test Results{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div class="col-sm-3 col-md-2 sidebar">-->
+                <!--<ul class="nav nav-sidebar">-->
+                    <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>-->
+                    <!--<li><a href="#">1. Script Creator</a></li>-->
+                    <!--<li><a href="#">2. Result Reviewer</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="col-md-2 sidebar">-->
+                <!--{% block sidebar %}-->
+                    <!--<div class="panel panel-default">-->
+                        <!--&lt;!&ndash; Default panel contents &ndash;&gt;-->
+                        <!--<div class="panel-heading">Server(s)</div>-->
+                        <!--<ul class="list-group">-->
+                            <!--{% for view in side_bar_set %}-->
+                                <!--<li class="list-group-item"><a href="/?{{PRARAM_VIEW}}={{view}}">{{view}}</a></li>-->
+                            <!--{% endfor %}-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--{% endblock %}-->
+                <!--{% block no_result %}-->
+                    <!--{% if list_no_result.__len__() > 0 %}-->
+                        <!--<div class="panel panel-default">-->
+                            <!--&lt;!&ndash; Default panel contents &ndash;&gt;-->
+                            <!--<div class="panel-heading">In running or just pending</div>-->
+                            <!--<ul class="list-group" style="font-size: 8px">-->
+                                <!--{% for job_name in list_no_result %}-->
+                                    <!--<li class="list-group-item">{{job_name.keys()[0]}}</li>-->
+                                <!--{% endfor %}-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--{% endif %}-->
+                <!--{% endblock %}-->
+            <!--</div>-->
+            <div class="col-md-10 main">
+                {% block right_content %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span>Case</span>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-7 col-md-7" style="overflow: auto; height: 320px">
+                                <table class="table table-striped" style="border:1px solid #f2dede; height: auto;">
+                                    <tbody>
+                                        <tr class="alert alert-info">
+                                            <td style="line-height:10px;">Add step(s):</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="line-height:10px;"><a href="#" target="_blank">td</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table id='example' class="table">
+                                    <tbody>
+                                  <tr>
+                                    <td>1</a></td><td>232323232323</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2<td>HTML5获取地理位置定位信息</td>
+                                    <td><a href="#" class="up">上移</a> <a href="#" class="down">下移</a> <a href="#" class="top">置顶</a></td>
+                                  </tr>
+                                  <tr>
+                                      <td>3</td>
+                                    <td>CSS+Cookie实现的固定页脚广告条置顶</a></td>
+                                      <td><a href="#" class="up">上移</a> <a href="#" class="down">下移</a> <a href="#" class="top">置顶</a></td>
+                                  </tr>
+                                  <tr>
+                                      <td>4</td>
+                                    <td>dfsfsdfs</a></td>
+                                  </tr>
+                                    </tbody>
+                                </table>
+                                <input type='button' id='sort' value='排序' />
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+             </div>
+        </div>
+    </div>
+{% endblock %}

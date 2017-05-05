@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block page_title %}LoopScanSettings{% endblock %}
+
+{% block right_content %}
+<form action="" method=post enctype=multipart/form-data name="setSettingsForm">
+        <tr>
+            <td width="30%"><input border="0" type="text" name="key" readonly value = "1111111" ></td>
+            <td width="70%">
+                <div name="cc" style="background-color: #EEEEEE; solid #000000;  height:20px;overflow:auto;" onmouseover="mouseOver()" onmouseout="mouseOut()">
+                    <input type='checkbox' style='height:15px;' name='ck' value="aaa"><label style="display:inline;margin-bottom:0px;">"aaa1"</label>
+                    </br>
+                    <input type='checkbox' style='height:15px;' name='ck' value="bbb"><label style="display: inline;margin-bottom:0px;">"bbb1"</label>
+                    </br>
+                    <input type='checkbox' style='height:15px;' name='ck' value="ccc"><label style="display:inline;margin-bottom:0px;">"ccc1"</label>
+                    </br>
+                    <input type='checkbox' style='height:15px;' name='ck' value="ddd"><label style="display: inline;margin-bottom:0px">"ddd1"</label>
+                    </br>
+                </div>
+            </td>
+        </tr>
+    <input type="submit" value="Next" class="btn btn-success btn-large">
+</form>
+{% endblock %}
+
+

@@ -2,7 +2,5 @@ features
 .idea
 wheelhouse
 *.pyc
-ui
-startWeb.py
 AutoTestPass.zip
 results

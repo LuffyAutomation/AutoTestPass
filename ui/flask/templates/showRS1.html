@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block page_title %}Result Details{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <table class="table table-bordered">
+            <caption><h4>-== Test Summary ==-</h4></caption>
+            <tr style="text-align: center;background-color: #faf0e6;">
+                <th>Printer Name</th>
+                <th>OS Version</th>
+                <th>Language</th>
+                <th>ConnType</th>
+                <th>TestBegin</th>
+                <th>TestEnd</th>
+                <th>Total Time</th>
+                <th>Total Cases</th>
+                <th>Failure Cases</th>
+            </tr>
+            <tr>
+                <td>{{ tenv[1] }}</td>
+                <td>{{ tenv[2] }}</td>
+                <td>{{ tenv[3] }}</td>
+                <td>{{ tenv[4] }}</td>
+                <td>{{ tenv[5] }}</td>
+                <td>{{ tenv[6] }}</td>
+                <td>{{ tenv[7] }}</td>
+                <td>{{ tenv[8] }}</td>
+                <td>{{ tenv[9] }}</td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered">
+        <caption><h4>-== Result Details ==-</h4></caption>
+            <tr style="text-align: center;background-color: #faf0e6;">
+                <th>NO</th>
+                <th>Name</th>
+                <!--<th>Desc</th>-->
+                <th>Result</th>
+                <th>Ref Picture</th>
+                <th>Snapshot</th>
+                <th>GroupName</th>
+            </tr>
+            {% for res in rs %}
+                {% if res[3] == 1 %}
+                    <tr>
+                        <td>{{ res[0] }}</td>
+                        <td><abbr title={{ res[1] | safe }}>{{ res[1][0:45] }}</abbr> </td>
+                        <!--<td>{{ res[2][0:30] }}</td>-->
+                        <td>{{ res[3] }}</td>
+                        <td>{{ res[4] }}</td>
+                        <td>{{ res[5] }}</td>
+                        <td>{{ res[6] }}</td>
+                    </tr>
+                {% else %}
+                    <tr class="error">
+                        <td>{{ res[0] }}</td>
+                        <td><abbr title={{ res[1] | safe }}>{{ res[1][0:45] }}</abbr></td>
+                        <!--<td><abbr title={{ res[2] | safe }}>{{ res[2][0:30] }}</abbr></td>-->
+                        <td>{{ res[3] }}</td>
+                        <td><img src={{ lRef | safe }}{{ res[4] | safe }} ></td>
+                        <td><a target="_blank" href={{ snpPath | safe }}{{ res[5] | safe }}><img width="50" height="50" src={{ snpPath | safe }}{{ res[5] | safe }}></a></td>
+                        <td>{{ res[6] }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+</html>

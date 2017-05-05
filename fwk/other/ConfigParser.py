@@ -13,7 +13,7 @@ class ConfigParse:
 
     DEFAULT_PROJECT = "default.project"
 
-    DEFAULTPROJECT = "DefaultProject"
+    SECTION_DEFAULTPROJECT = "DefaultProject"
 
     SECTION_CAPS = "caps"
     SECTION_ARGS = "args"
@@ -58,9 +58,17 @@ class ConfigParse:
         except:
             return None
 
+    def setMainConfigValue(self, section, key, value):
+        try:
+            self._MainConfig.set(section, key, value)
+            self._MainConfig.write(open(self.path, "w"))
+        except:
+            pass
+
     def getConf(self, path):
         conf = ConfigParser()
         conf.read(path, "utf-8")
+        self.path = path
         return conf
 
     def getSection(self, conf):
