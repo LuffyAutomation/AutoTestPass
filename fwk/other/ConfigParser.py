@@ -1,4 +1,6 @@
 from configparser import ConfigParser
+import os
+
 
 class ConfigParse:
     def __init__(self):
@@ -76,3 +78,21 @@ class ConfigParse:
 
     def getConfigValue(self, conf, section, key):
         return conf.get(section, key)
+
+
+    def addProject(self, path_file, name_project, testType):
+        name_project = name_project.strip()
+        testType = testType.strip()
+        if os.path.isfile(path_file):
+            self.hasAddedd = False
+            lines = open(path_file, "r").readlines()
+            with open(path_file, "w") as f:
+                _len = len(lines) - 1
+                for i in range(_len):
+                    if "[%s]" % name_project == lines[i]:
+                        lines[i+1] = self.CURRENT_TEST_TYPE + "=" + testType
+                        self.hasAddedd = True
+                if self.hasAddedd is False:
+                    lines.append("[%s]" % name_project)
+                    lines.append(self.CURRENT_TEST_TYPE + "=" + testType)
+                f.writelines(lines)

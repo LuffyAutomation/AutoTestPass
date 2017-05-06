@@ -69,14 +69,14 @@ class UiBaseFwk(object):
         self._elementTimeOut = None
         self._getCurrentTestArgs(self.testType)
         self.__getConfigurationParameters()
-        self.RunTimeConf = RunTimeConf(self.Init._ConfigParser)
+        self.RunTimeConf = RunTimeConf(self.Init.ConfigParser)
         self._driver = None
         # if 2 == 1:
         #     self.Init = InitFwk
         #     self._driver = webdriver.Remote("")
 
     def __getConfObject(self, configFileName):
-        return self.Init._ConfigParser.getConf(configFileName)
+        return self.Init.ConfigParser.getConf(configFileName)
 
     def _getCurrentTestArgs(self, testType):
         try:
@@ -86,14 +86,14 @@ class UiBaseFwk(object):
                 self.logger.error("faild to find [%s] in [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
 
         self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
-        self.Init._ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
+        self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
         self._path_folder_uiMaps = os.path.join(self.Init._path_folder_data, testType, 'uiMaps')
-        self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init._ConfigParser.getRunTimeConfigArgsValue(self.Init._ConfigParser.TEST_UIMAP_FILENAME))
+        self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
 
     def __getConfigurationParameters(self):
         self._xmlTree = self.UtilXml.getTree(self._path_file_uiMap)
         self._root = self.UtilXml.getRootElement(self._xmlTree)
-        self._elementTimeOut = self.Init._ConfigParser.getRunTimeConfigArgsValue(self.Init._ConfigParser.TEST_TIMEOUT_ELEMENT)
+        self._elementTimeOut = self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_TIMEOUT_ELEMENT)
 
     def __addLogForWaitEvent(self, method, log):
         if ". 0s elapsed" not in log:  # ignore this

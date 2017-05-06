@@ -1,7 +1,6 @@
 # coding: utf-8
 
 from fwk.case.CommonUnittest import CommonUnittest
-from projects.PrinterControl.po.wrapper.Pages_Web import Pages_Web
 from projects.WebExample.po.wrapper.Pages_Web import Pages_Web
 
 
@@ -27,7 +26,7 @@ class TestBrowser(CommonUnittest):
     @classmethod
     def setUpClass(cls):
         cls.setUpBeforClass() #setup test before starting.
-        cls.Pages_Web= Pages_Web(cls.UI_Web)  # create page objects of Android test.
+        cls.Pages_Web = Pages_Web(cls.UI_Web)  # create page objects of Android test.
         cls.Pages = cls.Pages_Web  # Just make it simple, you can ignore this step.
     def test_flow(self):
         self.Result.setDescription("1. Launch %s." % self.Portal._testType,

@@ -37,8 +37,6 @@ class UtilFile:
         with open(path_file, file_mode) as f:
             f.write(txt)
 
-
-
     @staticmethod
     def writeFileIfNotExists(path_file, txt="", file_mode=FileMode.W):
         if UtilFile.isPathExists(path_file):
@@ -54,3 +52,24 @@ class UtilFile:
     def copyFile(o_file, dst):
         if os.path.isfile(o_file):
             shutil.copyfile(o_file, dst)
+
+    @staticmethod
+    def rename(o_file, dst):
+        if os.path.isfile(o_file):
+            os.rename(o_file, dst)
+
+    @staticmethod
+    def rename(o_file, dst):
+        if os.path.isfile(o_file):
+            os.rename(o_file, dst)
+
+    @staticmethod
+    def fileContentReplace(path_file, old_text, new_text):
+        if os.path.isfile(path_file):
+            lines = open(path_file, UtilFile.FileMode.R).readlines()
+            with open(path_file, UtilFile.FileMode.W) as f:
+                _len = len(lines) - 1
+                for i in range(_len):
+                    if old_text in lines[i]:
+                        lines[i] = lines[i].replace(old_text, new_text)
+                f.writelines(lines)
