@@ -20,9 +20,9 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td onclick="showShowCss('div_newProject')"><a href="#">Create New Project</a></td>
+                                        <td onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></td>
                                     </tr>
-                                    <tr class="disabled">
+                                    <tr class="disabled" title="Create test script without coding. Manual testers can use this to create test script.">
                                         <td>Create Test Cases</td>
                                     </tr>
                                     <tr>
@@ -69,8 +69,15 @@
                                                 <div class="alert alert-info" role="alert">Pleaes input New Project Name. Note: Only letters allowed.</div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon" id="NewProjectName"><b>New Project Name:</b></span>
-                                                    <input type="text" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
+                                                    <input type="text" id="input_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" name="option_testType" id="Android" value="Android" checked> Android
+                                                <input type="radio" name="option_testType" id="Web" value="Web"> Web
+                                                <input class="disabled" disabled="disabled" type="radio" name="option_testType" id="Ios" value="Ios"> Ios
                                             </td>
                                         </tr>
                                         <tr>

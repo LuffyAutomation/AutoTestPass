@@ -44,6 +44,9 @@ function hideShowCss(id)
 {
     $("#" + id).css('display','none');
 }
+function setFocus(id){
+    $("#" + id).focus();
+}
 
 function tableDropdown()
 {
