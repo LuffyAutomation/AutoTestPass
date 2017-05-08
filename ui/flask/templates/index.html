@@ -61,38 +61,45 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div id="div_newProject" style="display:none;">
-                                <table id="table_newProject" class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
+                            <div id="div_newProject">
+                            <!--<div id="div_newProject" style="display:none;">-->
+                                <form name="form_newProject"  action="" method=post>
+                                <table name="table_newProject" id="table_newProject" class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div class="alert alert-info" role="alert">Pleaes input New Project Name. Note: Only letters allowed.</div>
+                                                <div class="alert alert-info" role="alert">1. Please input New Project Name. Note: Only letters allowed.<p>
+                                                    2. Please select a default Test type. Other Test type can be added later.
+                                                </p>
+                                                </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon" id="NewProjectName"><b>New Project Name:</b></span>
-                                                    <input type="text" id="input_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
+                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="radio" name="option_testType" id="Android" value="Android" checked> Android
-                                                <input type="radio" name="option_testType" id="Web" value="Web"> Web
-                                                <input class="disabled" disabled="disabled" type="radio" name="option_testType" id="Ios" value="Ios"> Ios
+                                                <input type="radio" name="radioButton_testType" id="Android" value="Android" checked> Android
+                                                <input type="radio" name="radioButton_testType" id="Web" value="Web"> Web
+                                                <input type="radio" name="radioButton_testType" id="Ios" value="Ios" class="disabled" disabled="disabled"> Ios
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="#" role="button"  onclick="hideShowCss('div_newProject')">Save</a>
+                                                <a class="btn btn-primary btn-sm" href="#" role="button" onclick="hideShowCss('div_newProject')">Close</a>
+                                                <button class="btn btn-primary btn-sm" type="submit">Save </button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                </form>
                             </div>
                             <div>
                                 <table class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
                                     <tbody>
                                         <tr>
-                                           <td>Welcome!</td>
+                                           <td><div class="alert alert-info" role="alert">Welcome!</div></td>
                                         </tr>
                                         <tr>
                                            <td>1. Click <b>Create</b> > <b>Create New Project</b> on Navigate Bar, you can create a new project.</td>

@@ -5,7 +5,9 @@ Description: This module is background processing code about setting the configu
 from flask import Flask, render_template, request, redirect
 import os
 from fwk.base.InitFwk import InitFwk
+from fwk.utils.newProjectCreator.NewProjectCreator import NewProjectCreator
 _InitFwk = InitFwk()
+errorMsg = ""
 FLASK_ROOT_PATH = os.path.dirname(__file__)  # 'D:/Dev/DevicePass/script/AutoTestPass\\ui\\flask'
 app = Flask(__name__)
 
@@ -16,6 +18,8 @@ class UiPortal():
     result_rate_color_set = ["#4BC0C0", "#FF6384", "#FFCE56"]
     name_project = "name_project"
     NAME_PROJECT = "name_project"
+    EDIT_NEWPROJECT = "edit_newProject"
+    RADIOBUTTON_TESTTYPE = "radioButton_testType"
 
     def __init__(self):
         pass
@@ -36,15 +40,23 @@ def space(value):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global _InitFwk
+    global _InitFwk, errorMsg
+    errorMsg = ""
     if request.method == 'GET':
         if _UiPortal.NAME_PROJECT in request.args:
             _UiPortal.name_project = request.args[_UiPortal.NAME_PROJECT]
             _InitFwk.ConfigParser.setMainConfigValue(_InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, _InitFwk.ConfigParser.DEFAULT_PROJECT, _UiPortal.name_project)
             _InitFwk = InitFwk()
     elif request.method == 'POST':
-        pass
-    return render_template('index.html', _InitFwk=_InitFwk)
+        newProjectName = request.form[_UiPortal.EDIT_NEWPROJECT].strip()
+        if newProjectName != "" and newProjectName is not None:
+            testType = request.form[_UiPortal.RADIOBUTTON_TESTTYPE]
+            _NewProjectCreator = NewProjectCreator(newProjectName, testType)
+            _NewProjectCreator.create()
+        else:
+            errorMsg = "<b>New Project Name:</b> cannot be empty!"
+        _InitFwk = InitFwk()
+    return render_template('index.html', _InitFwk=_InitFwk, errorMsg=errorMsg)
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():

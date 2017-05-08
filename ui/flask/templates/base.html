@@ -36,17 +36,17 @@
           </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Create<span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></li>
-                      <li class="disabled"><a href="#">Create Test Cases</a></li>
-                      <li><a href="#">Create Page Objects</a></li>
-                  </ul>
-              </li>
-          </ul>
+              <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Create<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></li>
+                          <li class="disabled"><a href="#">Create Test Cases</a></li>
+                          <li><a href="#">Create Page Objects</a></li>
+                      </ul>
+                  </li>
+              </ul>
               <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><u>{{_InitFwk.name_project}}</u><span class="caret"></span></a>
@@ -71,8 +71,12 @@
       </div>
     </nav>
 {% endblock %}
+{% if errorMsg != "" and errorMsg != None %}
+<div class="alert alert-danger" role="alert">{{errorMsg | safe}}</div>
+{% endif %}
+{% block content %}
 
-{% block content %}{% endblock %}
+{% endblock %}
 
 {% block jslibs %}
   <!-- <script type=text/javascript>
