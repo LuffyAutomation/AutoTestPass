@@ -3,8 +3,8 @@ import os
 
 class NewProjectCreator:
     def __init__(self, name_project=None, testType=None):
-        self.InitFwk = InitFwk(name_project)
-        self.InitFwk.testType = testType
+        self.InitFwk = InitFwk(name_project.strip())
+        self.InitFwk.testType = testType.strip().lower()
 
     def isProjectExisted(self):
         for name in self.InitFwk.list_all_projects:

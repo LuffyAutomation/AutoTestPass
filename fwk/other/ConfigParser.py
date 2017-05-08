@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from configparser import ConfigParser
 import os
 
@@ -79,20 +81,23 @@ class ConfigParse:
     def getConfigValue(self, conf, section, key):
         return conf.get(section, key)
 
-
     def addProject(self, path_file, name_project, testType):
         name_project = name_project.strip()
         testType = testType.strip()
+        self.tmp_sep = ""
+        self.tmp = ""
         if os.path.isfile(path_file):
             self.hasAddedd = False
             lines = open(path_file, "r").readlines()
             with open(path_file, "w") as f:
                 _len = len(lines) - 1
                 for i in range(_len):
-                    if "[%s]" % name_project == lines[i]:
-                        lines[i+1] = self.CURRENT_TEST_TYPE + "=" + testType
+                    if "[%s]" % name_project.lower() == lines[i].strip().lower(): #  lines[i] has / n
+                        #self.tmp_sep = lines[i].strip().lower().replace("[%s]" % name_project.lower(), "")
+
+                        lines[i+1] = self.CURRENT_TEST_TYPE + "=" + testType + os.linesep
                         self.hasAddedd = True
                 if self.hasAddedd is False:
-                    lines.append("[%s]" % name_project)
-                    lines.append(self.CURRENT_TEST_TYPE + "=" + testType)
+                    lines.append("[%s]" % name_project + "\n")
+                    lines.append(self.CURRENT_TEST_TYPE + "=" + testType + os.linesep)  #
                 f.writelines(lines)
