@@ -27,4 +27,5 @@ class NewProjectCreator:
         # modify main conf
         self.InitFwk.ConfigParser.setMainConfigValue(self.InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, self.InitFwk.ConfigParser.DEFAULT_PROJECT, self.InitFwk.name_project)
         self.InitFwk.ConfigParser.addProject(self.InitFwk.path_file_mainConf, self.InitFwk.name_project, self.InitFwk.testType)
+        return self.InitFwk
 

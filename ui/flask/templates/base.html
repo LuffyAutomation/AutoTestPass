@@ -43,7 +43,7 @@
                       <ul class="dropdown-menu" role="menu">
                           <li onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></li>
                           <li class="disabled"><a href="#">Create Test Cases</a></li>
-                          <li><a href="#">Create Page Objects</a></li>
+                          <li><a href="/?action_createPageObjects={{name_project}}">Create Page Objects</a></li>
                       </ul>
                   </li>
               </ul>
@@ -52,7 +52,7 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><u>{{_InitFwk.name_project}}</u><span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                           {% for name_project in _InitFwk.list_all_projects %}
-                             <li class="list-group-item"><a href="/?name_project={{name_project}}">{{name_project}}</a></li>
+                             <li class="list-group-item"><a href="/?action_selectProject={{name_project}}">{{name_project}}</a></li>
                           {% endfor %}
                       </ul>
                   </li>
@@ -72,7 +72,7 @@
     </nav>
 {% endblock %}
 
-<button id="btn" onclick="func()">btn</button>
+<!--<button id="btn" onclick="func()">btn</button>-->
 <script>
 var layer=document.createElement("div");
 layer.id="layer";
@@ -83,10 +83,11 @@ function func()
         background:"#f00",
         position:"absolute",
         zIndex:10,
-        width:"200px",
+        width:"300px",
         height:"200px",
-        left:"200px",
-        top:"200px"
+        right:"100px",
+        content: "fdfdfdf",
+        top:"100px"
     }
     for(var i in style)
         layer.style[i]=style[i];
@@ -94,22 +95,36 @@ function func()
     if(document.getElementById("layer")==null)
     {
         document.body.appendChild(layer);
-        setTimeout("document.body.removeChild(layer)",5000)
+        layer.style.display = "none"
+        <!--setTimeout("document.body.removeChild(layer)",5000)-->
+        <!--$("#layer").click(function(){-->
+          <!--$("#layer").fadeIn(3000);-->
+        <!--});-->
+        $("#layer").fadeIn(3000);
+        $("#layer").fadeOut(3000);
     }
 }
-
+jQuery(function($){
+                $("#xxxx").html($("<div>内容</div>").fadeIn(3000));
+            });
 </script>
 {% if errorMsg != "" and errorMsg != None %}
-<div id="myAlert" class="alert alert-danger">
+<div id="errorMsg" class="alert alert-danger">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     {{errorMsg | safe}}
+</div>
+{% endif %}
+{% if successMsg != "" and successMsg != None %}
+<div id="successMsg" class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    {{successMsg | safe}}
 </div>
 {% endif %}
 <!--<button onclick="showModal()">test</button>-->
 <!--<button class="btn btn-primary btn-lg" data-toggle="modal"-->
    <!--data-target="#myModal">-->
 <!--</button>-->
-<!-- 模态框（Modal） -->
+<!--（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog">

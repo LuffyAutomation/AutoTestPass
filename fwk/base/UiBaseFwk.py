@@ -80,14 +80,14 @@ class UiBaseFwk(object):
 
     def _getCurrentTestArgs(self, testType):
         try:
-            self._path_file_runTimeConf = os.path.join(self.Init._path_folder_data, testType, 'runTime.conf')
+            self._path_file_runTimeConf = os.path.join(self.Init.path_folder_data, testType, 'runTime.conf')
         except:
             if testType is None:
                 self.logger.error("faild to find [%s] in [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
 
         self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
         self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
-        self._path_folder_uiMaps = os.path.join(self.Init._path_folder_data, testType, 'uiMaps')
+        self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
         self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
 
     def __getConfigurationParameters(self):

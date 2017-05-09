@@ -91,11 +91,11 @@ class InitFwk:
         if self.name_project is None or self.name_project == "":
             self.name_project = self.ConfigParser.getMainConfigValue(self.ConfigParser.SECTION_DEFAULTPROJECT, self.ConfigParser.DEFAULT_PROJECT)
         self.path_folder_po = os.path.join(self.path_folder_projects, self.name_project, "po")
-        self._path_folder_data = os.path.join(self.path_folder_projects, self.name_project, "data")
+        self.path_folder_data = os.path.join(self.path_folder_projects, self.name_project, "data")
         self.path_folder_cases = os.path.join(self.path_folder_projects, self.name_project, "cases")
-        self._path_folder_uiMaps_android = os.path.join(self._path_folder_data, "android", "uiMaps", "uiMap.xml")
-        self._path_folder_uiMaps_web = os.path.join(self._path_folder_data, "web", "uiMaps", "uiMap.xml")
-        self._path_folder_uiMaps_ios = os.path.join(self._path_folder_data, "ios", "uiMaps", "uiMap.xml")
+        self._path_folder_uiMaps_android = os.path.join(self.path_folder_data, "android", "uiMaps", "uiMap.xml")
+        self._path_folder_uiMaps_web = os.path.join(self.path_folder_data, "web", "uiMaps", "uiMap.xml")
+        self._path_folder_uiMaps_ios = os.path.join(self.path_folder_data, "ios", "uiMaps", "uiMap.xml")
         self.testType = self.ConfigParser.getMainConfigValue(self.name_project, self.ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 
