@@ -47,6 +47,13 @@ class AndroidFwk(UiFwk):
     #     desired_caps['browserName'] = "chrome"
     #     self._driver = webdriver.Remote("http://" + self._getSutFullFileName("app.appium.serverIP") + ":" + self._getSutFullFileName("app.appium.serverPort") + "/wd/hub", desired_caps)
     #     UIFramework.sleep(5)
+    def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
+        if self._currentElementName != element_name:
+            self._currentElementObject = None
+        self._currentUiMap = uiMap
+        self._currentPage = currentPage
+        self._currentElementName = element_name
+        return self
 
     def openMobileBrowser(self):
         self.__launch_browser()

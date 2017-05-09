@@ -1,8 +1,6 @@
 class CommonPage:
     def __init__(self):
         self._elementsMap = self.UI.getUiMap(self.page_name)
-        # if 3 > 3:
-        #     self.UI = AndroidFwk
         return self
 
     def updateForSubPage(self, child_page_name=None, elementsMap=None):

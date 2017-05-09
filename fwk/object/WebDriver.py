@@ -15,7 +15,6 @@ class WebDriver:
         self._RunTimeConf = self._UI.RunTimeConf
         #self.__getDesiredCapsList()
 
-
     def getFireFoxDriver(self):
         return webdriver.Firefox()
 

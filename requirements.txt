@@ -2,3 +2,4 @@ Appium-Python-Client==0.22
 configparser==3.5.0
 selenium==2.53.6
 #selenium==3.3.3
+flask==0.12.1

@@ -10,8 +10,14 @@ PATH = lambda p: os.path.abspath(
 class IosFwk(UiFwk):
 
     def __init__(self):
-        UiBaseFwk.__init__(self)
-
+        UiFwk.__init__(self)
+    def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
+        if self._currentElementName != element_name:
+            self._currentElementObject = None
+        self._currentUiMap = uiMap
+        self._currentPage = currentPage
+        self._currentElementName = element_name
+        return self
     def openApp(self,bundleId=None, page=""):
         self.UiMapSetPage(page)
         if os.getenv('APP_DEVICE_PLATFORMNAME') == None:

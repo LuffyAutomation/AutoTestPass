@@ -20,6 +20,14 @@ class WebFwk(UiBaseFwk):
             self.wait(2)
         return self._driver
 
+    def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
+        if self._currentElementName != element_name:
+            self._currentElementObject = None
+        self._currentUiMap = uiMap
+        self._currentPage = currentPage
+        self._currentElementName = element_name
+        return self
+
     def openUrl(self, url):
         self.logger.info("Navigate to [" + url + "].")
         self._driver.get(url)

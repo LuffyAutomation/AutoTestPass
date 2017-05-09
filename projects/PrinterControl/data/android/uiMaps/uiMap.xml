@@ -4,7 +4,6 @@
 		<pages>
             <page name="page_agreements" description = "Default first page." >
                 <element name="checkbox_accept">
-                    <!--<xpath>NOT_EXIST</xpath>-->
                     <id>com.hp.printercontrol:id/moobe_review_accept_agreements_checkbox</id>
                 </element>
                 <element name="button_continue">
