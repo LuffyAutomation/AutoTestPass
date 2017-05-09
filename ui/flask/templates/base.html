@@ -71,9 +71,72 @@
       </div>
     </nav>
 {% endblock %}
+
+<button id="btn" onclick="func()">btn</button>
+<script>
+var layer=document.createElement("div");
+layer.id="layer";
+function func()
+{
+    var style=
+    {
+        background:"#f00",
+        position:"absolute",
+        zIndex:10,
+        width:"200px",
+        height:"200px",
+        left:"200px",
+        top:"200px"
+    }
+    for(var i in style)
+        layer.style[i]=style[i];
+        layer.innerHTML="sdsadasdsa"
+    if(document.getElementById("layer")==null)
+    {
+        document.body.appendChild(layer);
+        setTimeout("document.body.removeChild(layer)",5000)
+    }
+}
+
+</script>
 {% if errorMsg != "" and errorMsg != None %}
-<div class="alert alert-danger" role="alert">{{errorMsg | safe}}</div>
+<div id="myAlert" class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    {{errorMsg | safe}}
+</div>
 {% endif %}
+<!--<button onclick="showModal()">test</button>-->
+<!--<button class="btn btn-primary btn-lg" data-toggle="modal"-->
+   <!--data-target="#myModal">-->
+<!--</button>-->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close"
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               title
+            </h4>
+         </div>
+         <div class="modal-body">
+            <span id='num'></span>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-primary">
+               Save
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+   </div>
+</div><!-- /.modal -->
 {% block content %}
 
 {% endblock %}

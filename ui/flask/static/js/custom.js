@@ -1,3 +1,22 @@
+var clearFlag = 0;
+var count = 3;
+var showModal = function(){
+    $('#myModal').modal('toggle')
+    clearFlag = self.setInterval("autoClose()",1000);
+}
+var autoClose = function(){
+    if(count>0){
+        $("#num").html(count);
+        count--;
+    }else if(count<=0){
+        window.clearInterval(clearFlag);
+        $("#num").html("");
+        $("#myModal").fadeOut("slow");
+        count = 3;
+        $("#myModal").modal('hide');
+    }
+}
+
 $(function(){
   var $up = $(".up")
   $up.click(function() {
@@ -48,6 +67,77 @@ function setFocus(id){
     $("#" + id).focus();
 }
 
+
+$(function() {
+    $("[data-toggle='progress']").popover({
+        html : true,
+        title: title(),
+        delay:{show:300, hide:1000},
+        content: function() {
+          return content();
+        }
+    });
+});
+function title() {
+    return '';
+}
+//function content() {
+//  var data = $("<div id='loginModal' class='modal show'>" +
+//  "<div class='modal-dialog'>" +
+//    "<div class='modal-content'>" +
+//      "<div class='modal-header'>" +
+//        "<button type='button' class='close'>x</button>" +
+//        "<h1 class='text-center text-primary'>登录</h1>" +
+//      "</div><div class='modal-body'><form action='' class='form col-md-12 center-block'>" +
+//          "<div class='form-group'><input type='text' class='form-control input-lg' placeholder='电子邮件'></div>" +
+//          "<div class='form-group'>" +
+//            "<input type='password' class='form-control input-lg' placeholder='登录密码'>" +
+//          "</div>" +
+//          "<div class='form-group'>" +
+//            "<button class='btn btn-primary btn-lg btn-block'>立刻登录</button>" +
+//            "<span><a href='#'>找回密码</a></span>" +
+//            "<span><a href='#' class='pull-right'>注册</a></span>" +
+//          "</div>" +
+//        "</form>" +
+//      "</div>" +
+//      "<div class='modal-footer'>" +
+//      "</div>" +
+//    "</div>" +
+//  "</div>" +
+//"</div>");
+//  return data;
+//}
+
+function content1() {
+  var data = $("<div id='loginModal' class='modal show'>" +
+  "<div class='modal-dialog'>" +
+    "<div class='modal-content'>" +
+      "<div class='modal-header'>" +
+        "<button type='button' class='close'>x</button>" +
+        "<h1 class='text-center text-primary'>Please wait...</h1>" +
+      "</div><div class='modal-body'>" +
+          "<div class='progress'>" +
+    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%;'>" +
+    "<span class='sr-only'>100% Complete</span>"+
+    "</div>" +
+    "</div>" +
+      "</div>" +
+      "<div class='modal-footer'>" +
+      "</div>" +
+    "</div>" +
+  "</div>" +
+"</div>");
+  return data;
+}
+
+function content() {
+    var data = $("<div>Please wait...</div><div class='progress' style='Width:250px;'>" +
+    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%;'>" +
+    "<span class='sr-only'>100% Complete</span>"+
+    "</div>" +
+    "</div>");
+    return data;
+}
 function tableDropdown()
 {
     var caseTableName = "example"
