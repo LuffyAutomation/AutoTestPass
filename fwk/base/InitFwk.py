@@ -27,6 +27,7 @@ class InitFwk:
         WEB = "Web"
     class Const:
         PLACEHOLDER = 'PLACEHOLDER'
+
     def __init__(self, name_project=None, path_folder_project=None):
         self.UtilFolder = UtilFolder
         self.UtilTime = UtilTime
@@ -93,9 +94,22 @@ class InitFwk:
         self.path_folder_po = os.path.join(self.path_folder_projects, self.name_project, "po")
         self.path_folder_data = os.path.join(self.path_folder_projects, self.name_project, "data")
         self.path_folder_cases = os.path.join(self.path_folder_projects, self.name_project, "cases")
-        self._path_folder_uiMaps_android = os.path.join(self.path_folder_data, "android", "uiMaps", "uiMap.xml")
-        self._path_folder_uiMaps_web = os.path.join(self.path_folder_data, "web", "uiMaps", "uiMap.xml")
-        self._path_folder_uiMaps_ios = os.path.join(self.path_folder_data, "ios", "uiMaps", "uiMap.xml")
+
+        self.path_folder_android = os.path.join(self.path_folder_data, "android")
+        self.path_folder_web = os.path.join(self.path_folder_data, "web")
+        self.path_folder_ios = os.path.join(self.path_folder_data, "ios")
+
+        self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "ios", "uiMaps", "uiMap.xml")
+
+        self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "ios", "uiMaps", "uiMap.xml")
+
+
+
+
         self.testType = self.ConfigParser.getMainConfigValue(self.name_project, self.ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 

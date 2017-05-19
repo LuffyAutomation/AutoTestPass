@@ -20,12 +20,12 @@
             </page>
             <page name="page_findNewPrinter" description="We find new printer.">
                 <element name="button_continue" >
-                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button" page="page_setup</id>
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
                 </element>
 			</page>
             <page name="page_foundANetworkPrinter" description="We found a network printer!">
                 <element name="button_continue" >
-                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button" page="page_printerList</id>
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
                 </element>
 			</page>
             <page name="sys_packageinstaller" description="for android 6.0 'Allow xxxx to access device's location'.">
@@ -40,7 +40,7 @@
 			</page>
             <page name="page_setup" description="set up printer.">
                 <element name="button_ExitSetup" >
-                    <id>com.hp.printercontrol:id/ap_selection_printer_not_present" page="page_printerList</id>
+                    <id>com.hp.printercontrol:id/ap_selection_printer_not_present</id>
                 </element>
 			</page>
             <page name="page_printerList" description="Printer list.">

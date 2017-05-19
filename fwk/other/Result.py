@@ -2,7 +2,7 @@ import logging
 import logging.config
 import os
 from xml.dom import minidom
-
+from fwk.other.CaseExcel import CaseExcel
 from fwk.base.GlobalArgs import GlobalArgs
 
 
@@ -207,6 +207,16 @@ class Result:
     def setStepBlock(self):
         if self._value_nonPass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
+
+    def loadAndroidCaseInfo(self, name_sheet=None, path_file_excel=None):
+        _CaseExcel = CaseExcel(path_file_excel, name_sheet)
+
+
+
+    def loadIosCaseInfo(self):
+        pass
+    def loadWebCaseInfo(self):
+        pass
 
     def beforeEachFunction(self, TestCase):
         self._UI.logger.debug("******************************************************************************")
