@@ -28,10 +28,10 @@ class HomeMoreAbout(CommonUnittest):
         cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
-
+        cls.Result.loadAndroidCaseInfoFromExcel()
 
     def test_flow(self):
-
+        self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
         # self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
         #                            "2. Launch AiO app.",
         #                            "3. Go to Home screen.")

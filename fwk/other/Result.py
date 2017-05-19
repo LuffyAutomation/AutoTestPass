@@ -15,6 +15,10 @@ class Result:
     path_folder_screenshots = ""
     path_file_xsl_xmlReport = ""
     path_file_xml_xmlReport = ""
+    DictCaseInfo_android = None
+    DictCaseInfo_web = None
+    DictCaseInfo_ios = None
+    DictCaseInfo_current = None
 
     # currentDescripttion = ""
     # currentExpectedResult = ""
@@ -208,15 +212,28 @@ class Result:
         if self._value_nonPass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
 
-    def loadAndroidCaseInfo(self, name_sheet=None, path_file_excel=None):
-        _CaseExcel = CaseExcel(path_file_excel, name_sheet)
 
+    def __loadCaseInfo(self, dictCaseInfo, filePath, name_sheet=None, path_file_excel=None):
+        if path_file_excel is None:
+            path_file_excel = filePath
+        if dictCaseInfo is None:
+            dictCaseInfo = CaseExcel(path_file_excel, name_sheet).getDictAllCasesInfo()
+        self.DictCaseInfo_current = dictCaseInfo
 
+    def loadAndroidCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_android, name_sheet, path_file_excel)
 
-    def loadIosCaseInfo(self):
-        pass
-    def loadWebCaseInfo(self):
-        pass
+    def loadIosCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_ios, name_sheet, path_file_excel)
+
+    def loadWebCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_web, name_sheet, path_file_excel)
+
+    def setDescriptionAndExpectedResultFromExcel(self, id):
+        if self.DictCaseInfo_current is not None:
+            caseInfo = self.DictCaseInfo_current[id]
+            self.setDescription(*caseInfo.description)
+            self.setExpectedResult(*caseInfo.expectedResult)
 
     def beforeEachFunction(self, TestCase):
         self._UI.logger.debug("******************************************************************************")
@@ -229,6 +246,7 @@ class Result:
             self.setTestName(self._dict_report[self._testcaseClassName])
         self._stepNum = self.__getNextStep()
         self._dict_report[self._startTime] = self._UtilTime.getDateTime()
+        self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
         # for line feed > test_flow (src.projects.PrinterControl.unittestCases.HomeMoreAbout.HomeMoreAbout) ... 2017-04-07 14:54:14,275 INFO - Waiting for the element [checkbox_accept] to be shown on page['page_agreements'].
         # self._UtilConsole.printCmdLn("")
 
@@ -358,9 +376,6 @@ class Result:
 
     def setTestName(self, name):
         self._dict_report[self._testName] = name
-
-    def setDescriptionExpectedFromXlsx(self, stepId):
-        pass
 
     def setExpectedResult(self, *expectedResult):
         tmp = ""

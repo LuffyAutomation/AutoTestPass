@@ -6,12 +6,19 @@ class CaseExcel:
     def __init__(self, path_file_excel, name_sheet=None):
         self._path_file_excel = path_file_excel
         self._name_sheet = name_sheet
-        self._all_cases_info = self.__getAllCasesInfo()
+        self._all_cases_info = self.getDictAllCasesInfo()
 
-    def __getAllCasesInfo(self):
+    def hasCases(self):
+        if self._all_cases_info is None:
+            return False
+        return True
+
+    def getDictAllCasesInfo(self):
         try:
             _WorkBook = load_workbook(filename=self._path_file_excel)
-            aaa = _WorkBook.get_sheet_names
+            sheet_names = _WorkBook.sheetnames
+            if self._name_sheet is None:
+                self._name_sheet = sheet_names[0]
             _WorkSheet = _WorkBook.get_sheet_by_name(self._name_sheet)
             max_row = _WorkSheet.max_row
             # max_column = _WorkSheet.max_column
@@ -29,7 +36,6 @@ class CaseExcel:
             case_dict = {}
             for id in id_dict:
                 _CaseDesInfo = CaseDesInfo()
-                _CaseDesInfo
                 case_dict[id] = _CaseDesInfo
                 _CaseDesInfo.id = id
                 for i in range(id_dict[id][0], id_dict[id][1] + 1):
@@ -41,6 +47,8 @@ class CaseExcel:
                     if _WorkSheet.cell(row=i, column=CaseDesInfo.COL_EXPECTED_RESULT).value is not None:
                         _CaseDesInfo.expectedResult.append(
                             _WorkSheet.cell(row=i, column=CaseDesInfo.COL_EXPECTED_RESULT).value)
+            if case_dict == {}:
+                return None
             return case_dict
         except:
             return None

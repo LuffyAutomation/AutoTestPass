@@ -99,13 +99,13 @@ class InitFwk:
         self.path_folder_web = os.path.join(self.path_folder_data, "web")
         self.path_folder_ios = os.path.join(self.path_folder_data, "ios")
 
-        self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
-        self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")
-        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "ios", "uiMaps", "uiMap.xml")
+        self.path_file_xlsx_caseInfo_android = os.path.join(self.path_folder_android, "caseInfo.xlsx")
+        self.path_file_xlsx_caseInfo_web = os.path.join(self.path_folder_web, "caseInfo.xlsx")
+        self.path_file_xlsx_caseInfo_ios = os.path.join(self.path_folder_ios, "caseInfo.xlsx")
 
         self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
         self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")
-        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "ios", "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "uiMaps", "uiMap.xml")
 
 
 
