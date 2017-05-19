@@ -5,37 +5,52 @@ from projects.PrinterControl.po.wrapper.Pages_Android import Pages_Android
 
 
 class HomeMoreAbout(CommonUnittest):
-    # 1. self.Result.setDescription and self.Result.setExpectedResult can be ignored.
-    # 2. Do not write setUpClass, tearDownClass, setUp and tearDown
-    # 3. Please use following 3 instance for the invocking of page objects of whole Test Case.
-    # self.Pages_Android = Pages_Android(self.UI_Android)
-    # self.Pages_Ios = Pages_Ios(self.UI_Ios)
-    # self.Pages_Web = Pages_Web(self.UI_Web)
-    # self.Pages = self.Pages_Android
+    '''
+    1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
+    2. Do not write setUpClass, tearDownClass, setUp and tearDown
+    3. Please use following 3 instance for the invoking of page objects of whole Test Case.
+    self.Pages_Android = Pages_Android(self.UI_Android)
+    self.Pages_Ios = Pages_Ios(self.UI_Ios)
+    self.Pages_Web = Pages_Web(self.UI_Web)
+    self.Pages = self.Pages_Android
 
-    # def test_exmaple(self):
-    # self.Pages_Android = Pages_Android(self.UI_Android)
-    # self.Pages = self.Pages_Android
-    #     self.Result.setDescription("1. xxxxx.",
-    #                                "2. xxxxx.")
-    #     self.Result.setExpectedResult("xxxxxx is displayed.")
-    #     self.Result.setScreenshot("begin", "This is a begin.")
-    #     self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
-    #     self.Pages.xxxxxxxxx
+    def test_exmaple(self):
+    self.Pages_Android = Pages_Android(self.UI_Android)
+    self.Pages = self.Pages_Android
+        self.Result.setDescription("1. xxxxx.",
+                                   "2. xxxxx.")
+        self.Result.setExpectedResult("xxxxxx is displayed.")
+        self.Result.setScreenshot("begin", "This is a begin.")
+        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Pages.xxxxxxxxx
+    '''
 
     @classmethod
     def setUpClass(cls):
         cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
-        cls.Result.loadAndroidCaseInfoFromExcel()
+        '''
+        1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
+        cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
+        2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the 
+        class name will be the as default sheet name.
+        '''
+        # cls.Result.loadAndroidCaseInfoFromExcel()
 
     def test_flow(self):
-        self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
-        # self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
-        #                            "2. Launch AiO app.",
-        #                            "3. Go to Home screen.")
-        # self.Result.setExpectedResult("AiO Home screen is displayed.")
+        '''
+        1. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
+        2. The function name will be used as the case id if you leave the ("test_flow") as empty.
+        3. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
+        4. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
+        '''
+        # self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
+
+        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+                                   "2. Launch AiO app.",
+                                   "3. Go to Home screen.")
+        self.Result.setExpectedResult("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
 
     def test_aioVersion(self):
