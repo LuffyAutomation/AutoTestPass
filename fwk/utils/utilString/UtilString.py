@@ -1,3 +1,6 @@
+import re
+
+
 class UtilString:
     def __init__(self, *args):
         pass
@@ -14,3 +17,10 @@ class UtilString:
                 tmp += separator
         return tmp
 
+    @staticmethod
+    def toCodeName(str):
+        str = str.replace(".", "_").strip()
+        return re.sub('[^a-zA-Z_]', '', str)
+
+    # s = filter(lambda ch: ch in '0123456789', s)
+    # print ''.join([x for x in oldS if x.isalpha()])

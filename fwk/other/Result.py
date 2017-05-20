@@ -2,8 +2,9 @@ import logging
 import logging.config
 import os
 from xml.dom import minidom
-from fwk.other.CaseExcel import CaseExcel
+
 from fwk.base.GlobalArgs import GlobalArgs
+from fwk.utils.exceller.Exceller import Exceller
 
 
 class Result:
@@ -212,22 +213,21 @@ class Result:
         if self._value_nonPass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
 
-
     def __loadCaseInfo(self, dictCaseInfo, filePath, name_sheet=None, path_file_excel=None):
         if path_file_excel is None:
             path_file_excel = filePath
         if dictCaseInfo is None:
-            dictCaseInfo = CaseExcel(path_file_excel, name_sheet).getDictAllCasesInfo()
+            dictCaseInfo = Exceller(path_file_excel, name_sheet).getDictAllCasesInfo()
         self.DictCaseInfo_current = dictCaseInfo
 
     def loadAndroidCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
         self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_android, name_sheet, path_file_excel)
 
     def loadIosCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_ios, name_sheet, path_file_excel)
+        self.__loadCaseInfo(self.DictCaseInfo_ios, self._Init.path_file_xlsx_caseInfo_ios, name_sheet, path_file_excel)
 
     def loadWebCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_web, name_sheet, path_file_excel)
+        self.__loadCaseInfo(self.DictCaseInfo_web, self._Init.path_file_xlsx_caseInfo_web, name_sheet, path_file_excel)
 
     def setDescriptionAndExpectedResultFromExcel(self, id):
         if self.DictCaseInfo_current is not None:

@@ -8,8 +8,8 @@ from fwk.utils.utilIO.UtilFile import UtilFile
 from fwk.utils.utilIO.UtilFolder import UtilFolder
 from fwk.utils.utilOS.UtilOS import UtilOS
 from fwk.utils.utilTime.UtilTime import UtilTime
+from fwk.utils.utilString.UtilString import UtilString
 from fwk.utils.utilTime.UtilWaitEvent import UtilWaitEvent
-
 from fwk.other.ConfigParser import ConfigParse
 from fwk.utils.utilXml.UtilXml import UtilXml
 
@@ -33,6 +33,7 @@ class InitFwk:
         self.UtilTime = UtilTime
         self.UtilFile = UtilFile
         self.UtilXml = UtilXml
+        self.UtilString = UtilString
         self.UtilOS = UtilOS
         self.UtilConsole = UtilConsole
         self.UtilWaitEvent = UtilWaitEvent
@@ -99,9 +100,13 @@ class InitFwk:
         self.path_folder_web = os.path.join(self.path_folder_data, "web")
         self.path_folder_ios = os.path.join(self.path_folder_data, "ios")
 
-        self.path_file_xlsx_caseInfo_android = os.path.join(self.path_folder_android, "caseInfo.xlsx")
-        self.path_file_xlsx_caseInfo_web = os.path.join(self.path_folder_web, "caseInfo.xlsx")
-        self.path_file_xlsx_caseInfo_ios = os.path.join(self.path_folder_ios, "caseInfo.xlsx")
+        self.path_file_xlsx_TestData_android = os.path.join(self.path_folder_android, "TestData.xlsx")
+        self.path_file_xlsx_TestData_web = os.path.join(self.path_folder_web, "TestData.xlsx")
+        self.path_file_xlsx_TestData_ios = os.path.join(self.path_folder_ios, "TestData.xlsx")
+
+        self.path_file_xlsx_testData_android = os.path.join(self.path_folder_android, "testData.xlsx")
+        self.path_file_xlsx_testData_web = os.path.join(self.path_folder_web, "testData.xlsx")
+        self.path_file_xlsx_testData_ios = os.path.join(self.path_folder_ios, "testData.xlsx")
 
         self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
         self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")

@@ -3,7 +3,7 @@ import os
 
 from selenium.webdriver.common.by import By
 
-# from InitFwk import InitFwk
+from fwk.utils.exceller.Exceller import Exceller
 from fwk.other.RunTimeConf import RunTimeConf
 from fwk.utils.utilTime.UtilWaitEvent import UtilWaitEvent
 
@@ -57,6 +57,7 @@ class UiBaseFwk(object):
         self.UtilTime = self.Init.UtilTime
         self.UtilFile = self.Init.UtilFile
         self.UtilFolder = self.Init.UtilFolder
+        self.UtilString = self.Init.UtilString
         self.UtilConsole = self.Init.UtilConsole
         self.TestType = self.Init.TestType
         self.testType = self.Init.testType
@@ -270,3 +271,47 @@ class UiBaseFwk(object):
             return True
         else:
             return False
+
+    DictTestData_current = None
+    DictTestData_android = None
+    DictTestData_ios = None
+    DictTestData_web = None
+    def __loadTestData(self, dictTestData, filePath, name_sheet=None, path_file_excel=None):
+        if path_file_excel is None:
+            path_file_excel = filePath
+        if dictTestData is None:
+            dictTestData = Exceller(path_file_excel, name_sheet).getDictTestData("placeholder")
+        self.DictTestData_current = dictTestData
+        return dictTestData
+
+    def loadAndroidTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_android = self.__loadTestData(self.DictTestData_android, self.Init.path_file_xlsx_TestData_android, name_sheet,
+                            path_file_excel)
+
+    def loadIosTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_ios = self.__loadTestData(self.DictTestData_ios, self.Init.path_file_xlsx_TestData_ios, name_sheet,
+                            path_file_excel)
+
+    def loadWebTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_web = self.__loadTestData(self.DictTestData_web, self.Init.path_file_xlsx_TestData_web, name_sheet,
+                            path_file_excel)
+
+    def __getStr(self, dictTestData, id):
+        id = self.UtilString.toCodeName(id)
+        if dictTestData is not None:
+            try:
+                r = dictTestData[id]
+                if r is None:
+                    return "CanNotFind_" + id
+                return r
+            except:
+                return "CanNotFind_" + id
+
+    def getAndroidStr(self, id):
+        return self.__getStr(self.DictTestData_android, id)
+
+    def getIosStr(self, id):
+        return self.__getStr(self.DictTestData_ios, id)
+
+    def getWebStr(self, id):
+        return self.__getStr(self.DictTestData_web, id)

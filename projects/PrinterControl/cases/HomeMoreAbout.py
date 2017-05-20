@@ -30,6 +30,10 @@ class HomeMoreAbout(CommonUnittest):
         cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
+        cls.UI_Android.loadAndroidTestDataFromExcel()
+
+        aa = cls.UI_Android.getAndroidStr("dp_msg_upload_waiting")
+        pass
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
@@ -62,6 +66,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_home.flow_open_menuItemAbout()
         self.Pages.Page_about.verify_Icon_Version_APPName()
         self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+
 
     def test_copyRight(self):
         self.Result.setDescription("Fllow the last step.")

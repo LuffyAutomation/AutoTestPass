@@ -16,12 +16,14 @@ class CommonUnittest(unittest.TestCase):
 
     @classmethod
     def setUpBeforClass(cls):
-        # cls.UI and cls.Pages are default test objects, if only one of Ios, Android and Web needs to be tested.
-        # It is just fine to just use them.
-        cls.UI = None
-        cls.UI_Ios = None
-        cls.UI_Android = None
-        cls.UI_Web = None
+        '''
+        cls.UI and cls.Pages are default test objects, if only one of Ios, Android and Web needs to be tested.
+        It is just fine to just use them.
+        '''
+        # cls.UI = None
+        # cls.UI_Ios = None
+        # cls.UI_Android = None
+        # cls.UI_Web = None
         cls.Pages_Android = None
         cls.Pages = None
         cls.Pages_Ios = None
