@@ -3,6 +3,7 @@
 from fwk.case.CommonUnittest import CommonUnittest
 from projects.PrinterControl.po.wrapper.Pages_Android import Pages_Android
 
+from projects.PrinterControl.data.android.strings.TestData_Android import TestData_Android
 
 class HomeMoreAbout(CommonUnittest):
     '''
@@ -32,7 +33,8 @@ class HomeMoreAbout(CommonUnittest):
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
         cls.UI_Android.loadAndroidTestDataFromExcel()
 
-        aa = cls.UI_Android.getAndroidStr("dp_msg_upload_waiting")
+        example_string_1 = cls.UI_Android.getTestDataAndroid("dp_msg_upload_waiting")
+        example_string_2 = cls.UI_Android.getTestDataAndroid(TestData_Android.sheet_example.dp_msg_upload_success)
         pass
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
@@ -40,7 +42,7 @@ class HomeMoreAbout(CommonUnittest):
         2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the 
         class name will be the as default sheet name.
         '''
-        # cls.Result.loadAndroidCaseInfoFromExcel()
+        cls.Result.loadAndroidCaseInfoFromExcel()
 
     def test_flow(self):
         '''
@@ -49,7 +51,7 @@ class HomeMoreAbout(CommonUnittest):
         3. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
         4. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
-        # self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
+        self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
 
         self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",

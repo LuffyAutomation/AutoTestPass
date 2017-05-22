@@ -1,5 +1,5 @@
 import re
-
+from fwk.utils.utilTime.UtilTime import UtilTime
 
 class UtilString:
     def __init__(self, *args):
@@ -20,6 +20,9 @@ class UtilString:
     @staticmethod
     def toCodeName(str):
         str = str.replace(".", "_").strip()
+        str = re.sub('[^a-zA-Z_]', '', str)
+        if str == "":
+            str = "Null" + UtilTime.getCodeTime()
         return re.sub('[^a-zA-Z_]', '', str)
 
     # s = filter(lambda ch: ch in '0123456789', s)

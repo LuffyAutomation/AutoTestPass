@@ -296,7 +296,7 @@ class UiBaseFwk(object):
         self.DictTestData_web = self.__loadTestData(self.DictTestData_web, self.Init.path_file_xlsx_TestData_web, name_sheet,
                             path_file_excel)
 
-    def __getStr(self, dictTestData, id):
+    def __getTestData(self, dictTestData, id):
         id = self.UtilString.toCodeName(id)
         if dictTestData is not None:
             try:
@@ -307,11 +307,11 @@ class UiBaseFwk(object):
             except:
                 return "CanNotFind_" + id
 
-    def getAndroidStr(self, id):
-        return self.__getStr(self.DictTestData_android, id)
+    def getTestDataAndroid(self, id):
+        return self.__getTestData(self.DictTestData_android, id)
 
-    def getIosStr(self, id):
-        return self.__getStr(self.DictTestData_ios, id)
+    def getTestDataIos(self, id):
+        return self.__getTestData(self.DictTestData_ios, id)
 
-    def getWebStr(self, id):
-        return self.__getStr(self.DictTestData_web, id)
+    def getTestDataWeb(self, id):
+        return self.__getTestData(self.DictTestData_web, id)

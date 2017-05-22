@@ -11,6 +11,10 @@ class UtilTime:
         return datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S.%f')
 
     @staticmethod
+    def getCodeTime():
+        return datetime.datetime.now().strftime('%Y%m%d_%H%M%S%f')
+
+    @staticmethod
     def getCurrentTime1():
         return time.strftime('%m%d%Y%H%M%S', time.localtime(time.time()))
 
