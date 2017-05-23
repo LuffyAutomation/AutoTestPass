@@ -49,17 +49,17 @@ class TestBrowser(CommonUnittest):
     2. There are 2 methods to get test data strings.
         2.1 testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
         2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
-            Invoke cls.TestData_Android = TestData_Android(cls.UI_Android) 
-            Invoke testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+            Invoke cls.TestData_Web = TestData_Web(cls.UI_Web) 
+            Invoke testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
     '''
 
-    # cls.UI_Android.loadTestDataFromExcel()
-    # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
-    # cls.TestData_Android = TestData_Android(cls.UI_Android)
-    # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+    # cls.UI_Web.loadTestDataFromExcel()
+    # testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
+    # cls.TestDataWeb = TestData_Web(cls.UI_Web)
+    # testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
 
     def test_flow(self):
-        self.Result.setDescription("1. Launch %s." % self.Portal._testType,
+        self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
                                    "2. Go to www.baidu.com.")
         self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
