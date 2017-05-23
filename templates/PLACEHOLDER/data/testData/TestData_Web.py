@@ -1,7 +1,7 @@
 # coding: utf-8
 
 
-class TestData_Android:
+class TestData_Web:
     def __init__(self, UI):
         self.Sheet_example = self._Sheet_example(UI)
     # sheet name: [sheet_example]

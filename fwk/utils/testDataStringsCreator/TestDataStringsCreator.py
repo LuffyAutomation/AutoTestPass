@@ -47,11 +47,13 @@ class TestDataStringsCreator(object):
                 tmp += self._indent + self._indent + "self.%s = self._%s(UI)" % (UtilString.toCodeNameCap(name_sheet), UtilString.toCodeNameCap(name_sheet)) + self._newLine
             tmp += self._indent + "# sheet name: [%s]" % (page_key) + self._newLine
             tmp += self._indent + "class _%s:" % UtilString.toCodeNameCap(page_key) + self._newLine
+            tmp += self._indent + self._indent + "def __init__(self, UI):" + self._newLine
+            tmp += self._indent + self._indent + self._indent + "self.UI = UI" + self._newLine
             for testData_string in self.DictTestDataOfAllSheets[page_key]:
                 t = self.DictTestDataOfAllSheets[page_key][testData_string]
-                tmp += self._indent + self._indent + "# ID: [%s] value:[%s]" % (testData_string, t) + self._newLine
-                t = UtilString.toCodeName(testData_string)
-                tmp += self._indent + self._indent + t + (" = '%s'" % t) + self._newLine
+                tmp += self._newLine + self._indent + self._indent + "# ID: [%s] value:[%s]" % (UtilString.toCodeName(testData_string), t) + self._newLine
+                tmp += self._indent + self._indent + "def %s(self):" % UtilString.toCodeName(testData_string) + self._newLine
+                tmp += self._indent + self._indent + self._indent + ("return self.UI.getTestData('%s')" % testData_string) + self._newLine
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_strings, self.__getTestType() + ".py"), tmp)
 
     def _writeFileAndOverwrite(self, path_file, txt=""):

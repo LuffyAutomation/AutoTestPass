@@ -5,6 +5,9 @@ from fwk.case.CommonUnittest import CommonUnittest
 from projects.PLACEHOLDER.po.wrapper.Pages_Android import Pages_Android
 # from projects.PLACEHOLDER.po.wrapper.Pages_Ios import Pages_Ios
 # from projects.PLACEHOLDER.po.wrapper.Pages_Web import Pages_Web
+from projects.PLACEHOLDER.data.testData.TestData_Android import TestData_Android
+# from projects.PLACEHOLDER.data.testData.TestData_Ios import TestData_Ios
+# from projects.PLACEHOLDER.data.testData.TestData_Web import TestData_Web
 
 class PLACEHOLDER(CommonUnittest):
     '''
@@ -32,7 +35,7 @@ class PLACEHOLDER(CommonUnittest):
     '''
     @classmethod
     def setUpClass(cls):
-        cls.setUpBeforClass() #setup test before starting.
+        cls.setUpBeforClass()  # setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         # cls.Pages_Web = Pages_Web(cls.UI_Web)
         # cls.Pages_Ios = Pages_Android(cls.UI_Ios)
@@ -44,6 +47,20 @@ class PLACEHOLDER(CommonUnittest):
         class name will be the as default sheet name.
         '''
         # cls.Result.loadAndroidCaseInfoFromExcel()
+        # TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        '''
+        1. Test Data will be loaded from testData.xlsx if you invoke
+        cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
+        2. There 2 methods to get test data strings.
+            2.1 testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+            2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
+                Invoke cls.TestData_Android = TestData_Android(cls.UI_Android) 
+                Invoke testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        '''
+        # cls.UI_Android.loadTestDataFromExcel()
+        # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+        # cls.TestData_Android = TestData_Android(cls.UI_Android)
+        # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting(
 
     def test_flow(self):
         '''

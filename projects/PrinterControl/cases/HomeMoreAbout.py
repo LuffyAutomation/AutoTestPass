@@ -32,10 +32,9 @@ class HomeMoreAbout(CommonUnittest):
 
     @classmethod
     def setUpClass(cls):
-        cls.setUpBeforClass() #setup test before starting.
+        cls.setUpBeforClass()  # setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple since generally only one of Android, Ios and Web may be tested.
-
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
@@ -44,12 +43,19 @@ class HomeMoreAbout(CommonUnittest):
         '''
         # cls.Result.loadAndroidCaseInfoFromExcel()
         # TestData_Android.Sheet_example.dp_msg_upload_waiting()
-        cls.UI_Android.loadTestDataFromExcel()
-        example_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
-        # example_string_2 = cls.UI_Android.getTestDataAndroid(TestData_Android.sheet_example.dp_msg_upload_waiting)
-        cls.TestData_Android = TestData_Android(cls.UI_Android)
-        aaa = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
-        pass
+        '''
+        1. Test Data will be loaded from testData.xlsx if you invoke
+        cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
+        2. There 2 methods to get test data strings.
+            2.1 testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+            2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
+                Invoke cls.TestData_Android = TestData_Android(cls.UI_Android) 
+                Invoke testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        '''
+        # cls.UI_Android.loadTestDataFromExcel()
+        # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+        # cls.TestData_Android = TestData_Android(cls.UI_Android)
+        # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
 
     def test_flow(self):
         '''
