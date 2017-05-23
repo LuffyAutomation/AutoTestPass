@@ -51,7 +51,7 @@ class PLACEHOLDER(CommonUnittest):
         '''
         1. Test Data will be loaded from testData.xlsx if you invoke
         cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
-        2. There 2 methods to get test data strings.
+        2. There are 2 methods to get test data strings.
             2.1 testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
             2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
                 Invoke cls.TestData_Android = TestData_Android(cls.UI_Android) 
