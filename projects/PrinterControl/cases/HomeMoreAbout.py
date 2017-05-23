@@ -54,8 +54,8 @@ class HomeMoreAbout(CommonUnittest):
         '''
         # cls.UI_Android.loadTestDataFromExcel()
         # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
-        # cls.TestData_Android = TestData_Android(cls.UI_Android)
-        # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        cls.TestData_Android = TestData_Android(cls.UI_Android)
+        testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
 
     def test_flow(self):
         '''

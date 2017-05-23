@@ -7,6 +7,7 @@ import os
 from fwk.base.InitFwk import InitFwk
 from fwk.utils.newProjectCreator.NewProjectCreator import NewProjectCreator
 import createPageObjects
+import createTestDataStrings
 
 _InitFwk = InitFwk()
 errorMsg = ""
@@ -22,6 +23,8 @@ class UiPortal():
     name_project = "name_project"
     action_selectProject = "action_selectProject"
     action_createPageObjects = "action_createPageObjects"
+    action_createTestData = "action_createTestData"
+
 
     EDIT_NEWPROJECT = "edit_newProject"
     RADIOBUTTON_TESTTYPE = "radioButton_testType"
@@ -55,7 +58,9 @@ def index():
         elif _UiPortal.action_createPageObjects in request.args:
             createPageObjects.create()
             successMsg = "1. The Page Objects of <strong>%s</strong> are created successfully.</br>" % _InitFwk.name_project
-
+        elif _UiPortal.action_createTestData in request.args:
+            createTestDataStrings.create()
+            successMsg = "1. The Test Data Objects of <strong>%s</strong> are created successfully.</br>" % _InitFwk.name_project
     elif request.method == 'POST':
         newProjectName = request.form[_UiPortal.EDIT_NEWPROJECT].strip()
         if newProjectName != "" and newProjectName is not None:
