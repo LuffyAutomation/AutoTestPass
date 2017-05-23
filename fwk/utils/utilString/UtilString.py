@@ -25,5 +25,9 @@ class UtilString:
             str = "Null" + UtilTime.getCodeTime()
         return re.sub('[^a-zA-Z_]', '', str)
 
+    @staticmethod
+    def toCodeNameCap(str):
+        return str[0].upper() + str[1:]
+
     # s = filter(lambda ch: ch in '0123456789', s)
     # print ''.join([x for x in oldS if x.isalpha()])
