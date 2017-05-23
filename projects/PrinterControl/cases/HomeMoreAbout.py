@@ -3,7 +3,7 @@
 from fwk.case.CommonUnittest import CommonUnittest
 from projects.PrinterControl.po.wrapper.Pages_Android import Pages_Android
 
-from projects.PrinterControl.data.android.strings.TestData_Android import TestData_Android
+from projects.PrinterControl.data.testData.TestData_Android import TestData_Android
 
 class HomeMoreAbout(CommonUnittest):
     '''
@@ -31,18 +31,18 @@ class HomeMoreAbout(CommonUnittest):
         cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
-        cls.UI_Android.loadAndroidTestDataFromExcel()
 
-        example_string_1 = cls.UI_Android.getTestDataAndroid("dp_msg_upload_waiting")
-        example_string_2 = cls.UI_Android.getTestDataAndroid(TestData_Android.sheet_example.dp_msg_upload_success)
-        pass
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
         2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the 
         class name will be the as default sheet name.
         '''
-        cls.Result.loadAndroidCaseInfoFromExcel()
+        # cls.Result.loadAndroidCaseInfoFromExcel()
+        TestData_Android.Sheet_example.dp_msg_upload_waiting()
+
+        example_string_1 = cls.UI_Android.getTestDataAndroid("dp_msg_upload_waiting")
+        # example_string_2 = cls.UI_Android.getTestDataAndroid(TestData_Android.sheet_example.dp_msg_upload_waiting)
 
     def test_flow(self):
         '''

@@ -20,14 +20,18 @@ class CommonUnittest(unittest.TestCase):
         cls.UI and cls.Pages are default test objects, if only one of Ios, Android and Web needs to be tested.
         It is just fine to just use them.
         '''
-        # cls.UI = None
-        # cls.UI_Ios = None
-        # cls.UI_Android = None
-        # cls.UI_Web = None
+        cls.UI = None
+        cls.UI_Ios = None
+        cls.UI_Android = None
+        cls.UI_Web = None
         cls.Pages_Android = None
         cls.Pages = None
         cls.Pages_Ios = None
         cls.Pages_Web = None
+        cls.TestData_Android = None
+        cls.TestData_Ios = None
+        cls.TestData_Web = None
+        cls.TestData = None
         try:
             cls.InitFwk = InitFwk()
             cls.InitFwk.createResultFolder()
@@ -36,6 +40,7 @@ class CommonUnittest(unittest.TestCase):
                 cls.UI_Android = AndroidFwk(cls.InitFwk)
                 # cls.Pages_Android = Pages_Android(cls.UI_Android)
                 cls.UI = cls.UI_Android
+
                 # cls.Pages = cls.Pages_Android
             elif cls.InitFwk.TestType.IOS.lower() == cls.InitFwk.testType.lower():
                 cls.UI_Ios = IosFwk(cls.InitFwk)

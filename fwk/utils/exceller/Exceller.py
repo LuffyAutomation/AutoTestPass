@@ -71,7 +71,7 @@ class Exceller:
     def getDictTestData(self, language="placeholder", _WorkSheet=None):
         try:
             self.__getWorkSheet()
-            self.__getDictTestData(self, language)
+            return self.__getDictTestData(language, _WorkSheet)
         except:
             return None
 

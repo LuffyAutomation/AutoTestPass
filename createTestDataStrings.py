@@ -9,11 +9,11 @@ PATH = lambda p: os.path.abspath(
 def create():
     # project is defined in env>main.conf>[DefaultProject].
     _InitFwk = InitFwk()
-    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_android, _InitFwk.path_folder_xlsx_strings_android)
+    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_android, _InitFwk.path_folder_testData)
     _TestDataStringsCreator.create()
-    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_ios, _InitFwk.path_folder_xlsx_strings_ios)
+    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_ios, _InitFwk.path_folder_testData)
     _TestDataStringsCreator.create()
-    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_web, _InitFwk.path_folder_xlsx_strings_web)
+    _TestDataStringsCreator = TestDataStringsCreator(_InitFwk.path_file_xlsx_testData_web, _InitFwk.path_folder_testData)
     _TestDataStringsCreator.create()
 
 if __name__ == '__main__':

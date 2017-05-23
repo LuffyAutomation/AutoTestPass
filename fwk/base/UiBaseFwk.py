@@ -284,16 +284,16 @@ class UiBaseFwk(object):
         self.DictTestData_current = dictTestData
         return dictTestData
 
-    def loadAndroidTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_android = self.__loadTestData(self.DictTestData_android, self.Init.path_file_xlsx_TestData_android, name_sheet,
+    def _loadAndroidTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_android = self.__loadTestData(self.DictTestData_android, self.Init.path_file_xlsx_testData_android, name_sheet,
                             path_file_excel)
 
-    def loadIosTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_ios = self.__loadTestData(self.DictTestData_ios, self.Init.path_file_xlsx_TestData_ios, name_sheet,
+    def _loadIosTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_ios = self.__loadTestData(self.DictTestData_ios, self.Init.path_file_xlsx_testData_ios, name_sheet,
                             path_file_excel)
 
-    def loadWebTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_web = self.__loadTestData(self.DictTestData_web, self.Init.path_file_xlsx_TestData_web, name_sheet,
+    def _loadWebTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        self.DictTestData_web = self.__loadTestData(self.DictTestData_web, self.Init.path_file_xlsx_testData_web, name_sheet,
                             path_file_excel)
 
     def __getTestData(self, dictTestData, id):
@@ -308,10 +308,16 @@ class UiBaseFwk(object):
                 return "CanNotFind_" + id
 
     def getTestDataAndroid(self, id):
+        if self.DictTestData_android is None:
+            self._loadAndroidTestDataFromExcel()
         return self.__getTestData(self.DictTestData_android, id)
 
     def getTestDataIos(self, id):
+        if self.DictTestData_ios is None:
+            self._loadIosTestDataFromExcel()
         return self.__getTestData(self.DictTestData_ios, id)
 
     def getTestDataWeb(self, id):
+        if self.DictTestData_web is None:
+            self._loadWebTestDataFromExcel()
         return self.__getTestData(self.DictTestData_web, id)
