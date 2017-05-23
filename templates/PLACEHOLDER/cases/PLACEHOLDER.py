@@ -12,7 +12,7 @@ from projects.PLACEHOLDER.data.testData.TestData_Android import TestData_Android
 class PLACEHOLDER(CommonUnittest):
     '''
     1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
-    2. Do not write setUpClass, tearDownClass, setUp and tearDown
+    2. setUpClass(cls) is reserved function, please keep it. Do not write any of tearDownClass, setUp and tearDown.
     3. If other drivers are needed, please select the following statements according to related test requirement:
         cls.UI_Android.getDriver()
         cls.UI_Web.getDriver()
@@ -24,8 +24,8 @@ class PLACEHOLDER(CommonUnittest):
         cls.Pages = cls.Pages_Android
 
     def test_exmaple(self):
-    self.Pages_Android = Pages_Android(self.UI_Android)
-    self.Pages = self.Pages_Android
+        self.Pages_Android = Pages_Android(self.UI_Android)
+        self.Pages = self.Pages_Android
         self.Result.setDescription("1. xxxxx.",
                                    "2. xxxxx.")
         self.Result.setExpectedResult("xxxxxx is displayed.")
@@ -60,7 +60,7 @@ class PLACEHOLDER(CommonUnittest):
         # cls.UI_Android.loadTestDataFromExcel()
         # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
         # cls.TestData_Android = TestData_Android(cls.UI_Android)
-        # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting(
+        # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
 
     def test_flow(self):
         '''
