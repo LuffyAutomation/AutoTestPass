@@ -72,6 +72,13 @@ class UiBaseFwk(object):
         self.__getConfigurationParameters()
         self.RunTimeConf = RunTimeConf(self.Init.ConfigParser)
         self._driver = None
+
+        self.path_file_xlsx_testData = ""
+        self._DictTestData = None
+        self._HasSearchedTestData = False
+
+        self.hasGotDriver = False
+
         # if 2 == 1:
         #     self.Init = InitFwk
         #     self._driver = webdriver.Remote("")
@@ -272,52 +279,23 @@ class UiBaseFwk(object):
         else:
             return False
 
-    DictTestData_current = None
-    DictTestData_android = None
-    DictTestData_ios = None
-    DictTestData_web = None
-    def __loadTestData(self, dictTestData, filePath, name_sheet=None, path_file_excel=None):
-        if path_file_excel is None:
-            path_file_excel = filePath
-        if dictTestData is None:
-            dictTestData = Exceller(path_file_excel, name_sheet).getDictTestData("placeholder")
-        self.DictTestData_current = dictTestData
-        return dictTestData
+    def loadTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+        if self._DictTestData is None:
+            self._HasSearchedTestData = True
+            if path_file_excel is None:
+                path_file_excel = self.path_file_xlsx_testData
+            self._DictTestData = Exceller(path_file_excel, name_sheet).getDictTestData("placeholder")
 
-    def _loadAndroidTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_android = self.__loadTestData(self.DictTestData_android, self.Init.path_file_xlsx_testData_android, name_sheet,
-                            path_file_excel)
-
-    def _loadIosTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_ios = self.__loadTestData(self.DictTestData_ios, self.Init.path_file_xlsx_testData_ios, name_sheet,
-                            path_file_excel)
-
-    def _loadWebTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.DictTestData_web = self.__loadTestData(self.DictTestData_web, self.Init.path_file_xlsx_testData_web, name_sheet,
-                            path_file_excel)
-
-    def __getTestData(self, dictTestData, id):
-        id = self.UtilString.toCodeName(id)
-        if dictTestData is not None:
+    def getTestData(self, id):
+        if self._DictTestData is not None:
             try:
-                r = dictTestData[id]
+                r = self._DictTestData[self.UtilString.toCodeName(id)]
                 if r is None:
                     return "CanNotFind_" + id
                 return r
             except:
                 return "CanNotFind_" + id
+        return "CanNotFind_" + id
 
-    def getTestDataAndroid(self, id):
-        if self.DictTestData_android is None:
-            self._loadAndroidTestDataFromExcel()
-        return self.__getTestData(self.DictTestData_android, id)
 
-    def getTestDataIos(self, id):
-        if self.DictTestData_ios is None:
-            self._loadIosTestDataFromExcel()
-        return self.__getTestData(self.DictTestData_ios, id)
 
-    def getTestDataWeb(self, id):
-        if self.DictTestData_web is None:
-            self._loadWebTestDataFromExcel()
-        return self.__getTestData(self.DictTestData_web, id)

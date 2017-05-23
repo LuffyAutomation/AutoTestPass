@@ -9,11 +9,15 @@ class HomeMoreAbout(CommonUnittest):
     '''
     1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
     2. Do not write setUpClass, tearDownClass, setUp and tearDown
-    3. Please use following 3 instance for the invoking of page objects of whole Test Case.
-    self.Pages_Android = Pages_Android(self.UI_Android)
-    self.Pages_Ios = Pages_Ios(self.UI_Ios)
-    self.Pages_Web = Pages_Web(self.UI_Web)
-    self.Pages = self.Pages_Android
+    3. If other drivers are needed, please select the following statements according to related test requirement:
+        cls.UI_Android.getDriver()
+        cls.UI_Web.getDriver()
+        cls.UI_Ios.getDriver()
+    4. Please use following 3 instance for the invoking of page objects of whole Test Case.
+        cls.Pages_Android = Pages_Android(cls.UI_Android)
+        cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
+        cls.Pages_Web = Pages_Web(cls.UI_Web)
+        cls.Pages = cls.Pages_Android
 
     def test_exmaple(self):
     self.Pages_Android = Pages_Android(self.UI_Android)
@@ -30,7 +34,7 @@ class HomeMoreAbout(CommonUnittest):
     def setUpClass(cls):
         cls.setUpBeforClass() #setup test before starting.
         cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
-        cls.Pages = cls.Pages_Android  # Just make it simple, you can ignore this step.
+        cls.Pages = cls.Pages_Android  # Just make it simple since generally only one of Android, Ios and Web may be tested.
 
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
@@ -39,19 +43,24 @@ class HomeMoreAbout(CommonUnittest):
         class name will be the as default sheet name.
         '''
         # cls.Result.loadAndroidCaseInfoFromExcel()
-        TestData_Android.Sheet_example.dp_msg_upload_waiting()
-
-        example_string_1 = cls.UI_Android.getTestDataAndroid("dp_msg_upload_waiting")
+        # TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        cls.UI_Android.loadTestDataFromExcel()
+        example_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
         # example_string_2 = cls.UI_Android.getTestDataAndroid(TestData_Android.sheet_example.dp_msg_upload_waiting)
+        cls.TestData_Android = TestData_Android(cls.UI_Android)
+        aaa = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
+        pass
 
     def test_flow(self):
         '''
-        1. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
-        2. The function name will be used as the case id if you leave the ("test_flow") as empty.
-        3. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
-        4. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
+        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID inthe  excel,
+        self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
+        2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
+        3. The function name will be used as the case id if you leave the ("test_flow") as empty.
+        4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
+        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
-        self.Result.setDescriptionAndExpectedResultFromExcel("test_flow")
+        # self.Result.setDescriptionAndExpectedResultFromExcel()
 
         self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
@@ -71,14 +80,14 @@ class HomeMoreAbout(CommonUnittest):
 
 
     def test_copyRight(self):
-        self.Result.setDescription("Fllow the last step.")
+        self.Result.setDescription("Follow the last step.")
         self.Result.setExpectedResult("1. AiO application copy right text is display correctly",
                                       "2. AiO application copy right start year is displayed correctly",
                                       "3. AiO application copy right end year is displayed correctly")
         self.Pages.Page_about.verify_CopyRight()
 
     def test_legalInformaion(self):
-        self.Result.setDescription("Fllow the last step.",
+        self.Result.setDescription("Follow the last step.",
                                    "1. Tap on the Legal Information link.",
                                    "2. Tap on the OK button.")
         self.Result.setExpectedResult("1. Legal information popup is opened.",
@@ -90,7 +99,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
     def test_endUserLicenseAgreement(self):
-        self.Result.setDescription("Fllow the last step.",
+        self.Result.setDescription("Follow the last step.",
                                    "1. Tap on the License agreement link.")
         self.Result.setExpectedResult("1. License agreement ui page is opened.",
                                       "2. HP logo is displayed.",
@@ -130,7 +139,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_about.text_title_about().verifyIsShown()
 
     def test_shareThisApp(self):
-        # self.Result.setDescription("Fllow the last step.",
+        # self.Result.setDescription("Follow the last step.",
         #                            "1. Tap on the Share this app button.",
         #                            "2. Tap on the Back key.")
         # self.Result.setExpectedResult("1. Share with popup is opened.",

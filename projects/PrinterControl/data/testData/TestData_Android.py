@@ -12,4 +12,4 @@ class TestData_Android:
 
         def dp_msg_upload_waiting(self):
             # ID: [dp_msg_upload_waiting] value:[WaitingThe server is parsing the files you uploaded. It won't take long, please wait a moment.]
-            dp_msg_upload_waiting = self.UI.getTestDataAndroid("dp_msg_upload_waiting")
+            return self.UI.getTestData("dp_msg_upload_waiting")

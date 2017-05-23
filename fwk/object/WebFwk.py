@@ -12,12 +12,14 @@ class WebFwk(UiBaseFwk):
 
     def __init__(self, Init):
         UiBaseFwk.__init__(self, Init)
-        self._getCurrentTestArgs(self.TestType.WEB)
+        self.path_file_xlsx_testData = Init.path_file_xlsx_testData_web
 
     def getDriver(self):
+        self._getCurrentTestArgs(self.TestType.WEB)
         if self._driver == None:
             self._driver = WebDriver(self).getDriver()
             self.wait(2)
+        self.hasGotDriver = True
         return self._driver
 
     def updateCurrentElementStatus(self, element_name, uiMap, currentPage):

@@ -12,7 +12,7 @@ PATH = lambda p: os.path.abspath(
 class AndroidFwk(UiFwk):
     def __init__(self, Init):
         UiFwk.__init__(self, Init)
-        self._getCurrentTestArgs(self.TestType.ANDROID)
+        self.path_file_xlsx_testData = Init.path_file_xlsx_testData_android
 
     def __launch_app(self):
         self._driver = MobileDriver(self).getDriver()
@@ -20,9 +20,11 @@ class AndroidFwk(UiFwk):
         return self._driver
 
     def getDriver(self):
+        self._getCurrentTestArgs(self.TestType.ANDROID)
         if self._driver == None:
            self.__launch_app()
            self.RunTimeConf.getMobileInfo(self)
+        self.hasGotDriver = True
         return self._driver
 
     # def __launch_browser(self):
