@@ -3,4 +3,4 @@ configparser==3.5.0
 selenium==2.53.6
 #selenium==3.3.3
 flask==0.12.1
-openpyxl=2.4.7
+openpyxl==2.4.7
