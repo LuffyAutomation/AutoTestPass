@@ -35,7 +35,6 @@ class WebDriver:
         elif self._RunTimeConf.browser.lower() == "chrome":
             return self.getChromeDriver()
 
-
     def __getDesiredCapsList(self):
         self.desired_caps = {
             self.BROWSER: self._RunTimeConf.browser

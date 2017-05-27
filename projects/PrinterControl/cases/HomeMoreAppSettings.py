@@ -110,15 +110,15 @@ class HomeMoreAppSettings(CommonUnittest):
         '''
         How to handle the elements that have the same property. There are 3 ways to do it.
         '''
-        '''1 Set the index of the element <= 0 in uiMap.xml.'''
+        '''1. Set the index of the element <= 0 in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(1).click()
         self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(2).click()
         self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(3).click()
-        '''2 Set the value of the index of the element according to the actual sequence in uiMap.xml.'''
+        '''2. Set the value of the index of the element according to the actual sequence in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_usageTracking().click()
         self.Pages.Page_appSettings.checkBox_hpSuppliesShopping().click()
         self.Pages.Page_appSettings.checkBox_wirelessNetwork().click()
-        '''3 Have not set index in uiMap.xml.'''
+        '''3. Have not set index in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(1).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(2).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(3).click()
