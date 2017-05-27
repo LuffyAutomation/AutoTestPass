@@ -9,5 +9,6 @@ class Page_agreements(Page_agreements_model):
         Page_agreements_model.__init__(self)
 
     def flow_agreements(self):
-        self.checkbox_accept().waitForShown().click()
+        # self.UI.wait(30)
+        self.checkbox_accept().waitForShown().wait(3).click()
         self.button_continue().click()

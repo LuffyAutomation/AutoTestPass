@@ -1,3 +1,4 @@
+from projects.PrinterControl.po.pages.android.Page_appSettings import Page_appSettings
 from projects.PrinterControl.po.pages.android.Page_agreements import Page_agreements
 from projects.PrinterControl.po.pages.android.Page_welcome import Page_welcome
 from projects.PrinterControl.po.pages.android.Page_findNewPrinter import Page_findNewPrinter
@@ -18,6 +19,7 @@ class Pages_Android:
     def __init__(self, UI):
         self._UI = UI
         self._UI.getDriver()
+        self.Page_appSettings = Page_appSettings(self._UI)
         self.Page_agreements = Page_agreements(self._UI)
         self.Page_welcome = Page_welcome(self._UI)
         self.Page_findNewPrinter = Page_findNewPrinter(self._UI)

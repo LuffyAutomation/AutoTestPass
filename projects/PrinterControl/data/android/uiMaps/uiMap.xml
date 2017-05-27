@@ -80,6 +80,13 @@
                 <element name="link_legalInformation" page="dialog_legalInformation"><id>com.hp.printercontrol:id/legalInfoTextView</id></element>
                 <element name="button_shareThisApp" page="page_shareThisApp"><id>com.hp.printercontrol:id/button_mail</id></element>
 			</page>
+            <page name="page_appSettings" description="moreOptions then app settings page.">
+                <!--index="0" means return all specified elements, here is return all checkboxes-->
+                <element name="checkBox_All"><id index="0">android:id/checkbox</id></element>
+                <element name="checkBox_usageTracking"><id index="1">android:id/checkbox</id></element>
+                <element name="checkBox_hpSuppliesShopping"><id index="2">android:id/checkbox</id></element>
+                <element name="checkBox_wirelessNetwork"><id index="3">android:id/checkbox</id></element>
+			</page>
             <page name="dialog_legalInformation" description="dialog_legalInformation">
                 <element name="text_title_legalInformation" ><id>android:id/alertTitle</id></element>
                 <element name="area_content_legalInformation"><xpath>//android.widget.FrameLayout/android.webkit.WebView</xpath></element>

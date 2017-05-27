@@ -63,8 +63,13 @@ class UiBaseFwk(object):
         self.testType = self.Init.testType
         self._root = None
         self._rootLocalXml = None
+
         self._currentElementName = None
         self._currentElementObject = None
+
+        self._currentElementCollectionName = None
+        self._currentElementCollectionObject = None
+
         self._currentPage = None
         self._currentUiMap = None
         self._elementTimeOut = None
@@ -121,7 +126,7 @@ class UiBaseFwk(object):
         )
     def wait(self, time):
         try:
-            self.logger.info("Wait " + time + "s.")
+            self.logger.info("Wait " + str(time) + "s.")
             self.UtilTime.sleep(time)
         except Exception as e:
             pass
@@ -165,7 +170,7 @@ class UiBaseFwk(object):
         self._currentElementName = element_name
         return self
 
-    #some elements' locator may change after they appear. So need to clear the found ele and re-find.
+    #some elements' status may change after they appear. So need to clear the found ele and re-find.
     def clearForRefinding(self):
         self.setCurrentElementObject(None)
         return self
@@ -176,23 +181,46 @@ class UiBaseFwk(object):
     def getCurrentElementName(self):
         return self._currentElementName
 
-    def setCurrentPage(self, page):
-        self._currentPage = page
-
-    def getCurrentPage(self):
-        return self._currentPage
-
     def setCurrentElementObject(self, element=None):
         self._currentElementObject = element
 
     def getCurrentElementObject(self):
         return self._currentElementObject
 
+
+    def setCurrentElementCollectionName(self, elementCollection_name):
+        self._currentElementCollectionName = elementCollection_name
+
+    def getCurrentElementCollectionName(self):
+        return self._currentElementCollectionName
+
+    def setCurrentElementCollectionObject(self, element=None):
+        self._currentElementObject = element
+
+    def getCurrentElementCollectionObject(self):
+        return self._currentElementObject
+
+
+    def setCurrentPage(self, page):
+        self._currentPage = page
+
+    def getCurrentPage(self):
+        return self._currentPage
+
+
+
     def _getElementType(self, element_locators_list):
         return element_locators_list[0]
 
     def _getElementValue(self, element_locators_list):
         return element_locators_list[1]
+
+    def _getElementIndex(self, element_locators_list):
+        t = element_locators_list[2]
+        try:
+            return int(t) - 1
+        except:
+            return 0
 
     def getElementNameFrom(self, element_name=None):
         if element_name == None:
@@ -216,10 +244,16 @@ class UiBaseFwk(object):
             locator_type = self.UtilXml.getTagName(locator)
             locator_type = self.__get_sys_locator_type(locator_type)
             locator_value = self.UtilXml.getText(locator).strip()
+            global locator_index
+            try:
+                locator_index = self.UtilXml.getAttribute(locator)['index']
+            except:
+                locator_index = "1"
+
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:
                 locator_value = locator_value.replace(self.StringConverter.VALUE_PLACEHOLDER, dynamic_string)
             #self.logger.info("............Finding element [" + element_name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
-            list.append([locator_type, locator_value])
+            list.append([locator_type, locator_value, locator_index])
         if locators == None:
             raise Exception("Can not find element [" + element_name + "] on [" + str(self._currentPage) + "] page.")
         return list

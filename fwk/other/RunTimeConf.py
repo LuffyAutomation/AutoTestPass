@@ -69,7 +69,8 @@ class RunTimeConf:
             self.appiumServerPort = self._ConfigParser.getRunTimeConfigCapsValue(
                 self._ConfigParser.APP_APPIUM_SERVERPORT)
             self.appiumUrl = "http://" + self.appiumServerIP + ":" + self.appiumServerPort + "/wd/hub"
-            self.automationName = "LocalTest"
+            # self.automationName = "LocalTest" # do not work for 164
+            self.automationName = None
         else:  # web
             self.isDevicePassTest = False
             self.isMobileTest = False

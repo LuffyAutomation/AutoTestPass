@@ -38,8 +38,8 @@ class MobileDriver:
             self.APP_ACTIVITY: self._RunTimeConf.appActivity,
             self.APP: PATH(self._RunTimeConf.app)
         }
-        if self._RunTimeConf.automationName is not None:
-            self.desired_caps[self.AUTOMATION_NAME] = self._RunTimeConf.automationName
+        # if self._RunTimeConf.automationName is not None:
+        #     self.desired_caps[self.AUTOMATION_NAME] = self._RunTimeConf.automationName
         if self._RunTimeConf.automationName is not None:
             self.desired_caps[self.APP_WAIT_ACTIVITY] = self._RunTimeConf.appWaitActivity
         return self.desired_caps
