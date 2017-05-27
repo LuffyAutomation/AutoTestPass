@@ -82,15 +82,17 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
-        self.Pages.Page_appSettings.UI.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
-        self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), self.UI_Android.VerifyString.CHECKED)
-        self.Pages.Page_appSettings.UI.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(),
-                                                   self.UI_Android.VerifyString.CHECKED)
+        self.UI_Android.verifyEnabled(self.Pages.Page_appSettings.checkBox_usageTracking().isEnabled())
+        self.UI_Android.verifyUnselected(self.Pages.Page_appSettings.checkBox_usageTracking().isSelected())
 
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().isEnabled())
         ''' 
         Or any of the following.
-        
+        1. self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
+        2. self.Pages.Page_appSettings.UI.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
+        3. self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), self.UI_Android.VerifyString.CHECKED)
+        4. self.Pages.Page_appSettings.UI.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(),
+                                                   self.UI_Android.VerifyString.CHECKED)
         
         '''
 

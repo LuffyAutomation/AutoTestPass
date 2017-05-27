@@ -49,34 +49,76 @@ class UiFwk(UiBaseWebDriverFwk):
     def verifyIsShown(self, time_out=None, idx_or_match=None, element_name=None):
         return self.waitForShown(time_out, idx_or_match, element_name, True, self._LogHead.VERIFY)
 
-    def verifyEqual(self, value, expectedValue, element_name=None):
+
+    def __boolToStr(self, value):
+        if type(value) is bool:
+            if value is True:
+                return "True"
+            else:
+                return "False"
+        return value
+
+    def __boolToSpecifiledStr(self, value, a, b):
+        if type(value) is bool:
+            if value is True:
+                return a
+            else:
+                return b
+        return value
+
+    def __verifyEqual(self, value, expectedValue, element_name=None):
         element_name = self.getElementNameFrom(element_name)
         expectedValue = str(expectedValue)
         value = str(value)
-        self.logger.info("Verify the element [" + element_name + "]'s value is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
+        self.logger.info("Verify the element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
         if value.encode('utf-8') != expectedValue:
             self.logger.info("Failed!")
-            raise Exception("The element ['" + element_name + "']'s actual value is ['" + value + "'], but the expected value shall be [" + expectedValue +"].")
+            raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result shall be [" + expectedValue +"].")
         else:
             self.logger.info("Passed!")
 
-    def verifyChecked(self, value, expectedValue=VerifyString.CHECKED):
-        self.verifyEqual(value, expectedValue)
+    def verifyEqual(self, value, expectedValue, element_name=None):
+        expectedValue = self.__boolToStr(expectedValue)
+        value = self.__boolToStr(value)
+        self.__verifyEqual(value, expectedValue)
 
-    def verifyUnchecked(self, value, expectedValue=VerifyString.UNCHECKED):
-        self.verifyEqual(value, expectedValue)
+    def verifyChecked(self, value, expectedValue=VerifyString.CHECKED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.CHECKED, self.VerifyString.UNCHECKED)
+        self.__verifyEqual(value, expectedValue)
 
-    def verifyEnabled(self, value, expectedValue=VerifyString.ENABLED):
-        self.verifyEqual(value, expectedValue)
+    def verifyUnchecked(self, value, expectedValue=VerifyString.UNCHECKED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.CHECKED, self.VerifyString.UNCHECKED)
+        self.__verifyEqual(value, expectedValue)
 
-    def verifyDisable(self, value, expectedValue=VerifyString.DISABLED):
-        self.verifyEqual(value, expectedValue)
+    def verifyEnabled(self, value, expectedValue=VerifyString.ENABLED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.ENABLED, self.VerifyString.DISABLED)
+        self.__verifyEqual(value, expectedValue)
 
-    def verifySelected(self, value, expectedValue=VerifyString.SELETED):
-        self.verifyEqual(value, expectedValue)
+    def verifyDisable(self, value, expectedValue=VerifyString.DISABLED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.ENABLED, self.VerifyString.DISABLED)
+        self.__verifyEqual(value, expectedValue)
 
-    def verifyUnselected(self, value, expectedValue=VerifyString.UNSELETED):
-        self.verifyEqual(value, expectedValue)
+    def verifySelected(self, value, expectedValue=VerifyString.SELETED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.SELETED, self.VerifyString.UNSELETED)
+        self.__verifyEqual(value, expectedValue)
+
+    def verifyUnselected(self, value, expectedValue=VerifyString.UNSELETED, element_name=None):
+        value = self.__boolToSpecifiledStr(value, self.VerifyString.SELETED, self.VerifyString.UNSELETED)
+        self.__verifyEqual(value, expectedValue)
+
+    def isChecked(self, idx_or_match=None, element_name=None):
+        try:
+            element_name = self.getElementNameFrom(element_name)
+            element = self.getElementObjectFrom(idx_or_match, element_name)
+            if element is None:
+                element = self.getMatchedElement(idx_or_match, element_name)
+            checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
+            if "true" in checkbox_class:
+                return_value = True
+            else:
+                return_value = False
+        except Exception as e:
+            return False
 
     def isPresent(self, idx_or_match=None, element_name=None):
         try:
