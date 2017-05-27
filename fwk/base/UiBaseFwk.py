@@ -48,6 +48,7 @@ class UiBaseFwk(object):
         NAME = "name"
         CLASS = "class"
         VALUE = "value"
+        CHECKED = 'checked'
 
     def __init__(self, Init):
         self.Init = Init
@@ -165,6 +166,8 @@ class UiBaseFwk(object):
     def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
         if self._currentElementName != element_name:
             self._currentElementObject = None
+        if self._currentElementCollectionName != element_name:
+            self._currentElementCollectionName = None
         self._currentUiMap = uiMap
         self._currentPage = currentPage
         self._currentElementName = element_name
@@ -173,6 +176,7 @@ class UiBaseFwk(object):
     #some elements' status may change after they appear. So need to clear the found ele and re-find.
     def clearForRefinding(self):
         self.setCurrentElementObject(None)
+        self.setCurrentElementCollectionObject(None)
         return self
 
     def setCurrentElementName(self, element_name):
@@ -195,10 +199,10 @@ class UiBaseFwk(object):
         return self._currentElementCollectionName
 
     def setCurrentElementCollectionObject(self, element=None):
-        self._currentElementObject = element
+        self._currentElementCollectionObject = element
 
     def getCurrentElementCollectionObject(self):
-        return self._currentElementObject
+        return self._currentElementCollectionObject
 
 
     def setCurrentPage(self, page):

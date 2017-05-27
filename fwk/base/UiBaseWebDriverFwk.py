@@ -18,12 +18,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def getItem(self, child_element_index):
         try:
-            self.getElementObjectFrom(None, None)
-            self.getElementNameFrom(None)
-            self.setCurrentElementObject(self.getCurrentElementObject()[child_element_index - 1])
+            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
+                self.getElementObjectFrom(None, None)
+                self.getElementNameFrom(None)
+            self.setCurrentElementName(self.getCurrentElementCollectionName() + "_index_" + str(child_element_index))
+            self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
             return self
         except:
-            raise Exception("Can not find element [" + self.getCurrentElementName() + "] with index [" + str(child_element_index) + "] on [" + str(self._currentPage) + "] page.")
+            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self._currentPage) + "] page.")
 
     def click(self, idx_or_match=None, element_name=None):
         try:
@@ -77,11 +79,12 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 elementType += element.get_attribute("type")
             except NoSuchElementException as e:
                 pass
-            if elementType in "select":
+            elementType = elementType.lower()
+            if ".Select".lower() in elementType:
                 elementType = "select"
-            elif elementType in "checkbox":
+            elif ".CheckBox".lower() in elementType:
                 elementType = "checkbox"
-            elif elementType in "input":
+            elif ".Input".lower()in elementType:
                 elementType = "input"
             else:
                 elementType = "text"
@@ -101,11 +104,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 elif "text" in element_type:
                     return_value = element.text
                 elif "checkbox" in element_type:
-                    checkbox_class = element.get_attribute(self.AttributeType.CLASS)
-                    if "checked" in checkbox_class:
-                        return_value = "checked"
+                    checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
+                    if "true" in checkbox_class:
+                        return_value = True
                     else:
-                        return_value = "unchecked"
+                        return_value = False
                 elif "select" in element_type:
                     for index in range(self.getElementSize(element_name)):
                         select_item = element.find_elements(By.TAG_NAME("option")).get(index)
@@ -137,14 +140,16 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             try:
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if locator_index < 0:
-                        self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value))
+                        self.setCurrentElementCollectionName(element_name)
+                        self.setCurrentElementCollectionObject(self._driver.find_elements_by_accessibility_id(locator_value))
                     elif locator_index == 0:
                         self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
                         self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
                 else:
                     if locator_index < 0:
-                        self.setCurrentElementObject(self._driver.find_elements(locator_type, locator_value))
+                        self.setCurrentElementCollectionName(element_name)
+                        self.setCurrentElementCollectionObject(self._driver.find_elements(locator_type, locator_value))
                     elif locator_index == 0:
                         self.setCurrentElementObject(self._driver.find_element(locator_type, locator_value))
                     else:
@@ -155,7 +160,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             return self.getCurrentElementObject()
         #return None
-        raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(locator_index) + "] on [" + str(self.getCurrentPage()) + "] page.")
+        raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
 
     def getElementsSize(self, element_name):
         return len(self.getElements(element_name))
