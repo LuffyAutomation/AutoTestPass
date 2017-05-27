@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_appSettings_model import Pag
 class Page_appSettings(Page_appSettings_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk
         Page_appSettings_model.__init__(self)
 
     # This is function template of how to write your Buissness Logic.

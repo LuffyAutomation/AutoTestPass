@@ -6,6 +6,14 @@ class UiFwk(UiBaseWebDriverFwk):
     def __init__(self, Init):
         UiBaseWebDriverFwk.__init__(self, Init)
 
+    class VerifyString:
+        CHECKED = "checked"
+        UNCHECKED = "unchecked"
+        ENABLED = "enabled"
+        DISABLED = "disabled"
+        SELETED = "selected"
+        UNSELETED = "unselected"
+
     def waitForShown(self, time_out=None, idx_or_match=None, element_name=None, verify_shown=True, log_head=None):
         element_name = self.getElementNameFrom(element_name)
         if log_head == None: log_head = self._LogHead.WAITINGFOR
@@ -43,12 +51,32 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def verifyEqual(self, value, expectedValue, element_name=None):
         element_name = self.getElementNameFrom(element_name)
+        expectedValue = str(expectedValue)
+        value = str(value)
         self.logger.info("Verify the element [" + element_name + "]'s value is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
         if value.encode('utf-8') != expectedValue:
             self.logger.info("Failed!")
             raise Exception("The element ['" + element_name + "']'s actual value is ['" + value + "'], but the expected value shall be [" + expectedValue +"].")
         else:
             self.logger.info("Passed!")
+
+    def verifyChecked(self, value, expectedValue=VerifyString.CHECKED):
+        self.verifyEqual(value, expectedValue)
+
+    def verifyUnchecked(self, value, expectedValue=VerifyString.UNCHECKED):
+        self.verifyEqual(value, expectedValue)
+
+    def verifyEnabled(self, value, expectedValue=VerifyString.ENABLED):
+        self.verifyEqual(value, expectedValue)
+
+    def verifyDisable(self, value, expectedValue=VerifyString.DISABLED):
+        self.verifyEqual(value, expectedValue)
+
+    def verifySelected(self, value, expectedValue=VerifyString.SELETED):
+        self.verifyEqual(value, expectedValue)
+
+    def verifyUnselected(self, value, expectedValue=VerifyString.UNSELETED):
+        self.verifyEqual(value, expectedValue)
 
     def isPresent(self, idx_or_match=None, element_name=None):
         try:
@@ -57,7 +85,26 @@ class UiFwk(UiBaseWebDriverFwk):
             if element is None:
                 element = self.getMatchedElement(idx_or_match, element_name)
             return element.is_displayed()
-        #except (IndexError, AttributeError, NoSuchElementException) as e:
+        except Exception as e:
+            return False
+
+    def isEnabled(self, idx_or_match=None, element_name=None):
+        try:
+            element_name = self.getElementNameFrom(element_name)
+            element = self.getElementObjectFrom(idx_or_match, element_name)
+            if element is None:
+                element = self.getMatchedElement(idx_or_match, element_name)
+            return element.is_enabled()
+        except Exception as e:
+            return False
+
+    def isSelected(self, idx_or_match=None, element_name=None):
+        try:
+            element_name = self.getElementNameFrom(element_name)
+            element = self.getElementObjectFrom(idx_or_match, element_name)
+            if element is None:
+                element = self.getMatchedElement(idx_or_match, element_name)
+            return element.is_selected()
         except Exception as e:
             return False
 

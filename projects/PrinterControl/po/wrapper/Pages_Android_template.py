@@ -1,4 +1,3 @@
-from projects.PrinterControl.po.pages.android.Page_appSettings import Page_appSettings
 from projects.PrinterControl.po.pages.android.Page_agreements import Page_agreements
 from projects.PrinterControl.po.pages.android.Page_welcome import Page_welcome
 from projects.PrinterControl.po.pages.android.Page_findNewPrinter import Page_findNewPrinter
@@ -9,6 +8,7 @@ from projects.PrinterControl.po.pages.android.Page_setup import Page_setup
 from projects.PrinterControl.po.pages.android.Page_printerList import Page_printerList
 from projects.PrinterControl.po.pages.android.Page_home import Page_home
 from projects.PrinterControl.po.pages.android.Page_about import Page_about
+from projects.PrinterControl.po.pages.android.Page_appSettings import Page_appSettings
 from projects.PrinterControl.po.pages.android.Dialog_legalInformation import Dialog_legalInformation
 from projects.PrinterControl.po.pages.android.Page_endUserLicenseAgreement import Page_endUserLicenseAgreement
 from projects.PrinterControl.po.pages.android.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
@@ -19,7 +19,6 @@ class Pages_Android:
     def __init__(self, UI):
         self._UI = UI
         self._UI.getDriver()
-        self.Page_appSettings = Page_appSettings(self._UI)
         self.Page_agreements = Page_agreements(self._UI)
         self.Page_welcome = Page_welcome(self._UI)
         self.Page_findNewPrinter = Page_findNewPrinter(self._UI)
@@ -30,6 +29,7 @@ class Pages_Android:
         self.Page_printerList = Page_printerList(self._UI)
         self.Page_home = Page_home(self._UI)
         self.Page_about = Page_about(self._UI)
+        self.Page_appSettings = Page_appSettings(self._UI)
         self.Dialog_legalInformation = Dialog_legalInformation(self._UI)
         self.Page_endUserLicenseAgreement = Page_endUserLicenseAgreement(self._UI)
         self.Page_hpOnlinePrivacyStatement = Page_hpOnlinePrivacyStatement(self._UI)

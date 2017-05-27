@@ -16,6 +16,16 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         if 2 == 1:
             self._driver = webdriver.Remote("")
 
+    def getItemsCount(self):
+        try:
+            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
+                self.getElementObjectFrom(None, None)
+                self.getElementNameFrom(None)
+                return len(self.getCurrentElementCollectionObject())
+        except:
+            return 0
+            # raise Exception("Can not get children count of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self._currentPage) + "] page.")
+
     def getItem(self, child_element_index):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
@@ -106,9 +116,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 elif "checkbox" in element_type:
                     checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
                     if "true" in checkbox_class:
-                        return_value = True
+                        return_value = "checked"
                     else:
-                        return_value = False
+                        return_value = "unchecked"
                 elif "select" in element_type:
                     for index in range(self.getElementSize(element_name)):
                         select_item = element.find_elements(By.TAG_NAME("option")).get(index)

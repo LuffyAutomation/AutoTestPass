@@ -27,6 +27,14 @@ class POCreator(POCreatorBase):
         elif self.scriptFolderName.lower() == "ios":
             return "IosCommonPage"
 
+    def __getWhichFwk(self):
+        if self.scriptFolderName.lower() == "android":
+            return "AndroidFwk"
+        elif self.scriptFolderName.lower() == "web":
+            return "WebFwk"
+        elif self.scriptFolderName.lower() == "ios":
+            return "IosFwk"
+
     def _getPOModelHead(self, page_name, child_page_name=None, page_description="NA", level=0):
         if page_description is None:
             page_description = "NA"
@@ -78,6 +86,9 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOClassName(po_name), self._getPOModelClassName(po_name)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.UI = UI" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + "if 1 > 1:" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "from fwk.object.%s import %s" % (self.__getWhichFwk(), self.__getWhichFwk()) \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "self.UI = %s" % self.__getWhichFwk() \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "%s.__init__(self)" % self._getPOModelClassName(po_name) \
             + self._newLine \
             + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Buissness Logic." \

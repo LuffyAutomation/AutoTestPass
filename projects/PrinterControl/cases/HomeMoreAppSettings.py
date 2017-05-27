@@ -82,15 +82,32 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
-        self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), True)
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
+        self.Pages.Page_appSettings.UI.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
+        self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), self.UI_Android.VerifyString.CHECKED)
+        self.Pages.Page_appSettings.UI.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(),
+                                                   self.UI_Android.VerifyString.CHECKED)
 
+        ''' 
+        Or any of the following.
+        
+        
+        '''
 
+        self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_All().getItemsCount(), 3)
+
+        '''
+        How to handle the elements that have the same property
+        '''
         self.Pages.Page_appSettings.checkBox_All().getItem(1).click()
         self.Pages.Page_appSettings.checkBox_All().getItem(2).click()
         self.Pages.Page_appSettings.checkBox_All().getItem(3).click()
+        '''
+        Or
         self.Pages.Page_appSettings.checkBox_usageTracking().click()
         self.Pages.Page_appSettings.checkBox_hpSuppliesShopping().click()
         self.Pages.Page_appSettings.checkBox_wirelessNetwork().click()
+        '''
         pass
 
 
