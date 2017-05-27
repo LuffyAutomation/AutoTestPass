@@ -127,7 +127,7 @@ class UiBaseFwk(object):
         )
     def wait(self, time):
         try:
-            self.logger.info("Wait " + str(time) + "s.")
+            # self.logger.info("Wait " + str(time) + "s.")
             self.UtilTime.sleep(time)
         except Exception as e:
             pass
@@ -236,6 +236,17 @@ class UiBaseFwk(object):
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementObject()
+
+    def getElementCollectionNameFrom(self, element_name=None):
+        if element_name == None:
+            element_name = self.getCurrentElementCollectionName()
+        return element_name
+
+    def getElementCollectionObjectFrom(self, idx_or_match=None, element_name=None):
+        if self.getCurrentElementCollectionObject() is not None:
+            return self.getCurrentElementCollectionObject()
+        self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))
+        return self.getCurrentElementCollectionObject()
 
     def _getElementLocatorsList(self, element_name):
         dynamic_string = None

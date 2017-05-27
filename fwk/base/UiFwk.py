@@ -66,16 +66,25 @@ class UiFwk(UiBaseWebDriverFwk):
                 return b
         return value
 
-    def __verifyEqual(self, value, expectedValue, element_name=None):
+    def __verifyEqual(self, value, expectedValue, func_name=None, element_name=None):
         element_name = self.getElementNameFrom(element_name)
         expectedValue = str(expectedValue)
         value = str(value)
-        self.logger.info("Verify the element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
+        if func_name == "verifyCount":
+            self.logger.info("Verify the number of element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].")  # decode encode for python 2
+        else:
+            self.logger.info("Verify the element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
         if value.encode('utf-8') != expectedValue:
             self.logger.info("Failed!")
-            raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result shall be [" + expectedValue +"].")
+            if func_name == "verifyCount":
+                raise Exception("The number of element ['" + element_name + "'] is ['" + value + "'], but the expected result shall be [" + expectedValue +"].")
+            else:
+                raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result shall be [" + expectedValue + "].")
         else:
             self.logger.info("Passed!")
+
+    def verifyCount(self, value, expectedValue, element_name=None):
+        self.__verifyEqual(value, expectedValue, "verifyCount")
 
     def verifyEqual(self, value, expectedValue, element_name=None):
         expectedValue = self.__boolToStr(expectedValue)
@@ -114,9 +123,9 @@ class UiFwk(UiBaseWebDriverFwk):
                 element = self.getMatchedElement(idx_or_match, element_name)
             checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
             if "true" in checkbox_class:
-                return_value = True
+                return True
             else:
-                return_value = False
+                return False
         except Exception as e:
             return False
 

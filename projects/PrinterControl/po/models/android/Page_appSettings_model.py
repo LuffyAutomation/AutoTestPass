@@ -9,7 +9,10 @@ class Page_appSettings_model(AndroidCommonPage):
     def __init__(self):
         self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
 
-    def checkBox_All(self):
+    def checkBox_All_noIndex(self):
+        return self.get(inspect.stack()[0][3])
+
+    def checkBox_All_setIndex(self):
         return self.get(inspect.stack()[0][3])
 
     def checkBox_usageTracking(self):

@@ -67,6 +67,7 @@ class CommonUnittest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         try:
+            cls.UI.logger.info("Quit connection.")
             if cls.UI_Ios.hasGotDriver is True:
                 cls.UI_Ios.quit()
             if cls.UI_Android.hasGotDriver is True:

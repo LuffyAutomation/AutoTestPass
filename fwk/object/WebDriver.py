@@ -28,6 +28,7 @@ class WebDriver:
         return webdriver.Edge()
 
     def getDriver(self):
+        self.logger.info("Connecting Web > %s driver." % self._RunTimeConf.browser.lower())
         os.environ["PATH"] += ";" + str(self._RunTimeConf.browserDriverFolderPath)
         if self._RunTimeConf.browser.lower() == "firefox":
             return self.getFireFoxDriver()

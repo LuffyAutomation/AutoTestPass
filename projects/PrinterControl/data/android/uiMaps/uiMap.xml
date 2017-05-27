@@ -82,7 +82,8 @@
 			</page>
             <page name="page_appSettings" description="moreOptions then app settings page.">
                 <!--index="0" means return all specified elements, here is return all checkboxes-->
-                <element name="checkBox_All"><id index="0">android:id/checkbox</id></element>
+                <element name="checkBox_All_noIndex"><id>android:id/checkbox</id></element>
+                <element name="checkBox_All_setIndex"><id index="0">android:id/checkbox</id></element>
                 <element name="checkBox_usageTracking"><id index="1">android:id/checkbox</id></element>
                 <element name="checkBox_hpSuppliesShopping"><id index="2">android:id/checkbox</id></element>
                 <element name="checkBox_wirelessNetwork"><id index="3">android:id/checkbox</id></element>

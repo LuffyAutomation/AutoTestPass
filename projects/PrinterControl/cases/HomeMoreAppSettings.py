@@ -81,36 +81,49 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "2. xxxx.",
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
-
+        '''
+        How to verify Enabled.
+        '''
         self.UI_Android.verifyEnabled(self.Pages.Page_appSettings.checkBox_usageTracking().isEnabled())
+        '''
+        How to verify Selected.
+        '''
         self.UI_Android.verifyUnselected(self.Pages.Page_appSettings.checkBox_usageTracking().isSelected())
 
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().isEnabled())
+        '''
+        How to verify Checked.
+        '''
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().isChecked())
         ''' 
         Or any of the following.
         1. self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
         2. self.Pages.Page_appSettings.UI.verifyChecked(self.Pages.Page_appSettings.checkBox_usageTracking().getValue())
         3. self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), self.UI_Android.VerifyString.CHECKED)
-        4. self.Pages.Page_appSettings.UI.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(),
-                                                   self.UI_Android.VerifyString.CHECKED)
-        
+        4. self.Pages.Page_appSettings.UI.verifyEqual(self.Pages.Page_appSettings.checkBox_usageTracking().getValue(), self.UI_Android.VerifyString.CHECKED)
         '''
 
-        self.UI_Android.verifyEqual(self.Pages.Page_appSettings.checkBox_All().getItemsCount(), 3)
+        '''
+        How to verify count.
+        '''
+        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_setIndex().getItemsCount(), 3)
 
         '''
-        How to handle the elements that have the same property
+        How to handle the elements that have the same property. There are 3 ways to do it.
         '''
-        self.Pages.Page_appSettings.checkBox_All().getItem(1).click()
-        self.Pages.Page_appSettings.checkBox_All().getItem(2).click()
-        self.Pages.Page_appSettings.checkBox_All().getItem(3).click()
-        '''
-        Or
+        '''1 Set the index of the element <= 0 in uiMap.xml.'''
+        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(1).click()
+        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(2).click()
+        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(3).click()
+        '''2 Set the value of the index of the element according to the actual sequence in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_usageTracking().click()
         self.Pages.Page_appSettings.checkBox_hpSuppliesShopping().click()
         self.Pages.Page_appSettings.checkBox_wirelessNetwork().click()
-        '''
-        pass
+        '''3 Have not set index in uiMap.xml.'''
+        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(1).click()
+        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(2).click()
+        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(3).click()
+
+        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItemsCount(), 3)
 
 
 
