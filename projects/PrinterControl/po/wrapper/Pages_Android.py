@@ -13,7 +13,6 @@ from projects.PrinterControl.po.pages.android.Page_welcome import Page_welcome
 from projects.PrinterControl.po.pages.android.Sys_general import Sys_general
 from projects.PrinterControl.po.pages.android.Sys_packageinstaller import Sys_packageinstaller
 from projects.PrinterControl.po.wrapper.MultiplePagesLogic import MultiplePagesLogic
-from projects.PrinterControl.po.pages.android.Page_appSettings import Page_appSettings
 from projects.PrinterControl.po.pages.android.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
 
 
@@ -35,7 +34,6 @@ class Pages_Android:
         self.Page_hpOnlinePrivacyStatement = Page_hpOnlinePrivacyStatement(self._UI)
         self.Page_shareThisApp = Page_shareThisApp(self._UI)
         self.Sys_general = Sys_general(self._UI)
-        self.Page_appSettings = Page_appSettings(self._UI)
         self.Mpl = MultiplePagesLogic(self, self._UI)
 
 

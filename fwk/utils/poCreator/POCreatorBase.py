@@ -60,14 +60,18 @@ class POCreatorBase(object):
             list = self._UtilXml.getElements(self._root, ".//pages/")
         except:
             return
+        list_pagesTemplateHead = []
         pagesTemplateHead = ""
+        list_pagesTemplateBodyBody = []
         pagesTemplateBodyBody = ""
         for index in range(len(list)):
             attributes = self._UtilXml.getAttribute(list[index])
             children = self._UtilXml.getChildren(list[index])
             name = attributes.get(self.uiMapMarks.NAME)
             pagesTemplateHead += self._getPagesClassImportString(name)
+            list_pagesTemplateHead.append(self._getPagesClassImportString(name))
             pagesTemplateBodyBody += self._getPagesBodyBody(name)
+            list_pagesTemplateBodyBody.append(self._getPagesBodyBody(name))
             description = attributes.get(self.uiMapMarks.DESCRIPION)
             self._writeFile(os.path.join(self.__path_folder_pages, self._getPOFileName(name)), self._getPOHead(name, description))
             _pOModelHead = self._getPOModelHead(name, None, description)
@@ -94,6 +98,8 @@ class POCreatorBase(object):
             _pOModelHead += self._getPOModelHeadSubClass(list_subClass, level)
             tmpStr = _pOModelHead + _pOModelModelBody + _pOModelHeadSubClass + _pOModelSubModelBody
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
+
+        self._getLinesFromFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pagesTemplateHead, self._getPagesBodyHead(), list_pagesTemplateBodyBody)
         self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, self._getPOFileName(self._PAGES_TEMPLATE)), pagesTemplateHead + self._getPagesBodyHead() + pagesTemplateBodyBody)
 
     def __getClassImportStringHead(self):
@@ -131,8 +137,9 @@ class POCreatorBase(object):
         return self._newLine + self._getIndent(level) + "class Pages_%s:" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI = UI" \
-            + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI.getDriver()" \
             + self._newLine
+            # + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI.getDriver()" \
+            # + self._newLine
 
     def _getPagesBodyBody(self, po_name, level=0):
         tmp = self._getIndent(level) + self._indent + self._indent + "self.%s = %s(self._UI)" % (self._getPOClassName(po_name), self._getPOClassName(po_name)) \
@@ -154,10 +161,38 @@ class POCreatorBase(object):
         return self._getPOClassName(po_name) + ".py"
 
     def _writeFile(self, path_file, txt=""):
-        if not UtilFile.isPathExists(path_file):
-            UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+        if not self._UtilFile.isPathExists(path_file):
+            self._UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+
     def _writeFileAndOverwrite(self, path_file, txt=""):
-            UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+        self._UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+
+    def _writePagesFile(self, path_file, list_pagesTemplateHead, txt_PagesBodyHead, list_pagesTemplateBodyBody):
+        global lines, list_existed_pagesTemplateHead, list_existed_pagesTemplateBodyBody, part
+        lines = []
+        list_existed_pagesTemplateHead = []
+        list_existed_pagesTemplateBodyBody = []
+        part = 1
+        try:
+            lines = self._UtilFile.getLinesFromFile(path_file)
+            for line in lines:
+                if part == 1:
+                    list_existed_pagesTemplateHead.append(line)
+                elif part == 3:
+                    list_existed_pagesTemplateBodyBody.append(line)
+                if "class Pages_" in line:
+                    part = 2
+                elif "self._UI = UI" in line:
+                    part = 3
+                elif "def " in line:
+                    break
+
+
+        except:
+            return
+
+
+
     @abstractmethod
     def _getPOModelHead(self, page_name, child_page_name, level):
         pass

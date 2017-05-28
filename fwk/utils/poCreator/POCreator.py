@@ -95,6 +95,7 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + self._indent \
             + \
         '''def example(self):
+            pass
         # self.checkbox_accept().waitForShown().click()
         # self.Pages.Page_endUserLicenseAgreement.text_always().clickIfPresent().wait(1)
         # self.button_continue().click()

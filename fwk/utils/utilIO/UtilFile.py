@@ -73,3 +73,11 @@ class UtilFile:
                     if old_text in lines[i]:
                         lines[i] = lines[i].replace(old_text, new_text)
                 f.writelines(lines)
+
+    @staticmethod
+    def getLinesFromFile(path_file):
+        global lines
+        lines = []
+        if os.path.isfile(path_file):
+            lines = open(path_file, UtilFile.FileMode.R).readlines()
+        return lines
