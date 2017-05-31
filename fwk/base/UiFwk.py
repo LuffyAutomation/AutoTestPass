@@ -15,7 +15,7 @@ class UiFwk(UiBaseWebDriverFwk):
         UNSELETED = "unselected"
 
     def waitForShown(self, time_out=None, idx_or_match=None, element_name=None, verify_shown=True, log_head=None):
-        element_name = self.getElementNameFrom(element_name)
+        element_name = self._getElementNameFrom(element_name)
         if log_head == None: log_head = self._LogHead.WAITINGFOR
         if time_out == None:
             try:
@@ -67,7 +67,7 @@ class UiFwk(UiBaseWebDriverFwk):
         return value
 
     def __verifyEqual(self, value, expectedValue, func_name=None, element_name=None):
-        element_name = self.getElementNameFrom(element_name)
+        element_name = self._getElementNameFrom(element_name)
         expectedValue = str(expectedValue)
         value = str(value)
         if func_name == "verifyCount":
@@ -117,8 +117,8 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def isChecked(self, idx_or_match=None, element_name=None):
         try:
-            element_name = self.getElementNameFrom(element_name)
-            element = self.getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getElementNameFrom(element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
                 element = self.getMatchedElement(idx_or_match, element_name)
             checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
@@ -131,8 +131,8 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def isPresent(self, idx_or_match=None, element_name=None):
         try:
-            element_name = self.getElementNameFrom(element_name)
-            element = self.getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getElementNameFrom(element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
                 element = self.getMatchedElement(idx_or_match, element_name)
             return element.is_displayed()
@@ -141,8 +141,8 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def isEnabled(self, idx_or_match=None, element_name=None):
         try:
-            element_name = self.getElementNameFrom(element_name)
-            element = self.getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getElementNameFrom(element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
                 element = self.getMatchedElement(idx_or_match, element_name)
             return element.is_enabled()
@@ -151,8 +151,8 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def isSelected(self, idx_or_match=None, element_name=None):
         try:
-            element_name = self.getElementNameFrom(element_name)
-            element = self.getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getElementNameFrom(element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
                 element = self.getMatchedElement(idx_or_match, element_name)
             return element.is_selected()

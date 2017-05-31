@@ -35,13 +35,15 @@ class Pages_Android:
         self.Page_findNewPrinter = Page_findNewPrinter(self._UI)
         self.Page_welcome = Page_welcome(self._UI)
         self.Page_agreements = Page_agreements(self._UI)
-        
+
+    '''Custom public method'''
     def flow_goTo_PageHomeWithSpecifiedPrinter(self):
         self.Page_agreements.flow_agreements()
         self.Page_welcome.flow_welcome()
         self.Mpl.flow_foundYourPrinter_multiplePages()
         self.Page_printerList.flow_selectPrinter()
 
+    '''Custom public method'''
     def flow_goTo_PageHomeWithoutPrinter(self):
         self.Page_agreements.flow_agreements()
         self.Page_welcome.flow_welcome_setupLater()

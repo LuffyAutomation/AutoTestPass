@@ -125,6 +125,7 @@ class UiBaseFwk(object):
         self.UtilWaitEvent(time_out, poll_frequency).until(
             lambda start_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %s." % (log_prefix, start_time, time_out, poll_frequency)), error_message
         )
+        
     def wait(self, time):
         try:
             # self.logger.info("Wait " + str(time) + "s.")
@@ -155,13 +156,8 @@ class UiBaseFwk(object):
         else:
             raise Exception("There are duplicated pages exist. [" + xpath + "].")
 
-    def getUiMapRoot(self):
+    def _getUiMapRoot(self):
         return self._root
-
-    def relocateByText(self, dynamicValue, element_name=None):
-        element_name = self.getElementNameFrom(element_name)
-        self._currentElementName = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamicValue
-        return self
 
     def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
         if self._currentElementName != element_name:
@@ -171,6 +167,12 @@ class UiBaseFwk(object):
         self._currentUiMap = uiMap
         self._currentPage = currentPage
         self._currentElementName = element_name
+        return self
+
+    #setValue("10")  >   xxx.relocateByText("10").click
+    def relocateByText(self, dynamic_value, element_name=None):
+        element_name = self._getElementNameFrom(element_name)
+        self._currentElementName = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
     #some elements' status may change after they appear. So need to clear the found ele and re-find.
@@ -191,7 +193,6 @@ class UiBaseFwk(object):
     def getCurrentElementObject(self):
         return self._currentElementObject
 
-
     def setCurrentElementCollectionName(self, elementCollection_name):
         self._currentElementCollectionName = elementCollection_name
 
@@ -204,14 +205,11 @@ class UiBaseFwk(object):
     def getCurrentElementCollectionObject(self):
         return self._currentElementCollectionObject
 
-
-    def setCurrentPage(self, page):
+    def _setCurrentPage(self, page):
         self._currentPage = page
 
     def getCurrentPage(self):
         return self._currentPage
-
-
 
     def _getElementType(self, element_locators_list):
         return element_locators_list[0]
@@ -226,23 +224,23 @@ class UiBaseFwk(object):
         except:
             return 0
 
-    def getElementNameFrom(self, element_name=None):
+    def _getElementNameFrom(self, element_name=None):
         if element_name == None:
             element_name = self.getCurrentElementName()
         return element_name
 
-    def getElementObjectFrom(self, idx_or_match=None, element_name=None):
+    def _getElementObjectFrom(self, idx_or_match=None, element_name=None):
         if self.getCurrentElementObject() is not None:
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementObject()
 
-    def getElementCollectionNameFrom(self, element_name=None):
+    def _getElementCollectionNameFrom(self, element_name=None):
         if element_name == None:
             element_name = self.getCurrentElementCollectionName()
         return element_name
 
-    def getElementCollectionObjectFrom(self, idx_or_match=None, element_name=None):
+    def _getElementCollectionObjectFrom(self, idx_or_match=None, element_name=None):
         if self.getCurrentElementCollectionObject() is not None:
             return self.getCurrentElementCollectionObject()
         self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))
@@ -264,7 +262,6 @@ class UiBaseFwk(object):
                 locator_index = self.UtilXml.getAttribute(locator)['index']
             except:
                 locator_index = "1"
-
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:
                 locator_value = locator_value.replace(self.StringConverter.VALUE_PLACEHOLDER, dynamic_string)
             #self.logger.info("............Finding element [" + element_name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
@@ -322,7 +319,7 @@ class UiBaseFwk(object):
     def getLanguageRegion(self):
         return self.RunTimeConf.language + "_" + self.RunTimeConf.region
 
-    def isEmpty(self, obj):
+    def _isEmpty(self, obj):
         if obj == "" or obj is None:
             return True
         else:

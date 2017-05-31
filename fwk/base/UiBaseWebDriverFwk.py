@@ -19,8 +19,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getItemsCount(self):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self.getElementObjectFrom(None, None)
-                self.getElementNameFrom(None)
+                self._getElementObjectFrom(None, None)
+                self._getElementNameFrom(None)
                 return len(self.getCurrentElementCollectionObject())
         except:
             return 0
@@ -29,8 +29,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getItems(self):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self.getElementCollectionObjectFrom(None, None)
-                self.getElementCollectionNameFrom(None)
+                self._getElementCollectionObjectFrom(None, None)
+                self._getElementCollectionNameFrom(None)
             # self.setCurrentElementName(self.getCurrentElementCollectionName())
             # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
             return self
@@ -40,8 +40,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getItem(self, child_element_index):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self.getElementObjectFrom(None, None)
-                self.getElementNameFrom(None)
+                self._getElementObjectFrom(None, None)
+                self._getElementNameFrom(None)
             self.setCurrentElementName(self.getCurrentElementCollectionName() + "_index_" + str(child_element_index))
             self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
             return self
@@ -50,8 +50,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def click(self, idx_or_match=None, element_name=None):
         try:
-            element = self.getElementObjectFrom(idx_or_match, element_name)
-            element_name = self.getElementNameFrom(element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getElementNameFrom(element_name)
             self.logger.info("Click element [" + element_name + "] on [" + str(self._currentPage) + "] page.")
             if element.is_enabled() is True:
                 element.click()
@@ -64,9 +64,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValue(self, value, idx_or_match=None, element_name=None):
         try:
-            element_name = self.getElementNameFrom(element_name)
+            element_name = self._getElementNameFrom(element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
-            element = self.getElementObjectFrom(idx_or_match, element_name)
+            element = self._getElementObjectFrom(idx_or_match, element_name)
             elementTagName = self._getElementTagName(element)
             if elementTagName == "input" or "text" or "password" or "email":
                 try:
@@ -115,7 +115,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return "text"
 
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
-        element = self.getElementObjectFrom(element_name, idx_or_match)
+        element = self._getElementObjectFrom(element_name, idx_or_match)
         return_value = ""
         if self.isPresent(element_name, idx_or_match):
             if attribute_type is None:
