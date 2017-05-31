@@ -126,10 +126,10 @@ class HomeMoreAppSettings(CommonUnittest):
         '''
         How to verify if all specifiled elements are Checked.
         '''
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isChecked(), False)
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isAllChecked(), False)
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isChecked(), False)
-        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isAllChecked(), False)
+        self.UI_Android.verifyUnchecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isChecked())
+        self.UI_Android.verifyUnchecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isAllChecked())
+        self.UI_Android.verifyUnchecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isChecked())
+        self.UI_Android.verifyUnchecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isAllChecked())
 
         '''other'''
         self.UI_Android.verifyContain("ere", "e")
