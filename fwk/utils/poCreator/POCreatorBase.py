@@ -99,8 +99,8 @@ class POCreatorBase(object):
             tmpStr = _pOModelHead + _pOModelModelBody + _pOModelHeadSubClass + _pOModelSubModelBody
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
 
-        self._getLinesFromFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pagesTemplateHead, self._getPagesBodyHead(), list_pagesTemplateBodyBody)
-        self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, self._getPOFileName(self._PAGES_TEMPLATE)), pagesTemplateHead + self._getPagesBodyHead() + pagesTemplateBodyBody)
+        self._writePagesFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pagesTemplateHead, self._getPagesBodyHead(), list_pagesTemplateBodyBody)
+
 
     def __getClassImportStringHead(self):
         if self.__isGeneratedInProject == True:
@@ -134,7 +134,7 @@ class POCreatorBase(object):
         return tmp
 
     def _getPagesBodyHead(self, level=0):
-        return self._newLine + self._getIndent(level) + "class Pages_%s:" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName)) \
+        return self._getIndent(level) + "class Pages_%s:" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._UI = UI" \
             + self._newLine
@@ -176,17 +176,29 @@ class POCreatorBase(object):
         try:
             lines = self._UtilFile.getLinesFromFile(path_file)
             for line in lines:
-                if part == 1:
-                    list_existed_pagesTemplateHead.append(line)
-                elif part == 3:
+                if part == 3:
                     list_existed_pagesTemplateBodyBody.append(line)
                 if "class Pages_" in line:
                     part = 2
                 elif "self._UI = UI" in line:
                     part = 3
-                elif "def " in line:
-                    break
+                if part == 1:
+                    list_existed_pagesTemplateHead.append(line)
 
+            for line in list_pagesTemplateHead:
+                if line not in list_existed_pagesTemplateHead:
+                    list_existed_pagesTemplateHead.insert(0, line)
+
+            for line in list_pagesTemplateBodyBody:
+                if line not in list_existed_pagesTemplateBodyBody:
+                    list_existed_pagesTemplateBodyBody.insert(0, line)
+
+            txt_pagesTemplateHead = "".join(list_existed_pagesTemplateHead)
+            txt_existed_pagesTemplateBodyBody = "".join(list_existed_pagesTemplateBodyBody)
+            if not txt_pagesTemplateHead.endswith(self._newLine + self._newLine):
+                # txt_PagesBodyHead = txt_PagesBodyHead.replace(self._newLine, "", 1)
+                txt_pagesTemplateHead = txt_pagesTemplateHead + self._newLine + self._newLine
+            self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), txt_pagesTemplateHead + txt_PagesBodyHead + txt_existed_pagesTemplateBodyBody)
 
         except:
             return
