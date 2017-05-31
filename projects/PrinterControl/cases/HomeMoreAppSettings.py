@@ -89,7 +89,6 @@ class HomeMoreAppSettings(CommonUnittest):
         How to verify Selected.
         '''
         self.UI_Android.verifyUnselected(self.Pages.Page_appSettings.checkBox_usageTracking().isSelected())
-
         '''
         How to verify Checked.
         '''

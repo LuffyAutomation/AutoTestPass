@@ -49,7 +49,6 @@ class POCreatorBase(object):
         self.__path_folder_po = path_folder_po
         self.__path_folder_uiMaps = path_folder_uiMaps
 
-
         self.__xmlTree = self._UtilXml.getTree(self.__path_folder_uiMaps)
         self._root = self._UtilXml.getRootElement(self.__xmlTree)
 
@@ -98,9 +97,7 @@ class POCreatorBase(object):
             _pOModelHead += self._getPOModelHeadSubClass(list_subClass, level)
             tmpStr = _pOModelHead + _pOModelModelBody + _pOModelHeadSubClass + _pOModelSubModelBody
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
-
         self._writePagesFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pagesTemplateHead, self._getPagesBodyHead(), list_pagesTemplateBodyBody)
-
 
     def __getClassImportStringHead(self):
         if self.__isGeneratedInProject == True:
@@ -199,11 +196,8 @@ class POCreatorBase(object):
                 # txt_PagesBodyHead = txt_PagesBodyHead.replace(self._newLine, "", 1)
                 txt_pagesTemplateHead = txt_pagesTemplateHead + self._newLine + self._newLine
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), txt_pagesTemplateHead + txt_PagesBodyHead + txt_existed_pagesTemplateBodyBody)
-
         except:
             return
-
-
 
     @abstractmethod
     def _getPOModelHead(self, page_name, child_page_name, level):
