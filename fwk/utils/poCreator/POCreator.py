@@ -91,7 +91,7 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "self.UI = %s" % self.__getWhichFwk() \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "%s.__init__(self)" % self._getPOModelClassName(po_name) \
             + self._newLine \
-            + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Buissness Logic." \
+            + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Business Logic." \
             + self._newLine + self._getIndent(level) + self._indent \
             + \
         '''def example(self):

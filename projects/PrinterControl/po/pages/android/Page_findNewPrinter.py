@@ -8,7 +8,7 @@ class Page_findNewPrinter(Page_findNewPrinter_model):
         self.UI = UI
         Page_findNewPrinter_model.__init__(self)
 
-    # This is function template of how to write your Buissness Logic.
+    # This is function template of how to write your Business Logic.
     def flow_example(self):
         pass
         # self.checkbox_accept().waitForShown().click()

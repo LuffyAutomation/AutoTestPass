@@ -8,7 +8,7 @@ class Sys_packageinstaller(Sys_packageinstaller_model):
         self.UI = UI
         Sys_packageinstaller_model.__init__(self)
 
-    # This is function template of how to write your Buissness Logic.
+    # This is function template of how to write your Business Logic.
     def example(self):
         pass
         # self.checkbox_accept().waitForShown().click()

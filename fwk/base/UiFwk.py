@@ -49,7 +49,6 @@ class UiFwk(UiBaseWebDriverFwk):
     def verifyIsShown(self, time_out=None, idx_or_match=None, element_name=None):
         return self.waitForShown(time_out, idx_or_match, element_name, True, self._LogHead.VERIFY)
 
-
     def __boolToStr(self, value):
         if type(value) is bool:
             if value is True:

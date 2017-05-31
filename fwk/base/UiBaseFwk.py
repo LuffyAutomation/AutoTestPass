@@ -2,7 +2,6 @@
 import os
 
 from selenium.webdriver.common.by import By
-
 from fwk.utils.exceller.Exceller import Exceller
 from fwk.other.RunTimeConf import RunTimeConf
 from fwk.utils.utilTime.UtilWaitEvent import UtilWaitEvent
@@ -19,6 +18,7 @@ class UiBaseFwk(object):
         def __init__(self, language):
             if language.lower() == "en" or language.lower() == self.en_US.lower():
                 return self.en_US
+
     class SwipeTo:
         LEFT = "left"
         LEFT_SIDE = "leftSide"
@@ -38,7 +38,7 @@ class UiBaseFwk(object):
         XPATH = "xpath"
         LINK_TEXT = "link_text"
         PARTIAL_LINK_TEXT = "partial_link_text"
-        NAME = "name"  # text
+        #NAME = "name"  # text, but name has been depreated in appium 1.6
         ACCESSIBILITY_ID = "accessibility_id"  #1. content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
         TAG_NAME = "tag_name"
         CLASS_NAME = "class_name"
@@ -125,7 +125,7 @@ class UiBaseFwk(object):
         self.UtilWaitEvent(time_out, poll_frequency).until(
             lambda start_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %s." % (log_prefix, start_time, time_out, poll_frequency)), error_message
         )
-        
+
     def wait(self, time):
         try:
             # self.logger.info("Wait " + str(time) + "s.")
