@@ -121,9 +121,18 @@ class HomeMoreAppSettings(CommonUnittest):
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(1).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(2).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(3).click()
-
         self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItemsCount(), 3)
 
+        '''
+        How to verify if all specifiled elements are Checked.
+        '''
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isChecked(), False)
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_setIndex().isAllChecked(), False)
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isChecked(), False)
+        self.UI_Android.verifyChecked(self.Pages.Page_appSettings.checkBox_All_noIndex().isAllChecked(), False)
 
-
+        '''other'''
+        self.UI_Android.verifyContain("ere", "e")
+        self.UI_Android.verifyNotContain("ere", "3")
+        self.UI_Android.verifyNotEqual("erer", "wewe")
 

@@ -273,8 +273,8 @@ class UiBaseFwk(object):
     def __get_sys_locator_type(self, locator_type):
         if locator_type == self.LocatorType.ID:
             locator_type = By.ID
-        elif locator_type == self.LocatorType.NAME:
-            locator_type = By.NAME # it is deprecated in 1.5
+        # elif locator_type == self.LocatorType.NAME:
+        #     locator_type = By.NAME # it is deprecated in 1.5
         elif locator_type == self.LocatorType.XPATH:
             locator_type = By.XPATH
         elif locator_type == self.LocatorType.PARTIAL_LINK_TEXT:

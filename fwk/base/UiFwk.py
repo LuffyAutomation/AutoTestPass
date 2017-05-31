@@ -1,5 +1,5 @@
 from UiBaseWebDriverFwk import UiBaseWebDriverFwk
-from abc import abstractmethod
+import inspect
 
 
 class UiFwk(UiBaseWebDriverFwk):
@@ -65,95 +65,199 @@ class UiFwk(UiBaseWebDriverFwk):
                 return b
         return value
 
-    def __verifyEqual(self, value, expectedValue, func_name=None, element_name=None):
+    def __toStr(self, value):
+        if type(value) is int or type(value) is long or type(value) is float:
+            pass
+        elif type(value) is bool:
+            if value is True:
+                return "True"
+            else:
+                return "False"
+        return value
+
+    def __verifyEqual(self, value, objectValue, func_name=None, element_name=None):
         element_name = self._getElementNameFrom(element_name)
-        expectedValue = str(expectedValue)
+        objectValue = str(objectValue)
         value = str(value)
+        global t
+        t = "is"
+        if "NotEqual" in func_name:
+            t = "is not"
+        elif "NotContain" in func_name:
+            t = "does not contain"
+        elif "Contain" in func_name:
+            t = "contains"
+
+        objectValue = objectValue.decode("utf-8")
+        value = value.decode("utf-8")
         if func_name == "verifyCount":
-            self.logger.info("Verify the number of element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].")  # decode encode for python 2
+            self.logger.info("Verify the number of the element(s) [%s] %s [%s]." % (element_name, t, objectValue))  # decode encode for python 2
         else:
-            self.logger.info("Verify the element [" + element_name + "] is [" + expectedValue.decode("utf-8") + "].") # decode encode for python 2
-        if value.encode('utf-8') != expectedValue:
+            self.logger.info("Verify the value or status of the element [%s] %s [%s]." % (element_name, t, objectValue)) # decode encode for python 2
+        if "NotEqual" in func_name:
+            if value == objectValue:
+                self.logger.info("Failed!")
+                raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result is [" + objectValue + "] as well.")
+        elif "NotContain" in func_name:
+            if objectValue in value:
+                self.logger.info("Failed!")
+                raise Exception("The element ['" + element_name + "']'s actual result ['" + value + "'] that Contain [" + objectValue + "].")
+        elif "verifyContain" in func_name:
+            if objectValue not in value:
+                self.logger.info("Failed!")
+                raise Exception("The element ['" + element_name + "']'s actual result ['" + value + "'] that does not contain [" + objectValue + "].")
+        elif value != objectValue:
             self.logger.info("Failed!")
             if func_name == "verifyCount":
-                raise Exception("The number of element ['" + element_name + "'] is ['" + value + "'], but the expected result shall be [" + expectedValue +"].")
+                raise Exception("The number of element ['" + element_name + "'] is ['" + value + "'], but the expected result is [" + objectValue +"].")
             else:
-                raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result shall be [" + expectedValue + "].")
-        else:
-            self.logger.info("Passed!")
+                raise Exception("The element ['" + element_name + "']'s actual result is ['" + value + "'], but the expected result is [" + objectValue + "].")
+        self.logger.info("Passed!")
 
-    def verifyCount(self, value, expectedValue, element_name=None):
-        self.__verifyEqual(value, expectedValue, "verifyCount")
+    def verifyCount(self, value, objectValue, element_name=None):
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyEqual(self, value, expectedValue, element_name=None):
-        expectedValue = self.__boolToStr(expectedValue)
+    def verifyNotEqual(self, value, objectValue, element_name=None):
+        objectValue = self.__boolToStr(objectValue)
         value = self.__boolToStr(value)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyChecked(self, value, expectedValue=VerifyString.CHECKED, element_name=None):
+    def verifyEqual(self, value, objectValue, element_name=None):
+        objectValue = self.__boolToStr(objectValue)
+        value = self.__boolToStr(value)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
+
+    def verifyContain(self, value, objectValue, element_name=None):
+        objectValue = str(objectValue)
+        value = str(value)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
+
+    def verifyNotContain(self, value, objectValue, element_name=None):
+        objectValue = str(objectValue)
+        value = str(value)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
+
+    def verifyNotContain(self, value, objectValue, element_name=None):
+        objectValue = str(objectValue)
+        value = str(value)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
+
+    def verifyChecked(self, value, objectValue=VerifyString.CHECKED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.CHECKED, self.VerifyString.UNCHECKED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyUnchecked(self, value, expectedValue=VerifyString.UNCHECKED, element_name=None):
+    def verifyUnchecked(self, value, objectValue=VerifyString.UNCHECKED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.CHECKED, self.VerifyString.UNCHECKED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyEnabled(self, value, expectedValue=VerifyString.ENABLED, element_name=None):
+    def verifyEnabled(self, value, objectValue=VerifyString.ENABLED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.ENABLED, self.VerifyString.DISABLED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyDisable(self, value, expectedValue=VerifyString.DISABLED, element_name=None):
+    def verifyDisable(self, value, objectValue=VerifyString.DISABLED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.ENABLED, self.VerifyString.DISABLED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifySelected(self, value, expectedValue=VerifyString.SELETED, element_name=None):
+    def verifySelected(self, value, objectValue=VerifyString.SELETED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.SELETED, self.VerifyString.UNSELETED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
-    def verifyUnselected(self, value, expectedValue=VerifyString.UNSELETED, element_name=None):
+    def verifyUnselected(self, value, objectValue=VerifyString.UNSELETED, element_name=None):
         value = self.__boolToSpecifiledStr(value, self.VerifyString.SELETED, self.VerifyString.UNSELETED)
-        self.__verifyEqual(value, expectedValue)
+        self.__verifyEqual(value, objectValue, inspect.stack()[0][3])
 
     def isChecked(self, idx_or_match=None, element_name=None):
+        return self.__isChecked(False, idx_or_match, element_name)
+
+    def isAllChecked(self, idx_or_match=None, element_name=None):
+        return self.__isChecked(True, idx_or_match, element_name)
+
+    def __isChecked(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             element_name = self._getElementNameFrom(element_name)
             element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
-                element = self.getMatchedElement(idx_or_match, element_name)
-            checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
-            if "true" in checkbox_class:
+                if not isCollection:
+                    element = self.getMatchedElement(idx_or_match, element_name)
+                else:
+                    element = self.getMatchedElements(idx_or_match, element_name)
+            if type(element) is list:  # set index = 0 in uimaps
+                for ele in element:
+                    if "true" not in ele.get_attribute(self.AttributeType.CHECKED):
+                        return False
                 return True
-            else:
-                return False
+            return True if "true" in element.get_attribute(self.AttributeType.CHECKED) else False
         except Exception as e:
             return False
 
-    def isPresent(self, idx_or_match=None, element_name=None):
+    def isAllPresent(self, idx_or_match=None, element_name=None):
+        return self.__isPresent(True, idx_or_match, element_name)
+
+    def __isPresent(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             element_name = self._getElementNameFrom(element_name)
             element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
-                element = self.getMatchedElement(idx_or_match, element_name)
+                if not isCollection:
+                    element = self.getMatchedElement(idx_or_match, element_name)
+                else:
+                    element = self.getMatchedElements(idx_or_match, element_name)
+            if type(element) is list:  # set index = 0 in uimaps
+                for ele in element:
+                    if ele.is_displayed() is False:
+                        return False
+                return True
             return element.is_displayed()
         except Exception as e:
             return False
 
+    def isPresent(self, idx_or_match=None, element_name=None):
+        return self.__isPresent(False, idx_or_match, element_name)
+
     def isEnabled(self, idx_or_match=None, element_name=None):
+        return self.__isEnabled(False, idx_or_match, element_name)
+
+    def isAllEnabled(self, idx_or_match=None, element_name=None):
+        return self.__isEnabled(True, idx_or_match, element_name)
+
+    def __isEnabled(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             element_name = self._getElementNameFrom(element_name)
             element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
-                element = self.getMatchedElement(idx_or_match, element_name)
+                if not isCollection:
+                    element = self.getMatchedElement(idx_or_match, element_name)
+                else:
+                    element = self.getMatchedElements(idx_or_match, element_name)
+            if type(element) is list: # set index = 0 in uimaps
+                for ele in element:
+                    if ele.is_enabled() is False:
+                        return False
+                return True
             return element.is_enabled()
         except Exception as e:
             return False
 
     def isSelected(self, idx_or_match=None, element_name=None):
+        return self.__isSelected(False, idx_or_match, element_name)
+
+    def isAllSelected(self, idx_or_match=None, element_name=None):
+        return self.__isSelected(True, idx_or_match, element_name)
+
+    def __isSelected(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             element_name = self._getElementNameFrom(element_name)
             element = self._getElementObjectFrom(idx_or_match, element_name)
             if element is None:
-                element = self.getMatchedElement(idx_or_match, element_name)
+                if not isCollection:
+                    element = self.getMatchedElement(idx_or_match, element_name)
+                else:
+                    element = self.getMatchedElements(idx_or_match, element_name)
+            if type(element) is list:  # set index = 0 in uimaps
+                for ele in element:
+                    if ele.is_selected() is False:
+                        return False
+                return True
             return element.is_selected()
         except Exception as e:
             return False
