@@ -118,7 +118,7 @@ class HomeMoreAppSettings(CommonUnittest):
         self.Pages.Page_appSettings.checkBox_usageTracking().click()
         self.Pages.Page_appSettings.checkBox_hpSuppliesShopping().click()
         self.Pages.Page_appSettings.checkBox_wirelessNetwork().click()
-        '''3. Have not set index in uiMap.xml.'''
+        '''3. Without setting the index in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(1).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(2).click()
         self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(3).click()
