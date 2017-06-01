@@ -1,0 +1,1 @@
+class Pages_Web: pass

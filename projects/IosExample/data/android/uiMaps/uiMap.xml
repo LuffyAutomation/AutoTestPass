@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+	<UiMap>
+		<pages>
+            <page name="page_first" description = "Describe your page here." >
+                <element name="checkbox_accept" description = "Multiple properties can be used at the same time." >
+                    <id>
+                        com.hp.printercontrol:id/moobe_review_accept_agreements_checkbox
+                    </id>
+                    <accessibility_id>
+                        Page
+                    </accessibility_id>
+                    <xpath>
+                        //android.webkit.WebView/android.view.View[1]/android.view.View[1]/android.view.View[1]
+                    </xpath>
+                    <xpath>
+                        //android.view.View[1]/android.view.View[1]/android.view.View[2]/android.view.View[1][contains(@content-desc,'accept')]
+                    </xpath>
+                    <xpath>
+                        //android.widget.TextView[@text = 'accept']
+                    </xpath>
+                </element>
+                <element name="button_continue">
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                </element>
+			</page>
+            <page name="page_other" description="main page.">
+                <element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element>
+                <page name="menu_moreOptions" description = "You can add one level of subpage here." >
+                    <element name="menuItem_about_" description = "Add _ at the end of the Name if its value will be localized." >
+                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
+                    </element>
+                </page>
+			</page>
+		</pages>
+	</UiMap>
+</test-data>

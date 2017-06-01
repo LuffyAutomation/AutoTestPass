@@ -15,6 +15,9 @@ class MobileDriver:
     APP_PACKAGE = "appPackage"
     APP_WAIT_ACTIVITY = "appWaitActivity"
     APP_ACTIVITY = "appActivity"
+    # IOS
+    APP_BUNDLEID = "bundleId"
+    APP_UDID = "udid"
 
     def __init__(self, UI):
         self.desired_caps = {}
@@ -31,15 +34,22 @@ class MobileDriver:
     def __getDesiredCapsList(self):
         self.desired_caps = {
             self.PLATFORM: self._RunTimeConf.platform,
-            # self.PLATFORM_VERSION: self._RunTimeConf.platformVersion,
+            self.PLATFORM_VERSION: self._RunTimeConf.platformVersion,
             self.DEVICE_NAME: self._RunTimeConf.deviceName,
             self.NEW_COMMAND_TIMEOUT: self._RunTimeConf.newCommandTimeout,
-            self.APP_PACKAGE: self._RunTimeConf.appPackage,
-            self.APP_ACTIVITY: self._RunTimeConf.appActivity,
             self.APP: PATH(self._RunTimeConf.app)
         }
+
+
+        if self._UI.testType.lower() == "ios":
+            self.desired_caps[self.APP_BUNDLEID] = self._RunTimeConf.appBundleId
+            self.desired_caps[self.APP_UDID] = self._RunTimeConf.appUdid
+            self.desired_caps[self.AUTOMATION_NAME] = "XCUITest"
+        else:
+            self.desired_caps[self.APP_PACKAGE] = self._RunTimeConf.appPackage
+            self.desired_caps[self.APP_ACTIVITY] = self._RunTimeConf.appActivity
         # if self._RunTimeConf.automationName is not None:
         #     self.desired_caps[self.AUTOMATION_NAME] = self._RunTimeConf.automationName
-        if self._RunTimeConf.automationName is not None:
+        if self._RunTimeConf.automationName is not None and self._RunTimeConf.appWaitActivity is not None:
             self.desired_caps[self.APP_WAIT_ACTIVITY] = self._RunTimeConf.appWaitActivity
         return self.desired_caps

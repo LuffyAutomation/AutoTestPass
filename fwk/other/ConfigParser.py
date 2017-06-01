@@ -41,6 +41,8 @@ class ConfigParse:
     APP_APPIUM_SERVERIP = "app.appium.serverIP"
     APP_APPIUM_SERVERPORT = "app.appium.serverPort"
 
+    APP_BUNDLEID = "app.bundleId"
+    APP_UDID = "app.udid"
     def setRunTimeConfig(self, RunTimeConfig):
         self._RunTimeConfig = RunTimeConfig
 

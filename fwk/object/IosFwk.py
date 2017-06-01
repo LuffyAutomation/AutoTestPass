@@ -2,6 +2,7 @@ import os
 
 from fwk.base.UiFwk import UiFwk
 from fwk.utils.ApiRequest import wdaRun
+from fwk.object.MobileDriver import MobileDriver
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
@@ -11,7 +12,24 @@ class IosFwk(UiFwk):
 
     def __init__(self, Init):
         UiFwk.__init__(self, Init)
-        self.path_file_xlsx_testData = Init.path_file_xlsx_testData_ios
+        self._Init = Init
+        self.path_file_xlsx_testData = self._Init.path_file_xlsx_testData_ios
+
+    def __launch_app(self):
+        self._driver = MobileDriver(self).getDriver()
+        self.hasGotDriver = True
+        self._Init.log_countDown("Connecting......", 3)
+        return self._driver
+
+    def getDriver(self):
+        self.logger.info("Connecting Ios driver.")
+        self._getCurrentTestArgs(self.TestType.IOS)
+        if self._driver is None:
+           self.__launch_app()
+           self.RunTimeConf.getMobileInfo(self)
+        else:
+            self.logger.info("The Ios driver has existed.")
+        return self._driver
 
     def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
         if self._currentElementName != element_name:
@@ -20,18 +38,6 @@ class IosFwk(UiFwk):
         self._currentPage = currentPage
         self._currentElementName = element_name
         return self
-
-    def getDriver(self):
-        self.logger.info("Connecting Ios driver.")
-        self._getCurrentTestArgs(self.TestType.IOS)
-        # if self._driver is None:
-        #     self._driver = WebDriver(self).getDriver()
-        # self.hasGotDriver = True
-        #     self.wait(2)
-        # else:
-        #     self.logger.info("The Ios driver has existed.")
-        return self._driver
-
 
     def openApp(self,bundleId=None, page=""):
         self.UiMapSetPage(page)

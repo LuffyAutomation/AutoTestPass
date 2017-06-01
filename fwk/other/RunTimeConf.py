@@ -48,7 +48,11 @@ class RunTimeConf:
             self.appPackage = os.getenv("APPIUM_APP_PACKAGE")
             self.appActivity = os.getenv("APPIUM_APP_ACTIVITY")
             self.appiumUrl = os.getenv("APPIUM_URL")
-        elif self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_ACTIVITY) is not None:
+
+            self.appBundleId = os.getenv("APP_BUNDLEIDENTIFIER")
+            self.appUdid = os.getenv("APP_UDID")
+
+        elif self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_ACTIVITY) is not None or self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_UDID) is not None:
             self.isDevicePassTest = False
 
             self.isMobileTest = True
@@ -64,13 +68,20 @@ class RunTimeConf:
             self.appPackage = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_PACKAGE)
             self.appActivity = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_ACTIVITY)
             self.appWaitActivity = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_WAITACTIVITY)
-            self.app = PATH(self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_PATH))
+            self.app = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_PATH)
+
+            if not self.app.lower().startswith("/volumes"):
+                self.app = PATH(self.app)
+
             self.appiumServerIP = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_APPIUM_SERVERIP)
             self.appiumServerPort = self._ConfigParser.getRunTimeConfigCapsValue(
                 self._ConfigParser.APP_APPIUM_SERVERPORT)
             self.appiumUrl = "http://" + self.appiumServerIP + ":" + self.appiumServerPort + "/wd/hub"
             # self.automationName = "LocalTest" # do not work for 164
             self.automationName = None
+
+            self.appBundleId = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_BUNDLEID)
+            self.appUdid = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_UDID)
         else:  # web
             self.isDevicePassTest = False
             self.isMobileTest = False

@@ -242,6 +242,7 @@ class Result:
             caseInfo = self.DictCaseInfo_current[id]
             self.setDescription(*caseInfo.description)
             self.setExpectedResult(*caseInfo.expectedResult)
+        self.setStepBlock(self._env_block_msg)
 
     def beforeEachFunction(self, TestCase):
         self._UI.logger.debug("******************************************************************************")
