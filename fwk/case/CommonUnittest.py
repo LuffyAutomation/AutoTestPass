@@ -46,6 +46,7 @@ class CommonUnittest(unittest.TestCase):
                 # cls.Pages_Web = Pages_Web(cls.UI_Web)
                 cls.UI = cls.UI_Web
                 # cls.Pages = cls.Pages_Web
+            cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)  # avoid errors when the next step failed.
             cls.UI.getDriver()
             if cls.UI_Android is None:
                 cls.UI_Android = AndroidFwk(cls.InitFwk)
@@ -54,8 +55,11 @@ class CommonUnittest(unittest.TestCase):
             if cls.UI_Web is None:
                 cls.UI_Web = WebFwk(cls.InitFwk)
             cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)
+            cls.Result.printBaseInfo()
         except Exception as e:
-            traceback.print_exc()
+            # traceback.print_exc()
+            cls.UI.logger.error(traceback.format_exc())
+            cls.Result.setEnvBlockMsg(e.__str__())
             try:
                 if cls.UI_Ios.hasGotDriver is True:
                     cls.UI_Ios.quit()
@@ -100,7 +104,14 @@ class CommonUnittest(unittest.TestCase):
             cls.UI.logger.error(e.__str__())
 
     def setUp(self):
-        self.Result.beforeEachFunction(self)
+        try:
+            self.Result.beforeEachFunction(self)
+        except:
+            pass
 
     def tearDown(self):
-        self.Result.afterEachFunction(self)
+        try:
+            self.Result.afterEachFunction(self)
+        except:
+            pass
+

@@ -19,7 +19,7 @@ class AndroidFwk(UiFwk):
     def __launch_app(self):
         self._driver = MobileDriver(self).getDriver()
         self.hasGotDriver = True
-        self._Init.log_countDown("Connecting...", 3)
+        self._Init.log_countDown(1, "Connecting...", 3)
         return self._driver
 
     def getDriver(self):

@@ -52,7 +52,7 @@ class InitFwk:
 
     def log_countDown(self, log, range_max=30, interval=2, range_min=0):
         # reLog = lambda x: self.logger.info(log + " > Time left: %s s." % str(x))
-        fucntion_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %s s." % str(x), interval)
+        fucntion_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %ss." % str(x), interval)
         self.UtilTime.countDown(range_max, fucntion_reLog, interval, range_min)
 
     def __getOSLanguage(self):

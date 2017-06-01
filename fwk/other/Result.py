@@ -20,7 +20,7 @@ class Result:
     DictCaseInfo_web = None
     DictCaseInfo_ios = None
     DictCaseInfo_current = None
-
+    _env_block_msg = None
     # currentDescripttion = ""
     # currentExpectedResult = ""
     # caseRunTime = ""
@@ -105,6 +105,9 @@ class Result:
         self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
         self.setTestName(testName)
         self.beforeClass()
+
+    def setEnvBlockMsg(self, env_block_msg):
+        self._env_block_msg = env_block_msg
 
     def _setAsLink(self, str):
         return "#$#" + str + "#$#" + self._setLine("")
@@ -197,6 +200,8 @@ class Result:
         self._dict_report[self._deviceModel] = self._UI.RunTimeConf.deviceModel
         self._dict_report[self._language] = self._UI.RunTimeConf.language
         self._dict_report[self._region] = self._UI.RunTimeConf.region
+
+    def printBaseInfo(self):
         for info in self._list_baseInfo:
             self._UI.logger.info("%s: [%s]" % (info, self._dict_report[info]))
 
@@ -209,7 +214,10 @@ class Result:
     def setResultToTBD(self):  # for skip
         pass
 
-    def setStepBlock(self):
+    def setStepBlock(self, env_block_msg):
+        if env_block_msg is not None:
+            self._value_nonPass_result == self._r_block
+            raise Exception("This step is failed since the test env error. Please check the log file for details.")
         if self._value_nonPass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
 
@@ -333,16 +341,19 @@ class Result:
         return "%s_%s" % (str(self.globalTestSuiteNum), self._dict_report[self._testName])
 
     def setScreenshot(self, name="stepEnd", comment="Step ended"):
-        path_screenShot = self._UI.getScreenShot(name, self)
-        if self._UI.RunTimeConf.isDevicePassTest:
-            tmp = os.path.join(path_screenShot.replace(self.path_folder_testSuiteNumScreenshots, "")[1:])
-        else:
-            tmp = os.path.join(path_screenShot.replace(self.path_folder_currentTest, "")[1:])
-        tmp = self.__setManualCheck(comment, tmp)
-        if self._dict_report[self._manualCheck] == self.NA:
-            self._dict_report[self._manualCheck] = ""
-        self._dict_report[self._manualCheck] += self._setAsLink(tmp)
-        return self._setAsLink(tmp)
+        try:
+            path_screenShot = self._UI.getScreenShot(name, self)
+            if self._UI.RunTimeConf.isDevicePassTest:
+                tmp = os.path.join(path_screenShot.replace(self.path_folder_testSuiteNumScreenshots, "")[1:])
+            else:
+                tmp = os.path.join(path_screenShot.replace(self.path_folder_currentTest, "")[1:])
+            tmp = self.__setManualCheck(comment, tmp)
+            if self._dict_report[self._manualCheck] == self.NA:
+                self._dict_report[self._manualCheck] = ""
+            self._dict_report[self._manualCheck] += self._setAsLink(tmp)
+            return self._setAsLink(tmp)
+        except:
+            pass
 
     def setComment(self, comment=""):
         if self._dict_report[self._manualCheck] == self.NA:
@@ -385,7 +396,7 @@ class Result:
             else:
                 tmp += expectedResult[idx]
         self._dict_report[self._expectedResult] = tmp
-        self.setStepBlock()
+        self.setStepBlock(self._env_block_msg)
 
     def setDescription(self, *description):
         tmp = ""
