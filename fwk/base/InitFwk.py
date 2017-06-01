@@ -50,10 +50,10 @@ class InitFwk:
         self.logger.info(log)
         self.UtilTime.sleep(interval)
 
-    def log_countDown(self, log, range_max=30, interval=5, range_min=0):
+    def log_countDown(self, log, range_max=30, interval=2, range_min=0):
         # reLog = lambda x: self.logger.info(log + " > Time left: %s s." % str(x))
-        reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %s s." % str(x), interval)
-        self.UtilTime.countDown(range_max, reLog, interval, range_min)
+        fucntion_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %s s." % str(x), interval)
+        self.UtilTime.countDown(range_max, fucntion_reLog, interval, range_min)
 
     def __getOSLanguage(self):
         self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp

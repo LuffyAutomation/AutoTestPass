@@ -56,25 +56,46 @@ class CommonUnittest(unittest.TestCase):
             cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)
         except Exception as e:
             traceback.print_exc()
-            if cls.UI_Ios.hasGotDriver is True:
-                cls.UI_Ios.quit()
-            if cls.UI_Android.hasGotDriver is True:
-                cls.UI_Android.quit()
-            if cls.UI_Web.hasGotDriver is True:
-                cls.UI_Web.quit()
+            try:
+                if cls.UI_Ios.hasGotDriver is True:
+                    cls.UI_Ios.quit()
+            except:
+                pass
+            try:
+                if cls.UI_Android.hasGotDriver is True:
+                    cls.UI_Android.quit()
+            except:
+                pass
+            try:
+                if cls.UI_Web.hasGotDriver is True:
+                    cls.UI_Web.quit()
+            except:
+                pass
             cls.UI.logger.error(e.__str__())
 
     @classmethod
     def tearDownClass(cls):
         try:
-            cls.UI.logger.info("Quit connection.")
-            if cls.UI_Ios.hasGotDriver is True:
-                cls.UI_Ios.quit()
-            if cls.UI_Android.hasGotDriver is True:
-                cls.UI_Android.quit()
-            if cls.UI_Web.hasGotDriver is True:
-                cls.UI_Web.quit()
+            cls.UI.logger.info("Quitting connection.")
+            try:
+                if cls.UI_Ios.hasGotDriver is True:
+                    cls.UI_Ios.quit()
+            except:
+                pass
+            try:
+                if cls.UI_Android.hasGotDriver is True:
+                    cls.UI_Android.quit()
+            except:
+                pass
+            try:
+                if cls.UI_Web.hasGotDriver is True:
+                    cls.UI_Web.quit()
+            except:
+                pass
+            try:
                 cls.Result.afterClass(cls)
+            except:
+                pass
         except Exception as e:
             cls.UI.logger.error(e.__str__())
 

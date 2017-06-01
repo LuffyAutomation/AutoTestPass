@@ -24,10 +24,12 @@ class IosFwk(UiFwk):
     def getDriver(self):
         self.logger.info("Connecting Ios driver.")
         self._getCurrentTestArgs(self.TestType.IOS)
-        # if self._driver == None:
+        # if self._driver is None:
         #     self._driver = WebDriver(self).getDriver()
+        # self.hasGotDriver = True
         #     self.wait(2)
-        self.hasGotDriver = True
+        # else:
+        #     self.logger.info("The Ios driver has existed.")
         return self._driver
 
 
