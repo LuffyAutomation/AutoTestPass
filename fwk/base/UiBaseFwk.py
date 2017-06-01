@@ -171,7 +171,7 @@ class UiBaseFwk(object):
 
     #setValue("10")  >   xxx.relocateByText("10").click
     def relocateByText(self, dynamic_value, element_name=None):
-        element_name = self._getElementNameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         self._currentElementName = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
@@ -224,23 +224,24 @@ class UiBaseFwk(object):
         except:
             return 0
 
-    def _getElementNameFrom(self, element_name=None):
+    # for log
+    def _getCurrentElementNameWhenNone(self, element_name=None):
         if element_name == None:
             element_name = self.getCurrentElementName()
         return element_name
 
-    def _getElementObjectFrom(self, idx_or_match=None, element_name=None):
+    def _getElementObjectFromCurrentOrSearch(self, idx_or_match=None, element_name=None):
         if self.getCurrentElementObject() is not None:
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementObject()
 
-    def _getElementCollectionNameFrom(self, element_name=None):
+    def _getCurrentElementCollectionName(self, element_name=None):
         if element_name == None:
             element_name = self.getCurrentElementCollectionName()
         return element_name
 
-    def _getElementCollectionObjectFrom(self, idx_or_match=None, element_name=None):
+    def _getElementCollectionObjectFromCurrentOrSearch(self, idx_or_match=None, element_name=None):
         if self.getCurrentElementCollectionObject() is not None:
             return self.getCurrentElementCollectionObject()
         self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))

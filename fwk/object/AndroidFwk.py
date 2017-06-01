@@ -180,19 +180,19 @@ class AndroidFwk(UiFwk):
 
     def getElementWidth(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return int(self._getElementObjectFrom(element_name, item).size["width"])
+        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["width"])
 
     def getElementWidthHeight(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return int(self._getElementObjectFrom(element_name, item).size["height"])
+        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["height"])
 
     def getElemenX(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return self._getElementObjectFrom(element_name, item).location["x"]
+        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["x"]
 
     def getElementY(self, item=None, element_name=None):
         element_name = self.getelement_nameFrom(element_name)
-        return self._getElementObjectFrom(element_name, item).location["y"]
+        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
 
     def getWindowX(self):
         width = self._driver.get_window_size()['width']

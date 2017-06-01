@@ -15,7 +15,7 @@ class UiFwk(UiBaseWebDriverFwk):
         UNSELETED = "unselected"
 
     def waitForShown(self, time_out=None, idx_or_match=None, element_name=None, verify_shown=True, log_head=None):
-        element_name = self._getElementNameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         if log_head == None: log_head = self._LogHead.WAITINGFOR
         if time_out == None:
             try:
@@ -76,7 +76,7 @@ class UiFwk(UiBaseWebDriverFwk):
         return value
 
     def __verifyEqual(self, value, objectValue, func_name=None, element_name=None):
-        element_name = self._getElementNameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         objectValue = str(objectValue)
         value = str(value)
         global t
@@ -174,18 +174,17 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __isChecked(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getElementNameFrom(element_name)
-            element = self._getElementObjectFrom(idx_or_match, element_name)
-            if element is None:
-                if not isCollection:
-                    element = self.getMatchedElement(idx_or_match, element_name)
-                else:
-                    element = self.getMatchedElements(idx_or_match, element_name)
-            if type(element) is list:  # set index = 0 in uimaps
+            if not isCollection:
+                element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            else:
+                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+            if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
                     if "true" not in ele.get_attribute(self.AttributeType.CHECKED):
                         return False
                 return True
+            elif type(element) is list and not isCollection:
+                return False if "true" not in element[0].get_attribute(self.AttributeType.CHECKED) else True
             return True if "true" in element.get_attribute(self.AttributeType.CHECKED) else False
         except Exception as e:
             return False
@@ -195,18 +194,20 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __isPresent(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getElementNameFrom(element_name)
-            element = self._getElementObjectFrom(idx_or_match, element_name)
+            element_name = self._getCurrentElementNameWhenNone(element_name)
+            element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
             if element is None:
                 if not isCollection:
                     element = self.getMatchedElement(idx_or_match, element_name)
                 else:
                     element = self.getMatchedElements(idx_or_match, element_name)
-            if type(element) is list:  # set index = 0 in uimaps
+            if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
                     if ele.is_displayed() is False:
                         return False
                 return True
+            elif type(element) is list and not isCollection:
+                return element[0].is_displayed()
             return element.is_displayed()
         except Exception as e:
             return False
@@ -222,18 +223,17 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __isEnabled(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getElementNameFrom(element_name)
-            element = self._getElementObjectFrom(idx_or_match, element_name)
-            if element is None:
-                if not isCollection:
-                    element = self.getMatchedElement(idx_or_match, element_name)
-                else:
-                    element = self.getMatchedElements(idx_or_match, element_name)
-            if type(element) is list: # set index = 0 in uimaps
+            if not isCollection:
+                element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            else:
+                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+            if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
                     if ele.is_enabled() is False:
                         return False
                 return True
+            elif type(element) is list and not isCollection:
+                return element[0].is_enabled()
             return element.is_enabled()
         except Exception as e:
             return False
@@ -246,13 +246,10 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __isSelected(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getElementNameFrom(element_name)
-            element = self._getElementObjectFrom(idx_or_match, element_name)
-            if element is None:
-                if not isCollection:
-                    element = self.getMatchedElement(idx_or_match, element_name)
-                else:
-                    element = self.getMatchedElements(idx_or_match, element_name)
+            if not isCollection:
+                element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            else:
+                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
             if type(element) is list:  # set index = 0 in uimaps
                 for ele in element:
                     if ele.is_selected() is False:
