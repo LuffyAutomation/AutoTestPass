@@ -1,4 +1,5 @@
 class Pages_Android:
-    pass
+    def __init__(self, UI):
+        self._UI = UI
 
 

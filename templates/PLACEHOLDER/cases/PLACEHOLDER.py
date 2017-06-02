@@ -3,11 +3,11 @@
 from fwk.case.CommonUnittest import CommonUnittest
 # import one or multiple kind of Pages_ that you need.
 from projects.PLACEHOLDER.po.wrapper.Pages_Android import Pages_Android
-# from projects.PLACEHOLDER.po.wrapper.Pages_Ios import Pages_Ios
-# from projects.PLACEHOLDER.po.wrapper.Pages_Web import Pages_Web
+from projects.PLACEHOLDER.po.wrapper.Pages_Ios import Pages_Ios
+from projects.PLACEHOLDER.po.wrapper.Pages_Web import Pages_Web
 from projects.PLACEHOLDER.data.testData.TestData_Android import TestData_Android
-# from projects.PLACEHOLDER.data.testData.TestData_Ios import TestData_Ios
-# from projects.PLACEHOLDER.data.testData.TestData_Web import TestData_Web
+from projects.PLACEHOLDER.data.testData.TestData_Ios import TestData_Ios
+from projects.PLACEHOLDER.data.testData.TestData_Web import TestData_Web
 
 class PLACEHOLDER(CommonUnittest):
     '''

@@ -31,6 +31,6 @@ if __name__ == '__main__':
     elif initFwk.name_project == "WebExample":
         suite.addTest(TestBrowser("test_flow"))
     elif initFwk.name_project == "IosExample":
-        suite.addTest(TestBrowser("test_flow"))
+        suite.addTest(IosExample("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 

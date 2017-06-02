@@ -1,5 +1,5 @@
 import os
-
+import subprocess
 from fwk.base.UiFwk import UiFwk
 from fwk.utils.ApiRequest import wdaRun
 from fwk.object.MobileDriver import MobileDriver
@@ -38,6 +38,17 @@ class IosFwk(UiFwk):
         self._currentPage = currentPage
         self._currentElementName = element_name
         return self
+
+    def getMobilePropReadlines(self, uuid=None):
+        if uuid is None:
+            uuid = self.RunTimeConf.deviceName
+        str = "adb -s %s shell cat /system/build.prop" % uuid
+        data = subprocess.Popen(str, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, shell=True)
+        lines = data.stdout.readlines()
+        # for prop in li:
+        #     prop.decode('utf-8').strip().split("=")
+        return lines
 
     def openApp(self,bundleId=None, page=""):
         self.UiMapSetPage(page)

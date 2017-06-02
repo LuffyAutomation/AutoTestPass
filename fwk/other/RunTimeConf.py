@@ -60,8 +60,9 @@ class RunTimeConf:
 
             self._ConfigParser = _ConfigParser
             self.platform = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_PLATFORMNAME)
-            # self.platformVersion = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_VERSION)
-            self.platformVersion = "NA"
+            self.platformVersion = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_VERSION)
+            if self.platformVersion is None:
+                self.platformVersion = "NA"
             self.deviceName = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_NAME)
             self.newCommandTimeout = self._ConfigParser.getRunTimeConfigCapsValue(
                 self._ConfigParser.APP_NEWCOMMAND_TIMEOUT)
@@ -94,10 +95,15 @@ class RunTimeConf:
             self.region = self._UtilOS.getOSLocale().split("_")[1]
             self.platform = self._UtilOS.getOSName()
             self.platformVersion = self._UtilOS.getOSRelease()
-            pass
+
     def getMobileInfo(self, UI):
         self.UI = UI
-        lines = self.UI.getMobilePropReadlines(self.deviceName)
+        global lines
+        lines = []
+        if self.platform.lower().strip() == "android":
+            lines = self.UI.getMobilePropReadlines(self.deviceName)
+        elif self.platform.lower().strip() == "ios":
+            lines = ['ro.product.locale.language=en', 'ro.product.locale.region=US', 'ro.product.model=' + self.deviceName, 'ro.build.version.release=' + self.platformVersion, 'ro.build.version.sdk=' + self.platformVersion]
         if len(lines) == 0:
             raise Exception("Can not get mobile infomation. Please check if mobile [%s] connected correctly." % self.deviceName)
         self.__setMobileDetails(lines)
@@ -107,7 +113,7 @@ class RunTimeConf:
 
     def __setMobileDetails(self, lines):
         #self.UI.logger.info(self.platform.lower().strip() == "android")
-        if self.platform.lower().strip() == "android":
+        if self.platform.lower().strip() == "android" or self.platform.lower().strip() == "ios":
             for line in lines:
                 if line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.language":
                     self.language = line.decode('utf-8').strip().split("=")[1]
@@ -120,9 +126,13 @@ class RunTimeConf:
                 elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.sdk":
                     self.sdk = line.decode('utf-8').strip().split("=")[1]
         if self.language == "" or self.region == "":  # 6.0
-            t = self.UI.getBuildInMobileLanguage(self.deviceName)
-            self.language = t.split("-")[0]
-            self.region = t.split("-")[1]
+            if self.platform.lower().strip() == "android":
+                t = self.UI.getBuildInMobileLanguage(self.deviceName)
+                self.language = t.split("-")[0]
+                self.region = t.split("-")[1]
+            else:
+                self.language = "en"
+                self.region = "US"
         self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps, self.UI.getLanguageRegion() + ".xml")
         if self.language != "en":  # en_US.xml needn't be loaded.
             self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)

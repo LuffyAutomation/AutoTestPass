@@ -37,9 +37,8 @@ class MobileDriver:
             self.PLATFORM_VERSION: self._RunTimeConf.platformVersion,
             self.DEVICE_NAME: self._RunTimeConf.deviceName,
             self.NEW_COMMAND_TIMEOUT: self._RunTimeConf.newCommandTimeout,
-            self.APP: PATH(self._RunTimeConf.app)
+            self.APP: self._RunTimeConf.app
         }
-
 
         if self._UI.testType.lower() == "ios":
             self.desired_caps[self.APP_BUNDLEID] = self._RunTimeConf.appBundleId

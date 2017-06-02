@@ -101,10 +101,7 @@ class Result:
 
         self._list_testcaseNode = [self._step, self._description, self._expectedResult, self._manualCheck, self._result]
         self._list_testcaseAttribute = [self._testcaseName, self._testcaseClassName, self._runTime]
-
-        self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
         self.setTestName(testName)
-        self.beforeClass()
 
     def setEnvBlockMsg(self, env_block_msg):
         self._env_block_msg = env_block_msg
@@ -311,11 +308,12 @@ class Result:
         self._UI.logger.debug("******************************************************************************")
 
     def beforeClass(self):
-        self.__addLoggingForEachTestCase()
-        self._setBaseInfo()
-        self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest,
-                                                                self.__getResultName())
-        self._UtilFolder.createFolder(self.path_folder_testSuiteNumScreenshots)
+            self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
+            self.__addLoggingForEachTestCase()
+            self._setBaseInfo()
+            self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest,
+                                                                    self.__getResultName())
+            self._UtilFolder.createFolder(self.path_folder_testSuiteNumScreenshots)
 
     def afterClass(self, TestCase):
         # self._UI.quit()

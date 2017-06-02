@@ -3,7 +3,7 @@
 from fwk.case.CommonUnittest import CommonUnittest
 # import one or multiple kind of Pages_ that you need.
 from projects.IosExample.po.wrapper.Pages_Android import Pages_Android
-# from projects.IosExample.po.wrapper.Pages_Ios import Pages_Ios
+from projects.IosExample.po.wrapper.Pages_Ios import Pages_Ios
 # from projects.IosExample.po.wrapper.Pages_Web import Pages_Web
 from projects.IosExample.data.testData.TestData_Android import TestData_Android
 # from projects.IosExample.data.testData.TestData_Ios import TestData_Ios
@@ -36,10 +36,10 @@ class IosExample(CommonUnittest):
     @classmethod
     def setUpClass(cls):
         cls.setUpBeforClass()  # setup test before starting.
-        cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
+        # cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
         # cls.Pages_Web = Pages_Web(cls.UI_Web)
-        # cls.Pages_Ios = Pages_Android(cls.UI_Ios)
-        cls.Pages = cls.Pages_Android  # Just make it simple since generally only one of Android, Ios and Web may be tested.
+        cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
+        cls.Pages = cls.Pages_Ios  # Just make it simple since generally only one of Android, Ios and Web may be tested.
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
