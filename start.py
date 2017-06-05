@@ -6,9 +6,9 @@ from projects.WebExample.cases.TestBrowser import TestBrowser
 from projects.IosExample.cases.IosExample import IosExample
 
 import unittest
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# import sys
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 if __name__ == '__main__':
     suite = unittest.TestSuite()

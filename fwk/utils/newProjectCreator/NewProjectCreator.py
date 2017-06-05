@@ -12,6 +12,24 @@ class NewProjectCreator:
                 return True
         return False
 
+    def fileContentReplace(self, path_file, old_text, new_text):
+        if os.path.isfile(path_file):
+            lines = open(path_file, self.InitFwk.UtilFile.FileMode.R).readlines()
+            with open(path_file, self.InitFwk.UtilFile.FileMode.W) as f:
+                _len = len(lines) - 1
+                for i in range(_len):
+                    lines[i] = lines[i].replace(old_text, new_text)
+                    if self.InitFwk.testType.lower() == self.InitFwk.TestType.ANDROID.lower():
+                        if ("_" + self.InitFwk.TestType.IOS.lower() in lines[i].lower() or "_" + self.InitFwk.TestType.WEB.lower() in lines[i].lower()) and "/" not in lines[i]:
+                            lines[i] = "# " + lines[i]
+                    elif self.InitFwk.testType.lower() == self.InitFwk.TestType.IOS.lower():
+                        if ("_" + self.InitFwk.TestType.ANDROID.lower() in lines[i].lower() or "_" + self.InitFwk.TestType.WEB.lower() in lines[i].lower()) and "/" not in lines[i]:
+                            lines[i] = "# " + lines[i]
+                    elif self.InitFwk.testType.lower() == self.InitFwk.TestType.WEB.lower():
+                        if ("_" + self.InitFwk.TestType.ANDROID.lower() in lines[i].lower() or "_" + self.InitFwk.TestType.IOS.lower() in lines[i].lower()) and "/" not in lines[i]:
+                            lines[i] = "# " + lines[i]
+                f.writelines(lines)
+
     def create(self):
         if self.isProjectExisted() is True:
             return
@@ -19,7 +37,7 @@ class NewProjectCreator:
         self.InitFwk.UtilTime.sleep(1)
         # unittest file
         os.rename(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"))
-        self.InitFwk.UtilFile.fileContentReplace(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"), self.InitFwk.Const.PLACEHOLDER, self.InitFwk.name_project)
+        self.fileContentReplace(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"), self.InitFwk.Const.PLACEHOLDER, self.InitFwk.name_project)
         # start file
         self.InitFwk.UtilFile.copyFile(os.path.join(self.InitFwk.path_folder_templates, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_AutoTestPass, "start_" + self.InitFwk.name_project + ".py"))
         self.InitFwk.UtilTime.sleep(1)

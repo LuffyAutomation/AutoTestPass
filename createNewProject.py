@@ -9,5 +9,5 @@ PATH = lambda p: os.path.abspath(
 if __name__ == '__main__':
     # project is defined in env>main.conf>[DefaultProject].
 
-    _NewProjectCreator = NewProjectCreator("NewProject", InitFwk.TestType.ANDROID)
+    _NewProjectCreator = NewProjectCreator("AAA", InitFwk.TestType.ANDROID)
     _NewProjectCreator.create()
