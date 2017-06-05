@@ -169,14 +169,16 @@ class UiBaseFwk(object):
         self._currentElementName = element_name
         return self
 
-    #setValue("10")  >   xxx.relocateByText("10").click
-    def relocateByText(self, dynamic_value, element_name=None):
+    # if define VALUE_PLACEHOLDER in uimap:
+    # <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
+    # you can find the element by  xxx.replacePlaceholder("10").click
+    def replacePlaceholder(self, dynamic_value, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
         self._currentElementName = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
     #some elements' status may change after they appear. So need to clear the found ele and re-find.
-    def clearForRefinding(self):
+    def refreshMe(self):
         self.setCurrentElementObject(None)
         self.setCurrentElementCollectionObject(None)
         return self
@@ -249,6 +251,7 @@ class UiBaseFwk(object):
 
     def _getElementLocatorsList(self, element_name):
         dynamic_string = None
+        ori_element_name = element_name
         if self.StringConverter.MARK_DYNAMIC_VALUE in element_name:
             dynamic_string = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[1]
             element_name = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[0]
@@ -268,7 +271,7 @@ class UiBaseFwk(object):
             #self.logger.info("............Finding element [" + element_name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append([locator_type, locator_value, locator_index])
         if locators == None:
-            raise Exception("Can not find element [" + element_name + "] on [" + str(self._currentPage) + "] page.")
+            raise Exception("Can not find element [" + ori_element_name + "] on [" + str(self._currentPage) + "] page.")
         return list
 
     def __get_sys_locator_type(self, locator_type):

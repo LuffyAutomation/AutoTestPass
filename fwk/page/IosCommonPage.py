@@ -1,9 +1,9 @@
-from src.base.fwk.IosFwk import IosFwk
+from fwk.object.IosFwk import IosFwk
 
-from fwk.page import CommonPage
+from fwk.page.CommonPage import CommonPage
 
 
-class AndroidCommonPage(CommonPage):
+class IosCommonPage(CommonPage):
     def __init__(self):
         CommonPage.__init__(self)
         if 3 > 3:

@@ -77,12 +77,14 @@ class IosExample(CommonUnittest):
                                    "2. xx.",
                                    "3. xxxx.")
         self.Result.setExpectedResult("xxxxxx.")
-        # self.Pages.Page_XXX.button_xxxx.click()
+        self.Pages.Page_welcome.image_welcome().waitForShown()
+        self.Pages.Page_welcome.button_start().click()
 
     def test_your_other_flow(self):
         self.Result.setDescription("1. xxxx.",
                                    "2. xx.",
                                    "3. xxxx.")
         self.Result.setExpectedResult("xxxxxx.")
-        # self.Pages.Page_XXX.button_xxxx.click()
+        self.Pages.Page_termsAndConditions.checkbox_1().click()
+        self.Pages.Page_termsAndConditions.checkbox_1().waitForShown().wait(3)
 

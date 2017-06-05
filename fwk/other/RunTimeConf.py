@@ -105,7 +105,7 @@ class RunTimeConf:
         elif self.platform.lower().strip() == "ios":
             lines = ['ro.product.locale.language=en', 'ro.product.locale.region=US', 'ro.product.model=' + self.deviceName, 'ro.build.version.release=' + self.platformVersion, 'ro.build.version.sdk=' + self.platformVersion]
         if len(lines) == 0:
-            raise Exception("Can not get mobile infomation. Please check if mobile [%s] connected correctly." % self.deviceName)
+            raise Exception("Can not get mobile information. Please check if mobile [%s] connected correctly." % self.deviceName)
         self.__setMobileDetails(lines)
 
     def getWebInfo(self, UI):

@@ -55,7 +55,6 @@ class CommonUnittest(unittest.TestCase):
             if cls.UI_Web is None:
                 cls.UI_Web = WebFwk(cls.InitFwk)
             cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)
-            cls.Result.printBaseInfo()
             cls.Result.beforeClass()
         except Exception as e:
             # traceback.print_exc()

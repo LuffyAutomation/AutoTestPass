@@ -62,7 +62,7 @@ class Result:
         self._startTime = "startTime"
         self._runTime = "time"
         self._runTimeTotal = "timeTotal"
-        self._project = "projects"
+        self._project = "project"
         self._passesNum = "passes"
         self._failsNum = "failures"
         self._errorsNum = "errors"
@@ -311,6 +311,7 @@ class Result:
             self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
             self.__addLoggingForEachTestCase()
             self._setBaseInfo()
+            self.printBaseInfo()
             self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest,
                                                                     self.__getResultName())
             self._UtilFolder.createFolder(self.path_folder_testSuiteNumScreenshots)

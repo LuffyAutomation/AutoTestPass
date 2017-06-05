@@ -146,7 +146,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def _findElement(self, element_name, marks=None):
         locatorsList = self._getElementLocatorsList(element_name)
-
+        ori_element_name = element_name
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
             locator_value = self._getElementValue(locatorList)
@@ -180,8 +180,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             return self.getCurrentElementObject()
         if locator_index < 0:
-            raise Exception("Failed to find all of element [" + str(element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
-        raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
+            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
+        raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
 
     def getElementsSize(self, element_name):
         return len(self.getElements(element_name))
