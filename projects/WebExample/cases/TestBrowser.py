@@ -63,7 +63,7 @@ class TestBrowser(CommonUnittest):
                                    "2. Go to www.baidu.com.")
         self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
-        self.Pages.Page_home.edit_search().setValue("21212")
+        self.Pages.Page_home.edit_search().setValueBySendKeys("21212")
 
 
 

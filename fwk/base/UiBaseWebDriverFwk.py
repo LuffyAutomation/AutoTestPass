@@ -64,9 +64,20 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValue(self, value, idx_or_match=None, element_name=None):
         try:
+            element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
+            self._driver.set_value(element, value)
+        except Exception as e:
+            self.logger.error("Set the value of element [" + element_name + "] to [" + value + "] failed.")
+            raise Exception("Set the value of element [" + element_name + "] to [" + value + "] failed.")
+        return self
+
+    def setValueBySendKeys(self, value, idx_or_match=None, element_name=None):
+        try:
             element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            element_name = self._getCurrentElementNameWhenNone(element_name)
+            self.logger.info("Set the value of element [" + element_name + "] to [" + value + "] by sending keys.")
             elementTagName = self._getElementTagName(element)
             if elementTagName == "input" or "text" or "password" or "email":
                 try:
@@ -87,9 +98,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 if negativeValues in value.lower():
                     if element.is_selected():
                         element.click()
-        except NoSuchElementException as e:
-            self.logger.error("Set the value of element [" + element_name + "] to [" + value + "] failed.")
-            raise Exception("Set the value of element [" + element_name + "] to [" + value + "] failed.")
+        except Exception as e:
+            self.logger.error("Set the value of element [" + element_name + "] to [" + value + "] by sending keys failed.")
+            raise Exception("Set the value of element [" + element_name + "] to [" + value + "] by sending keys failed.")
         return self
 
     def _getElementTagName(self, element):

@@ -39,37 +39,49 @@ class IosFwk(UiFwk):
         self._currentElementName = element_name
         return self
 
-    def getMobilePropReadlines(self, uuid=None):
-        if uuid is None:
-            uuid = self.RunTimeConf.deviceName
-        str = "adb -s %s shell cat /system/build.prop" % uuid
-        data = subprocess.Popen(str, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE, shell=True)
-        lines = data.stdout.readlines()
-        # for prop in li:
-        #     prop.decode('utf-8').strip().split("=")
-        return lines
+        # def setCode(self, value):
+        #     letterToCodeHashMap = {}
+        #     lettersStr = "0 1 2 3 4 5 6 7 8 9".split()
+        #     androidCodes = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+        #     for index in range(len(lettersStr)):
+        #         letterToCodeHashMap[lettersStr[index]] = androidCodes[index]
+        #     for i in range(len(value)):
+        #         code = letterToCodeHashMap.get(value[i])
+        #         self.clickOn(code)
+        #         # self.waitForTimeOut(800)
+        #
+        # def setPwd(self, value):
+        #     # letterToCodeHashMap = {}
+        #     # lettersStr = "0 1 2 3 4 5 6 7 8 9".split()
+        #     androidCodes = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"]
+        #     elementName = None
+        #     for index in range(len(androidCodes)):
+        #         name = self.getValueOf(androidCodes[index])
+        #         if name == "0":
+        #             self.log("Name : " + name)
+        #             elementName = androidCodes[index]
+        #             break;
+        #     for k in range(6):
+        #         # self.waitForTimeOut(500)
+        #         self.clickOn(elementName)
+    # def openApp(self,bundleId=None, page=""):
+    #     self.UiMapSetPage(page)
+    #     if os.getenv('APP_DEVICE_PLATFORMNAME') == None:
+    #         self.__launch_app(bundleId)
+    #     else:
+    #         self.__launch_app_DP()
+    #     self.wda = wdaRun()
+    #
+    # def tapForPoint(self, x, y):
+    #     self.wda.tap(x, y)
+    #
+    # def keys(self, value):
+    #     self.wda.keys(value)
+    #
+    # def home(self):
+    #     self.wda.home()
+    #
+    # def launchApp(self,bundleId):
+    #     self.openApp(bundleId)
 
-    def openApp(self,bundleId=None, page=""):
-        self.UiMapSetPage(page)
-        if os.getenv('APP_DEVICE_PLATFORMNAME') == None:
-            self.__launch_app(bundleId)
-        else:
-            self.__launch_app_DP()
-        self.wda = wdaRun()
 
-    def tapForPoint(self, x, y):
-        self.wda.tap(x, y)
-
-    def keys(self, value):
-        self.wda.keys(value)
-
-    def home(self):
-        self.wda.home()
-
-    def launchApp(self,bundleId):
-        self.openApp(bundleId)
-
-
-    def flick(self, start_x, start_y, end_x, end_y):
-        self._driver.flick(start_x, start_y, end_x, end_y)

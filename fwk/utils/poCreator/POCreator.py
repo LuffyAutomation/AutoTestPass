@@ -100,7 +100,7 @@ class POCreator(POCreatorBase):
         # self.Pages.Page_endUserLicenseAgreement.text_always().clickIfPresent().wait(1)
         # self.button_continue().click()
         # self.button_search().waitForShown(60).click().wait(1)
-        # self.Edit_search().setValue("10.10.63.128")
+        # self.Edit_search().setValueBySendKeys("10.10.63.128")
         
         # if VALUE_PLACEHOLDER was defined in uimap.xml like:
         # <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
@@ -119,5 +119,3 @@ class POCreator(POCreatorBase):
     #     tmp = ""
     #     tmp += "%s.%s import %s" % (importPath, self._getPOClassName(po_name), self._getPOClassName(po_name))
     #     return tmp
-
-
