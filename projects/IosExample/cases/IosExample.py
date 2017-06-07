@@ -85,6 +85,7 @@ class IosExample(CommonUnittest):
                                    "2. xx.",
                                    "3. xxxx.")
         self.Result.setExpectedResult("xxxxxx.")
-        self.Pages.Page_termsAndConditions.checkbox_1().click()
-        self.Pages.Page_termsAndConditions.checkbox_1().waitForShown().wait(3)
+        self.Pages.Page_termsAndConditions.checkbox_1().waitForShown().Swipe.up()
+
+        self.Pages.Page_termsAndConditions.checkbox_1().wait(5)
 

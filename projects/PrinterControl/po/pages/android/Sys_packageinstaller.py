@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Sys_packageinstaller_model import
 class Sys_packageinstaller(Sys_packageinstaller_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Sys_packageinstaller_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

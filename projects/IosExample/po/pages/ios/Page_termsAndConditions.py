@@ -8,7 +8,7 @@ class Page_termsAndConditions(Page_termsAndConditions_model):
         self.UI = UI
         if 1 > 1:
             from fwk.object.IosFwk import IosFwk
-            self.UI = IosFwk
+            self.UI = IosFwk(None)
         Page_termsAndConditions_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

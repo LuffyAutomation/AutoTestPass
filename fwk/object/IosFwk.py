@@ -39,6 +39,8 @@ class IosFwk(UiFwk):
         self._currentElementName = element_name
         return self
 
+        # self._driver.swipe((320 * 0.75), (100), (-320 * 0.25), (0), 1500)
+
         # def setCode(self, value):
         #     letterToCodeHashMap = {}
         #     lettersStr = "0 1 2 3 4 5 6 7 8 9".split()

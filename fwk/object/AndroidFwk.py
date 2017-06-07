@@ -68,32 +68,32 @@ class AndroidFwk(UiFwk):
 
     def swipeOfType(self, type, duration=1500):
         self.logger.info("Swiping " + type + ".")
-        windows_x = self.getWindowX()
-        windows_y = self.getWindowY()
+        windows_x = self.getWindowWidth()
+        windows_y = self.getWindowHeight()
         # Sliding screen to the left
         if type.lower() == self.SwipeTo.LEFT.lower():
-            self._driver.swipe((windows_x * 0.9), (windows_y * 0.5),(windows_x * 0.2), (windows_y * 0.5), duration)
+            self._driver.swipe((windows_x * 0.9), (windows_y * 0.5), (windows_x * 0.2), (windows_y * 0.5), duration)
         # From the left of screen to began to slip
         if type.lower() == self.SwipeTo.LEFT_SIDE.lower():
-            self._driver.swipe(1, (windows_y * 0.5),(windows_x * 0.9), (windows_y * 0.5),1500)
+            self._driver.swipe(1, (windows_y * 0.5), (windows_x * 0.9), (windows_y * 0.5), 1500)
         # Sliding screen to the right
         if type.lower() == self.SwipeTo.RIGHT.lower():
-            self._driver.swipe((windows_x * 0.2), (windows_y * 0.5),(windows_x * 0.9), (windows_y * 0.5), duration)
+            self._driver.swipe((windows_x * 0.2), (windows_y * 0.5), (windows_x * 0.9), (windows_y * 0.5), duration)
         # From the right of screen to began to slip
         if type.lower() == self.SwipeTo.RIGHT_SIDE.lower():
-            self._driver.swipe((windows_x * 0.9), (windows_y * 0.5),(windows_x * 0.2), (windows_y * 0.5), duration)
+            self._driver.swipe((windows_x * 0.9), (windows_y * 0.5), (windows_x * 0.2), (windows_y * 0.5), duration)
         # Screen upward sliding
         if type.lower() == self.SwipeTo.UP.lower():
-            self._driver.swipe((windows_x * 0.5), (windows_y * 0.9),(windows_x * 0.5), (windows_y * 0.4), duration)
+            self._driver.swipe((windows_x * 0.5), (windows_y * 0.9), (windows_x * 0.5), (windows_y * 0.4), duration)
         # From the top of screen to began to slip
         if type.lower() == self.SwipeTo.TOP.lower():
-            self._driver.swipe((windows_x * 0.5),0 ,(windows_x * 0.5), (windows_y * 0.8), duration)
+            self._driver.swipe((windows_x * 0.5), 0, (windows_x * 0.5), (windows_y * 0.8), duration)
         # Slide down the screen
         if type.lower() == self.SwipeTo.DOWN.lower():
-            self._driver.swipe((windows_x * 0.5), (windows_y * 0.4),(windows_x * 0.5), (windows_y * 0.9), duration)
+            self._driver.swipe((windows_x * 0.5), (windows_y * 0.4), (windows_x * 0.5), (windows_y * 0.9), duration)
         # From the bottom of screen to began to slip
         if type.lower() == self.SwipeTo.BOTTOM.lower():
-            self._driver.swipe((windows_x * 0.5), (windows_y * 0.9),(windows_x * 0.5), (windows_y * 0.1), duration)
+            self._driver.swipe((windows_x * 0.5), (windows_y * 0.9), (windows_x * 0.5), (windows_y * 0.1), duration)
         return self
 
     def swipeTo(self, begin_x, begin_y, end_x, end_y, duration=500):
@@ -193,11 +193,11 @@ class AndroidFwk(UiFwk):
         element_name = self.getelement_nameFrom(element_name)
         return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
 
-    def getWindowX(self):
+    def getWindowWidth(self):
         width = self._driver.get_window_size()['width']
         return width
 
-    def getWindowY(self):
+    def getWindowHeight(self):
         height = self._driver.get_window_size()['height']
         return height
 

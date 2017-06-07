@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_home_model import Page_home_
 class Page_home(Page_home_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_home_model.__init__(self)
 
     def __open_menuMoreOptions(self):

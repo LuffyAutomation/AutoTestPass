@@ -15,6 +15,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         UiBaseFwk.__init__(self, Init)
         if 2 == 1:
             self._driver = webdriver.Remote("")
+        self.Swipe = self._Swipe(self)
 
     def getItemsCount(self):
         try:
@@ -194,8 +195,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
         raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
 
-    def getElementsSize(self, element_name):
-        return len(self.getElements(element_name))
+    # def getElementsSize(self, element_name):
+    #     return len(self.getElements(element_name))
 
     def getMatchedElements(self, match=None, element_name=None):
         return self._findElements(element_name)
@@ -205,13 +206,13 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return self._findElement(element_name)
         elements = self._findElements(element_name)
         if idx_or_match == None:
-            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>": #accessibility_id    webelement no len(x)
+            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>": #accessibility_id    webelement is no len(x)
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find element [ " + str(
                     element_name) + "] on [" + str(self._currentPage) + "] page.")
             elif len(elements)!=1:
-                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) +"] on ["+str(self._currentPage) + "] page.")
+                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) +"] on [" + str(self._currentPage) + "] page.")
             else:
                 return elements[0]
         else:
@@ -219,7 +220,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return elements[index]
 
     def __getMatchedIndex(self, elements, idx_or_match, attribute="text"):
-        if type(idx_or_match) == type(1):
+        if isinstance(idx_or_match, int):         # if type(idx_or_match) == type(1):
             return idx_or_match
         index = 0
         getAttText = ""
@@ -254,3 +255,15 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 self._driver = None
         except Exception as e:
             pass
+
+    class _Swipe:
+        def __init__(self, fwk):
+            self._fwk = fwk
+            self._driver = fwk.getDriver()
+
+        def up(self, duration=1):
+            self._fwk.logger.info("Swipe up.")
+            duration = duration * 1000
+            width = self._fwk.getWindowWidth()
+            height = self._fwk.getWindowHeight()
+            self._driver.swipe(width/2, height*3/4, width/2, height/4, duration)

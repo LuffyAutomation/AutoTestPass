@@ -88,7 +88,7 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.UI = UI" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "if 1 > 1:" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "from fwk.object.%s import %s" % (self.__getWhichFwk(), self.__getWhichFwk()) \
-            + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "self.UI = %s" % self.__getWhichFwk() \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "self.UI = %s(None)" % self.__getWhichFwk() \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "%s.__init__(self)" % self._getPOModelClassName(po_name) \
             + self._newLine \
             + self._newLine + self._getIndent(level) + self._indent + "# This is function template of how to write your Business Logic." \

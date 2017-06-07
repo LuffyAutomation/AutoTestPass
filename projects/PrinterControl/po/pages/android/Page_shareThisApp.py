@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_shareThisApp_model import Pa
 class Page_shareThisApp(Page_shareThisApp_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_shareThisApp_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

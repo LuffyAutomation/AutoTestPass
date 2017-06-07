@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_findNewPrinter_model import 
 class Page_findNewPrinter(Page_findNewPrinter_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_findNewPrinter_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

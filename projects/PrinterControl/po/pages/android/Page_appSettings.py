@@ -8,7 +8,7 @@ class Page_appSettings(Page_appSettings_model):
         self.UI = UI
         if 1 > 1:
             from fwk.object.AndroidFwk import AndroidFwk
-            self.UI = AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_appSettings_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

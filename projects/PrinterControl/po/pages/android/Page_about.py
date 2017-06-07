@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_about_model import Page_abou
 class Page_about(Page_about_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_about_model.__init__(self)
 
     def verify_Icon_Version_APPName(self):

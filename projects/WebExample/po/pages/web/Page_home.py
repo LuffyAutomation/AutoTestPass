@@ -6,6 +6,9 @@ from projects.WebExample.po.models.web.Page_home_model import Page_home_model
 class Page_home(Page_home_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.WebFwk import WebFwk
+            self.UI = WebFwk(None)
         Page_home_model.__init__(self)
 
     def open_main_page(self):

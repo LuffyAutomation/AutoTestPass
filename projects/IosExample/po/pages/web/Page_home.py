@@ -8,7 +8,7 @@ class Page_home(Page_home_model):
         self.UI = UI
         if 1 > 1:
             from fwk.object.WebFwk import WebFwk
-            self.UI = WebFwk
+            self.UI = WebFwk(None)
         Page_home_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

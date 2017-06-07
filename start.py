@@ -14,7 +14,7 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":
-        # suite.addTest(HomeMoreAbout("test_flow"))
+        suite.addTest(HomeMoreAbout("test_flow"))
         # suite.addTest(HomeMoreAbout("test_aioVersion"))
         # suite.addTest(HomeMoreAbout("test_copyRight"))
         # suite.addTest(HomeMoreAbout("test_legalInformaion"))

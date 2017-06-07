@@ -8,7 +8,7 @@ class Page_first(Page_first_model):
         self.UI = UI
         if 1 > 1:
             from fwk.object.AndroidFwk import AndroidFwk
-            self.UI = AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_first_model.__init__(self)
 
     # This is function template of how to write your Business Logic.

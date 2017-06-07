@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_printerList_model import Pag
 class Page_printerList(Page_printerList_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_printerList_model.__init__(self)
 
     def flow_selectPrinter(self):

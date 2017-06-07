@@ -6,6 +6,9 @@ from projects.PrinterControl.po.models.android.Page_endUserLicenseAgreement_mode
 class Page_endUserLicenseAgreement(Page_endUserLicenseAgreement_model):
     def __init__(self, UI):
         self.UI = UI
+        if 1 > 1:
+            from fwk.object.AndroidFwk import AndroidFwk
+            self.UI = AndroidFwk(None)
         Page_endUserLicenseAgreement_model.__init__(self)
 
     def flow_agreements(self):
