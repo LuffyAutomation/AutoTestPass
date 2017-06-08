@@ -29,8 +29,8 @@ class IosExample(CommonUnittest):
         self.Result.setDescription("1. xxxxx.",
                                    "2. xxxxx.")
         self.Result.setExpectedResult("xxxxxx is displayed.")
-        self.Result.setScreenshot("begin", "This is a begin.")
-        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Result.addScreenshot("begin", "This is a begin.")
+        self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
         self.Pages.xxxxxxxxx
     '''
     @classmethod

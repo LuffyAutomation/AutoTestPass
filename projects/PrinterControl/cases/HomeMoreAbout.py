@@ -25,8 +25,8 @@ class HomeMoreAbout(CommonUnittest):
         self.Result.setDescription("1. xxxxx.",
                                    "2. xxxxx.")
         self.Result.setExpectedResult("xxxxxx is displayed.")
-        self.Result.setScreenshot("begin", "This is a begin.")
-        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Result.addScreenshot("begin", "This is a begin.")
+        self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
         self.Pages.xxxxxxxxx
     '''
 
@@ -82,7 +82,7 @@ class HomeMoreAbout(CommonUnittest):
                                       "3. AiO application icon is displayed correctly.")
         self.Pages.Page_home.flow_open_menuItemAbout()
         self.Pages.Page_about.verify_Icon_Version_APPName()
-        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
 
 
     def test_copyRight(self):

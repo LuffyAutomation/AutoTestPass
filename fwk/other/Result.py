@@ -280,7 +280,7 @@ class Result:
             self._dict_report[self._passesNum] += 1
             self._dict_report[self._result] = self._r_pass
         self._dict_report[self._testsNum] += 1
-        self.setScreenshot()
+        self.addScreenshot()
         self._dict_report[self._passesPercent] = self.__getPercent(self._dict_report[self._passesNum],
                                                                    self._dict_report[self._testsNum])
         self._dict_report[self._failsPercent] = self.__getPercent(self._dict_report[self._failsNum],
@@ -340,7 +340,7 @@ class Result:
     def __getResultName(self):
         return "%s_%s" % (str(self.globalTestSuiteNum), self._dict_report[self._testName])
 
-    def setScreenshot(self, name="stepEnd", comment="Step ended"):
+    def addScreenshot(self, name="stepEnd", comment="Step ended"):
         try:
             path_screenShot = self._UI.getScreenShot(name, self)
             if self._UI.RunTimeConf.isDevicePassTest:
@@ -355,7 +355,7 @@ class Result:
         except:
             pass
 
-    def setComment(self, comment=""):
+    def addComment(self, comment=""):
         if self._dict_report[self._manualCheck] == self.NA:
             self._dict_report[self._manualCheck] = ""
         self._dict_report[self._manualCheck] += self._setLine(comment)
