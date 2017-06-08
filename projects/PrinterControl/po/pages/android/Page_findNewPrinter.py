@@ -27,5 +27,5 @@ class Page_findNewPrinter(Page_findNewPrinter_model):
 
         # self.image_appIcon().verifyIsShown()
         # A few elements' properties may be changed after a while. It should be searched again by using clearForRefinding()
-        # self.image_appIcon().waitForShown().refreshMe().click()
+        # self.image_appIcon().waitForShown().refreshMe().clickrefreshMe
         # self.text_version().verifyEqual(self.text_version().getValue(), "4.3.19")

@@ -108,7 +108,7 @@ class POCreator(POCreatorBase):
         # self.text_printerIp().replacePlaceholder("10.10.63.128").click()
         
         # self.image_appIcon().verifyIsShown()
-        # A few elements' properties may be changed after a while. It should be searched again by using clearForRefinding()
+        # A few elements' properties may be changed after a while. It should be searched again by using refreshMe()
         # self.image_appIcon().waitForShown().refreshMe().click()
         # self.text_version().verifyEqual(self.text_version().getValue(), "4.3.19")''' \
             + self._newLine
