@@ -15,7 +15,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         UiBaseFwk.__init__(self, Init)
         if 2 == 1:
             self._driver = webdriver.Remote("")
-        self.Swipe = self._Swipe(self)
+        # self.Swipe = self._Swipe(self)
+
+    def getDriverOnly(self):
+        return self._driver
 
     def getItemsCount(self):
         try:
@@ -256,14 +259,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         except Exception as e:
             pass
 
-    class _Swipe:
-        def __init__(self, fwk):
-            self._fwk = fwk
-            self._driver = fwk.getDriver()
+    def swipeUp(self, duration=1):
+        self._UI.logger.info("Swipe up.")
+        duration = duration * 1000
+        width = self._UI.getWindowWidth()
+        height = self._UI.getWindowHeight()
+        self._driver.swipe(width/2, height*3/4, width/2, height/4, duration)
+        return self
 
-        def up(self, duration=1):
-            self._fwk.logger.info("Swipe up.")
-            duration = duration * 1000
-            width = self._fwk.getWindowWidth()
-            height = self._fwk.getWindowHeight()
-            self._driver.swipe(width/2, height*3/4, width/2, height/4, duration)

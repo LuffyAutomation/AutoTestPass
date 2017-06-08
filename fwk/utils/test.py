@@ -6,7 +6,27 @@
 #     @foo
 #     def cc(self):
 #         print "cc"
-
+# def printDer(func):
+#     def handle_arg(*args, **keywords):
+#         print args
+#         print keywords
+#         func(*args, **keywords)
+#
+#     return handle_arg
+#
+#
+# class A:
+#     def __init__(self, a, b):
+#         self.a = a
+#         self.b = b
+#
+#     @printDer
+#     def prinStr(self, str1, str2="a"):
+#         print(str1, str2)
+#
+# a = A("a", "b")
+#
+# a.prinStr("1", str2="a")
 
 # from PIL import ImageChops, Image
 # import math, operator

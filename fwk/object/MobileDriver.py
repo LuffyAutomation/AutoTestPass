@@ -34,12 +34,13 @@ class MobileDriver:
     def __getDesiredCapsList(self):
         self.desired_caps = {
             self.PLATFORM: self._RunTimeConf.platform,
-            self.PLATFORM_VERSION: self._RunTimeConf.platformVersion,
+            # self.PLATFORM_VERSION: self._RunTimeConf.platformVersion,
             self.DEVICE_NAME: self._RunTimeConf.deviceName,
             self.NEW_COMMAND_TIMEOUT: self._RunTimeConf.newCommandTimeout,
             self.APP: self._RunTimeConf.app
         }
-
+        if self._RunTimeConf.platformVersion.lower() != "na":  # don't have to write this in runTimConf but NA will cause error.
+            self.desired_caps[self.PLATFORM_VERSION] = self._RunTimeConf.platformVersion.lower()
         if self._UI.testType.lower() == "ios":
             self.desired_caps[self.APP_BUNDLEID] = self._RunTimeConf.appBundleId
             self.desired_caps[self.APP_UDID] = self._RunTimeConf.appUdid

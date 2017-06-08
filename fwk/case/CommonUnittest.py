@@ -58,7 +58,7 @@ class CommonUnittest(unittest.TestCase):
             cls.Result.beforeClass()
         except Exception as e:
             # traceback.print_exc()
-            cls.UI.logger.error(traceback.format_exc())
+            cls.InitFwk.logger.error(traceback.format_exc())
             cls.Result.setEnvBlockMsg(e.__str__())
             try:
                 if cls.UI_Ios.hasGotDriver is True:
@@ -80,7 +80,7 @@ class CommonUnittest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         try:
-            cls.UI.logger.info("Quitting connection.")
+            cls.InitFwk.logger.info("Quitting connection.")
             try:
                 if cls.UI_Ios.hasGotDriver is True:
                     cls.UI_Ios.quit()
@@ -101,7 +101,7 @@ class CommonUnittest(unittest.TestCase):
             except:
                 pass
         except Exception as e:
-            cls.UI.logger.error(e.__str__())
+            cls.InitFwk.logger.error(e.__str__())
 
     def setUp(self):
         try:

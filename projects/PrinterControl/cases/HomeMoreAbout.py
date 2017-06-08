@@ -84,7 +84,6 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_about.verify_Icon_Version_APPName()
         self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
 
-
     def test_copyRight(self):
         self.Result.setDescription("Follow the last step.")
         self.Result.setExpectedResult("1. AiO application copy right text is display correctly",
