@@ -85,10 +85,6 @@ class UiBaseFwk(object):
 
         self.hasGotDriver = False
 
-        # if 2 == 1:
-        #     self.Init = InitFwk
-        #     self._driver = webdriver.Remote("")
-
     def __getConfObject(self, configFileName):
         return self.Init.ConfigParser.getConf(configFileName)
 
