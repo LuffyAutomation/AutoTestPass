@@ -55,7 +55,7 @@ class ConfigParse:
     def getRunTimeConfigArgsValue(self, key):
         try:
             return self.getConfigValue(self._RunTimeConfig, self.SECTION_ARGS, key)
-        except:
+        except Exception as e:
             return None
 
     def getMainConfigValue(self, section, key):

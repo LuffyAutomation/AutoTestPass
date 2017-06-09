@@ -26,7 +26,6 @@ class CommonUnittest(unittest.TestCase):
         cls.Pages_Ios = None
         cls.Pages_Web = None
         cls.TestData_Android = None
-
         try:
             cls.InitFwk = InitFwk()
             cls.InitFwk.createResultFolder()

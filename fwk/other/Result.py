@@ -242,8 +242,8 @@ class Result:
         self.setStepBlock(self._env_block_msg)
 
     def beforeEachFunction(self, TestCase):
-        self._UI.logger.debug("******************************************************************************")
-        self._UI.logger.debug("********Start Testcase********************************************************")
+        self._UI.logger.info("******************************************************************************")
+        self._UI.logger.info("********Start Testcase********************************************************")
         self._dict_report[self._testcaseName] = TestCase._testMethodName
         self._dict_report[self._testcaseClassName] = TestCase.id().replace("." + TestCase._testMethodName, "")
         self._dict_report[self._testsuitName] = TestCase.id().replace("." + TestCase._testMethodName, "")
@@ -295,47 +295,40 @@ class Result:
         self.path_file_xml_xmlReport = os.path.join(self.path_folder_currentTest, self.__getResultName()) + ".xml"
 
         self.addResultToXML(os.path.join(self.path_folder_currentTest, self.__getResultName()) + ".xml")
-        self._UI.logger.debug("------------------------------------------------------------------------------")
-        self._UI.logger.debug("[[[Step]]]: %s" % self._dict_report[self._step])
-        self._UI.logger.debug("[[[Description]]]: %s" % self._dict_report[self._description])
-        self._UI.logger.debug("[[[ExpectedResult]]]: %s" % self._dict_report[self._expectedResult])
-        self._UI.logger.debug("[[[ErrorMessage]]]: %s" % self._dict_report[self._ErrorMessage])
-        self._UI.logger.debug("[[[ManualCheck]]]: %s" % self._dict_report[self._manualCheck])
-        self._UI.logger.debug("[[[Result]]]: %s" % self._dict_report[self._result])
-        self._UI.logger.debug("[[[Time(s)]]]: %s" % self._dict_report[self._runTime])
+        self._UI.logger.info("------------------------------------------------------------------------------")
+        self._UI.logger.info("[[[Step]]]: %s" % self._dict_report[self._step])
+        self._UI.logger.info("[[[Description]]]: %s" % self._dict_report[self._description])
+        self._UI.logger.info("[[[ExpectedResult]]]: %s" % self._dict_report[self._expectedResult])
+        self._UI.logger.info("[[[ErrorMessage]]]: %s" % self._dict_report[self._ErrorMessage])
+        self._UI.logger.info("[[[ManualCheck]]]: %s" % self._dict_report[self._manualCheck])
+        self._UI.logger.info("[[[Result]]]: %s" % self._dict_report[self._result])
+        self._UI.logger.info("[[[Time(s)]]]: %s" % self._dict_report[self._runTime])
         self.__restoreSomeProperties()
-        self._UI.logger.debug("********End Testcase**********************************************************")
-        self._UI.logger.debug("******************************************************************************")
+        self._UI.logger.info("********End Testcase**********************************************************")
+        self._UI.logger.info("******************************************************************************")
 
     def beforeClass(self):
             self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
             self.__addLoggingForEachTestCase()
             self._setBaseInfo()
             self.printBaseInfo()
-            self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest,
-                                                                    self.__getResultName())
+            self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest, self.__getResultName())
             self._UtilFolder.createFolder(self.path_folder_testSuiteNumScreenshots)
 
     def afterClass(self, TestCase):
-        # self._UI.quit()
         if self._UI.RunTimeConf.isDevicePassTest:
-            # print self.path_file_xml_xmlReport
-            # print self.path_file_xsl_xmlReport
-            # print os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"), self.__getResultName() + ".xml.png")
-            # print os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"), self._UI.NAME_FILE_XSL + ".png")
-            # print os.path.join(self.path_folder_currentTest, self._UI.NAME_FILE_XSL)
-            self._UI.UtilFile.copyFile(os.path.join(self.path_folder_currentTest, self._UI.NAME_FILE_XSL),
+            self._UI.UtilFile.copyFile(os.path.join(self.path_folder_currentTest, self._Init.NAME_FILE_XSL),
                                            os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
-                                                        self._UI.NAME_FILE_XSL + ".png"))
+                                                        self._Init.NAME_FILE_XSL + ".png"))
             self._UI.UtilFile.copyFile(self.path_file_xsl_xmlReport,
                                            os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
-                                                        self._UI.NAME_FILE_XSL + ".png"))
+                                                        self._Init.NAME_FILE_XSL + ".png"))
             self._UI.UtilFile.copyFile(self.path_file_xml_xmlReport,
                                            os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self.__getResultName() + ".xml.png"))
             self._UI.UtilFile.copyFile(self.path_file_xsl_xmlReport,
                                            os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
-                                                        self._UI.NAME_FILE_XSL + ".png"))
+                                                        self._Init.NAME_FILE_XSL + ".png"))
 
     def __getResultName(self):
         return "%s_%s" % (str(self.globalTestSuiteNum), self._dict_report[self._testName])
@@ -414,30 +407,6 @@ class Result:
 
     def getWebInfo(self, UI):
         self.UI = UI
-
-    # def __setMobileDetails(self, lines):
-    #     # self.UI.logger.info(self.platform.lower().strip() == "android")
-    #     if self.platform.lower().strip() == "android":
-    #         for line in lines:
-    #             if line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.language":
-    #                 self.language = line.decode('utf-8').strip().split("=")[1]
-    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.region":
-    #                 self.region = line.decode('utf-8').strip().split("=")[1]
-    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.product.model":
-    #                 self.deviceModel = line.decode('utf-8').strip().split("=")[1]
-    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.release":
-    #                 self.platformVersion = line.decode('utf-8').strip().split("=")[1]
-    #             elif line.decode('utf-8').strip().split("=")[0] == "ro.build.version.sdk":
-    #                 self.sdk = line.decode('utf-8').strip().split("=")[1]
-    #     if self.language == "" or self.region == "":  # 6.0
-    #         t = self.UI.getBuildInMobileLanguage(self.deviceName)
-    #         self.language = t.split("-")[0]
-    #         self.region = t.split("-")[1]
-    #     self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps,
-    #                                             self.UI.getLanguageRegion() + ".xml")
-    #     if self.language != "en":  # en_US.xml needn't be loaded.
-    #         self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
-    #         self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
 
     def __setupENV(self):
         self.name_project = self._Init.name_project

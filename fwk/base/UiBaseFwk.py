@@ -94,11 +94,13 @@ class UiBaseFwk(object):
 
     def _getCurrentTestArgs(self, testType):
         try:
+            # local pc /opt/devicepass/android/automation-workspace/1adaa521831046b985b39f5ea27b30b3/python-work-HC43YWW01974/projects/PrinterControl/data/Android/runTime.conf
+            # both Android/ android are right. But in DP Android will fail.
+            testType = testType.lower()
             self._path_file_runTimeConf = os.path.join(self.Init.path_folder_data, testType, 'runTime.conf')
         except:
             if testType is None:
                 self.logger.error("faild to find [%s] in [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
-
         self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
         self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
