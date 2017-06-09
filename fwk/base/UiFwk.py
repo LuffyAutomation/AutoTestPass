@@ -77,8 +77,27 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __verifyEqual(self, value, objectValue, func_name=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        objectValue = str(objectValue)
-        value = str(value)
+        try:
+            objectValue = str(objectValue)
+        except:
+            pass
+        try:
+            value = str(value)  # 'ascii' codec can't encode character u'\xa9' in position 10: ordinal not in range(128)
+        except:
+            pass
+        try:
+            if type(value).__name__ == "unicode":
+                value = value.encode("utf-8")
+        except:
+            pass
+        try:
+            if type(objectValue).__name__ == "unicode":
+                objectValue = value.objectValue("utf-8")
+        except:
+            pass
+        # value is unicode and ov is str
+        # value == objectValue.decode("utf-8")
+        # value.encode("utf-8") == objectValue
         global t
         t = "is"
         if "NotEqual" in func_name:
