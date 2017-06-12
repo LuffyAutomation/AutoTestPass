@@ -2,6 +2,7 @@ features
 .idea
 wheelhouse
 *.pyc
+*.log
 AutoTestPass.zip
 results
 使用说明绿色精简中文版_草稿.docx

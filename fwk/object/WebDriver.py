@@ -8,7 +8,6 @@ PATH = lambda p: os.path.abspath(
 
 class WebDriver:
     BROWSER = "Browser"
-
     def __init__(self, UI):
         self.desired_caps = {}
         self._UI = UI
@@ -31,18 +30,18 @@ class WebDriver:
     _driver_Chrome = None
     _driver_IE = None
     _driver_Edge = None
+    _driver = None
     def getDriver(self):
-        self.logger.info("Connecting Web > %s driver." % self._RunTimeConf.browser.lower())
         os.environ["PATH"] += ";" + str(self._RunTimeConf.browserDriverFolderPath)
-        if self._driver is None:
-            if self._RunTimeConf.browser.lower() == "firefox":
-                self._driver = self.getFireFoxDriver()
-            elif self._RunTimeConf.browser.lower() == "chrome":
-                self._driver = self.getChromeDriver()
-        else:
-            self.logger.info("The Android driver has existed.")
-        if self._driver is not None:
-            self.hasGotDriver = True
+        # if self._driver is None:
+        if self._RunTimeConf.browser.lower() == "firefox":
+            self._driver = self.getFireFoxDriver()
+        elif self._RunTimeConf.browser.lower() == "chrome":
+            self._driver = self.getChromeDriver()
+        # else:
+        #     self.logger.info("The Web driver [" + self._RunTimeConf.browser.lower() + "] has existed.")
+        # if self._driver is not None:
+        #     self.hasGotDriver = True
         return self._driver
     def __getDesiredCapsList(self):
         self.desired_caps = {

@@ -2,19 +2,21 @@ import os
 
 from fwk.object.WebDriver import WebDriver
 
-from fwk.base.UiBaseFwk import UiBaseFwk
+from fwk.base.UiFwk import UiFwk
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class WebFwk(UiBaseFwk):
 
+class WebFwk(UiFwk):
     def __init__(self, Init):
-        UiBaseFwk.__init__(self, Init)
-        self.path_file_xlsx_testData = Init.path_file_xlsx_testData_web
+        UiFwk.__init__(self, Init)
+        self._Init = Init
+        self.path_file_xlsx_testData = self._Init.path_file_xlsx_testData_web
 
     def getDriver(self):
+        self.logger.info("Connecting Web > %s driver." % self.RunTimeConf.browser.lower())
         self._getCurrentTestArgs(self.TestType.WEB)
         if self._driver == None:
             self._driver = WebDriver(self).getDriver()
