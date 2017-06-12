@@ -4,9 +4,10 @@ class CommonPage:
         return self
 
     def updateForSubPage(self, child_page_name=None, elementsMap=None):
+        if "\\" in self.page_name:  # avoid duplicate adding if continuously operated subpage.
+            self.page_name = self.page_name.split("\\")[0]
         if elementsMap is None:  # 0 level page
             self.elementsMap = self._elementsMap
         else:
             self.elementsMap = elementsMap
-            if not self.page_name.endswith("\\" + child_page_name):  #  avoid duplicate add if continuously operate subpage.
-                self.page_name += "\\" + child_page_name
+            self.page_name += "\\" + child_page_name
