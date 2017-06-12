@@ -8,4 +8,5 @@ class CommonPage:
             self.elementsMap = self._elementsMap
         else:
             self.elementsMap = elementsMap
-            self.page_name = self.page_name + "\\" + child_page_name
+            if not self.page_name.endswith("\\" + child_page_name):  #  avoid duplicate add if continuously operate subpage.
+                self.page_name += "\\" + child_page_name
