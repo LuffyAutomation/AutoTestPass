@@ -22,17 +22,19 @@ class PLACEHOLDER(CommonUnittest):
         cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
         cls.Pages_Web = Pages_Web(cls.UI_Web)
         cls.Pages = cls.Pages_Android
-
+    5. self.Result.setStepContinueFromFailIfBlock()  # By using this function, current step will not be blocked if the last step was failed or blocked.
+    6. workflow example:
     def test_exmaple(self):
         self.Pages_Android = Pages_Android(self.UI_Android)
         self.Pages = self.Pages_Android
         self.Result.setDescription("1. xxxxx.",
                                    "2. xxxxx.")
         self.Result.setExpectedResult("xxxxxx is displayed.")
-        self.Result.setScreenshot("begin", "This is a begin.")
-        self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
+        self.Result.addScreenshot("begin", "This is a begin.")  # Add a screenshot. It can be added more.
+        self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue()) #  It can be added more.
         self.Pages.xxxxxxxxx
     '''
+
     @classmethod
     def setUpClass(cls):
         cls.setUpBeforClass()  # setup test before starting.
