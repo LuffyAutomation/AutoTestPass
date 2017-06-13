@@ -69,7 +69,7 @@ class PLACEHOLDER(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID inthe  excel,
+        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
         self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
