@@ -74,7 +74,6 @@ class IosExample(CommonUnittest):
         5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
         # self.Result.setDescriptionAndExpectedResultFromExcel()
-
         self.Result.setDescription("1. xxxx.",
                                    "2. xx.",
                                    "3. xxxx.")
