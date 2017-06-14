@@ -266,6 +266,7 @@ class Result:
         self._stepNum = self.__getNextStep()
         self._dict_report[self._startTime] = self._UtilTime.getDateTime()
         self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
+        # self.__addBlockIfNoSetExpectedResultFunction(TestCase)
         # for line feed > test_flow (src.projects.PrinterControl.unittestCases.HomeMoreAbout.HomeMoreAbout) ... 2017-04-07 14:54:14,275 INFO - Waiting for the element [checkbox_accept] to be shown on page['page_agreements'].
         # self._UtilConsole.printCmdLn("")
 
