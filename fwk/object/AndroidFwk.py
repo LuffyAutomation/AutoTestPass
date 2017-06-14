@@ -249,7 +249,7 @@ class AndroidFwk(UiFwk):
 
     def switchApp(self, app_package, app_activity):
         self.logger.info("Switch to App - app_package: [%s] app_activity: [%s]." % (app_package, app_activity))
-        self._driver.start_activity(app_package, app_activity);
+        self._driver.start_activity(app_package, app_activity)
 
     def removeApp(self, app_package):
         self.logger.info("Remove App - app_package: [%s]." % app_package)
