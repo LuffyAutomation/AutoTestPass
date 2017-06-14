@@ -194,9 +194,12 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 # print e.__str__()
                 continue
             return self.getCurrentElementObject()
-        if locator_index < 0:
+        if locator_index < 0:  # When <id/xpath... index="0">android:id/checkbox</id>
             raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
-        raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
+        elif locator_index == 0:  # When <id/xpath...>android:id/checkbox</id>
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
+        else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
 
     # def getElementsSize(self, element_name):
     #     return len(self.getElements(element_name))
