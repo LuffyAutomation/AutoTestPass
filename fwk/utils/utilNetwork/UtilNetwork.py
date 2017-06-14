@@ -5,5 +5,13 @@ class UtilNetwork:
     def __init__(self):
         pass
 
-    def get_local_ip(self):
-        return socket.gethostbyname(socket.gethostname())
+    @staticmethod
+    def get_local_ip():
+        try:
+            return socket.gethostbyname(socket.gethostname())  # not work in Mac
+        except:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            return ip
