@@ -245,6 +245,7 @@ class AndroidFwk(UiFwk):
         lines = data.stdout.readlines()
         # for prop in li:
         #     prop.decode('utf-8').strip().split("=")
+        return lines
 
     def switchApp(self, app_package, app_activity):
         self.logger.info("Switch to App - app_package: [%s] app_activity: [%s]." % (app_package, app_activity))
