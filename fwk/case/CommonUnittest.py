@@ -103,9 +103,12 @@ class CommonUnittest(unittest.TestCase):
             cls.InitFwk.logger.error(e.__str__())
 
     def setUp(self):
+        # self.Result.beforeEachFunction(self)
         try:
             self.Result.beforeEachFunction(self)
         except:
+            # self.Result.afterEachFunction(self)
+            # raise Exception("Skip step.")
             pass
 
     def tearDown(self):

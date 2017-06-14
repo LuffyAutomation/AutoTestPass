@@ -218,13 +218,13 @@ class Result:
     def setResultToBlockIfFail(self):  # for skip
         self._value_nonPass_result = self._r_block
 
-    def setStepContinueFromFailIfBlock(self):
+    def setStepContinueFromFailorBlock(self):
         self._value_nonPass_result = self._r_fail
 
     def setResultToTBD(self):  # for skip
         pass
 
-    def setStepBlock(self, env_block_msg):
+    def setStepBlockIfLastStepFailorBlock(self, env_block_msg=None):
         if env_block_msg is not None:
             self._value_nonPass_result == self._r_block
             raise Exception("This step is failed since the test env error. Please check the log file for details.")
@@ -252,7 +252,7 @@ class Result:
             caseInfo = self.DictCaseInfo_current[id]
             self.setDescription(*caseInfo.description)
             self.setExpectedResult(*caseInfo.expectedResult)
-            self.setStepBlock(self._env_block_msg)
+            self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
 
     def beforeEachFunction(self, TestCase):
         self._UI.logger.info("******************************************************************************")
@@ -265,25 +265,23 @@ class Result:
             self.setTestName(self._dict_report[self._testcaseClassName])
         self._stepNum = self.__getNextStep()
         self._dict_report[self._startTime] = self._UtilTime.getDateTime()
-        self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
+        # self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
         # self.__addBlockIfNoSetExpectedResultFunction(TestCase)
         # for line feed > test_flow (src.projects.PrinterControl.unittestCases.HomeMoreAbout.HomeMoreAbout) ... 2017-04-07 14:54:14,275 INFO - Waiting for the element [checkbox_accept] to be shown on page['page_agreements'].
         # self._UtilConsole.printCmdLn("")
 
-
-
     def __addBlockIfNoSetExpectedResultFunction(self, TestCase):
-        try:
-            enhance_method(TestCase, TestCase._testMethodName, method_changer)
+            # enhance_method(TestCase, TestCase._testMethodName, method_changer)
             if self.DictCaseInfo_current is None:
-                defContent = inspect.getsource(getattr(TestCase, TestCase._testMethodName))
-                for line in defContent.split("\n"):
-                    line = line.strip()
-                    if not line.startswith("#") and not line.startswith("'''") and "setExpectedResult(" in line:
-                        return
-                self.setStepBlock(self._env_block_msg)
-        except Exception as e:
-            pass
+                try:
+                    defContent = inspect.getsource(getattr(TestCase, TestCase._testMethodName))
+                    for line in defContent.split("\n"):
+                        line = line.strip()
+                        if (not line.startswith("#") and not line.startswith("'''")) and ("setExpectedResult(" in line or "setStepContinueFromFailIfBlock(" in line):
+                            return
+                except Exception as e:
+                    pass
+                self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
 
     def afterEachFunction(self, TestCase):
         self.__getTime()
@@ -418,7 +416,7 @@ class Result:
             else:
                 tmp += expectedResult[idx]
         self._dict_report[self._expectedResult] = tmp
-        self.setStepBlock(self._env_block_msg)
+        self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
 
     def setDescription(self, *description):
         tmp = ""

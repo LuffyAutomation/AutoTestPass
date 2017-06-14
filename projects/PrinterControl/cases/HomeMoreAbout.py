@@ -61,7 +61,6 @@ class HomeMoreAbout(CommonUnittest):
     def test_flow(self):
         '''
         1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
-        self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
@@ -119,7 +118,7 @@ class HomeMoreAbout(CommonUnittest):
 
 
     def test_endUserLicenseAgreement_back(self):
-        self.Result.setStepContinueFromFailIfBlock()  # By using this function, this step will not be blocked if the last step was failed or blocked.
+        self.Result.setStepContinueFromFailorBlock()  # By using this function, this step will not be blocked if the last step was failed or blocked.
         self.Result.setDescription("Follow the last step. Tap on the Back key.")
         self.Result.setExpectedResult("Back to About screen displayed.")
         self.UI.back()
@@ -137,7 +136,7 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_hpOnlinePrivacyStatement.image_logo().verifyIsShown()
 
     def test_hpOnlinePrivacyStatement_back(self):
-        self.Result.setStepContinueFromFailIfBlock()
+        self.Result.setStepContinueFromFailorBlock()
         self.Result.setDescription("Follow the last step. Tap on the OK button.")
         self.Result.setExpectedResult("Back to About screen displayed.")
         self.UI.back()
@@ -173,7 +172,7 @@ class HomeMoreAbout(CommonUnittest):
         # self.Pages.Page_shareThisApp.text_sina().verifyIsShown()
 
     def test_shareThisApp_back(self):
-        self.Result.setStepContinueFromFailIfBlock()
+        self.Result.setStepContinueFromFailorBlock()
         self.Result.setDescription("Follow the last step.")
         self.Result.setExpectedResult("Back to About screen displayed after tapping the Back key.")
         self.UI.back()

@@ -62,23 +62,32 @@ class WebExample(CommonUnittest):
     def test_flow1(self):
         '''
         1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
-        self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
         5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
-        raise Exception("wewewe")
+        self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
+                                   "2. Go to www.baidu.com.")
+        self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
+        raise Exception("Fail this step and see whether the next step will be blocked.")
 
     def test_flow(self):
         '''
         1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
-        self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
         5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
+        self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
+                                   "2. Go to www.baidu.com.")
+        self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
+        self.Pages.Page_home.open_main_page()
+        self.Pages.Page_home.edit_search().setValueBySendKeys("21212")
+
+    def test_flow2(self):
+        self.Result.setStepContinueFromFailorBlock()
         self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
                                    "2. Go to www.baidu.com.")
         self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")

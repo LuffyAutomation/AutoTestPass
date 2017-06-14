@@ -46,7 +46,9 @@ if __name__ == '__main__':
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebExample":
+        suite.addTest(WebExample("test_flow1"))
         suite.addTest(WebExample("test_flow"))
+        suite.addTest(WebExample("test_flow2"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebMultipleThreads":
         listProcess = []
