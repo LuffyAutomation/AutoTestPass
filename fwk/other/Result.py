@@ -1,11 +1,24 @@
 import logging
 import logging.config
 import os
+import inspect
+import new
 from xml.dom import minidom
 
 from fwk.base.GlobalArgs import GlobalArgs
 from fwk.utils.exceller.Exceller import Exceller
 
+
+def enhance_method(klass, method_name, replacement):
+    method = getattr(klass, method_name)
+    setattr(klass, method_name, new.instancemethod(
+        lambda *args, **kwds: replacement(method, *args, **kwds), None, klass))
+
+
+def method_changer(old_method, self, *args, **kwds):
+    print 3333
+    # return_value = old_method(self, *args, **kwds)
+    # return return_value
 
 class Result:
     NA = "NA"
@@ -239,7 +252,7 @@ class Result:
             caseInfo = self.DictCaseInfo_current[id]
             self.setDescription(*caseInfo.description)
             self.setExpectedResult(*caseInfo.expectedResult)
-        self.setStepBlock(self._env_block_msg)
+            self.setStepBlock(self._env_block_msg)
 
     def beforeEachFunction(self, TestCase):
         self._UI.logger.info("******************************************************************************")
@@ -255,6 +268,21 @@ class Result:
         self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
         # for line feed > test_flow (src.projects.PrinterControl.unittestCases.HomeMoreAbout.HomeMoreAbout) ... 2017-04-07 14:54:14,275 INFO - Waiting for the element [checkbox_accept] to be shown on page['page_agreements'].
         # self._UtilConsole.printCmdLn("")
+
+
+
+    def __addBlockIfNoSetExpectedResultFunction(self, TestCase):
+        try:
+            enhance_method(TestCase, TestCase._testMethodName, method_changer)
+            if self.DictCaseInfo_current is None:
+                defContent = inspect.getsource(getattr(TestCase, TestCase._testMethodName))
+                for line in defContent.split("\n"):
+                    line = line.strip()
+                    if not line.startswith("#") and not line.startswith("'''") and "setExpectedResult(" in line:
+                        return
+                self.setStepBlock(self._env_block_msg)
+        except Exception as e:
+            pass
 
     def afterEachFunction(self, TestCase):
         self.__getTime()

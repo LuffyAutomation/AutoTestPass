@@ -1,10 +1,10 @@
 # coding: utf-8
 
 from fwk.case.CommonUnittest import CommonUnittest
-from projects.WebExample.po.wrapper.Pages_Web import Pages_Web
+from projects.WebMultipleThreads.po.wrapper.Pages_Web import Pages_Web
 
 
-class TestBrowser1(CommonUnittest):
+class TestBrowser(CommonUnittest):
     '''
     1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
     2. setUpClass(cls) is reserved function, please keep it. Do not write any of tearDownClass, setUp and tearDown.
@@ -68,11 +68,11 @@ class TestBrowser1(CommonUnittest):
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
         5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
         '''
-        self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
-                                   "2. Go to www.baidu.com.")
-        self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
+        # self.Result.setDescription("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
+        #                            "2. Go to www.baidu.com.")
+        # self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
-        self.Pages.Page_home.edit_search().setValueBySendKeys("This py file is for testing 2 suits.")
+        self.Pages.Page_home.edit_search().setValueBySendKeys("21212")
 
 
 
