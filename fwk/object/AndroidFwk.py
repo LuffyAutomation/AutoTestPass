@@ -116,6 +116,7 @@ class AndroidFwk(UiFwk):
         return self
 
     def back(self):
+        self.logger.info("Click back of the mobile.")
         self._driver.back()
         return self
 
@@ -244,4 +245,16 @@ class AndroidFwk(UiFwk):
         lines = data.stdout.readlines()
         # for prop in li:
         #     prop.decode('utf-8').strip().split("=")
-        return lines
+
+    def switchApp(self, app_package, app_activity):
+        self.logger.info("Switch to App - app_package: [%s] app_activity: [%s]." % (app_package, app_activity))
+        self._driver.start_activity(app_package, app_activity);
+
+    def removeApp(self, app_package):
+        self.logger.info("Remove App - app_package: [%s]." % app_package)
+        self._driver.remove_app(app_package)  # "com.dropbox.android"
+
+    def installApp(self, app_path):
+        self.logger.info("Install App - app_path: [%s]." % app_path)
+        self._driver.install_app(self, app_path)
+        #  ("adb install your-apk-path.apk");
