@@ -26,7 +26,7 @@ class ConfigParse:
     TEST_SCREENSHOTS_FOLDERPATH = "test.screenshots.folderPath"
     TEST_UIMAP_FILENAME = "test.uiMap.fileName"
     CURRENT_TEST_TYPE = "current.test.type"
-
+    MOBILE_BROWSER_NAME = "mobile.browser.name"
     BROWSER = "browser"
     TEST_BROWSERDRIVER_FOLDERPATH = "test.browserDriver.folderPath"
 

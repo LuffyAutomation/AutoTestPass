@@ -210,6 +210,7 @@ class Result:
         self._dict_report[self._deviceModel] = self._UI.RunTimeConf.deviceModel
         self._dict_report[self._language] = self._UI.RunTimeConf.language
         self._dict_report[self._region] = self._UI.RunTimeConf.region
+        self._dict_report[self._project] = self._Init.name_project
 
     def printBaseInfo(self):
         for info in self._list_baseInfo:

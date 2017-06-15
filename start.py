@@ -28,22 +28,23 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":
-        listTestSuits = ["test_flow",
-                         "test_aioVersion",
-                         "test_copyRight",
-                         "test_legalInformaion",
-                         "test_endUserLicenseAgreement",
-                         "test_endUserLicenseAgreement_back",
-                         "test_hpOnlinePrivacyStatement",
-                         "test_hpOnlinePrivacyStatement_back",
-                         "test_shareThisApp",
-                         "test_shareThisApp_back",
-                         "test_headerDisplay"]
+        listTestSuits = ["test_flow"
+                         # ,
+                         # "test_aioVersion",
+                         # "test_copyRight",
+                         # "test_legalInformaion",
+                         # "test_endUserLicenseAgreement",
+                         # "test_endUserLicenseAgreement_back",
+                         # "test_hpOnlinePrivacyStatement",
+                         # "test_hpOnlinePrivacyStatement_back",
+                         # "test_shareThisApp",
+                         # "test_shareThisApp_back",
+                         # "test_headerDisplay"
+                         ]
         for suit in listTestSuits:
             suite.addTest(HomeMoreAbout(suit))
         # suite.addTest(HomeMoreAppSettings("test_flow"))
         # suite.addTest(HomeMoreAppSettings("test_verifyCheckbox"))
-        test_result = unittest.TextTestRunner(verbosity=2).run(suite)
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebExample":
         suite.addTest(WebExample("test_flow1"))

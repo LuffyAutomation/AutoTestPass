@@ -28,7 +28,7 @@ class RunTimeConf:
     deviceModel = ""
     language = ""
     region = ""
-
+    mobileBrowserName = ""
     # get
     def __init__(self, _ConfigParser):
         self._UtilOS = UtilOS
@@ -57,7 +57,7 @@ class RunTimeConf:
 
             self.isMobileTest = True
             self.isWebTest = False
-
+            self.mobileBrowserName = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.MOBILE_BROWSER_NAME)
             self._ConfigParser = _ConfigParser
             self.platform = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_PLATFORMNAME)
             self.platformVersion = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_DEVICE_VERSION)

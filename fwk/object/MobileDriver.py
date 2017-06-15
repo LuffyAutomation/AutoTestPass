@@ -18,6 +18,7 @@ class MobileDriver:
     # IOS
     APP_BUNDLEID = "bundleId"
     APP_UDID = "udid"
+    BROWSER_NAME = "browserName"
 
     def __init__(self, UI):
         self.desired_caps = {}
@@ -50,6 +51,13 @@ class MobileDriver:
             self.desired_caps[self.APP_ACTIVITY] = self._RunTimeConf.appActivity
         # if self._RunTimeConf.automationName is not None:
         #     self.desired_caps[self.AUTOMATION_NAME] = self._RunTimeConf.automationName
+        if self._RunTimeConf.mobileBrowserName is not None and self._RunTimeConf.mobileBrowserName != "":
+            self.desired_caps[self.BROWSER_NAME] = self._RunTimeConf.mobileBrowserName
         if self._RunTimeConf.automationName is not None and self._RunTimeConf.appWaitActivity is not None:
             self.desired_caps[self.APP_WAIT_ACTIVITY] = self._RunTimeConf.appWaitActivity
         return self.desired_caps
+        # capabilities.setCapability("browserName", "Chrome");
+        # capabilities.setCapability("appPackage", "com.android.browser");
+        # capabilities.setCapability("appActivity", ".BrowserActivity");
+        # capabilities.setCapability("unicodeKeyboard", true);
+        # capabilities.setCapability("resetKeyboard", true);

@@ -270,3 +270,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.swipe(width/2, height*3/4, width/2, height/4, duration)
         return self
 
+
+    def openUrl(self, url):
+        self.logger.info("Navigate to [" + url + "].")
+        self._driver.get(url)

@@ -32,8 +32,4 @@ class WebFwk(UiFwk):
         self._currentElementName = element_name
         return self
 
-    def openUrl(self, url):
-        self.logger.info("Navigate to [" + url + "].")
-        self._driver.get(url)
-        #self.RunTimeConf.getMobileInfo(self)
 
