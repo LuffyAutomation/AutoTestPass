@@ -22,6 +22,7 @@ def mutipleProcesses1():
     suite.addTest(TestBrowser("test_flow"))
     suite.addTest(TestBrowser1("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
+
 def mutipleProcesses2():
     suite = unittest.TestSuite()
     suite.addTest(TestBrowser("test_flow"))
@@ -31,7 +32,7 @@ def mutipleProcesses2():
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     initFwk = InitFwk()
-	if initFwk.name_project == "PrinterControl":
+    if initFwk.name_project == "PrinterControl":
         listTestSuits = ["test_flow"
                          # ,
                          # "test_aioVersion",
