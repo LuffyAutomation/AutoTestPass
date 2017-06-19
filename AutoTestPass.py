@@ -8,6 +8,7 @@ reload(sys)
 
 sys.setdefaultencoding('utf8')
 
+
 def startServer(*args):
     # app.run(debug=True)
     app.run(host=args[0], port=args[1])
@@ -20,4 +21,4 @@ if __name__ == '__main__':
     local_ip = _UtilNetwork.get_local_ip()
     local_port = 8080
     webbrowser.open("http://" + local_ip + ":" + str(local_port))
-    app.run(host=local_ip, port=local_port)  #  local_port must be int in OSX
+    app.run(host=local_ip, port=local_port)  # local_port must be int in OSX
