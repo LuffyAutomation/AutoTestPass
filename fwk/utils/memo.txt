@@ -1,0 +1,3 @@
+cd  /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
+./Scripts/bootstrap.sh -d
+xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'id=f7bbd1dc44901fb0773ca6adb9e4fbe3021ec217' test
