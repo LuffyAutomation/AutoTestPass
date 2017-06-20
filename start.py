@@ -13,9 +13,11 @@ from projects.IosExample.cases.IosExample import IosExample
 import multiprocessing
 import unittest
 import time
+
 # import sys
 # reload(sys)
 # sys.setdefaultencoding('utf-8')
+# print platform.python_version()
 
 def mutipleProcesses1():
     suite = unittest.TestSuite()
@@ -33,6 +35,7 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":
+        from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
         listTestSuits = ["test_flow"
                          # ,
                          # "test_aioVersion",

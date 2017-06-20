@@ -47,7 +47,7 @@ class UtilFolder:
 
     class FolderMode:
         LIST_SUB_FOLDER_NAMES = "LIST_SUB_FOLDER_NAMES"
-        LIST_SUB_FILE_NAMES = "LIST_SUB_FOLDER_NAMES"
+        LIST_SUB_FILE_NAMES = "LIST_SUB_FILE_NAMES"
 
     @staticmethod
     def walkFolder(p, folderMode=FolderMode.LIST_SUB_FOLDER_NAMES):

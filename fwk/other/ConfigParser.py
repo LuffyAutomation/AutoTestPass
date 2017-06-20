@@ -1,7 +1,13 @@
 # coding: utf-8
 
-from configparser import ConfigParser
+from backports import configparser
 import os
+import platform
+# try:
+#     print platform.python_version()
+#     import configparser
+# except:
+#     from six.moves import configparser
 
 
 class ConfigParse:
@@ -72,7 +78,7 @@ class ConfigParse:
             pass
 
     def getConf(self, path):
-        conf = ConfigParser()
+        conf = configparser.ConfigParser()
         conf.read(path, "utf-8")
         self.path = path
         return conf

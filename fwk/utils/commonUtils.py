@@ -1,6 +1,12 @@
 # coding: utf-8
 import os
-from configparser import ConfigParser
+import platform
+# from configparser import ConfigParser
+# try:
+#     print platform.python_version()
+#     import configparser
+# except:
+#     from six.moves import configparser
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
@@ -19,11 +25,11 @@ class Common:
     def getRoot(self):
         rootPath = os.getcwd() + os.sep
         return rootPath
-    @staticmethod
-    def configParser(path):
-        conf = ConfigParser()
-        conf.read(path, "utf-8")
-        return conf
+    # @staticmethod
+    # def configParser(path):
+    #     conf = configparser.ConfigParser()
+    #     conf.read(path, "utf-8")
+    #     return conf
 
 
 '''config = Common.configParser("D:/localGit/repositories/Python/ePint-Demo/resources/data/main.data")
