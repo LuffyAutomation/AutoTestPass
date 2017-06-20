@@ -80,7 +80,7 @@ class InitFwk:
         self.path_folder_projects = os.path.join(self.path_folder_AutoTestPass, "projects")
         self.path_folder_templates = os.path.join(self.path_folder_AutoTestPass, "templates")
         self.path_folder_PLACEHOLDER = os.path.join(self.path_folder_templates, self.Const.PLACEHOLDER)
-        self.list_all_projects = self.UtilFolder.walkFolder(self.path_folder_projects, self.UtilFolder.FolderMode.LIST_SUB_FOLDER_NAMES)
+        self.list_all_projects = self.UtilFolder.walkFolder(self.path_folder_projects, self.UtilFolder.DoMode.LIST_SUB_FOLDER_NAMES)
 
         self._path_folder_env = os.path.join(self.path_folder_fwk, "env")
         self._path_folder_conf = os.path.join(self._path_folder_env, "conf")

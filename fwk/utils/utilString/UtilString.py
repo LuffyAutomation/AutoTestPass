@@ -5,6 +5,7 @@ class UtilString:
     def __init__(self, *args):
         pass
 
+    WILDCARD = ".*"
     @staticmethod
     def capitalizeFirstLetter(f, separator=None, reserveSep=False):
         tmp = ""
@@ -29,5 +30,14 @@ class UtilString:
     def toCodeNameCap(str):
         return str[0].upper() + str[1:]
 
+    @staticmethod
+    def isWildCardMatched(targetStr, givenStr):
+        if UtilString.WILDCARD in givenStr:
+            if givenStr.replace(UtilString.WILDCARD, "").lower() in targetStr.lower():
+                return True
+        else:
+            if givenStr.replace(UtilString.WILDCARD, "").lower() == targetStr.lower():
+                return True
+        return False
     # s = filter(lambda ch: ch in '0123456789', s)
     # print ''.join([x for x in oldS if x.isalpha()])
