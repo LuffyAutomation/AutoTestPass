@@ -43,7 +43,7 @@ class UtilFolder:
            return os.path.splitext(p)
 
     @staticmethod
-    def isPathExists(p):
+    def isPathExisted(p):
            return os.path.exists(p)
 
     class DoMode:
@@ -63,8 +63,6 @@ class UtilFolder:
                     UtilFolder.removeSpecified(os.path.join(folderPath, subfileName), list_names)
             elif folderMode == UtilFolder.DoMode.LIST_SUB_FILE_NAMES:
                 return list_subfileName
-            elif folderMode == UtilFolder.DoMode.DEL_SPECIFIED:
-                pass
             # for dirname in list_subFolderName:
             #     pass
             #     for filename in list_subfileName:

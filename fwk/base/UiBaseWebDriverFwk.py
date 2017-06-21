@@ -262,15 +262,129 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         except Exception as e:
             pass
 
-    def swipeUp(self, duration=1):
-        self._UI.logger.info("Swipe up.")
-        duration = duration * 1000
-        width = self._UI.getWindowWidth()
-        height = self._UI.getWindowHeight()
-        self._driver.swipe(width/2, height*3/4, width/2, height/4, duration)
+    def swipeByNative(self, begin_x, begin_y, end_x, end_y, duration=500):
+        self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
         return self
 
+    def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if duration is None:
+            duration = 100
+        else:
+            duration = duration * 1000
+        if self.testType.lower() == 'ios':
+
+            # toX = 0  # toX should be 0 in ios. Then toX == fromX
+            # toY = -100
+            self.logger.info("Swipe up. From %s, %s to %s, %s. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration))
+            self.swipeByNative(fromX, fromY, toX - fromX, toY - fromY, duration)
+
+        return self
+
+    def swipeUpFromBottom(self, move_offset=200, bottom_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, height - bottom_offset, width / 2, height - bottom_offset - move_offset, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeUpFromBottomToTop(self, top_offset=0, bottom_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, height - bottom_offset, width / 2, height - top_offset, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeUpFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, height / 2 - mid_offset, width / 2, height / 2 - mid_offset - move_offset, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeLeftFromRight(self, move_offset=150, Right_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width - Right_offset, height / 2, width - Right_offset - move_offset, height / 2, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeLeftFromMid(self, move_offset=150, Mid_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2 - Mid_offset, height / 2, width / 2 - Mid_offset - move_offset, height / 2, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeRightFromLeft(self, move_offset=150, Left_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(Left_offset, height / 2, move_offset, height / 2, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeRightFromMid(self, move_offset=150, Mid_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2 + Mid_offset, height / 2, width / 2 + Mid_offset + move_offset, height / 2, duration, width, height)
+        else:
+            pass
+        return self
 
     def openUrl(self, url):
         self.logger.info("Navigate to [" + url + "].")
         self._driver.get(url)
+
+    def getElementWidth(self, item=None, element_name=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["width"])
+
+    def getElementWidthHeight(self, item=None, element_name=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["height"])
+
+    def getElemenX(self, item=None, element_name=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["x"]
+
+    def getElementY(self, item=None, element_name=None):
+        element_name = self.getelement_nameFrom(element_name)
+        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
+
+    def getWindowWidth(self):
+        width = self._driver.get_window_size()['width']
+        return width
+
+    def getWindowHeight(self):
+        height = self._driver.get_window_size()['height']
+        return height

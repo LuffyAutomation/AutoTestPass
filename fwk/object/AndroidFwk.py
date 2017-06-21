@@ -97,18 +97,6 @@ class AndroidFwk(UiFwk):
             self._driver.swipe((windows_x * 0.5), (windows_y * 0.9), (windows_x * 0.5), (windows_y * 0.1), duration)
         return self
 
-    def swipeTo(self, begin_x, begin_y, end_x, end_y, duration=500):
-        self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
-        return self
-
-    # x and y (1-10)
-    def swipe(self, start_x, start_y, end_x, end_y):
-        self.logger.info("Swipe from [" + str(start_x) + ":" + str(start_y) + "] to [" + str(end_x) + ":" + str(end_y) + "].")
-        windowlenX = self.getElementWidth()
-        windowlenY = self.getElementWidthHeight()
-        self.swipeTo((windowlenX * start_x / 10), (windowlenY * start_y / 10), (windowlenX * end_x / 10), (windowlenY * end_y / 10), 1500)
-        return self
-
     def tap(self, x, y, duration=500):
         width = self.getX()
         height = self.getY()
@@ -179,41 +167,17 @@ class AndroidFwk(UiFwk):
         os.system("adb -s " + self.udid + " shell am broadcast -a ADB_INPUT_TEXT --es msg '" + value + "'")
         return self
 
-    def getElementWidth(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
-        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["width"])
-
-    def getElementWidthHeight(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
-        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["height"])
-
-    def getElemenX(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
-        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["x"]
-
-    def getElementY(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
-        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
-
-    def getWindowWidth(self):
-        width = self._driver.get_window_size()['width']
-        return width
-
-    def getWindowHeight(self):
-        height = self._driver.get_window_size()['height']
-        return height
-
     def crop(self, element, direction):
         x = self.getElemenX(element)
         y = self.getElementY(element)
         if direction == "left":
-            self.swipeTo(x + self.getElementWidth(element) - 1, y, x + self.getElementWidth(element) - 200, y, 1500)
+            self.swipeByNative(x + self.getElementWidth(element) - 1, y, x + self.getElementWidth(element) - 200, y, 1500)
         if direction == "right":
-            self.swipeTo(x, y, x + 200, y, 1500)
+            self.swipeByNative(x, y, x + 200, y, 1500)
         if direction == "up":
-            self.swipeTo(x, y + self.getElementHeight(element) - 1, x, y + self.getElementHeight(element) - 200, 1500)
+            self.swipeByNative(x, y + self.getElementHeight(element) - 1, x, y + self.getElementHeight(element) - 200, 1500)
         if direction == "down":
-            self.swipeTo(x, y, x, y + 200, 1500)
+            self.swipeByNative(x, y, x, y + 200, 1500)
 
     def getBuildInMobileLanguage(self, uuid=None):
         if uuid is None:
