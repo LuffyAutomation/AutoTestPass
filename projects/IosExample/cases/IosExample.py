@@ -80,9 +80,9 @@ class IosExample(CommonUnittest):
         self.Pages.Page_welcome.image_welcome().waitForShown()
         self.Pages.Page_welcome.button_start().click()
         # self.Pages.Page_welcome.UI.swipe(170, 500, 170, 300)
-        self.Pages.Page_welcome.UI.swipeDownFromTopToBottom()
-        self.Pages.Page_welcome.UI.swipeDownFromMid()
-        self.Pages.Page_welcome.UI.swipeDownFromTop()
+        # self.Pages.Page_welcome.UI.swipeDownFromTopToBottom()
+        # self.Pages.Page_welcome.UI.swipeDownFromMid()
+        # self.Pages.Page_welcome.UI.swipeDownFromTop()
 
         pass
 

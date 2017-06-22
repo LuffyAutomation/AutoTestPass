@@ -70,9 +70,11 @@ class RunTimeConf:
             self.appActivity = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_ACTIVITY)
             self.appWaitActivity = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_WAITACTIVITY)
             self.app = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_PATH)
-
-            if not self.app.lower().startswith("/volumes"):
-                self.app = PATH(self.app)
+            try:
+                if not self.app.lower().startswith("/volumes"):
+                    self.app = PATH(self.app)
+            except:
+                self.app = None
 
             self.appiumServerIP = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_APPIUM_SERVERIP)
             self.appiumServerPort = self._ConfigParser.getRunTimeConfigCapsValue(

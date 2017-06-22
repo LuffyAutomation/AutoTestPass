@@ -300,7 +300,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
-            self.logger.info("Swipe down from the bottom to top. %s away from the top to %s away from the bottom." % (top_offset, bottom_offset))
+            self.logger.info("Swipe down from the top to bottom. %s away from the top to %s away from the bottom." % (top_offset, bottom_offset))
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, top_offset, width / 2, height - bottom_offset, duration, width, height)
         else:
@@ -312,8 +312,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
-        self.logger.info("Swipe down from the mid.")
-        self.logger.info("Swipe down %s from the mid. %s away from the mid" % (move_offset, top_offset))
+        self.logger.info("Swipe down %s from the mid. %s away from the mid." % (move_offset, mid_offset))
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height / 2 + mid_offset, width / 2, height / 2 + mid_offset + move_offset, duration, width, height)
         else:
@@ -326,7 +325,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
-        self.logger.info("Swipe up from the bottom.")
+        self.logger.info("Swipe up %s from the bottom. %s away from the bottom." % (move_offset, bottom_offset))
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height - bottom_offset, width / 2, height - bottom_offset - move_offset, duration, width, height)
         else:
@@ -338,7 +337,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
-            self.logger.info("Swipe up from the bottom to top.")
+            self.logger.info("Swipe up from the bottom to top. %s away from the top to %s away from the bottom." % (top_offset, bottom_offset))
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height - bottom_offset, width / 2, top_offset, duration, width, height)
         else:
@@ -350,57 +349,57 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
-        self.logger.info("Swipe up from the mid.")
+        self.logger.info("Swipe up %s from the mid. %s away from the mid." % (move_offset, mid_offset))
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height / 2 - mid_offset, width / 2, height / 2 - mid_offset - move_offset, duration, width, height)
         else:
             pass
         return self
 
-    def swipeLeftFromRight(self, move_offset=200, Right_offset=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe left from the right.")
+    def swipeLeftFromRight(self, move_offset=200, right_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe left %s from the right. %s away from the right." % (move_offset, right_offset))
         if width is None:
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
         if self.testType.lower() == 'ios':
-            self.swipe(width - Right_offset, height / 2, width - Right_offset - move_offset, height / 2, duration, width, height)
+            self.swipe(width - right_offset, height / 2, width - right_offset - move_offset, height / 2, duration, width, height)
         else:
             pass
         return self
 
-    def swipeLeftFromMid(self, move_offset=150, Mid_offset=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe left from the mid.")
+    def swipeLeftFromMid(self, move_offset=150, mid_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe left %s from the mid. %s away from the mid." % (move_offset, mid_offset))
         if width is None:
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
         if self.testType.lower() == 'ios':
-            self.swipe(width / 2 - Mid_offset, height / 2, width / 2 - Mid_offset - move_offset, height / 2, duration, width, height)
+            self.swipe(width / 2 - mid_offset, height / 2, width / 2 - mid_offset - move_offset, height / 2, duration, width, height)
         else:
             pass
         return self
 
-    def swipeRightFromLeft(self, move_offset=200, Left_offset=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe right from the left.")
+    def swipeRightFromLeft(self, move_offset=200, left_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe right %s from the left. %s away from the left." % (move_offset, left_offset))
         if width is None:
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
         if self.testType.lower() == 'ios':
-            self.swipe(Left_offset, height / 2, move_offset, height / 2, duration, width, height)
+            self.swipe(left_offset, height / 2, move_offset, height / 2, duration, width, height)
         else:
             pass
         return self
 
-    def swipeRightFromMid(self, move_offset=200, Mid_offset=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe right from the mid.")
+    def swipeRightFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe right %s from the mid. %s away from the mid." % (move_offset, mid_offset))
         if width is None:
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
         if self.testType.lower() == 'ios':
-            self.swipe(width / 2 + Mid_offset, height / 2, width / 2 + Mid_offset + move_offset, height / 2, duration, width, height)
+            self.swipe(width / 2 + mid_offset, height / 2, width / 2 + mid_offset + move_offset, height / 2, duration, width, height)
         else:
             pass
         return self
