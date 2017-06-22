@@ -79,12 +79,6 @@ class IosExample(CommonUnittest):
         self.Result.setExpectedResult("xxxxxx.")
         self.Pages.Page_welcome.image_welcome().waitForShown()
         self.Pages.Page_welcome.button_start().click()
-        # self.Pages.Page_welcome.UI.swipe(170, 500, 170, 300)
-        # self.Pages.Page_welcome.UI.swipeDownFromTopToBottom()
-        # self.Pages.Page_welcome.UI.swipeDownFromMid()
-        # self.Pages.Page_welcome.UI.swipeDownFromTop()
-
-        pass
 
     def test_your_other_flow(self):
         self.Result.setDescription("1. xxxx.",
