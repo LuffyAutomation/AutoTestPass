@@ -279,16 +279,54 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
             # toX = 0  # toX should be 0 in ios. Then toX == fromX
             # toY = -100
-            self.logger.info("Swipe up. From %s, %s to %s, %s. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration))
+            self.logger.info("Swipe from [%s, %s] to [%s, %s]. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000))
             self.swipeByNative(fromX, fromY, toX - fromX, toY - fromY, duration)
-
         return self
+
+    def swipeDownFromTop(self, move_offset=200, top_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        self.logger.info("Swipe down %s from top. %s away from top" % (move_offset, top_offset))
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, top_offset, width / 2, top_offset + move_offset, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeDownFromTopToBottom(self, top_offset=0, bottom_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+            self.logger.info("Swipe down from bottom to top. %s away from top to %s away from bottom." % (top_offset, bottom_offset))
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, top_offset, width / 2, height - bottom_offset, duration, width, height)
+        else:
+            pass
+        return self
+
+    def swipeDownFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
+        if width is None:
+            width = self.getWindowWidth()
+        if height is None:
+            height = self.getWindowHeight()
+        self.logger.info("Swipe down from mid.")
+        self.logger.info("Swipe down %s from top. %s away from top" % (move_offset, top_offset))
+        if self.testType.lower() == 'ios':
+            self.swipe(width / 2, height / 2 + mid_offset, width / 2, height / 2 + mid_offset + move_offset, duration, width, height)
+        else:
+            pass
+        return self
+
 
     def swipeUpFromBottom(self, move_offset=200, bottom_offset=0, duration=None, width=None, height=None):
         if width is None:
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
+        self.logger.info("Swipe up from bottom.")
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height - bottom_offset, width / 2, height - bottom_offset - move_offset, duration, width, height)
         else:
@@ -300,8 +338,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
+            self.logger.info("Swipe up from bottom to top.")
         if self.testType.lower() == 'ios':
-            self.swipe(width / 2, height - bottom_offset, width / 2, height - top_offset, duration, width, height)
+            self.swipe(width / 2, height - bottom_offset, width / 2, top_offset, duration, width, height)
         else:
             pass
         return self
@@ -311,13 +350,15 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             width = self.getWindowWidth()
         if height is None:
             height = self.getWindowHeight()
+        self.logger.info("Swipe up from mid.")
         if self.testType.lower() == 'ios':
             self.swipe(width / 2, height / 2 - mid_offset, width / 2, height / 2 - mid_offset - move_offset, duration, width, height)
         else:
             pass
         return self
 
-    def swipeLeftFromRight(self, move_offset=150, Right_offset=0, duration=None, width=None, height=None):
+    def swipeLeftFromRight(self, move_offset=200, Right_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe left from right.")
         if width is None:
             width = self.getWindowWidth()
         if height is None:
@@ -329,6 +370,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return self
 
     def swipeLeftFromMid(self, move_offset=150, Mid_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe left from mid.")
         if width is None:
             width = self.getWindowWidth()
         if height is None:
@@ -339,7 +381,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             pass
         return self
 
-    def swipeRightFromLeft(self, move_offset=150, Left_offset=0, duration=None, width=None, height=None):
+    def swipeRightFromLeft(self, move_offset=200, Left_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe right from left.")
         if width is None:
             width = self.getWindowWidth()
         if height is None:
@@ -350,7 +393,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             pass
         return self
 
-    def swipeRightFromMid(self, move_offset=150, Mid_offset=0, duration=None, width=None, height=None):
+    def swipeRightFromMid(self, move_offset=200, Mid_offset=0, duration=None, width=None, height=None):
+        self.logger.info("Swipe right from mid.")
         if width is None:
             width = self.getWindowWidth()
         if height is None:
