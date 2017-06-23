@@ -7,27 +7,27 @@ class MultiplePagesLogic:
         self._Portal = Portal
     def _event_handleMultipleFindPrinterPages(self):
         right_flow = False
-        if not self.Pages.Page_foundYourPrinter.button_later().isPresent() and self.Pages.Page_foundYourPrinter.button_continue().isPresent():
+        if not self.Pages.Page_foundYourPrinter.button_later().isVisible() and self.Pages.Page_foundYourPrinter.button_continue().isVisible():
             self.Pages.Page_foundYourPrinter.button_continue().click().wait(3)
-            self.Pages.Page_setup.button_ExitSetup().clickIfPresent()
+            self.Pages.Page_setup.button_ExitSetup().clickIfVisible()
             right_flow = True
-        elif self.Pages.Page_foundYourPrinter.link_changePrinter().isPresent():
+        elif self.Pages.Page_foundYourPrinter.link_changePrinter().isVisible():
             self.Pages.Page_foundYourPrinter.link_changePrinter().click().wait(3)
             right_flow = True
-        self.Pages.Sys_packageinstaller.link_AllowAccessLocation().clickIfPresent()
+        self.Pages.Sys_packageinstaller.link_AllowAccessLocation().clickIfVisible()
         if right_flow:
             return right_flow
 
     def _event_doNotSelectPrinter(self):
         right_flow = False
-        if not self.Pages.Page_foundYourPrinter.button_later().isPresent() and self.Pages.Page_foundYourPrinter.button_continue().isPresent():
+        if not self.Pages.Page_foundYourPrinter.button_later().isVisible() and self.Pages.Page_foundYourPrinter.button_continue().isVisible():
             self.Pages.Page_foundYourPrinter.button_continue().click().wait(3)
-            self.Pages.Page_setup.button_ExitSetup().clickIfPresent()
+            self.Pages.Page_setup.button_ExitSetup().clickIfVisible()
             right_flow = True
-        elif self.Pages.Page_foundYourPrinter.link_changePrinter().isPresent():
+        elif self.Pages.Page_foundYourPrinter.link_changePrinter().isVisible():
             self.Pages.Page_foundYourPrinter.link_changePrinter().click().wait(3)
             right_flow = True
-        self.Pages.Sys_packageinstaller.link_AllowAccessLocation().clickIfPresent()
+        self.Pages.Sys_packageinstaller.link_AllowAccessLocation().clickIfVisible()
         if right_flow:
             return right_flow
 

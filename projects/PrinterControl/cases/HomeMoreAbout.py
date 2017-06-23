@@ -110,8 +110,8 @@ class HomeMoreAbout(CommonUnittest):
                                       "2. HP logo is displayed.",
                                       "3. HP license content is correct.(Ignore this step, since there is no correct result now.)")
         self.Pages.Page_about.link_endUserLicenseAgreement().verifyIsShown().click().wait(3)
-        self.Pages.Sys_general.text_chrome().clickIfPresent().wait(2)
-        self.Pages.Sys_general.text_always().clickIfPresent().wait(1)
+        self.Pages.Sys_general.text_chrome().clickIfVisible().wait(2)
+        self.Pages.Sys_general.text_always().clickIfVisible().wait(1)
         #self.Pages.Page_endUserLicenseAgreement.text_404PageNotFound().verifyIsShown(120)
         self.Pages.Page_endUserLicenseAgreement.image_logo().verifyIsShown(120)
         #' HP® Official Site | Laptops, Computers, Desktops , Printers, and more HP® Official Site | Laptops, Computers, Desktops , Printers, and more'
@@ -130,8 +130,8 @@ class HomeMoreAbout(CommonUnittest):
                                       "2. HP logo is displayed.",
                                       "3. HP Privacy statement is displayed correctly.")
         self.Pages.Page_about.link_hpOnlinePrivacyStatement().verifyIsShown().click().wait(3)
-        self.Pages.Sys_general.text_chrome().clickIfPresent().wait(2)
-        self.Pages.Sys_general.text_always().clickIfPresent().wait(1)
+        self.Pages.Sys_general.text_chrome().clickIfVisible().wait(2)
+        self.Pages.Sys_general.text_always().clickIfVisible().wait(1)
         self.Pages.Page_hpOnlinePrivacyStatement.text_hpPrivacyStatementWorldwide().verifyIsShown(90)
         self.Pages.Page_hpOnlinePrivacyStatement.image_logo().verifyIsShown()
 

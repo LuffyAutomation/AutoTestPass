@@ -36,7 +36,7 @@ class UiFwk(UiBaseWebDriverFwk):
         self.logger.info(log_head + " that the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPage() + "'].")
         try:
             self.waitUntil(
-                lambda: self.isPresent(idx_or_match, element_name) if verify_shownOrNot else not self.isPresent(idx_or_match, element_name), "NA", time_out
+                lambda: self.isVisible(idx_or_match, element_name) if verify_shownOrNot else not self.isVisible(idx_or_match, element_name), "NA", time_out
             )
         except Exception as e:
             self.logger.info("The element [" + element_name + "] is not found in " + str(time_out)+"s of timeout.")
@@ -209,9 +209,9 @@ class UiFwk(UiBaseWebDriverFwk):
             return False
 
     def isAllPresent(self, idx_or_match=None, element_name=None):
-        return self.__isPresent(True, idx_or_match, element_name)
+        return self.__isVisible(True, idx_or_match, element_name)
 
-    def __isPresent(self, isCollection=False, idx_or_match=None, element_name=None):
+    def __isVisible(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             element_name = self._getCurrentElementNameWhenNone(element_name)
             element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
@@ -231,8 +231,8 @@ class UiFwk(UiBaseWebDriverFwk):
         except Exception as e:
             return False
 
-    def isPresent(self, idx_or_match=None, element_name=None):
-        return self.__isPresent(False, idx_or_match, element_name)
+    def isVisible(self, idx_or_match=None, element_name=None):
+        return self.__isVisible(False, idx_or_match, element_name)
 
     def isEnabled(self, idx_or_match=None, element_name=None):
         return self.__isEnabled(False, idx_or_match, element_name)
@@ -278,8 +278,8 @@ class UiFwk(UiBaseWebDriverFwk):
         except Exception as e:
             return False
 
-    def clickIfPresent(self, idx_or_match=None, element_name=None):
-        if self.isPresent(idx_or_match, element_name) is True:
+    def clickIfVisible(self, idx_or_match=None, element_name=None):
+        if self.isVisible(idx_or_match, element_name) is True:
             self.click(idx_or_match, element_name)
         return self
 
