@@ -87,3 +87,5 @@ class IosExample(CommonUnittest):
         self.Result.setExpectedResult("xxxxxx.")
         self.Pages.Page_termsAndConditions.checkbox_1().waitForShown()
 
+        pass
+

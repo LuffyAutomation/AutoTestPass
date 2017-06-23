@@ -2,35 +2,33 @@
 <test-data>
 	<UiMap>
 		<pages>
-            <page name="page_first" description = "Describe your page here." >
-                <element name="checkbox_accept" description = "Multiple properties can be used at the same time." >
-                    <id>
-                        com.hp.printercontrol:id/moobe_review_accept_agreements_checkbox
-                    </id>
-                    <accessibility_id>
-                        Page
-                    </accessibility_id>
+            <page name="page_welcome" description = "First Page." >
+                <element name="image_welcome" description = "The launch icon." >
                     <xpath>
-                        //android.webkit.WebView/android.view.View[1]/android.view.View[1]/android.view.View[1]
+                        //*[@name="print_launch_icon"]
                     </xpath>
                     <xpath>
-                        //android.view.View[1]/android.view.View[1]/android.view.View[2]/android.view.View[1][contains(@content-desc,'accept')]
-                    </xpath>
-                    <xpath>
-                        //android.widget.TextView[@text = 'accept']
+                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeImage[1]
                     </xpath>
                 </element>
-                <element name="button_continue">
-                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                <element name="button_start">
+                    <xpath>
+                        //*[@name="Start"]
+                    </xpath>
+                    <xpath>
+                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
+                    </xpath>
                 </element>
 			</page>
-            <page name="page_other" description="main page.">
-                <element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element>
-                <page name="menu_moreOptions" description = "You can add one level of subpage here." >
-                    <element name="menuItem_about_" description = "Add _ at the end of the Name if its value will be localized." >
-                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
-                    </element>
-                </page>
+            <page name="page_termsAndConditions" description="Terms and Conditions.">
+                <element name="checkbox_1">
+                    <xpath>
+                        //*[@name="Ctrl Checkbox Empty"]
+                    </xpath>
+                    <xpath>
+                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
+                    </xpath>
+                </element>
 			</page>
 		</pages>
 	</UiMap>
