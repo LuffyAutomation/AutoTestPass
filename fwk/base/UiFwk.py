@@ -208,7 +208,7 @@ class UiFwk(UiBaseWebDriverFwk):
         except Exception as e:
             return False
 
-    def isAllPresent(self, idx_or_match=None, element_name=None):
+    def isAllVisible(self, idx_or_match=None, element_name=None):
         return self.__isVisible(True, idx_or_match, element_name)
 
     def __isVisible(self, isCollection=False, idx_or_match=None, element_name=None):
