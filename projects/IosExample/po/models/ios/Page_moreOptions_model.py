@@ -2,15 +2,15 @@ import inspect
 from fwk.page.IosCommonPage import IosCommonPage
 
 
-'''iphone7?.'''
-class Sys_general_model(IosCommonPage):
-    page_name = 'sys_general'
+'''.'''
+class Page_moreOptions_model(IosCommonPage):
+    page_name = 'page_moreOptions'
 
     def __init__(self):
         self.__IosCommonPage = IosCommonPage.__init__(self)
 
-    def button_allow(self):
+    def toggleSwitchOn_offerToReduceSize(self):
         return self.get(inspect.stack()[0][3])
 
-    def button_doNotAllow(self):
+    def toggleSwitchOff_offerToReduceSize(self):
         return self.get(inspect.stack()[0][3])

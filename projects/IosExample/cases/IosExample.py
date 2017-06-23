@@ -86,6 +86,11 @@ class IosExample(CommonUnittest):
                                    "3. xxxx.")
         self.Result.setExpectedResult("xxxxxx.")
         self.Pages.Page_termsAndConditions.checkbox_1().waitForShown()
+        self.Pages.Page_termsAndConditions.checkbox_1().click()
+        self.Pages.Page_termsAndConditions.button_Continue().click().wait(3)
+        self.Pages.Sys_general.button_doNotAllow().clickIfVisible()
+        self.Pages.Page_home.button_moreOptions().waitForShown().click()
+        self.Pages.Page_moreOptions.toggleSwitchOn_offerToReduceSize().waitForShown()
 
         pass
 

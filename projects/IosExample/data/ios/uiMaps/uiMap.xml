@@ -35,7 +35,7 @@
                 <element name="button_allow" >
                     <accessibility_id>Allow</accessibility_id>
                 </element>
-                <element name="button_donotallow" >
+                <element name="button_doNotAllow" >
                     <accessibility_id>Don’t Allow</accessibility_id>
                 </element>
 			</page>
@@ -45,8 +45,10 @@
                         //XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[5]
                     </xpath>
                 </element>
-                <element name="buttonSwitchOn_offerToReduceSize"><accessibility_id>Offer to Reduce Size,On</accessibility_id></element>
-                <element name="buttonSwitchOff_offerToReduceSize"><accessibility_id>Offer to Reduce Size,Off</accessibility_id></element>
+			</page>
+            <page name="page_moreOptions" description=".">
+                <element name="toggleSwitchOn_offerToReduceSize"><accessibility_id>Offer to Reduce Size,On</accessibility_id></element>
+                <element name="toggleSwitchOff_offerToReduceSize"><accessibility_id>Offer to Reduce Size,Off</accessibility_id></element>
 			</page>
 		</pages>
 	</UiMap>
