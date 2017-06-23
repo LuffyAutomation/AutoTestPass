@@ -33,7 +33,7 @@ class UiFwk(UiBaseWebDriverFwk):
             raise Exception("The element['" + element_name + "'] is" + (" not" if verify_shown else " still") + " found on page['" + self.getCurrentPage() + "'] in " + str(time_out) + "s.")
 
     def __verifyIs(self, time_out=None, verify_shownOrNot=True, idx_or_match=None, element_name=None, log_head="Verify"):
-        self.logger.info(log_head + " that the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPage() + "'].")
+        self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPage() + "'].")
         try:
             self.waitUntil(
                 lambda: self.isVisible(idx_or_match, element_name) if verify_shownOrNot else not self.isVisible(idx_or_match, element_name), "NA", time_out

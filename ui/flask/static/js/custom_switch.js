@@ -156,41 +156,30 @@ function tableDropdown()
     });
     //释放鼠标键时进行插入
     rows.mouseup(function(){
-//        if(selectedRow)
-//        {
-//            if(selectedRow != this)
-//            {
-//                thisRowNum = parseInt($(this).children("td").get(idColNum).innerHTML)
-//                selectedRownNum = parseInt($(selectedRow).children("td").get(idColNum).innerHTML)
-//                tmp = rows.eq(thisRowNum - 1).children("td").get(stepColNum).innerHTML
-//                rows.eq(thisRowNum - 1).children("td").get(stepColNum).innerHTML = rows.eq(selectedRownNum - 1).children("td").get(stepColNum).innerHTML
-//                rows.eq(selectedRownNum - 1).children("td").get(stepColNum).innerHTML = tmp
-//                $(this).fadeOut("fast").fadeIn("fast");
-//            }
-//            tbody.css('cursor', 'default');
-//            selectedRow = null;
-//        }
         if(selectedRow)
         {
             if(selectedRow != this)
             {
-                try{
-                    thisRowNum = parseInt($(this).children("td").get(idColNum).innerHTML)
-                    selectedRownNum = parseInt($(selectedRow).children("td").get(idColNum).innerHTML)
-                    if((thisRowNum - selectedRownNum >= 1) || (thisRowNum == rows.length))
-                    {
-                        $(this).after($(selectedRow)).removeClass('mouseOver');
-                    }
-                    else
-                    {
-                        $(this).before($(selectedRow)).removeClass('mouseOver');
-                    }
-                }
-                catch(e){}
-                rows = tbody.children();
-                for(var i=0;i<rows.length;i++){
-                    rows.eq(i).children("td").get(0).innerHTML = i + 1;
-                }
+                thisRowNum = parseInt($(this).children("td").get(idColNum).innerHTML)
+                selectedRownNum = parseInt($(selectedRow).children("td").get(idColNum).innerHTML)
+//                maxRowNum = 1
+//
+//
+//                tmax = Math.max(thisRowNum, selectedRownNum)
+
+//              $(this).before($(selectedRow)).removeClass('mouseOver');
+                tmp = rows.eq(thisRowNum - 1).children("td").get(stepColNum).innerHTML
+                rows.eq(thisRowNum - 1).children("td").get(stepColNum).innerHTML = rows.eq(selectedRownNum - 1).children("td").get(stepColNum).innerHTML
+                rows.eq(selectedRownNum - 1).children("td").get(stepColNum).innerHTML = tmp
+                $(this).fadeOut("fast").fadeIn("fast");
+//                tbody = $('#example > tbody');
+//                var rows = tbody.children();
+//                for(var i=0; i <tmax; i++)
+//                {
+//                    rows.eq(i).children("td").get(0).innerHTML = i + 1
+//                }
+//                alert("thisRowNum:" + thisRowNum + "   selectedRownNum:" + selectedRownNum)
+
             }
             tbody.css('cursor', 'default');
             selectedRow = null;
@@ -201,7 +190,7 @@ function tableDropdown()
         function(){
             if(selectedRow && selectedRow != this)
             {
-                $(this).addClass('mouseOver');
+                $(this).addClass('mouseOver');	//区分大小写的，写成 'mouseover' 就不行
             }
         },
         function(){
@@ -212,11 +201,12 @@ function tableDropdown()
         }
     );
 
+    //当用户压着鼠标键移出 tbody 时，清除 cursor 的拖动形状，以前当前选取的 selectedRow
     tbody.mouseover(function(event){
-        event.stopPropagation();
+        event.stopPropagation(); //禁止 tbody 的事件传播到外层的 div 中
     });
     $('#contain').mouseover(function(event){
-        if($(event.relatedTarget).parents('#content'))
+        if($(event.relatedTarget).parents('#content')) //event.relatedTarget: 获取该事件发生前鼠标所在位置处的元素
         {
             tbody.css('cursor', 'default');
             selectedRow = null;
