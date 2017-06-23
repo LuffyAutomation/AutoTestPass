@@ -17,6 +17,10 @@ class HomeMoreHelpCenter(CommonUnittest):
                                    "3. Go to Home screen.")
         self.Result.setExpectedResult("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
+        # self.Pages.Page_home.button_MoreOptions().waitForShown().click()
+        # self.Pages.Page_home.Menu_moreOptions.menuItem_helpCenter_().waitForShown().click()
+        # self.Pages.Page_helpCenter.option_OnlineSupport().waitForShown().click()
+        # self.Pages.Page_link_OnlineSupport.title_selectCountryHeader().verifyIsShown(120)
 
     def test_HelpCenter(self):
         self.Result.setDescription("Verify that the GA for Help Center from More Options menu is the same as Get HP Help and Support tile;",
