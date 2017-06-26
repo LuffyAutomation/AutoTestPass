@@ -233,3 +233,7 @@ function tableDropdown()
         }
     });
 }
+
+function aaa(locatorName){
+alert(locatorName);
+}

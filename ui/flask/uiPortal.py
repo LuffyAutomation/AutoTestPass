@@ -5,6 +5,7 @@ Description: This module is background processing code about setting the configu
 from flask import Flask, render_template, request, redirect
 import os
 from fwk.base.InitFwk import InitFwk
+from fwk.base.UiBaseFwk import UiBaseFwk
 from fwk.utils.newProjectCreator.NewProjectCreator import NewProjectCreator
 import createPageObjects
 import createTestDataStrings
@@ -25,7 +26,6 @@ class UiPortal():
     action_createPageObjects = "action_createPageObjects"
     action_createTestData = "action_createTestData"
 
-
     EDIT_NEWPROJECT = "edit_newProject"
     RADIOBUTTON_TESTTYPE = "radioButton_testType"
 
@@ -34,7 +34,17 @@ class UiPortal():
 
     def reload_by_view(self, view_name):
         pass
+
+    def getLocators(self):
+        # list_locators = []
+        # for locatorTuple in UiBaseFwk.LocatorType.__dict__.items():
+        #     if not locatorTuple[0].startswith("__"):
+        #         list_locators.append(locatorTuple[1])
+        # return list_locators
+        return ['id', 'accessibility_id', 'text']
 _UiPortal = UiPortal()
+
+pass
 # TODO----------------------------Drive------------------------------------------------------------------
 
 
@@ -48,7 +58,7 @@ def space(value):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('case.html', _InitFwk=_InitFwk, errorMsg=errorMsg, successMsg=successMsg)
+    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg)
 # def index():
 #     global _InitFwk, errorMsg, successMsg
 #     errorMsg = ""
@@ -92,7 +102,7 @@ def config():
             _UiPortal.handleWhat = ''
         elif _UiPortal.handleWhat == _UiPortal.event_editScanSettings:
             return redirect('/setLoopScan')
-    return render_template('config.html', numRightList = _UiPortal.numberRightList, right_list = _UiPortal.listRightList, handleEvent = _UiPortal.handleWhat)
+    return render_template('config.html', numRightList=_UiPortal.numberRightList, right_list=_UiPortal.listRightList, handleEvent=_UiPortal.handleWhat)
 
 @app.route('/setLoopScan', methods=['GET', 'POST'])
 def set_loopscan_settings():
