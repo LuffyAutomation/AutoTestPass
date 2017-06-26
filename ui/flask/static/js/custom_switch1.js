@@ -72,42 +72,32 @@ $(function() {
 function title() {
     return '';
 }
-$(function() {
-    $("[data-toggle='addLocator']").popover({
-        html : true,
-        title: title(),
-        delay:{show:300, hide:1000},
-        content: function() {
-          return content2();
-        }
-    });
-});
-function content2() {
-  var data = $("<div id='loginModal' class='modal show'>" +
-  "<div class='modal-dialog'>" +
-    "<div class='modal-content'>" +
-      "<div class='modal-header'>" +
-        "<button  data-dismiss='modal' class='close'>x</button>" +
-        "<h1 class='text-center text-primary'>登录</h1>" +
-      "</div><div class='modal-body'><form action='' class='form col-md-12 center-block'>" +
-          "<div class='form-group'><input type='text' class='form-control input-lg' placeholder='电子邮件'></div>" +
-          "<div class='form-group'>" +
-            "<input type='password' class='form-control input-lg' placeholder='登录密码'>" +
-          "</div>" +
-          "<div class='form-group'>" +
-            "<button class='btn btn-primary btn-lg btn-block'>立刻登录</button>" +
-            "<span><a href='#'>找回密码</a></span>" +
-            "<span><a href='#' class='pull-right'>注册</a></span>" +
-          "</div>" +
-        "</form>" +
-      "</div>" +
-      "<div class='modal-footer'>" +
-      "</div>" +
-    "</div>" +
-  "</div>" +
-"</div>");
-  return data;
-}
+//function content() {
+//  var data = $("<div id='loginModal' class='modal show'>" +
+//  "<div class='modal-dialog'>" +
+//    "<div class='modal-content'>" +
+//      "<div class='modal-header'>" +
+//        "<button type='button' class='close'>x</button>" +
+//        "<h1 class='text-center text-primary'>登录</h1>" +
+//      "</div><div class='modal-body'><form action='' class='form col-md-12 center-block'>" +
+//          "<div class='form-group'><input type='text' class='form-control input-lg' placeholder='电子邮件'></div>" +
+//          "<div class='form-group'>" +
+//            "<input type='password' class='form-control input-lg' placeholder='登录密码'>" +
+//          "</div>" +
+//          "<div class='form-group'>" +
+//            "<button class='btn btn-primary btn-lg btn-block'>立刻登录</button>" +
+//            "<span><a href='#'>找回密码</a></span>" +
+//            "<span><a href='#' class='pull-right'>注册</a></span>" +
+//          "</div>" +
+//        "</form>" +
+//      "</div>" +
+//      "<div class='modal-footer'>" +
+//      "</div>" +
+//    "</div>" +
+//  "</div>" +
+//"</div>");
+//  return data;
+//}
 
 function content1() {
   var data = $("<div id='loginModal' class='modal show'>" +
@@ -141,15 +131,15 @@ function content() {
 }
 $(function(){
     $('#alternation').click(function(){
-        $('tbody > tr:odd', $('#table_cases')).toggleClass('alternation');
+        $('tbody > tr:odd', $('#example')).toggleClass('alternation');
     });
 
-    $('#table_cases').ready(tableDropdown);
+    $('#example').ready(tableDropdown);
     //('#sort').click(tableDropdown);
 });
 function tableDropdown()
 {
-    var caseTableName = "table_cases"
+    var caseTableName = "example"
     var idColNum = 0
     var stepColNum = 1
     var tbody = $('#' + caseTableName + ' > tbody');
