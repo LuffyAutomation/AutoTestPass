@@ -259,34 +259,28 @@ $(document).ready(function(){
     //bind all remove glyphiconf
     $('.glyphicon-remove').click(function(){
         var content = $(this).children("td:eq(0)").text();
-        $(this).parents("tr:eq(0)").remove();
+
+        var html = "<div class='modal fade' id='myConfirm' >"
+            + "<div class='modal-backdrop in' style='opacity:0;'></div>"
+            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
+            + "<div class='modal-content'>"
+            + "<div class='modal-header'  style='font-size:16px;'>"
+            + "<span class='glyphicon glyphicon-envelope'>&nbsp;</span>信息！<button type='button' class='close' data-dismiss='modal'>"
+            + "<span style='font-size:20px;  ' class='glyphicon glyphicon-remove'></span><tton></div>"
+            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+            + "是否确定要删除？"
+            + "</div>"
+            + "<div class='modal-footer ' style=''>"
+            + "<button class='btn btn-danger ' id='confirmOk' >确定<tton>"
+            + "<button class='btn btn-info ' data-dismiss='modal'>取消<tton>"
+            + "</div>" + "</div></div></div>";
+        $("head").append(html);
+        alert(1)
+        $("#myConfirm").modal("show");
+        alert(2)
+
+
+
+//        $(this).parents("tr:eq(0)").remove();
     });
 });
-//function delLocatorRow(){
-//    $(function(){
-//        $('#table_locators').on("click","a",function(){
-//              $(this).parents("tr:eq(0)").remove();
-//        });
-//    });
-//}
-
-//$(function(){
-//    $('#table_locators').click(function(){
-//        var content = $(this).children("td:eq(0)").text();
-//        alert(content + "222");
-//    });
-//});
-
-//$(function(){
-//    $('#table_locators').on("click","tr",function(){
-//        var content = $(this).children("td:eq(0)").text();
-//        alert(content + "333");
-//    });
-//});
-
-//$(function(){
-//    $('#table_locators').on("click","a",function(){
-//        var content =  $(this).parents("tr:eq(0)").parent().html();
-//        alert(content + "444");
-//    });
-//});
