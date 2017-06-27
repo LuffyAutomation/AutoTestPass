@@ -43,7 +43,7 @@
             <div class="modal-dialog" style="width: 800px">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">haha</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                         <p></p><p></p>
                         <h4 class="modal-title" id="addLocatorModalLabel">
                             <div class="dropdown">
@@ -55,7 +55,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdown_locatorName">
                                     {% for locator_type in _UiPortal.getLocators() %}
                                     <li class="list-group-item">
-                                        <a onclick="aaa('{{locator_type}}')">{{locator_type}}</a>
+                                        <a onclick="appendLocatorRow('{{locator_type}}', 'table_locators')">{{locator_type}}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -63,25 +63,9 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <table id='aaa' class="table table-striped" style="border:1px solid #f2dede; height: auto;">
-                            <tr>
-                                <td style="width:50px;">1.</td>
-                                <td>Wait for <a style=";" data-toggle="modal" data-target="#addLocatorModal">button_example</a>
-                                    to appear in <a
-                                            style=";">3sdfdssssssssssssssssssssssssssssssssssssssssssssssssssss0</a>s.
-                                </td>
-                                <td style="width:80px;">
-                                    <a href="#" class="glyphicon glyphicon-remove"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:50px;">2.</td>
-                                <td>Click <a style=";">button_example</a>.</td>
-                                <td style="width:80px;">
-                                    <a href="#" class="glyphicon glyphicon-remove"/>
-                                </td>
-                            </tr>
-
+                        <table id='table_locators' class="table table-striped" style="border:1px solid #f2dede; height: auto;">
+                            <tbody>
+                            </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
@@ -105,14 +89,11 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-sm-9 col-md-9" style="overflow: auto; height: auto;">
-                        <table id='table_cases' class="table table-striped"
-                               style="border:1px solid #f2dede; height: auto;">
+                        <table id='table_cases' class="table table-striped" style="border:1px solid #f2dede; height: auto;">
                             <tbody>
                             <tr>
                                 <td style="width:50px;">1.</td>
-                                <td>Wait for <a style=";" data-toggle="modal" data-target="#addLocatorModal">button_example</a>
-                                    to appear in <a
-                                            style=";">30</a>s.
+                                <td>Wait for <a style=";" data-toggle="modal" data-target="#addLocatorModal">button_example</a>to appear in <a style=";">30</a>s.
                                 </td>
                                 <td style="width:80px;">
                                     <a href="#" class="glyphicon glyphicon-plus"></a>&nbsp;

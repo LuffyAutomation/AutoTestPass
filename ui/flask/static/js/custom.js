@@ -234,6 +234,59 @@ function tableDropdown()
     });
 }
 
-function aaa(locatorName){
-alert(locatorName);
+//var addLocatorRowInnerHtml = ;
+//function appendRow(id, rowInnerHtml){
+//    $(id).append(rowInnerHtml);
+//}
+//function delRow(id, rowInnerHtml){
+//    $(id).append(rowInnerHtml);
+//}
+function appendLocatorRow(locatorType, tableId){
+//	 alert(locatorType);
+	var newRow="<tr>" +
+                    "<td style='width:120px;'>" + locatorType + "</td>" +
+                    "<td><input type='text' class='form-control'/></td>" +
+                    "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
+                "</tr>";
+	$('#' + tableId).append(newRow);
 }
+
+$(document).ready(function(){
+//bind remove glyphiconf by table
+//    $('#table_locators').on("click","a",function(){
+//          $(this).parents("tr:eq(0)").remove();
+//    });
+    //bind all remove glyphiconf
+    $('.glyphicon-remove').click(function(){
+        var content = $(this).children("td:eq(0)").text();
+        $(this).parents("tr:eq(0)").remove();
+    });
+});
+//function delLocatorRow(){
+//    $(function(){
+//        $('#table_locators').on("click","a",function(){
+//              $(this).parents("tr:eq(0)").remove();
+//        });
+//    });
+//}
+
+//$(function(){
+//    $('#table_locators').click(function(){
+//        var content = $(this).children("td:eq(0)").text();
+//        alert(content + "222");
+//    });
+//});
+
+//$(function(){
+//    $('#table_locators').on("click","tr",function(){
+//        var content = $(this).children("td:eq(0)").text();
+//        alert(content + "333");
+//    });
+//});
+
+//$(function(){
+//    $('#table_locators').on("click","a",function(){
+//        var content =  $(this).parents("tr:eq(0)").parent().html();
+//        alert(content + "444");
+//    });
+//});
