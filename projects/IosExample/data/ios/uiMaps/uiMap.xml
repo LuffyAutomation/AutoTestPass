@@ -12,9 +12,7 @@
                     </xpath>
                 </element>
                 <element name="button_start">
-                    <xpath local="true">
-                        //*[@text="Start"]
-                    </xpath>
+                    <name local="true">Start</name>
                     <xpath>
                         //XCUIElementTypeApplication[2]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
                     </xpath>

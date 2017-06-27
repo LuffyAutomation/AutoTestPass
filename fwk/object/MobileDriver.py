@@ -65,7 +65,7 @@ class MobileDriver:
         # 'autoWebView': True,
         # 'clearSystemFiles': True
         # 'webkitResponseTimeout': 50000,
-
+            self.desired_caps["clearSystemFiles"] = True
         if self._RunTimeConf.automationName is not None and self._RunTimeConf.appWaitActivity is not None:
             self.desired_caps[self.APP_WAIT_ACTIVITY] = self._RunTimeConf.appWaitActivity
         return self.desired_caps

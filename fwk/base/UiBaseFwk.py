@@ -38,7 +38,7 @@ class UiBaseFwk(object):
         XPATH = "xpath"
         LINK_TEXT = "link_text"
         PARTIAL_LINK_TEXT = "partial_link_text"
-        #NAME = "name"  # text, but name has been depreated in appium 1.6
+        NAME = "name"  # text, but name has been depreated in appium 1.6 for Android ??  But it works in IOS.
         ACCESSIBILITY_ID = "accessibility_id"  #1. content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
         TAG_NAME = "tag_name"
         CLASS_NAME = "class_name"
@@ -275,8 +275,8 @@ class UiBaseFwk(object):
     def __get_sys_locator_type(self, locator_type):
         if locator_type == self.LocatorType.ID:
             locator_type = By.ID
-        # elif locator_type == self.LocatorType.NAME:
-        #     locator_type = By.NAME # it is deprecated in 1.5
+        elif locator_type == self.LocatorType.NAME:
+            locator_type = By.NAME
         elif locator_type == self.LocatorType.XPATH:
             locator_type = By.XPATH
         elif locator_type == self.LocatorType.PARTIAL_LINK_TEXT:

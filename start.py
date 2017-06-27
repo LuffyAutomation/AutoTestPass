@@ -120,5 +120,6 @@ if __name__ == '__main__':
             listProcess[i].join()
     elif initFwk.name_project == "IosExample":
         suite.addTest(IosExample("test_flow"))
+        suite.addTest(IosExample("test_your_other_flow"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
