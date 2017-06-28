@@ -253,31 +253,49 @@ function appendLocatorRow(locatorType, tableId){
 
 $(document).ready(function(){
 //bind remove glyphiconf by table
-//    $('#table_locators').on("click","a",function(){
-//          $(this).parents("tr:eq(0)").remove();
-//    });
+    $('#table_locators').on("click",".glyphicon-remove",function(){
+        $(this).parents("tr:eq(0)").remove();
+        $.confirm({
+            title: '!',
+            content: 'Are you sure to delete?',
+            draggable: true,
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    action: function(){
+                        $.alert('sasas');
+                    }
+                },
+                cancel: function () {
+                     $.alert('Something 1?');
+                }
+            }
+        });
+    });
     //bind all remove glyphiconf
-    $('.glyphicon-remove').click(function(){
-        var content = $(this).children("td:eq(0)").text();
+    $('.glyphicon-remove').click(function(){ // only bind which has existed.
+//        var content = $(this).children("td:eq(0)").text();
+        if ('table_locators' != $(this).parents("table:eq(0)").attr('id')){
+            var html = "<div class='modal fade' id='myConfirm' >"
+                + "<div class='modal-backdrop in' style='opacity:0;'></div>"
+                + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
+                + "<div class='modal-content'>"
+                + "<div class='modal-header'  style='font-size:16px;'>"
+                + "<span class='glyphicon glyphicon-info-sign'>&nbsp;</span><button type='button' class='close' data-dismiss='modal'>"
+                + "<span style='font-size:20px;' class='glyphicon glyphicon-remove'></span></button></div>"
+                + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+                + "Are you sure to delete?"
+                + "</div>"
+                + "<div class='modal-footer' style=''>"
+                + "<button class='btn btn-primary' id='confirmOk'>Confirm<tton>"
+                + "<button class='btn btn-default' data-dismiss='modal'>Cancel<tton>"
+                + "</div>" + "</div></div></div>";
+            $("body").append(html);
+            $("#myConfirm").modal("show");
+        }
+        else {
 
-        var html = "<div class='modal fade' id='myConfirm' >"
-            + "<div class='modal-backdrop in' style='opacity:0;'></div>"
-            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
-            + "<div class='modal-content'>"
-            + "<div class='modal-header'  style='font-size:16px;'>"
-            + "<span class='glyphicon glyphicon-envelope'>&nbsp;</span>信息！<button type='button' class='close' data-dismiss='modal'>"
-            + "<span style='font-size:20px;  ' class='glyphicon glyphicon-remove'></span><tton></div>"
-            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
-            + "是否确定要删除？"
-            + "</div>"
-            + "<div class='modal-footer ' style=''>"
-            + "<button class='btn btn-danger ' id='confirmOk' >确定<tton>"
-            + "<button class='btn btn-info ' data-dismiss='modal'>取消<tton>"
-            + "</div>" + "</div></div></div>";
-        $("head").append(html);
-        alert(1)
-        $("#myConfirm").modal("show");
-        alert(2)
+        }
 
 
 
