@@ -251,10 +251,14 @@ function appendLocatorRow(locatorType, tableId){
 	$('#' + tableId).append(newRow);
 }
 
+function removeLocatorRow(rowNeedRemove){
+    rowNeedRemove.remove();
+}
+
 $(document).ready(function(){
 //bind remove glyphiconf by table
     $('#table_locators').on("click",".glyphicon-remove",function(){
-        $(this).parents("tr:eq(0)").remove();
+        var rowNeedRemove = $(this).parents("tr:eq(0)");
         $.confirm({
             title: '!',
             content: 'Are you sure to delete?',
@@ -263,11 +267,11 @@ $(document).ready(function(){
                 confirm: {
                     btnClass: 'btn-blue',
                     action: function(){
-                        $.alert('sasas');
+                        removeLocatorRow(rowNeedRemove);
                     }
                 },
                 cancel: function () {
-                     $.alert('Something 1?');
+                     return;
                 }
             }
         });
