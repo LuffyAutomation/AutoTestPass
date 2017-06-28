@@ -255,13 +255,15 @@ function removeLocatorRow(rowNeedRemove){
     rowNeedRemove.remove();
 }
 
+var removeContentOfDialog = 'Are you sure to delete?'
+
 $(document).ready(function(){
 //bind remove glyphiconf by table
     $('#table_locators').on("click",".glyphicon-remove",function(){
         var rowNeedRemove = $(this).parents("tr:eq(0)");
         $.confirm({
             title: '!',
-            content: 'Are you sure to delete?',
+            content: removeContentOfDialog,
             draggable: true,
             buttons: {
                 confirm: {
@@ -288,7 +290,7 @@ $(document).ready(function(){
                 + "<span class='glyphicon glyphicon-info-sign'>&nbsp;</span><button type='button' class='close' data-dismiss='modal'>"
                 + "<span style='font-size:20px;' class='glyphicon glyphicon-remove'></span></button></div>"
                 + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
-                + "Are you sure to delete?"
+                + removeContentOfDialog
                 + "</div>"
                 + "<div class='modal-footer' style=''>"
                 + "<button class='btn btn-primary' id='confirmOk'>Confirm<tton>"
