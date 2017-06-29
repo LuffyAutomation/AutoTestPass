@@ -11,3 +11,6 @@ class Page_home_model(IosCommonPage):
 
     def button_moreOptions(self):
         return self.get(inspect.stack()[0][3])
+
+    def tile_personalizeIcon_image(self):
+        return self.get(inspect.stack()[0][3])

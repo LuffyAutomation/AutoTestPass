@@ -274,7 +274,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         if duration is None:
             duration = 1000  # if use 100, the continued second swipe may work abnormally.
             if self.testType.lower() == 'ios':
-                duration = 100
+                duration = 50
         else:
             duration = duration * 1000
         self.logger.info("Swipe from [%s, %s] to [%s, %s]. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000.0))
@@ -504,3 +504,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getWindowHeight(self):
         height = self._driver.get_window_size()['height']
         return height
+
+    def getElementCenterCoordinate(self, toLeft=0, toRight=0, toUp=0, toDown=0,  item=None, element_name=None):
+        element_name = self.getelement_nameFrom(element_name)
+        element = self._getElementObjectFromCurrentOrSearch(element_name, item)
+        centerX = element.location["x"] + element.size["width"] / 2 - element.size["width"] / 2 * toLeft / 100.0 + element.size["width"] / 2 * toRight / 100.0
+        centerY = element.location["y"] + element.size["height"] / 2 - element.size["height"] / 2 * toUp / 100.0 + element.size["height"] / 2 * toDown / 100.0
+

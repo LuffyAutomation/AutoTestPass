@@ -36,7 +36,7 @@ class UiFwk(UiBaseWebDriverFwk):
         self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPage() + "'].")
         try:
             self.waitUntil(
-                lambda: self.isVisible(idx_or_match, element_name) if verify_shownOrNot else not self.isVisible(idx_or_match, element_name), "NA", time_out
+                lambda: self.isExistent(idx_or_match, element_name) if verify_shownOrNot else not self.isExistent(idx_or_match, element_name), "NA", time_out
             )
         except Exception as e:
             self.logger.info("The element [" + element_name + "] is not found in " + str(time_out)+"s of timeout.")
@@ -240,6 +240,23 @@ class UiFwk(UiBaseWebDriverFwk):
     def isAllEnabled(self, idx_or_match=None, element_name=None):
         return self.__isEnabled(True, idx_or_match, element_name)
 
+    def isExistent(self, idx_or_match=None, element_name=None):
+        return self.__isExistent(True, idx_or_match, element_name)
+
+    def __isExistent(self, isCollection=False, idx_or_match=None, element_name=None):
+        try:
+            if not isCollection:
+                element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            else:
+                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+            if type(element) is list and isCollection:  # set index = 0 in uimaps
+                return True
+            elif type(element) is list and not isCollection and element is not None:
+                return True
+            return False
+        except Exception as e:
+            return False
+
     def __isEnabled(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             if not isCollection:
@@ -283,3 +300,7 @@ class UiFwk(UiBaseWebDriverFwk):
             self.click(idx_or_match, element_name)
         return self
 
+    def clickIfExistent(self, idx_or_match=None, element_name=None):
+        if self.isExistent(idx_or_match, element_name) is True:
+            self.click(idx_or_match, element_name)
+        return self

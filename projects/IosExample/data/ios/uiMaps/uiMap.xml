@@ -43,10 +43,16 @@
                         //XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[5]
                     </xpath>
                 </element>
+                <element name="tile_personalizeIcon_image" >
+                    <accessibility_id>TilesPersonalizeIcon</accessibility_id>
+                </element>
 			</page>
             <page name="page_moreOptions" description=".">
                 <element name="toggleSwitchOn_offerToReduceSize"><accessibility_id>Offer to Reduce Size,On</accessibility_id></element>
                 <element name="toggleSwitchOff_offerToReduceSize"><accessibility_id>Offer to Reduce Size,Off</accessibility_id></element>
+			</page>
+            <page name="page_personalizeIcon" description="personalizeIcon">
+                <element name="buttonOrder_scanToEmail"><accessibility_id>Reorder Scan to Email</accessibility_id></element>
 			</page>
 		</pages>
 	</UiMap>
