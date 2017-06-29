@@ -14,3 +14,12 @@ class Page_home_model(IosCommonPage):
 
     def tile_personalizeIcon_image(self):
         return self.get(inspect.stack()[0][3])
+
+    def tile_scanToEmail_image(self):
+        return self.get(inspect.stack()[0][3])
+
+    def tile_scanToEmail_title(self):
+        return self.get(inspect.stack()[0][3])
+
+    def tile_personalizeIcon_title(self):
+        return self.get(inspect.stack()[0][3])

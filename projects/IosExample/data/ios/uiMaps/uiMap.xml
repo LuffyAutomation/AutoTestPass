@@ -46,6 +46,15 @@
                 <element name="tile_personalizeIcon_image" >
                     <accessibility_id>TilesPersonalizeIcon</accessibility_id>
                 </element>
+                <element name="tile_scanToEmail_image" >
+                    <accessibility_id>TilesScanToEmailIcon</accessibility_id>
+                </element>
+                <element name="tile_scanToEmail_title" >
+                    <accessibility_id>Scan to Email</accessibility_id>
+                </element>
+                <element name="tile_personalizeIcon_title" >
+                    <accessibility_id>Personalize</accessibility_id>
+                </element>
 			</page>
             <page name="page_moreOptions" description=".">
                 <element name="toggleSwitchOn_offerToReduceSize"><accessibility_id>Offer to Reduce Size,On</accessibility_id></element>
@@ -53,6 +62,7 @@
 			</page>
             <page name="page_personalizeIcon" description="personalizeIcon">
                 <element name="buttonOrder_scanToEmail"><accessibility_id>Reorder Scan to Email</accessibility_id></element>
+                <element name="buttonOrder_scan"><accessibility_id>Reorder Scan</accessibility_id></element>
 			</page>
 		</pages>
 	</UiMap>

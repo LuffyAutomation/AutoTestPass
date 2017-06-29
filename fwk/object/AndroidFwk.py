@@ -97,12 +97,6 @@ class AndroidFwk(UiFwk):
     #         self._driver.swipe((windows_x * 0.5), (windows_y * 0.9), (windows_x * 0.5), (windows_y * 0.1), duration)
     #     return self
 
-    def tap(self, x, y, duration=500):
-        width = self.getX()
-        height = self.getY()
-        self._driver.tap([(width * x, height * y)], duration)
-        return self
-
     def back(self):
         self.logger.info("Click back of the mobile.")
         self._driver.back()

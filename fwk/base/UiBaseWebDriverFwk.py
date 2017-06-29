@@ -52,6 +52,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         except:
             raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self._currentPage) + "] page.")
 
+    def tap(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=100, idx_or_match=None, element_name=None):
+        xy = self.getElementCenterCoordinate(toLeft, toRight, toUp, toDown, idx_or_match, element_name)
+        self._driver.tap([(xy['x'], xy['y'])], duration)
+        return self
+
     def click(self, idx_or_match=None, element_name=None):
         try:
             element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
@@ -265,6 +270,22 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def swipeByNative(self, begin_x, begin_y, end_x, end_y, duration=500):
         self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
         return self
+
+    def swipeToElement(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=None, idx_or_match=None, element_name=None, idx_or_match_other=None, element_name_other=None, toLeft_other=0, toRight_other=0, toUp_other=0, toDown_other=0):
+        element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
+        fromX = self.getElementCenterX(toLeft, toRight, idx_or_match, element_name)
+        fromY = self.getElementCenterY(toUp, toDown, idx_or_match, element_name)
+
+        element_other = self._getElementObjectFromCurrentOrSearch(idx_or_match_other, element_name_other)
+        element_name_other = self._getCurrentElementNameWhenNone(element_name_other)
+        toX = self.getElementCenterX(toLeft_other, toRight_other, idx_or_match_other, element_name_other)
+        toY = self.getElementCenterY(toUp_other, toDown_other, idx_or_match_other, element_name_other)
+
+        self.swipe(fromX, fromY, toX, toY, duration)
+
+
+
 
     def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if width is None:
@@ -482,19 +503,19 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.get(url)
 
     def getElementWidth(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["width"])
 
     def getElementWidthHeight(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["height"])
 
     def getElemenX(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         return self._getElementObjectFromCurrentOrSearch(element_name, item).location["x"]
 
     def getElementY(self, item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
 
     def getWindowWidth(self):
@@ -505,9 +526,15 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         height = self._driver.get_window_size()['height']
         return height
 
-    def getElementCenterCoordinate(self, toLeft=0, toRight=0, toUp=0, toDown=0,  item=None, element_name=None):
-        element_name = self.getelement_nameFrom(element_name)
+    def getElementCenterCoordinate(self, toLeft=0, toRight=0, toUp=0, toDown=0, item=None, element_name=None):
         element = self._getElementObjectFromCurrentOrSearch(element_name, item)
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         centerX = element.location["x"] + element.size["width"] / 2 - element.size["width"] / 2 * toLeft / 100.0 + element.size["width"] / 2 * toRight / 100.0
         centerY = element.location["y"] + element.size["height"] / 2 - element.size["height"] / 2 * toUp / 100.0 + element.size["height"] / 2 * toDown / 100.0
+        return {'x': centerX, 'y': centerY}
 
+    def getElementCenterX(self, toLeft=0, toRight=0, item=None, element_name=None):
+        return self.getElementCenterCoordinate(toLeft, toRight, item, element_name)
+
+    def getElementCenterY(self, toUp=0, toDown=0, item=None, element_name=None):
+        return self.getElementCenterCoordinate(toUp, toDown, item, element_name)

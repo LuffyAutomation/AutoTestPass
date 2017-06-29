@@ -11,3 +11,6 @@ class Page_personalizeIcon_model(IosCommonPage):
 
     def buttonOrder_scanToEmail(self):
         return self.get(inspect.stack()[0][3])
+
+    def buttonOrder_scan(self):
+        return self.get(inspect.stack()[0][3])

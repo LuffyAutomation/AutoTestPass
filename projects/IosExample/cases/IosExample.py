@@ -93,8 +93,9 @@ class IosExample(CommonUnittest):
         # self.Pages.Page_moreOptions.toggleSwitchOn_offerToReduceSize().waitForShown()
         self.Pages.Page_home.button_moreOptions().waitForShown().wait(2)
         self.UI_Ios.swipeUpFromBottomToTop(0, 10)
-        self.Pages.Page_home.tile_personalizeIcon_image().waitForShown().click()
+        self.Pages.Page_home.tile_personalizeIcon_image().waitForShown().tap()
+
         self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().waitForShown()
-        self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().swipeDownFromMid()
+        self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().swipeToElement(element_name_other=self.Pages.Page_personalizeIcon.buttonOrder_scan())
         pass
 
