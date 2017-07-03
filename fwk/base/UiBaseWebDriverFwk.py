@@ -284,21 +284,29 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         toY = toXY['y']
         return [fromX, fromY, toX, toY]
 
-    def swipeToElement(self, element_ui_destination, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(element_ui_destination, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+    def swipeToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.swipe(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
 
-    def dragToElement(self, element_ui_destination, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(element_ui_destination, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+    def dragToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.drag(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
 
     def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if duration is None:
             duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
             if self.testType.lower() == 'ios':
-                duration = 500  # 50 > swipe  100 drag
+                duration = 500  # 50 > swipe  500 drag
         else:
             duration = duration * 1000
+        if toY > fromY:
+            toY += 10
+        if toY < fromY:
+            toY -= 10
+        if toX > fromX:
+            toX += 10
+        if toX < fromX:
+            toX -= 10
         self.swipe(fromX, fromY, toX, toY, duration/1000.0, width, height)
 
     def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
@@ -309,10 +317,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         if duration is None:
             duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
             if self.testType.lower() == 'ios':
-                duration = 50  # 50 > swipe  100 drag
+                duration = 50  # 50 > swipe  500 drag
         else:
             duration = duration * 1000
-        self.logger.info("Swipe from [%s, %s] to [%s, %s]. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000.0))
+        self.logger.info("Swipe from [%s, %s] to [%s, %s]. Screen Width[%s], Screen Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000.0))
         if self.testType.lower() == 'ios':
             # toX = 0  # toX should be 0 in ios. Then toX == fromX
             # toY = -100

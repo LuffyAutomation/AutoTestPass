@@ -1,3 +1,4 @@
+from projects.PrinterControl.po.pages.android.Page_Personalize import Page_Personalize
 from projects.PrinterControl.po.pages.android.Sys_general import Sys_general
 from projects.PrinterControl.po.pages.android.Page_shareThisApp import Page_shareThisApp
 from projects.PrinterControl.po.pages.android.Page_hpOnlinePrivacyStatement import Page_hpOnlinePrivacyStatement
@@ -19,6 +20,7 @@ from projects.PrinterControl.po.pages.android.Page_agreements import Page_agreem
 class Pages_Android:
     def __init__(self, UI):
         self._UI = UI
+        self.Page_Personalize = Page_Personalize(self._UI)
         self.Sys_general = Sys_general(self._UI)
         self.Page_shareThisApp = Page_shareThisApp(self._UI)
         self.Page_hpOnlinePrivacyStatement = Page_hpOnlinePrivacyStatement(self._UI)

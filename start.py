@@ -2,6 +2,7 @@
 from fwk.base.InitFwk import InitFwk
 from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
 from projects.PrinterControl.cases.HomeMoreAppSettings import HomeMoreAppSettings
+from projects.PrinterControl.cases.TilePersonalize import TilePersonalize
 from projects.HPSmart.cases.HomeMoreAbout import HomeMoreAbout
 from projects.HPSmart.cases.HomeMoreAppSettings import HomeMoreAppSettings
 from projects.HPSmart.cases.HomeMoreHelpCenter import HomeMoreHelpCenter
@@ -36,7 +37,7 @@ if __name__ == '__main__':
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":
         from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
-        listTestSuits = ["test_flow"
+        listTestSuits = ["test_flow", "test_Drag"
                          # ,
                          # "test_aioVersion",
                          # "test_copyRight",
@@ -50,7 +51,7 @@ if __name__ == '__main__':
                          # "test_headerDisplay"
                          ]
         for suit in listTestSuits:
-            suite.addTest(HomeMoreAbout(suit))
+            suite.addTest(TilePersonalize(suit))
         # suite.addTest(HomeMoreAppSettings("test_flow"))
         # suite.addTest(HomeMoreAppSettings("test_verifyCheckbox"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
