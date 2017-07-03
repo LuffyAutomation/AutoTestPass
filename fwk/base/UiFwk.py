@@ -30,10 +30,10 @@ class UiFwk(UiBaseWebDriverFwk):
         else:
             if log_head == self._LogHead.VERIFY:
                 self.logger.info("Failed!")
-            raise Exception("The element['" + element_name + "'] is" + (" not" if verify_shown else " still") + " found on page['" + self.getCurrentPage() + "'] in " + str(time_out) + "s.")
+            raise Exception("The element['" + element_name + "'] is" + (" not" if verify_shown else " still") + " found on page['" + self.getCurrentPageName() + "'] in " + str(time_out) + "s.")
 
     def __verifyIs(self, time_out=None, verify_shownOrNot=True, idx_or_match=None, element_name=None, log_head="Verify"):
-        self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPage() + "'].")
+        self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPageName() + "'].")
         try:
             self.waitUntil(
                 lambda: self.isExistent(idx_or_match, element_name) if verify_shownOrNot else not self.isExistent(idx_or_match, element_name), "NA", time_out
@@ -241,7 +241,7 @@ class UiFwk(UiBaseWebDriverFwk):
         return self.__isEnabled(True, idx_or_match, element_name)
 
     def isExistent(self, idx_or_match=None, element_name=None):
-        return self.__isExistent(True, idx_or_match, element_name)
+        return self.__isExistent(False, idx_or_match, element_name)
 
     def __isExistent(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
@@ -251,7 +251,7 @@ class UiFwk(UiBaseWebDriverFwk):
                 element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
             if type(element) is list and isCollection:  # set index = 0 in uimaps
                 return True
-            elif type(element) is list and not isCollection and element is not None:
+            elif type(element) is not list and not isCollection and element is not None:
                 return True
             return False
         except Exception as e:

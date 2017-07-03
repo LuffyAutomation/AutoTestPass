@@ -31,12 +31,16 @@ class IosFwk(UiFwk):
             self.logger.info("The Ios driver has existed.")
         return self._driver
 
-    def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
-        if self._currentElementName != element_name:
-            self._currentElementObject = None
-        self._currentUiMap = uiMap
-        self._currentPage = currentPage
-        self._currentElementName = element_name
+    def updateCurrentElementStatus(self, element_name, uiMap, page_name):
+        if self.CurrentElement.element_name != element_name:
+            self.LastElement.element_object = self.CurrentElement.element_object
+            self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
+            self.LastElement.page_name = self.CurrentElement.page_name
+            self.CurrentElement.element_object = None
+        self.CurrentElement.page_uiMap = uiMap
+        self.LastElement.element_name = self.CurrentElement.element_name
+        self.CurrentElement.page_name = page_name
+        self.CurrentElement.element_name = element_name
         return self
 
         # self._driver.swipe((320 * 0.75), (100), (-320 * 0.25), (0), 1500)

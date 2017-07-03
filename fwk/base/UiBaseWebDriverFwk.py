@@ -28,7 +28,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 return len(self.getCurrentElementCollectionObject())
         except:
             return 0
-            # raise Exception("Can not get children count of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self._currentPage) + "] page.")
+            # raise Exception("Can not get children count of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
 
     def getItems(self):
         try:
@@ -39,7 +39,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
             return self
         except:
-            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self._currentPage) + "] page.")
+            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
 
     def getItem(self, child_element_index):
         try:
@@ -50,10 +50,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
             return self
         except:
-            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self._currentPage) + "] page.")
+            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self.CurrentElement.page_name) + "] page.")
 
     def tap(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=100, idx_or_match=None, element_name=None):
-        xy = self.getElementCenterCoordinate(toLeft, toRight, toUp, toDown, idx_or_match, element_name)
+        xy = self.getElementCenterLocation(toLeft, toRight, toUp, toDown, idx_or_match, element_name)
         self._driver.tap([(xy['x'], xy['y'])], duration)
         return self
 
@@ -61,7 +61,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         try:
             element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
-            self.logger.info("Click element [" + element_name + "] on [" + str(self._currentPage) + "] page.")
+            self.logger.info("Click element [" + element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
             if element.is_enabled() is True:
                 element.click()
             else:
@@ -200,11 +200,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             return self.getCurrentElementObject()
         if locator_index < 0:  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
+            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
         elif locator_index == 0:  # When <id/xpath...>android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPage()) + "] page.")
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPage()) + "] page.")
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPageName()) + "] page.")
 
     # def getElementsSize(self, element_name):
     #     return len(self.getElements(element_name))
@@ -221,9 +221,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find element [ " + str(
-                    element_name) + "] on [" + str(self._currentPage) + "] page.")
+                    element_name) + "] on [" + str(self.CurrentElement.page_name) + "] page.")
             elif len(elements)!=1:
-                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) +"] on [" + str(self._currentPage) + "] page.")
+                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) +"] on [" + str(self.CurrentElement.page_name) + "] page.")
             else:
                 return elements[0]
         else:
@@ -271,21 +271,18 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
         return self
 
-    def swipeToElement(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=None, idx_or_match=None, element_name=None, idx_or_match_other=None, element_name_other=None, toLeft_other=0, toRight_other=0, toUp_other=0, toDown_other=0):
+    def swipeToElement(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=None, idx_or_match=None, element_name=None, toLeft_destination=0, toRight_destination=0, toUp_destination=0, toDown_destination=0, idx_or_match_destination=None, element_name_destination=None):
         element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
         element_name = self._getCurrentElementNameWhenNone(element_name)
         fromX = self.getElementCenterX(toLeft, toRight, idx_or_match, element_name)
         fromY = self.getElementCenterY(toUp, toDown, idx_or_match, element_name)
 
-        element_other = self._getElementObjectFromCurrentOrSearch(idx_or_match_other, element_name_other)
-        element_name_other = self._getCurrentElementNameWhenNone(element_name_other)
-        toX = self.getElementCenterX(toLeft_other, toRight_other, idx_or_match_other, element_name_other)
-        toY = self.getElementCenterY(toUp_other, toDown_other, idx_or_match_other, element_name_other)
+        element_destination = self._getElementObjectFromCurrentOrSearch(idx_or_match_destination, element_name_destination)
+        element_name_destination = self._getCurrentElementNameWhenNone(element_name_destination)
+        toX = self.getElementCenterX(toLeft_destination, toRight_destination, idx_or_match_destination, element_name_destination)
+        toY = self.getElementCenterY(toUp_destination, toDown_destination, idx_or_match_destination, element_name_destination)
 
         self.swipe(fromX, fromY, toX, toY, duration)
-
-
-
 
     def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if width is None:
@@ -526,7 +523,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         height = self._driver.get_window_size()['height']
         return height
 
-    def getElementCenterCoordinate(self, toLeft=0, toRight=0, toUp=0, toDown=0, item=None, element_name=None):
+    def getElementCenterLocation(self, toLeft=0, toRight=0, toUp=0, toDown=0, item=None, element_name=None):
         element = self._getElementObjectFromCurrentOrSearch(element_name, item)
         element_name = self._getCurrentElementNameWhenNone(element_name)
         centerX = element.location["x"] + element.size["width"] / 2 - element.size["width"] / 2 * toLeft / 100.0 + element.size["width"] / 2 * toRight / 100.0
@@ -534,7 +531,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return {'x': centerX, 'y': centerY}
 
     def getElementCenterX(self, toLeft=0, toRight=0, item=None, element_name=None):
-        return self.getElementCenterCoordinate(toLeft, toRight, item, element_name)
+        return self.getElementCenterLocation(toLeft, toRight, item, element_name)
 
     def getElementCenterY(self, toUp=0, toDown=0, item=None, element_name=None):
-        return self.getElementCenterCoordinate(toUp, toDown, item, element_name)
+        return self.getElementCenterLocation(toUp, toDown, item, element_name)

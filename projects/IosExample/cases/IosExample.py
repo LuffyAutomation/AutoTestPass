@@ -96,6 +96,6 @@ class IosExample(CommonUnittest):
         self.Pages.Page_home.tile_personalizeIcon_image().waitForShown().tap()
 
         self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().waitForShown()
-        self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().swipeToElement(element_name_other=self.Pages.Page_personalizeIcon.buttonOrder_scan())
+        self.Pages.Page_personalizeIcon.buttonOrder_scanToEmail().swipeToElement(self.Pages.Page_personalizeIcon.buttonOrder_scan())
         pass
 

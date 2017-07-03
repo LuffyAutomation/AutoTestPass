@@ -50,6 +50,12 @@ class UiBaseFwk(object):
         VALUE = "value"
         CHECKED = 'checked'
 
+    class ElementStruct:
+        page_name = None
+        page_uiMap = None
+        element_name = None
+        element_object = None
+
     def __init__(self, Init):
         self.Init = Init
         self.logger = self.Init.logger
@@ -64,6 +70,14 @@ class UiBaseFwk(object):
         self.testType = self.Init.testType
         self._root = None
         self._rootLocalXml = None
+
+        self.CurrentElement = self.ElementStruct()
+        self.LastElement = self.ElementStruct()
+
+        self._lastElementName = None
+        self._lastElementObject = None
+
+        self._currentFunction = None
 
         self._currentElementName = None
         self._currentElementObject = None
@@ -114,7 +128,7 @@ class UiBaseFwk(object):
 
     def waitUntil(self, method, error_message="Wait failed.", time_out=None, poll_frequency=2, log_prefix=None):
         if log_prefix is None:
-            log_prefix = "Finding element [" + str(self.getCurrentElementName()) + "] of page [" + str(self.getCurrentPage()) + "]."
+            log_prefix = "Finding element [" + str(self.getCurrentElementName()) + "] of page [" + str(self.getCurrentPageName()) + "]."
         if time_out is None:
             try:
                 time_out = float(self._elementTimeOut)
@@ -157,14 +171,16 @@ class UiBaseFwk(object):
     def _getUiMapRoot(self):
         return self._root
 
-    def updateCurrentElementStatus(self, element_name, uiMap, currentPage):
-        if self._currentElementName != element_name:
-            self._currentElementObject = None
-        if self._currentElementCollectionName != element_name:
-            self._currentElementCollectionName = None
-        self._currentUiMap = uiMap
-        self._currentPage = currentPage
-        self._currentElementName = element_name
+    def updateCurrentElementStatus(self, element_name, uiMap, page_name):
+        if self.CurrentElement.element_name != element_name:
+            self.LastElement.element_object = self.CurrentElement.element_object
+            self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
+            self.LastElement.page_name = self.CurrentElement.page_name
+            self.CurrentElement.element_object = None
+        self.CurrentElement.page_uiMap = uiMap
+        self.LastElement.element_name = self.CurrentElement.element_name
+        self.CurrentElement.page_name = page_name
+        self.CurrentElement.element_name = element_name
         return self
 
     # if define VALUE_PLACEHOLDER in uimap:
@@ -182,16 +198,22 @@ class UiBaseFwk(object):
         return self
 
     def setCurrentElementName(self, element_name):
-        self._currentElementName = element_name
+        self.CurrentElement.element_name = element_name
 
     def getCurrentElementName(self):
-        return self._currentElementName
+        return self.CurrentElement.element_name
 
     def setCurrentElementObject(self, element=None):
-        self._currentElementObject = element
+        self.CurrentElement.element_object = element
 
     def getCurrentElementObject(self):
-        return self._currentElementObject
+        return self.CurrentElement.element_object
+
+    def getLastElementName(self):  # when using this kind of method  .swithToElement
+        return self.LastElement.element_name
+
+    def getLastElementObject(self):
+        return self.LastElement.element_object
 
     def setCurrentElementCollectionName(self, elementCollection_name):
         self._currentElementCollectionName = elementCollection_name
@@ -205,11 +227,11 @@ class UiBaseFwk(object):
     def getCurrentElementCollectionObject(self):
         return self._currentElementCollectionObject
 
-    def _setCurrentPage(self, page):
-        self._currentPage = page
+    def _setCurrentPageName(self, page_name):
+        self.CurrentElement.page_name = page_name
 
-    def getCurrentPage(self):
-        return self._currentPage
+    def getCurrentPageName(self):
+        return self.CurrentElement.page_name
 
     def _getElementType(self, element_locators_list):
         return element_locators_list[0]
@@ -253,7 +275,7 @@ class UiBaseFwk(object):
         if self.StringConverter.MARK_DYNAMIC_VALUE in element_name:
             dynamic_string = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[1]
             element_name = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[0]
-        locators = self._currentUiMap.get(element_name)['locators']
+        locators = self.CurrentElement.page_uiMap.get(element_name)['locators']
         list = []
         for locator in locators:
             locator_type = self.UtilXml.getTagName(locator)
@@ -269,7 +291,7 @@ class UiBaseFwk(object):
             #self.logger.info("............Finding element [" + element_name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append([locator_type, locator_value, locator_index])
         if locators == None:
-            raise Exception("Can not find element [" + ori_element_name + "] on [" + str(self._currentPage) + "] page.")
+            raise Exception("Can not find element [" + ori_element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
         return list
 
     def __get_sys_locator_type(self, locator_type):
@@ -307,10 +329,10 @@ class UiBaseFwk(object):
 
     def _getLocalString(self, element_name):
         try:
-            ele = self.UtilXml.getElement(self._rootLocalXml, ".//page[@name='"+self.getCurrentPage()+"']/element[@name='"+element_name+"']")
+            ele = self.UtilXml.getElement(self._rootLocalXml, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
             return self.UtilXml.getText(ele).strip()
         except:
-            raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" +str(self.getCurrentPage()) + "] page.")
+            raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
 
     def _getLocatorValueByLocalString(self, element_name, locator_value):
         if element_name.endswith("_") and self.getLanguageRegion() != self.Language.en_US:
