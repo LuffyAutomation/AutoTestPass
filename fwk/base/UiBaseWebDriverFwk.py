@@ -23,7 +23,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getItemsCount(self):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self._getElementObjectFromCurrentOrSearch(None, None)
+                self._getCurrentElementObjectOrSearch(None, None)
                 self._getCurrentElementNameWhenNone(None)
                 return len(self.getCurrentElementCollectionObject())
         except:
@@ -44,7 +44,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def getItem(self, child_element_index):
         try:
             if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self._getElementObjectFromCurrentOrSearch(None, None)
+                self._getCurrentElementObjectOrSearch(None, None)
                 self._getCurrentElementNameWhenNone(None)
             self.setCurrentElementName(self.getCurrentElementCollectionName() + "_index_" + str(child_element_index))
             self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
@@ -52,14 +52,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         except:
             raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self.CurrentElement.page_name) + "] page.")
 
-    def tap(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=100, idx_or_match=None, element_name=None):
-        xy = self.getElementCenterLocation(toLeft, toRight, toUp, toDown, idx_or_match, element_name)
+    def tap(self, left_offset=0, right_offset=0, up_offset=0, down_offset=0, duration=100, idx_or_match=None, element_name=None):
+        xy = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self._driver.tap([(xy['x'], xy['y'])], duration)
         return self
 
     def click(self, idx_or_match=None, element_name=None):
         try:
-            element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
             self.logger.info("Click element [" + element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
             if element.is_enabled() is True:
@@ -73,7 +73,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValue(self, value, idx_or_match=None, element_name=None):
         try:
-            element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
             self._driver.set_value(element, value)
@@ -84,7 +84,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValueBySendKeys(self, value, idx_or_match=None, element_name=None):
         try:
-            element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
+            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "] by sending keys.")
             elementTagName = self._getElementTagName(element)
@@ -135,7 +135,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return "text"
 
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
-        element = self._getElementObjectFromCurrentOrSearch(element_name, idx_or_match)
+        element = self._getCurrentElementObjectOrSearch(element_name, idx_or_match)
         return_value = ""
         if self.isVisible(element_name, idx_or_match):
             if attribute_type is None:
@@ -245,7 +245,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     index = i
                     break
         else:
-            index = idx_or_match-1
+            index = idx_or_match - 1
         return index
 
     def getScreenShot(self, name, Result):
@@ -271,18 +271,35 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
         return self
 
-    def swipeToElement(self, toLeft=0, toRight=0, toUp=0, toDown=0, duration=None, idx_or_match=None, element_name=None, toLeft_destination=0, toRight_destination=0, toUp_destination=0, toDown_destination=0, idx_or_match_destination=None, element_name_destination=None):
-        element = self._getElementObjectFromCurrentOrSearch(idx_or_match, element_name)
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        fromX = self.getElementCenterX(toLeft, toRight, idx_or_match, element_name)
-        fromY = self.getElementCenterY(toUp, toDown, idx_or_match, element_name)
+    def __swipeOrDragDrop(self, element_ui_destination, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        element_name_destination = self.getCurrentElementName()
+        element_name = self.LastElement.element_name
+        element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
+        element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
+        fromXY = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, self.LastElement)
+        fromX = fromXY['x']
+        fromY = fromXY['y']
+        toXY = self.getElementCenterLocation(left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match, self.CurrentElement)
+        toX = toXY['x']
+        toY = toXY['y']
+        return [fromX, fromY, toX, toY]
 
-        element_destination = self._getElementObjectFromCurrentOrSearch(idx_or_match_destination, element_name_destination)
-        element_name_destination = self._getCurrentElementNameWhenNone(element_name_destination)
-        toX = self.getElementCenterX(toLeft_destination, toRight_destination, idx_or_match_destination, element_name_destination)
-        toY = self.getElementCenterY(toUp_destination, toDown_destination, idx_or_match_destination, element_name_destination)
+    def swipeToElement(self, element_ui_destination, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(element_ui_destination, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+        self.swipe(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
 
-        self.swipe(fromX, fromY, toX, toY, duration)
+    def dragToElement(self, element_ui_destination, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(element_ui_destination, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+        self.drag(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
+
+    def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
+        if duration is None:
+            duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
+            if self.testType.lower() == 'ios':
+                duration = 500  # 50 > swipe  100 drag
+        else:
+            duration = duration * 1000
+        self.swipe(fromX, fromY, toX, toY, duration/1000.0, width, height)
 
     def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if width is None:
@@ -290,9 +307,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         if height is None:
             height = self.getWindowHeight()
         if duration is None:
-            duration = 1000  # if use 100, the continued second swipe may work abnormally.
+            duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
             if self.testType.lower() == 'ios':
-                duration = 50
+                duration = 50  # 50 > swipe  100 drag
         else:
             duration = duration * 1000
         self.logger.info("Swipe from [%s, %s] to [%s, %s]. Width[%s], Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000.0))
@@ -501,19 +518,19 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def getElementWidth(self, item=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["width"])
+        return int(self._getCurrentElementObjectOrSearch(item, element_name).size["width"])
 
     def getElementWidthHeight(self, item=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        return int(self._getElementObjectFromCurrentOrSearch(element_name, item).size["height"])
+        return int(self._getCurrentElementObjectOrSearch(item, element_name).size["height"])
 
     def getElemenX(self, item=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["x"]
+        return self._getCurrentElementObjectOrSearch(item, element_name).location["x"]
 
     def getElementY(self, item=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        return self._getElementObjectFromCurrentOrSearch(element_name, item).location["y"]
+        return self._getCurrentElementObjectOrSearch(item, element_name).location["y"]
 
     def getWindowWidth(self):
         width = self._driver.get_window_size()['width']
@@ -523,15 +540,17 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         height = self._driver.get_window_size()['height']
         return height
 
-    def getElementCenterLocation(self, toLeft=0, toRight=0, toUp=0, toDown=0, item=None, element_name=None):
-        element = self._getElementObjectFromCurrentOrSearch(element_name, item)
+    def getElementCenterLocation(self, left_offset=0, right_offset=0, up_offset=0, down_offset=0, item=None, element_name=None):
+        element = self._getCurrentElementObjectOrSearch(item, element_name)
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        centerX = element.location["x"] + element.size["width"] / 2 - element.size["width"] / 2 * toLeft / 100.0 + element.size["width"] / 2 * toRight / 100.0
-        centerY = element.location["y"] + element.size["height"] / 2 - element.size["height"] / 2 * toUp / 100.0 + element.size["height"] / 2 * toDown / 100.0
+        t = element.size["width"]
+        centerX = element.location["x"] + t / 2 - t / 2 * left_offset / 100.0 + t / 2 * right_offset / 100.0
+        t = element.size["height"]
+        centerY = element.location["y"] + t / 2 - t / 2 * up_offset / 100.0 + t / 2 * down_offset / 100.0
         return {'x': centerX, 'y': centerY}
 
-    def getElementCenterX(self, toLeft=0, toRight=0, item=None, element_name=None):
-        return self.getElementCenterLocation(toLeft, toRight, item, element_name)
+    def getElementCenterX(self, left_offset=0, right_offset=0, item=None, element_name=None):
+        return self.getElementCenterLocation(left_offset, right_offset, 0, 0, item, element_name)['x']
 
-    def getElementCenterY(self, toUp=0, toDown=0, item=None, element_name=None):
-        return self.getElementCenterLocation(toUp, toDown, item, element_name)
+    def getElementCenterY(self, up_offset=0, down_offset=0, item=None, element_name=None):
+        return self.getElementCenterLocation(0, 0, up_offset, down_offset, item, element_name)['y']

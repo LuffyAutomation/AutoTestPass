@@ -250,13 +250,28 @@ class UiBaseFwk(object):
     def _getCurrentElementNameWhenNone(self, element_name=None):
         if element_name == None:
             element_name = self.getCurrentElementName()
+        if type(element_name) is not str:  # ElementStruct
+            return element_name.element_name
         return element_name
 
-    def _getElementObjectFromCurrentOrSearch(self, idx_or_match=None, element_name=None):
-        if self.getCurrentElementObject() is not None:
+    def _getCurrentElementObjectOrSearch(self, idx_or_match=None, element_name=None):
+        if element_name is not None:
+            if type(element_name) is not str:  #  ElementStruct
+                return element_name.element_object
+            if self.CurrentElement.element_name == element_name and self.getCurrentElementObject() is not None:
+                return self.CurrentElement.element_object
+        elif self.getCurrentElementObject() is not None:
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementObject()
+
+    def _getLastElementObjectOrSearch(self, idx_or_match=None, element_name=None):
+        if type(element_name) is not str:  # ElementStruct
+            return element_name
+        if self.getLastElementObject() is not None and self.LastElement.element_name == element_name:
+            return self.getLastElementObject()
+        self.setLastElementObject(self.getMatchedElement(idx_or_match, element_name))
+        return self.getLastElementObject()
 
     def _getCurrentElementCollectionName(self, element_name=None):
         if element_name == None:
