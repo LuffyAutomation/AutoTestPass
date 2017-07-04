@@ -39,7 +39,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
             return self
         except:
-            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on page [" + str(self.CurrentElement.page_name) + "].")
 
     def getItem(self, child_element_index):
         try:
@@ -61,7 +61,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         try:
             element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
-            self.logger.info("Click element [" + element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+            self.logger.info("Click element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
             if element.is_enabled() is True:
                 element.click()
             else:
