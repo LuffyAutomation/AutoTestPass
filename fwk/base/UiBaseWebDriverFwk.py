@@ -65,10 +65,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             if element.is_enabled() is True:
                 element.click()
             else:
-                self.logger.info("The element [" + element_name + "] is not enabled.")
+                self.logger.info("The element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "] is not enabled.")
         except NoSuchElementException as e:
             self.logger.error(e)
-            raise Exception("Click element [" + element_name + "] failed.")
+            raise Exception(
+                "Click element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "] failed.")
         return self
 
     def setValue(self, value, idx_or_match=None, element_name=None):
@@ -135,9 +136,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return "text"
 
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
-        element = self._getCurrentElementObjectOrSearch(element_name, idx_or_match)
+        element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
         return_value = ""
-        if self.isVisible(element_name, idx_or_match):
+        if self.isVisible(idx_or_match, element_name):
             if attribute_type is None:
                 element_type = self._getElementTagName(element)
                 if "input" in element_type:
@@ -271,255 +272,6 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
         return self
 
-    def __swipeOrDragDrop(self, element_ui_destination, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        element_name_destination = self.getCurrentElementName()
-        element_name = self.LastElement.element_name
-        element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
-        element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
-        fromXY = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, self.LastElement)
-        fromX = fromXY['x']
-        fromY = fromXY['y']
-        toXY = self.getElementCenterLocation(left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match, self.CurrentElement)
-        toX = toXY['x']
-        toY = toXY['y']
-        return [fromX, fromY, toX, toY]
-
-    def swipeToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
-        self.swipe(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
-
-    def dragToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
-        self.drag(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
-
-    def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
-        if duration is None:
-            duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
-            if self.testType.lower() == 'ios':
-                duration = 500  # 50 > swipe  500 drag
-        else:
-            duration = duration * 1000
-        if toY > fromY:
-            toY += 10
-        if toY < fromY:
-            toY -= 10
-        if toX > fromX:
-            toX += 10
-        if toX < fromX:
-            toX -= 10
-        self.swipe(fromX, fromY, toX, toY, duration/1000.0, width, height)
-
-    def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        if duration is None:
-            duration = 1000  # if use 100, the consecutive second swipe may work abnormally.
-            if self.testType.lower() == 'ios':
-                duration = 50  # 50 > swipe  500 drag
-        else:
-            duration = duration * 1000
-        self.logger.info("Swipe from [%s, %s] to [%s, %s]. Screen Width[%s], Screen Height[%s], Duration[%s]." % (fromX, fromY, toX, toY, width, height, duration/1000.0))
-        if self.testType.lower() == 'ios':
-            # toX = 0  # toX should be 0 in ios. Then toX == fromX
-            # toY = -100
-            self.swipeByNative(fromX, fromY, toX - fromX, toY - fromY, duration)
-        else:
-            fromX = self.__handleAndroidCoordinate(fromX, width)
-            fromY = self.__handleAndroidCoordinate(fromY, height)
-            toX = self.__handleAndroidCoordinate(toX, width)
-            toY = self.__handleAndroidCoordinate(toY, height)
-            self.swipeByNative(fromX, fromY, toX, toY, duration)
-        return self
-    # for android coordinate
-    def __handleAndroidCoordinate(self, num, wOrH):
-        if num <= 0:
-            num = 1
-        if num >= wOrH:
-            num = wOrH - 1
-        return num
-
-    def swipeDownFromTop(self, move_offset_percent=20, top_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe down %s%% from the top. %s%% away from the top" % (move_offset_percent, top_offset_percent))
-        self.swipe(width / 2, height / 100.0 * top_offset_percent, width / 2, height / 100.0 * top_offset_percent + height / 100.0 * move_offset_percent, duration, width, height)
-        return self
-
-    def swipeDownFromTopToBottom(self, top_offset_percent=0, bottom_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe down from the top to bottom. %s%% away from the top to %s%% away from the bottom." % (top_offset_percent, bottom_offset_percent))
-        self.swipe(width / 2, height / 100.0 * top_offset_percent, width / 2, height - height / 100.0 * bottom_offset_percent, duration, width, height)
-        return self
-
-    def swipeDownFromMid(self, move_offset_percent=20, mid_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe down %s%% from the mid. %s%% away from the mid." % (move_offset_percent, mid_offset_percent))
-        self.swipe(width / 2, height / 2 + height / 100.0 * mid_offset_percent, width / 2, height / 2 + height / 100.0 * mid_offset_percent + height / 100.0 * move_offset_percent, duration, width, height)
-        return self
-
-    def swipeUpFromBottom(self, move_offset_percent=20, bottom_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe up %s%% from the bottom. %s%% away from the bottom." % (move_offset_percent, bottom_offset_percent))
-        self.swipe(width / 2, height - height / 100.0 * bottom_offset_percent, width / 2, height - height / 100.0 * bottom_offset_percent - height / 100.0 * move_offset_percent, duration, width, height)
-        return self
-
-    def swipeUpFromBottomToTop(self, top_offset_percent=0, bottom_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe up from the bottom to top. %s%% away from the top to %s%% away from the bottom." % (top_offset_percent, bottom_offset_percent))
-        self.swipe(width / 2, height - height / 100.0 * bottom_offset_percent, width / 2, height / 100.0 * top_offset_percent, duration, width, height)
-        return self
-
-    def swipeUpFromMid(self, move_offset_percent=20, mid_offset_percent=0, duration=None, width=None, height=None):
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.logger.info("Swipe up %s%% from the mid. %s%% away from the mid." % (move_offset_percent, mid_offset_percent))
-        self.swipe(width / 2, height / 2 - height / 100.0 * mid_offset_percent, width / 2, height / 2 - height / 100.0 * mid_offset_percent - height / 100.0 * move_offset_percent, duration, width, height)
-        return self
-
-    def swipeLeftFromRight(self, move_offset_percent=20, right_offset_percent=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe left %s%% from the right. %s%% away from the right." % (move_offset_percent, right_offset_percent))
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.swipe(width - width / 100.0 * right_offset_percent, height / 2, width - width / 100.0 * right_offset_percent - width / 100.0 * move_offset_percent, height / 2, duration, width, height)
-        return self
-
-    def swipeLeftFromMid(self, move_offset_percent=20, mid_offset_percent=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe left %s%% from the mid. %s%% away from the mid." % (move_offset_percent, mid_offset_percent))
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.swipe(width / 2 - width / 100.0 * mid_offset_percent, height / 2, width / 2 - width / 100.0 * mid_offset_percent - width / 100.0 * move_offset_percent, height / 2, duration, width, height)
-        return self
-
-    def swipeRightFromLeft(self, move_offset_percent=20, left_offset_percent=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe right %s%% from the left. %s%% away from the left." % (move_offset_percent, left_offset_percent))
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.swipe(width / 100.0 * left_offset_percent, height / 2, width / 100.0 * move_offset_percent, height / 2, duration, width, height)
-        return self
-
-    def swipeRightFromMid(self, move_offset_percent=20, mid_offset_percent=0, duration=None, width=None, height=None):
-        self.logger.info("Swipe right %s%% from the mid. %s%% away from the mid." % (move_offset_percent, mid_offset_percent))
-        if width is None:
-            width = self.getWindowWidth()
-        if height is None:
-            height = self.getWindowHeight()
-        self.swipe(width / 2 + width / 100.0 * mid_offset_percent, height / 2, width / 2 + width / 100.0 * mid_offset_percent + width / 100.0 * move_offset_percent, height / 2, duration, width, height)
-        return self
-
-    # def swipeDownFromTop(self, move_offset=200, top_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe down %s from the top. %s away from the top" % (move_offset, top_offset))
-    #     self.swipe(width / 2, top_offset, width / 2, top_offset + move_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeDownFromTopToBottom(self, top_offset=0, bottom_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe down from the top to bottom. %s away from the top to %s away from the bottom." % (top_offset, bottom_offset))
-    #     self.swipe(width / 2, top_offset, width / 2, height - bottom_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeDownFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe down %s from the mid. %s away from the mid." % (move_offset, mid_offset))
-    #     self.swipe(width / 2, height / 2 + mid_offset, width / 2, height / 2 + mid_offset + move_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeUpFromBottom(self, move_offset=200, bottom_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe up %s from the bottom. %s away from the bottom." % (move_offset, bottom_offset))
-    #     self.swipe(width / 2, height - bottom_offset, width / 2, height - bottom_offset - move_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeUpFromBottomToTop(self, top_offset=0, bottom_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe up from the bottom to top. %s away from the top to %s away from the bottom." % (top_offset, bottom_offset))
-    #     self.swipe(width / 2, height - bottom_offset, width / 2, top_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeUpFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.logger.info("Swipe up %s from the mid. %s away from the mid." % (move_offset, mid_offset))
-    #     self.swipe(width / 2, height / 2 - mid_offset, width / 2, height / 2 - mid_offset - move_offset, duration, width, height)
-    #     return self
-    #
-    # def swipeLeftFromRight(self, move_offset=200, right_offset=0, duration=None, width=None, height=None):
-    #     self.logger.info("Swipe left %s from the right. %s away from the right." % (move_offset, right_offset))
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.swipe(width - right_offset, height / 2, width - right_offset - move_offset, height / 2, duration, width, height)
-    #     return self
-    #
-    # def swipeLeftFromMid(self, move_offset=150, mid_offset=0, duration=None, width=None, height=None):
-    #     self.logger.info("Swipe left %s from the mid. %s away from the mid." % (move_offset, mid_offset))
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.swipe(width / 2 - mid_offset, height / 2, width / 2 - mid_offset - move_offset, height / 2, duration, width, height)
-    #     return self
-    #
-    # def swipeRightFromLeft(self, move_offset=200, left_offset=0, duration=None, width=None, height=None):
-    #     self.logger.info("Swipe right %s from the left. %s away from the left." % (move_offset, left_offset))
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.swipe(left_offset, height / 2, move_offset, height / 2, duration, width, height)
-    #     return self
-    #
-    # def swipeRightFromMid(self, move_offset=200, mid_offset=0, duration=None, width=None, height=None):
-    #     self.logger.info("Swipe right %s from the mid. %s away from the mid." % (move_offset, mid_offset))
-    #     if width is None:
-    #         width = self.getWindowWidth()
-    #     if height is None:
-    #         height = self.getWindowHeight()
-    #     self.swipe(width / 2 + mid_offset, height / 2, width / 2 + mid_offset + move_offset, height / 2, duration, width, height)
-    #     return self
-
     def openUrl(self, url):
         self.logger.info("Navigate to [" + url + "].")
         self._driver.get(url)
@@ -548,17 +300,21 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         height = self._driver.get_window_size()['height']
         return height
 
-    def getElementCenterLocation(self, left_offset=0, right_offset=0, up_offset=0, down_offset=0, item=None, element_name=None):
+    def getWindowSize(self):
+        size = self._driver.get_window_size()
+        return {'width': size['width'], 'height': size['height']}
+
+    def getElementCenterLocation(self, left_offset_percent=0, right_offset_percent=0, up_offset_percent=0, down_offset_percent=0, item=None, element_name=None):
         element = self._getCurrentElementObjectOrSearch(item, element_name)
         element_name = self._getCurrentElementNameWhenNone(element_name)
         t = element.size["width"]
-        centerX = element.location["x"] + t / 2 - t / 2 * left_offset / 100.0 + t / 2 * right_offset / 100.0
+        centerX = element.location["x"] + t / 2 - t / 2 * left_offset_percent / 100.0 + t / 2 * right_offset_percent / 100.0
         t = element.size["height"]
-        centerY = element.location["y"] + t / 2 - t / 2 * up_offset / 100.0 + t / 2 * down_offset / 100.0
+        centerY = element.location["y"] + t / 2 - t / 2 * up_offset_percent / 100.0 + t / 2 * down_offset_percent / 100.0
         return {'x': centerX, 'y': centerY}
 
-    def getElementCenterX(self, left_offset=0, right_offset=0, item=None, element_name=None):
-        return self.getElementCenterLocation(left_offset, right_offset, 0, 0, item, element_name)['x']
+    def getElementCenterX(self, left_offset_percent=0, right_offset_percent=0, item=None, element_name=None):
+        return self.getElementCenterLocation(left_offset_percent, right_offset_percent, 0, 0, item, element_name)['x']
 
-    def getElementCenterY(self, up_offset=0, down_offset=0, item=None, element_name=None):
-        return self.getElementCenterLocation(0, 0, up_offset, down_offset, item, element_name)['y']
+    def getElementCenterY(self, up_offset_percent=0, down_offset_percent=0, item=None, element_name=None):
+        return self.getElementCenterLocation(0, 0, up_offset_percent, down_offset_percent, item, element_name)['y']

@@ -188,7 +188,7 @@ class UiBaseFwk(object):
     # you can find the element by  xxx.replacePlaceholder("10").click
     def replacePlaceholder(self, dynamic_value, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        self._currentElementName = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
+        self.CurrentElement.element_name = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
     #some elements' status may change after they appear. So need to clear the found ele and re-find.

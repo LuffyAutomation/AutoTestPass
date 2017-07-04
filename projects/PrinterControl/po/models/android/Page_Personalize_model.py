@@ -14,3 +14,9 @@ class Page_Personalize_model(AndroidCommonPage):
 
     def buttonOrder_2(self):
         return self.get(inspect.stack()[0][3])
+
+    def text_CameraScanToEmail(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_PrintPhotos(self):
+        return self.get(inspect.stack()[0][3])

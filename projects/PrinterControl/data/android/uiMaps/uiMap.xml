@@ -71,6 +71,8 @@
             <page name="page_Personalize" description="Personalize page.">
                 <element name="buttonOrder_1"><id index="1">com.hp.printercontrol:id/generic_list_right_image</id></element>
                 <element name="buttonOrder_2"><id index="2">com.hp.printercontrol:id/generic_list_right_image</id></element>
+                <element name="text_CameraScanToEmail"><xpath>//android.widget.TextView[@text = 'Camera Scan to Email']</xpath></element>
+                <element name="text_PrintPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
 			</page>
             <page name="page_about" description="about page.">
                 <element name="text_versionLable"><id>com.hp.printercontrol:id/version_label</id></element>
