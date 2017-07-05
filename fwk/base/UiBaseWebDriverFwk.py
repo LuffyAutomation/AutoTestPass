@@ -186,6 +186,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                         self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
                         self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
+                        self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
                 else:
                     if locator_index < 0:
                         self.setCurrentElementCollectionName(element_name)
@@ -249,7 +250,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             index = idx_or_match - 1
         return index
 
-    def getScreenShot(self, name, Result):
+    def __getScreenShot(self, name, Result):
         if self._driver is None:  # debug
             return
         self.wait(1)
@@ -270,6 +271,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def swipeByNative(self, begin_x, begin_y, end_x, end_y, duration=500):
         self._driver.swipe(begin_x, begin_y, end_x, end_y, duration)
+        return self
+
+    def _dragByNative(self, origin_el, destination_el):
+        self._driver.drag_and_drop(origin_el, destination_el)
         return self
 
     def openUrl(self, url):

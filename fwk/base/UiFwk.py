@@ -318,13 +318,21 @@ class UiFwk(UiBaseWebDriverFwk):
         toY = toXY['y']
         return [fromX, fromY, toX, toY]
 
-    def swipeToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+    def swipeToElement(self, uiFwk, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(uiFwk, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.swipe(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
 
-    def dragToElement(self, which_element, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        fromTo = self.__swipeOrDragDrop(which_element, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
+    def dragToElement(self, uiFwk, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+        fromTo = self.__swipeOrDragDrop(uiFwk, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.drag(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
+
+    def dragToElementByNative(self, uiFwk, idx_or_match_destination=None, idx_or_match=None, element_name=None):
+        element_name_destination = self.getCurrentElementName()
+        element_name = self.LastElement.element_name
+        element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
+        element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
+        self._dragByNative(element, element_destination)
+
 
     def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if duration is None:

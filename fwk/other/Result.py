@@ -363,7 +363,7 @@ class Result:
 
     def addScreenshot(self, name="stepEnd", comment="Step ended"):
         try:
-            path_screenShot = self._UI.getScreenShot(name, self)
+            path_screenShot = self._UI.__getScreenShot(name, self)
             if self._UI.RunTimeConf.isDevicePassTest:
                 tmp = os.path.join(path_screenShot.replace(self.path_folder_testSuiteNumScreenshots, "")[1:])
             else:
