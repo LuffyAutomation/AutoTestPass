@@ -81,6 +81,11 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "2. xxxx.",
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
+
+        self.Pages.Page_appSettings.text_HPSuppliesShopping().waitForShown()
+
+
+
         '''
         How to verify Enabled.
         '''

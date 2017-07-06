@@ -32,28 +32,51 @@ def mutipleProcesses2():
     suite.addTest(TestBrowser1("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
+def aaa(str, delimiter):
+    pass
+
 if __name__ == '__main__':
+
+
+    import re
+
+    re.findall('\+\+[^\-\-,\+\+]*', r'++A1A2++3av --B2--E ++CH--D++ ')
+    list_t = re.findall(r'(\+\+\|\-\-)', '++A1 --B2--E ++C--D++ ')
+    re.findall('\+\+[^\-\-,\+\+]*', r'++A1A2++3av --B2--E ++CH--D++ ')
+    locator_value = '++A --B--E ++C--D++ '
+    index_include = locator_value.find("++", "--")
+    index_exclude = locator_value.find("--")
+
+
+    # list_t.remove("")
+    # for i in range(len(list_t)):
+    #     list_t[i] = "++" + list_t[i]
+
+
+
+
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":
         from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
-        listTestSuits = ["test_flow", "test_Drag"
-                         # ,
-                         # "test_aioVersion",
-                         # "test_copyRight",
-                         # "test_legalInformaion",
-                         # "test_endUserLicenseAgreement",
-                         # "test_endUserLicenseAgreement_back",
-                         # "test_hpOnlinePrivacyStatement",
-                         # "test_hpOnlinePrivacyStatement_back",
-                         # "test_shareThisApp",
-                         # "test_shareThisApp_back",
-                         # "test_headerDisplay"
-                         ]
-        for suit in listTestSuits:
-            suite.addTest(TilePersonalize(suit))
-        # suite.addTest(HomeMoreAppSettings("test_flow"))
-        # suite.addTest(HomeMoreAppSettings("test_verifyCheckbox"))
+        # listTestSuits = ["test_flow"
+        #                  # ,
+        #                  # "test_aioVersion",
+        #                  # "test_copyRight",
+        #                  # "test_legalInformaion",
+        #                  # "test_endUserLicenseAgreement",
+        #                  # "test_endUserLicenseAgreement_back",
+        #                  # "test_hpOnlinePrivacyStatement",
+        #                  # "test_hpOnlinePrivacyStatement_back",
+        #                  # "test_shareThisApp",
+        #                  # "test_shareThisApp_back",
+        #                  # "test_headerDisplay"
+        #                  ]
+        # for suit in listTestSuits:
+        #     suite.addTest(TilePersonalize(suit))
+        from projects.PrinterControl.cases.HomeMoreAppSettings import HomeMoreAppSettings
+        suite.addTest(HomeMoreAppSettings("test_flow"))
+        suite.addTest(HomeMoreAppSettings("test_verifyCheckbox"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "HPSmart":
         # listTestSuits = ["test_flow",

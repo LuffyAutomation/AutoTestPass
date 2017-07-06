@@ -23,3 +23,9 @@ class Page_appSettings_model(AndroidCommonPage):
 
     def checkBox_wirelessNetwork(self):
         return self.get(inspect.stack()[0][3])
+
+    def checkBox_any_one(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping(self):
+        return self.get(inspect.stack()[0][3])

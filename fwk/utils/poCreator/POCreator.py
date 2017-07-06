@@ -69,10 +69,10 @@ class POCreator(POCreatorBase):
         # self.SubPagePlaceholder = self._SubPagePlaceholder_Model(self.__CommonPage)
 
     def _getPOModelBody(self, element_name, level=0):
-        # tmp = "return self.get('%s')" % element_name
+        # tmp = "return self.get('%s')" % name
         tmp = "return self.get(%s)" % "inspect.stack()[0][3]"
         if level != 0:
-            # tmp = "return self.__outer.get('%s', self._elementsMap)" % element_name
+            # tmp = "return self.__outer.get('%s', self._elementsMap)" % name
             tmp = "return self.__outer.get(%s, self.page_name, self._elementsMap)" % "inspect.stack()[0][3]"
         return self._newLine + self._getIndent(level) + self._indent + "def %s(self):" % element_name \
                + self._newLine + self._getIndent(level) + self._indent + self._indent + tmp \

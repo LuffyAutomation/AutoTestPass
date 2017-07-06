@@ -12,6 +12,11 @@ class UiBaseFwk(object):
         VALUE_PLACEHOLDER = 'VALUE_PLACEHOLDER'
         MARK_DYNAMIC_VALUE = ' : '
 
+    class Match:
+        MATCH = ".*"
+        INCLUDE = "++"
+        EXCLUDE = "--"
+
     class Language:
         en_US = "en_US"
         list = (en_US)
@@ -44,6 +49,9 @@ class UiBaseFwk(object):
         CLASS_NAME = "class_name"
         CSS_SELECTOR = "css_selector"
 
+        TEXT = "text"  # customized, it is slower than other types
+        VALUE = "value"  # customized, it is slower than other types
+
     class AttributeType:
         NAME = "name"
         CLASS = "class"
@@ -53,8 +61,8 @@ class UiBaseFwk(object):
     class ElementStruct:
         page_name = None
         page_uiMap = None
-        element_name = None
-        element_object = None
+        name = None
+        object = None
 
     def __init__(self, Init):
         self.Init = Init
@@ -73,14 +81,15 @@ class UiBaseFwk(object):
 
         self.CurrentElement = self.ElementStruct()
         self.LastElement = self.ElementStruct()
+        self.CurrentElementCollection = self.ElementStruct()
 
-        self._lastElementName = None
-        self._lastElementObject = None
+        # self._lastElementName = None
+        # self._lastElementObject = None
 
-        self._currentFunction = None
+        # self._currentFunction = None
 
-        self._currentElementName = None
-        self._currentElementObject = None
+        # self._currentElementName = None
+        # self._currentElementObject = None
 
         self._currentElementCollectionName = None
         self._currentElementCollectionObject = None
@@ -172,15 +181,15 @@ class UiBaseFwk(object):
         return self._root
 
     def updateCurrentElementStatus(self, element_name, uiMap, page_name):
-        if self.CurrentElement.element_name != element_name:
-            self.LastElement.element_object = self.CurrentElement.element_object
+        if self.CurrentElement.name != element_name:
+            self.LastElement.object = self.CurrentElement.object
             self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
             self.LastElement.page_name = self.CurrentElement.page_name
-            self.CurrentElement.element_object = None
+            self.CurrentElement.object = None
         self.CurrentElement.page_uiMap = uiMap
-        self.LastElement.element_name = self.CurrentElement.element_name
+        self.LastElement.name = self.CurrentElement.name
         self.CurrentElement.page_name = page_name
-        self.CurrentElement.element_name = element_name
+        self.CurrentElement.name = element_name
         return self
 
     # if define VALUE_PLACEHOLDER in uimap:
@@ -188,7 +197,7 @@ class UiBaseFwk(object):
     # you can find the element by  xxx.replacePlaceholder("10").click
     def replacePlaceholder(self, dynamic_value, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
-        self.CurrentElement.element_name = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
+        self.CurrentElement.name = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
     #some elements' status may change after they appear. So need to clear the found ele and re-find.
@@ -198,34 +207,34 @@ class UiBaseFwk(object):
         return self
 
     def setCurrentElementName(self, element_name):
-        self.CurrentElement.element_name = element_name
+        self.CurrentElement.name = element_name
 
     def getCurrentElementName(self):
-        return self.CurrentElement.element_name
+        return self.CurrentElement.name
 
     def setCurrentElementObject(self, element=None):
-        self.CurrentElement.element_object = element
+        self.CurrentElement.object = element
 
     def getCurrentElementObject(self):
-        return self.CurrentElement.element_object
+        return self.CurrentElement.object
 
     def getLastElementName(self):  # when using this kind of method  .swithToElement
-        return self.LastElement.element_name
+        return self.LastElement.name
 
     def getLastElementObject(self):
-        return self.LastElement.element_object
+        return self.LastElement.object
 
     def setCurrentElementCollectionName(self, elementCollection_name):
-        self._currentElementCollectionName = elementCollection_name
+        self.CurrentElementCollection.name = elementCollection_name
 
     def getCurrentElementCollectionName(self):
-        return self._currentElementCollectionName
+        return self.CurrentElementCollection.name
 
     def setCurrentElementCollectionObject(self, element=None):
-        self._currentElementCollectionObject = element
+        self.CurrentElementCollection.object = element
 
     def getCurrentElementCollectionObject(self):
-        return self._currentElementCollectionObject
+        return self.CurrentElementCollection.object
 
     def _setCurrentPageName(self, page_name):
         self.CurrentElement.page_name = page_name
@@ -251,15 +260,15 @@ class UiBaseFwk(object):
         if element_name == None:
             element_name = self.getCurrentElementName()
         if type(element_name) is not str:  # ElementStruct
-            return element_name.element_name
+            return element_name.name
         return element_name
 
     def _getCurrentElementObjectOrSearch(self, idx_or_match=None, element_name=None):
         if element_name is not None:
             if type(element_name) is not str:  #  ElementStruct
-                return element_name.element_object
-            if self.CurrentElement.element_name == element_name and self.getCurrentElementObject() is not None:
-                return self.CurrentElement.element_object
+                return element_name.object
+            if self.CurrentElement.name == element_name and self.getCurrentElementObject() is not None:
+                return self.CurrentElement.object
         elif self.getCurrentElementObject() is not None:
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
@@ -268,7 +277,7 @@ class UiBaseFwk(object):
     def _getLastElementObjectOrSearch(self, idx_or_match=None, element_name=None):
         if type(element_name) is not str:  # ElementStruct
             return element_name
-        if self.getLastElementObject() is not None and self.LastElement.element_name == element_name:
+        if self.getLastElementObject() is not None and self.LastElement.name == element_name:
             return self.getLastElementObject()
         self.setLastElementObject(self.getMatchedElement(idx_or_match, element_name))
         return self.getLastElementObject()
@@ -303,7 +312,7 @@ class UiBaseFwk(object):
                 locator_index = "1"
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:
                 locator_value = locator_value.replace(self.StringConverter.VALUE_PLACEHOLDER, dynamic_string)
-            #self.logger.info("............Finding element [" + element_name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
+            #self.logger.info("............Finding element [" + name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append([locator_type, locator_value, locator_index])
         if locators == None:
             raise Exception("Can not find element [" + ori_element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
@@ -320,6 +329,8 @@ class UiBaseFwk(object):
             locator_type = By.PARTIAL_LINK_TEXT
         elif locator_type == self.LocatorType.TAG_NAME:
             locator_type = By.TAG_NAME
+        elif locator_type == self.LocatorType.TEXT:
+            locator_type = self.LocatorType.TEXT
         elif locator_type == self.LocatorType.CLASS_NAME:
             locator_type = By.CLASS_NAME
         elif locator_type == self.LocatorType.ACCESSIBILITY_ID:

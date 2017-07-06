@@ -165,18 +165,50 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def _findElements(self, element_name):
         return self._findElement(element_name, "findElements")
 
+    def _changeCutomizedToOriginal(self, locator_type, locator_value):
+        if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE:
+            if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
+                if "@text" in locator_value:
+                    locator_type = self.LocatorType.XPATH
+                    locator_value = locator_value.replace("@text", "@name")
+                elif ("(@" not in locator_value) and ("(@" not in locator_value):
+                    if self.Match.INCLUDE in locator_value or self.Match.EXCLUDE in locator_value:
+                        if self.Match.MATCH in locator_value:
+                            locator_value = locator_value.replace(self.Match.MATCH, "")
+                            if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
+                                locator_value = self.Match.INCLUDE + locator_value
+
+                    elif self.Match.MATCH in locator_value:
+                        locator_value = locator_value.replace(self.Match.MATCH, "")
+                        locator_value = "//*[contains(@text, '%s')]" % str(locator_value)
+                    else:
+                        locator_type = "name"
+            elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
+                if "@name" in locator_value:
+                    locator_value = locator_value.replace("@name", "@text")
+                elif ("(@" not in locator_value) and ("(@" not in locator_value):
+                    locator_type = self.LocatorType.XPATH
+                    locator_value = "//*[@text = '%s']" % str(locator_value)
+        return {"locator_type": locator_type, "locator_value": locator_value}
+
     def _findElement(self, element_name, marks=None):
         locatorsList = self._getElementLocatorsList(element_name)
         ori_element_name = element_name
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
             locator_value = self._getElementValue(locatorList)
+            if locator_value.strip() == "":
+                continue
             locator_value = self._getLocatorValueByLocalString(element_name, locator_value)
             if marks == "findElements":
                 locator_index = -1
             else:
                 locator_index = self._getElementIndex(locatorList)
             try:
+                type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
+                locator_type = type_value["locator_type"]
+                locator_value = type_value["locator_value"]
+                # "//*[@text = 'HP Supplies Shopping']" "//*[contains(@text, 'HP Supplies Shopping')]"  "//*[contains(@text, 'HP Supplies Shopping') and not(contains(@text, 'xxxxxx'))]"
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if locator_index < 0:
                         self.setCurrentElementCollectionName(element_name)
@@ -208,8 +240,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPageName()) + "] page.")
 
-    # def getElementsSize(self, element_name):
-    #     return len(self.getElements(element_name))
+    # def getElementsSize(self, name):
+    #     return len(self.getElements(name))
 
     def getMatchedElements(self, match=None, element_name=None):
         return self._findElements(element_name)
