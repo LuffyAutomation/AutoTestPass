@@ -172,7 +172,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             if mr.startswith(self.Match.INCLUDE):
                 t += "contains(@text, '" + mr.replace(self.Match.INCLUDE, "") + "')"
             else:
-                t += "not (contains(@text, '" + mr.replace(self.Match.EXCLUDE, "") + "'))"
+                t += "not(contains(@text, '" + mr.replace(self.Match.EXCLUDE, "") + "'))"
         t += "]"
         return t
 
