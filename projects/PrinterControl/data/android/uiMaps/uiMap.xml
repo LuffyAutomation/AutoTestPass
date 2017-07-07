@@ -100,6 +100,12 @@
                 <element name="text_HPSuppliesShopping3"><text>HP Supplies Shopping</text></element>
                 <element name="text_HPSuppliesShopping4"><text>HP Supplies S.*</text></element>
                 <element name="text_HPSuppliesShopping5"><text>++HP --ABc++Shopping</text></element>
+                <element name="checkBox_usageTracking_forNearest1"><id index="1">android:id/checkbox</id></element>
+                <element name="checkBox_usageTracking_forNearest2"><class index="1">android.widget.CheckBox</class></element>
+                <element name="text_HPSuppliesShopping5"><text>++HP --ABc++Shopping</text></element>
+
+
+
 			</page>
             <page name="dialog_legalInformation" description="dialog_legalInformation">
                 <element name="text_title_legalInformation" ><id>android:id/alertTitle</id></element>

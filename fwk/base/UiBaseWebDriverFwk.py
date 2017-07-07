@@ -191,7 +191,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@value")
+                        locator_value = self._getXpathJoin(locator_value, "@" + locator_type)
                     else:
                         locator_type = "name"
             elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
@@ -205,7 +205,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@text")
+                        locator_value = self._getXpathJoin(locator_value, "@" + locator_type)
                     else:
                         locator_value = "//*[@text = '%s']" % str(locator_value)
         return {"locator_type": locator_type, "locator_value": locator_value}
