@@ -86,8 +86,12 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
-        self.Pages.Page_appSettings.text_HPSuppliesShopping().waitForShown()
-
+        self.Pages.Page_appSettings.text_HPSuppliesShopping1().waitForShown()
+        self.Pages.Page_appSettings.text_HPSuppliesShopping2().waitForShown()
+        self.Pages.Page_appSettings.text_HPSuppliesShopping3().waitForShown()
+        self.Pages.Page_appSettings.text_HPSuppliesShopping4().waitForShown()
+        self.Pages.Page_appSettings.text_HPSuppliesShopping5().waitForShown()
+        pass
 
 
         '''

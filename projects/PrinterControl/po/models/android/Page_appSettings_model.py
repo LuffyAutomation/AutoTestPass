@@ -27,5 +27,17 @@ class Page_appSettings_model(AndroidCommonPage):
     def checkBox_any_one(self):
         return self.get(inspect.stack()[0][3])
 
-    def text_HPSuppliesShopping(self):
+    def text_HPSuppliesShopping1(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping2(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping3(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping4(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping5(self):
         return self.get(inspect.stack()[0][3])

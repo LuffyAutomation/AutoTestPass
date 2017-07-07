@@ -44,10 +44,12 @@ class UiBaseFwk(object):
         LINK_TEXT = "link_text"
         PARTIAL_LINK_TEXT = "partial_link_text"
         NAME = "name"  # text, but name has been depreated in appium 1.6 for Android ??  But it works in IOS.
-        ACCESSIBILITY_ID = "accessibility_id"  #1. content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
+        ACCESSIBILITY_ID = "accessibility_id"  #1. equals to content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
         TAG_NAME = "tag_name"
         CLASS_NAME = "class_name"
         CSS_SELECTOR = "css_selector"
+        CONTENT_DESC = "content-desc"
+        CONTENT_DESC1 = "content_desc"
 
         TEXT = "text"  # customized, it is slower than other types
         VALUE = "value"  # customized, it is slower than other types
@@ -335,6 +337,8 @@ class UiBaseFwk(object):
             locator_type = By.CLASS_NAME
         elif locator_type == self.LocatorType.ACCESSIBILITY_ID:
             locator_type = self.LocatorType.ACCESSIBILITY_ID
+        elif locator_type == self.LocatorType.CONTENT_DESC or locator_type == self.LocatorType.CONTENT_DESC1:
+            locator_type = self.LocatorType.CONTENT_DESC
         else:  # locator_type="css selector"
             locator_type = By.CSS_SELECTOR
         return locator_type
