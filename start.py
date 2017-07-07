@@ -36,25 +36,6 @@ def aaa(str, delimiter):
     pass
 
 if __name__ == '__main__':
-
-
-    import re
-
-    re.findall('\+\+[^\-\-,\+\+]*', r'++A1A2++3av --B2--E ++CH--D++ ')
-    list_t = re.findall(r'(\+\+\|\-\-)', '++A1 --B2--E ++C--D++ ')
-    re.findall('\+\+[^\-\-,\+\+]*', r'++A1A2++3av --B2--E ++CH--D++ ')
-    locator_value = '++A --B--E ++C--D++ '
-    index_include = locator_value.find("++", "--")
-    index_exclude = locator_value.find("--")
-
-
-    # list_t.remove("")
-    # for i in range(len(list_t)):
-    #     list_t[i] = "++" + list_t[i]
-
-
-
-
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":

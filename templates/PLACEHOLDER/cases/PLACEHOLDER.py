@@ -37,14 +37,18 @@ class PLACEHOLDER(CommonUnittest):
 
     @classmethod
     def setUpClass(cls):
-        cls.setUpBeforClass()  # setup test before starting.
-        cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
-        cls.Pages_Web = Pages_Web(cls.UI_Web)
-        cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
-        # Just make the Pages_XXX objects simple since generally only one of Android, Ios and Web may be tested.
-        cls.Pages = cls.Pages_Android
-        cls.Pages = cls.Pages_Ios
-        cls.Pages = cls.Pages_Web
+        try:
+            cls.setUpBeforClass()  # setup test before starting.
+            cls.Pages_Android = Pages_Android(cls.UI_Android)  # create page objects of Android test.
+            cls.Pages_Web = Pages_Web(cls.UI_Web)
+            cls.Pages_Ios = Pages_Ios(cls.UI_Ios)
+            # Just make the Pages_XXX objects simple since generally only one of Android, Ios and Web may be tested.
+            cls.Pages = cls.Pages_Android
+            cls.Pages = cls.Pages_Ios
+            cls.Pages = cls.Pages_Web
+        except Exception as e:
+            cls.UI.logger.error(e.__str__())
+            cls.Result.setEnvBlockMsg(e.__str__())
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().

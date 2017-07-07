@@ -1,5 +1,5 @@
 import os
-
+import re
 from appium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 # from selenium.webdriver.support.ui import WebDriverWait
@@ -165,6 +165,17 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     def _findElements(self, element_name):
         return self._findElement(element_name, "findElements")
 
+    def _getXpathJoin(self, locator_value):
+        matcher_array = re.findall(r'\+\+[^\-,+]*|--[^\-,+]*', locator_value)
+        t = "//*["
+        for mr in matcher_array:
+            if mr.startswith(self.Match.INCLUDE):
+                t += "contains(@text, '" + mr.replace(self.Match.INCLUDE, "") + "')"
+            else:
+                t += "not (contains(@text, '" + mr.replace(self.Match.EXCLUDE, "") + "'))"
+        t += "]"
+        return t
+
     def _changeCutomizedToOriginal(self, locator_type, locator_value):
         if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE:
             if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
@@ -173,11 +184,12 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     locator_value = locator_value.replace("@text", "@name")
                 elif ("(@" not in locator_value) and ("(@" not in locator_value):
                     if self.Match.INCLUDE in locator_value or self.Match.EXCLUDE in locator_value:
+                        locator_type = self.LocatorType.XPATH
                         if self.Match.MATCH in locator_value:
                             locator_value = locator_value.replace(self.Match.MATCH, "")
-                            if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
-                                locator_value = self.Match.INCLUDE + locator_value
-
+                        if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
+                            locator_value = self.Match.INCLUDE + locator_value
+                        locator_value = self._getXpathJoin(locator_value)
                     elif self.Match.MATCH in locator_value:
                         locator_value = locator_value.replace(self.Match.MATCH, "")
                         locator_value = "//*[contains(@text, '%s')]" % str(locator_value)
@@ -188,7 +200,18 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     locator_value = locator_value.replace("@name", "@text")
                 elif ("(@" not in locator_value) and ("(@" not in locator_value):
                     locator_type = self.LocatorType.XPATH
-                    locator_value = "//*[@text = '%s']" % str(locator_value)
+                    if self.Match.INCLUDE in locator_value or self.Match.EXCLUDE in locator_value or self.Match.MATCH in locator_value:
+                        locator_type = self.LocatorType.XPATH
+                        if self.Match.MATCH in locator_value:
+                            locator_value = locator_value.replace(self.Match.MATCH, "")
+                        if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
+                            locator_value = self.Match.INCLUDE + locator_value
+                        locator_value = self._getXpathJoin(locator_value)
+                    # elif self.Match.MATCH in locator_value:
+                    #     locator_value = locator_value.replace(self.Match.MATCH, "")
+                    #     locator_value = "//*[contains(@text, '%s')]" % str(locator_value)
+                    else:
+                        locator_value = "//*[@text = '%s']" % str(locator_value)
         return {"locator_type": locator_type, "locator_value": locator_value}
 
     def _findElement(self, element_name, marks=None):

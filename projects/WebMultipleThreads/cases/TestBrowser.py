@@ -32,10 +32,13 @@ class TestBrowser(CommonUnittest):
 
     @classmethod
     def setUpClass(cls):
-        cls.setUpBeforClass()  # setup test before starting.
-        cls.Pages_Web = Pages_Web(cls.UI_Web)  # create page objects of Android test.
-        cls.Pages = cls.Pages_Web  # Just make it simple since generally only one of Android, Ios and Web may be tested.
-
+        try:
+            cls.setUpBeforClass()  # setup test before starting.
+            cls.Pages_Web = Pages_Web(cls.UI_Web)  # create page objects of Android test.
+            cls.Pages = cls.Pages_Web  # Just make it simple since generally only one of Android, Ios and Web may be tested.
+        except Exception as e:
+            cls.UI.logger.error(e.__str__())
+            cls.Result.setEnvBlockMsg(e.__str__())
     '''
     1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
     cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().

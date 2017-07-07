@@ -97,8 +97,8 @@
                 <element name="checkBox_any_one"><id>android:id/checkbox</id></element>
                 <!--<element name="text_HPSuppliesShopping"><xpath>//android.widget.TextView[@text = 'HP Supplies Shopping']</xpath></element>-->
                 <!--<element name="text_HPSuppliesShopping"><text>HP Supplies Shopping</text></element>-->
-                <element name="text_HPSuppliesShopping"><text>HP Supplies S.*</text></element>
-                <element name="text_HPSuppliesShopping"><text>++HP --Supplies++Shopping</text></element>
+                <!--<element name="text_HPSuppliesShopping"><text>HP Supplies S.*</text></element>-->
+                <element name="text_HPSuppliesShopping"><text>++HP --ABc++Shopping</text></element>
 			</page>
             <page name="dialog_legalInformation" description="dialog_legalInformation">
                 <element name="text_title_legalInformation" ><id>android:id/alertTitle</id></element>
