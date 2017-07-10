@@ -306,12 +306,8 @@ class UiFwk(UiBaseWebDriverFwk):
         return self
 
     def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
-        # if self.LastElement.name == self.C.name and self.getCurrentElementObject() is not None:
-        #     return self.CurrentElement.object
-        #
         new_locators_list = []
         element_name = self.LastElement.element_name
-        # element = self._getLastElementObjectOrSearch(idx_or_match, element_name)
         locators_list = self._getElementLocatorsList(element_name, self.LastElement)
 
         element_name_nearby = self.getCurrentElementName()
