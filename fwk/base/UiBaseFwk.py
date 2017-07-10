@@ -50,6 +50,8 @@ class UiBaseFwk(object):
         CSS_SELECTOR = "css_selector"
         CONTENT_DESC = "content-desc"
         CONTENT_DESC1 = "content_desc"
+        RESOURCE_ID = "resource-id"
+        RESOURCE_ID1 = "resource_id"
 
         TEXT = "text"  # customized, it is slower than other types
         VALUE = "value"  # customized, it is slower than other types
@@ -65,6 +67,7 @@ class UiBaseFwk(object):
         page_uiMap = None
         name = None
         object = None
+        list_locators = None
 
     def __init__(self, Init):
         self.Init = Init
@@ -182,12 +185,15 @@ class UiBaseFwk(object):
     def _getUiMapRoot(self):
         return self._root
 
+    # there are 3 same functions in AndroidFwk, IosFwk, WebFwk
     def updateCurrentElementStatus(self, element_name, uiMap, page_name):
         if self.CurrentElement.name != element_name:
             self.LastElement.object = self.CurrentElement.object
             self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
             self.LastElement.page_name = self.CurrentElement.page_name
+            self.LastElement.list_locators = self.CurrentElement.list_locators
             self.CurrentElement.object = None
+            self.CurrentElement.list_locators = None
         self.CurrentElement.page_uiMap = uiMap
         self.LastElement.name = self.CurrentElement.name
         self.CurrentElement.page_name = page_name
@@ -295,17 +301,19 @@ class UiBaseFwk(object):
         self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementCollectionObject()
 
-    def _getElementLocatorsList(self, element_name):
+    def _getElementLocatorsList(self, element_name, WhichElement=None):
         dynamic_string = None
         ori_element_name = element_name
+        if WhichElement is None:
+            WhichElement = self.CurrentElement
         if self.StringConverter.MARK_DYNAMIC_VALUE in element_name:
             dynamic_string = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[1]
             element_name = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[0]
-        locators = self.CurrentElement.page_uiMap.get(element_name)['locators']
+        locators = WhichElement.page_uiMap.get(element_name)['locators']
         list = []
         for locator in locators:
             locator_type = self.UtilXml.getTagName(locator)
-            locator_type = self.__get_sys_locator_type(locator_type)
+            locator_type = self._get_native_locator_type(locator_type)
             locator_value = self.UtilXml.getText(locator).strip()
             global locator_index
             try:
@@ -317,11 +325,11 @@ class UiBaseFwk(object):
             #self.logger.info("............Finding element [" + name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append([locator_type, locator_value, locator_index])
         if locators == None:
-            raise Exception("Can not find element [" + ori_element_name + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+            raise Exception("Can not find element [" + ori_element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
         return list
 
-    def __get_sys_locator_type(self, locator_type):
-        if locator_type == self.LocatorType.ID:
+    def _get_native_locator_type(self, locator_type):
+        if locator_type == self.LocatorType.ID or locator_type == self.LocatorType.RESOURCE_ID or locator_type == self.LocatorType.RESOURCE_ID1:
             locator_type = By.ID
         elif locator_type == self.LocatorType.NAME:
             locator_type = By.NAME

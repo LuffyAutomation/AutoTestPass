@@ -88,24 +88,30 @@
                 <element name="button_shareThisApp"><id>com.hp.printercontrol:id/button_mail</id></element>
 			</page>
             <page name="page_appSettings" description="moreOptions then app settings page.">
-                <!--index="0" means return all specified elements, here is return all checkboxes-->
+                <!--no index and index=1 attributes mean returning the first matched element-->
                 <element name="checkBox_All_noIndex"><id>android:id/checkbox</id></element>
-                <element name="checkBox_All_setIndex"><id index="0">android:id/checkbox</id></element>
                 <element name="checkBox_usageTracking"><id index="1">android:id/checkbox</id></element>
+                <!--index="0" means returning all specified elements, here is returning all checkboxes-->
+                <element name="checkBox_All_setIndex"><id index="0">android:id/checkbox</id></element>
+                <!--index="2" means returning the second matched element-->
                 <element name="checkBox_hpSuppliesShopping"><id index="2">android:id/checkbox</id></element>
                 <element name="checkBox_wirelessNetwork"><id index="3">android:id/checkbox</id></element>
                 <element name="checkBox_any_one"><id>android:id/checkbox</id></element>
+                <!--How to use text mark. All of below 5 locators return the same result.-->
                 <element name="text_HPSuppliesShopping1"><xpath>//android.widget.TextView[@text = 'HP Supplies Shopping']</xpath></element>
                 <element name="text_HPSuppliesShopping2"><xpath>//android.widget.TextView[contains(@text, 'HP Supplies Shopping')]</xpath></element>
                 <element name="text_HPSuppliesShopping3"><text>HP Supplies Shopping</text></element>
                 <element name="text_HPSuppliesShopping4"><text>HP Supplies S.*</text></element>
                 <element name="text_HPSuppliesShopping5"><text>++HP --ABc++Shopping</text></element>
-                <element name="checkBox_usageTracking_forNearest1"><id index="1">android:id/checkbox</id></element>
-                <element name="checkBox_usageTracking_forNearest2"><class index="1">android.widget.CheckBox</class></element>
-                <element name="text_HPSuppliesShopping5"><text>++HP --ABc++Shopping</text></element>
-
-
-
+                <!--How to search uncertain element (such as below checkboxes) by the element which has unique text or id, etc.-->
+                <element name="checkBox_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                </element>
+                <element name="text_HPSuppliesShopping_forNearby1">
+                    <text>HP Supplies Shopping</text>
+                    <text index="1">HP Supplies Shopping</text>
+                </element>
 			</page>
             <page name="dialog_legalInformation" description="dialog_legalInformation">
                 <element name="text_title_legalInformation" ><id>android:id/alertTitle</id></element>

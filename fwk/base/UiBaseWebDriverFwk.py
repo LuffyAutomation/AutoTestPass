@@ -178,8 +178,13 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         t += "]"
         return t
 
+    def _getSpecialLocatorType(self, nativeLocatorType):
+        if nativeLocatorType == "id":
+            return self.LocatorType.RESOURCE_ID
+        return nativeLocatorType
+
     def _changeCutomizedToOriginal(self, locator_type, locator_value):
-        if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE or locator_type == self.LocatorType.CONTENT_DESC:
+        if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE or locator_type == self.LocatorType.CONTENT_DESC or locator_type == self.LocatorType.RESOURCE_ID:
             if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
                 if "@text" in locator_value:
                     locator_type = self.LocatorType.XPATH
@@ -191,7 +196,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@" + locator_type)
+                        locator_value = self._getXpathJoin(locator_value, "@" + self._getSpecialLocatorType(locator_type))
                     else:
                         locator_type = "name"
             elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
@@ -205,14 +210,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@" + locator_type)
+                        locator_value = self._getXpathJoin(locator_value, "@" + self._getSpecialLocatorType(locator_type))
                     else:
                         locator_value = "//*[@text = '%s']" % str(locator_value)
         return {"locator_type": locator_type, "locator_value": locator_value}
 
     # "//*[@text = 'HP Supplies Shopping']" "//*[contains(@text, 'HP Supplies Shopping')]"  "//*[contains(@text, 'HP Supplies Shopping') and not(contains(@text, 'xxxxxx'))]"
-    def _findElement(self, element_name, marks=None):
-        locatorsList = self._getElementLocatorsList(element_name)
+
+    def _findElementByLocatorsList(self, element_name, locatorsList, marks=None):
         ori_element_name = element_name
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
@@ -232,13 +237,16 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if locator_index < 0:
                         self.setCurrentElementCollectionName(element_name)
-                        self.setCurrentElementCollectionObject(self._driver.find_elements_by_accessibility_id(locator_value))
+                        self.setCurrentElementCollectionObject(
+                            self._driver.find_elements_by_accessibility_id(locator_value))
                         return self.getCurrentElementCollectionObject()
                     elif locator_index == 0:
                         self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
-                        self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
-                        self.setCurrentElementObject(self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
+                        self.setCurrentElementObject(
+                            self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
+                        self.setCurrentElementObject(
+                            self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
                 else:
                     if locator_index < 0:
                         self.setCurrentElementCollectionName(element_name)
@@ -247,18 +255,29 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     elif locator_index == 0:
                         self.setCurrentElementObject(self._driver.find_element(locator_type, locator_value))
                     else:
-                        self.setCurrentElementObject(self._driver.find_elements(locator_type, locator_value)[locator_index])
+                        self.setCurrentElementObject(
+                            self._driver.find_elements(locator_type, locator_value)[locator_index])
             except Exception as e:
                 # traceback.print_exc()
                 # print e.__str__()
                 continue
             return self.getCurrentElementObject()
         if locator_index < 0:  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(
+                self.getCurrentPageName()) + "] page.")
         elif locator_index == 0:  # When <id/xpath...>android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(
+                self.getCurrentPageName()) + "] page.")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(locator_index + 1) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(
+                locator_index + 1) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+
+    def _findElement(self, element_name, marks=None):
+        if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
+            locatorsList = self.CurrentElement.list_locators  # for
+        else:
+            locatorsList = self._getElementLocatorsList(element_name)
+        return self._findElementByLocatorsList(element_name, locatorsList, marks)
 
     # def getElementsSize(self, name):
     #     return len(self.getElements(name))

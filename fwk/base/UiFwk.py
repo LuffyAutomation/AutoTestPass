@@ -305,17 +305,60 @@ class UiFwk(UiBaseWebDriverFwk):
             self.click(idx_or_match, element_name)
         return self
 
-    def __swipeOrDragDrop(self, which_element, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
+    def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
+        # if self.LastElement.name == self.C.name and self.getCurrentElementObject() is not None:
+        #     return self.CurrentElement.object
+        #
+        new_locators_list = []
+        element_name = self.LastElement.element_name
+        # element = self._getLastElementObjectOrSearch(idx_or_match, element_name)
+        locators_list = self._getElementLocatorsList(element_name, self.LastElement)
+
+        element_name_nearby = self.getCurrentElementName()
+        locators_list_nearby = self._getElementLocatorsList(element_name_nearby)
+
+        for locatorList_nearby in locators_list_nearby:
+            type_value = self._changeCutomizedToOriginal(locatorList_nearby[0], locatorList_nearby[1])
+            locatorList_nearby[1] = type_value["locator_value"] + "[%s]" % locatorList_nearby[2]
+            for locatorList in locators_list:
+                if locatorList[0] == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
+                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + locatorList[1] + "[%s]" % locatorList[2], "1"])
+                    new_locators_list.append(["xpath",
+                                              locatorList_nearby[1] + "/parent::*/" + locatorList[
+                                                  1] + "[%s]" % locatorList[2], "1"])
+                elif locatorList[0] == self.LocatorType.ID:
+                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + "*[@%s='%s']" % (self.LocatorType.RESOURCE_ID, locatorList[1]) + "[%s]" % locatorList[2], "1"])
+                    new_locators_list.append(["xpath", locatorList_nearby[
+                        1] + "/parent::*/" + "*[@%s='%s']" % (
+                                              self.LocatorType.RESOURCE_ID, locatorList[1]) + "[%s]" % locatorList[2],
+                                              "1"])
+                    # locatorList_nearby[1] =
+                elif locatorList[0] == self.LocatorType.TEXT:
+                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + "*[@%s='%s']" % (self.LocatorType.TEXT, locatorList[1]) + "[%s]" % locatorList[2], "1"])
+                    new_locators_list.append(["xpath", locatorList_nearby[
+                        1] + "/parent::*/" + "*[@%s='%s']" % (
+                                              self.LocatorType.TEXT, locatorList[1]) + "[%s]" % locatorList[2], "1"])
+        # self.CurrentElement.object = self._findElementByLocatorsList(element_name, new_locators_list)  # for adding wait for shown, etc
+        self.CurrentElement.name = element_name
+        self.CurrentElement.list_locators = new_locators_list
+        self.CurrentElement.page_name = self.LastElement.page_name
+        self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
+        return self
+
+    def __swipeOrDragDrop(self, uiFwk, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
         element_name_destination = self.getCurrentElementName()
         element_name = self.LastElement.element_name
+
         element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
         element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
+
         fromXY = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, self.LastElement)
         fromX = fromXY['x']
         fromY = fromXY['y']
         toXY = self.getElementCenterLocation(left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match, self.CurrentElement)
         toX = toXY['x']
         toY = toXY['y']
+
         return [fromX, fromY, toX, toY]
 
     def swipeToElement(self, uiFwk, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
@@ -332,7 +375,6 @@ class UiFwk(UiBaseWebDriverFwk):
         element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
         element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
         self._dragByNative(element, element_destination)
-
 
     def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if duration is None:

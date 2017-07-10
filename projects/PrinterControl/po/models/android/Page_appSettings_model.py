@@ -12,10 +12,10 @@ class Page_appSettings_model(AndroidCommonPage):
     def checkBox_All_noIndex(self):
         return self.get(inspect.stack()[0][3])
 
-    def checkBox_All_setIndex(self):
+    def checkBox_usageTracking(self):
         return self.get(inspect.stack()[0][3])
 
-    def checkBox_usageTracking(self):
+    def checkBox_All_setIndex(self):
         return self.get(inspect.stack()[0][3])
 
     def checkBox_hpSuppliesShopping(self):
@@ -40,4 +40,16 @@ class Page_appSettings_model(AndroidCommonPage):
         return self.get(inspect.stack()[0][3])
 
     def text_HPSuppliesShopping5(self):
+        return self.get(inspect.stack()[0][3])
+
+    def checkBox_usageTracking_forNearby1(self):
+        return self.get(inspect.stack()[0][3])
+
+    def checkBox_usageTracking_forNearby2(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping_forNearby1(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_HPSuppliesShopping_forNearby2(self):
         return self.get(inspect.stack()[0][3])
