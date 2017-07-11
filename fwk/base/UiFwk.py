@@ -437,14 +437,14 @@ class UiFwk(UiBaseWebDriverFwk):
         self.swipe(width / 2, height / 100.0 * top_offset_percent, width / 2, height - height / 100.0 * bottom_offset_percent, duration, width, height)
         return self
 
-    def swipeAndWait_DownFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
+    def swipeAndSearch_DownFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
         for index in range(swipe_times):
             if self.isVisible(idx_or_match, element_name):
                 return True
             self.swipeDownFromMid(move_offset_percent, mid_offset_percent, duration, swipe_times).wait(1)
         raise Exception("Failed to find element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
 
-    def swipeAndWait_UpFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
+    def swipeAndSearch_UpFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
         for index in range(swipe_times):
             if self.isVisible(idx_or_match, element_name):
                 return True
