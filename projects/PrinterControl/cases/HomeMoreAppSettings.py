@@ -64,11 +64,11 @@ class HomeMoreAppSettings(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
+        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matches the ID in the excel,
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
-        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
+        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other people to check case.
         '''
         # self.Result.setDescriptionAndExpectedResultFromExcel()
 
@@ -86,15 +86,17 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
+        "How to identify a non-unique element by a unique element, please related uiMaps for details."
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
 
+        '''
+        How to use matcher signs, see related uiMaps for details.
+        '''
         self.Pages.Page_appSettings.text_HPSuppliesShopping1().waitForShown()
         self.Pages.Page_appSettings.text_HPSuppliesShopping2().waitForShown()
         self.Pages.Page_appSettings.text_HPSuppliesShopping3().waitForShown()
         self.Pages.Page_appSettings.text_HPSuppliesShopping4().waitForShown()
         self.Pages.Page_appSettings.text_HPSuppliesShopping5().waitForShown()
-        pass
-
 
         '''
         How to verify Enabled.

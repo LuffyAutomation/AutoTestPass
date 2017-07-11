@@ -66,11 +66,11 @@ class IosExample(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID in the excel,
+        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matches the ID in the excel,
         2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
-        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
+        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other people to check case.
         '''
         # self.Result.setDescriptionAndExpectedResultFromExcel()
         self.Result.setDescription("1. xxxx.",
