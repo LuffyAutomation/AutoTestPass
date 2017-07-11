@@ -305,6 +305,29 @@ class UiFwk(UiBaseWebDriverFwk):
             self.click(idx_or_match, element_name)
         return self
 
+    def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
+
+        element_name_reference = self.CurrentElement.name
+        element_reference = self._getLastElementObjectOrSearch(None, element_name_reference)
+        element_location = element_reference.location
+        element_x = element_location["x"]
+        element_y = element_location["y"]
+
+        element_name = self.LastElement.name
+        element_collection = self.getMatchedElements(idx_or_match, self.LastElement.name)
+
+
+
+
+
+
+        # self.CurrentElement.object = self._findElementByLocatorsList(element_name, new_locators_list)  # for adding wait for shown, etc
+        self.CurrentElement.name = element_name
+
+        self.CurrentElement.page_name = self.LastElement.page_name
+        self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
+        return self
+
     def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
         new_locators_list = []
         element_name = self.LastElement.name
@@ -353,10 +376,12 @@ class UiFwk(UiBaseWebDriverFwk):
     def swipeToElement(self, uiFwk, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
         fromTo = self.__swipeOrDragDrop(uiFwk, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.swipe(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
+        return self
 
     def dragToElement(self, uiFwk, duration=None, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
         fromTo = self.__swipeOrDragDrop(uiFwk, left_offset_destination, right_offset_destination, up_offset_destination, down_offset_destination, idx_or_match_destination, left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
         self.drag(fromTo[0], fromTo[1], fromTo[2], fromTo[3], duration)
+        return self
 
     def dragToElementByNative(self, uiFwk, idx_or_match_destination=None, idx_or_match=None, element_name=None):
         element_name_destination = self.getCurrentElementName()
@@ -364,6 +389,7 @@ class UiFwk(UiBaseWebDriverFwk):
         element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
         element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
         self._dragByNative(element, element_destination)
+        return self
 
     def drag(self, fromX, fromY, toX, toY, duration=None, width=None, height=None):
         if duration is None:
@@ -381,6 +407,7 @@ class UiFwk(UiBaseWebDriverFwk):
         if toX < fromX:
             toX -= 10
         self.swipe(fromX, fromY, toX, toY, duration/1000.0, width, height, "Drag")
+        return self
 
     def swipe(self, fromX, fromY, toX, toY, duration=None, width=None, height=None, logBegin="Swipe"):
         if width is None or height is None:
@@ -437,17 +464,17 @@ class UiFwk(UiBaseWebDriverFwk):
         self.swipe(width / 2, height / 100.0 * top_offset_percent, width / 2, height - height / 100.0 * bottom_offset_percent, duration, width, height)
         return self
 
-    def swipeAndSearch_DownFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
+    def swipeUntilFound_DownFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
         for index in range(swipe_times):
             if self.isVisible(idx_or_match, element_name):
-                return True
+                return self
             self.swipeDownFromMid(move_offset_percent, mid_offset_percent, duration, swipe_times).wait(1)
         raise Exception("Failed to find element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
 
-    def swipeAndSearch_UpFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
+    def swipeUntilFound_UpFromMid(self, swipe_times=7, move_offset_percent=20, mid_offset_percent=0, duration=None, idx_or_match=None, element_name=None):
         for index in range(swipe_times):
             if self.isVisible(idx_or_match, element_name):
-                return True
+                return self
             self.swipeUpFromMid(move_offset_percent, mid_offset_percent, duration, swipe_times).wait(1)
         raise Exception("Failed to find element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
 

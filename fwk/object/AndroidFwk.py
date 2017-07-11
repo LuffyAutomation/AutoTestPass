@@ -32,28 +32,6 @@ class AndroidFwk(UiFwk):
             self.logger.info("The Android driver has existed.")
         return self._driver
 
-    # def __launch_browser(self):
-    #     #os.system(r'taskkill /f /im node.exe')
-    #     #os.system(r'start E:\Autotest\Tools\Appium_1_4_6\Appium\node.exe E:\Autotest\Tools\Appium_1_4_6\Appium\node_modules\appium\lib\server\main.js --address 127.0.0.1 --port 4723 --no-reset --platform-name Android')
-    #     """desired_caps = {}
-    #     desired_caps['platformName']= self._getSutFullFileName("app.device.platformName")
-    #     desired_caps['browserName'] = ''
-    #     desired_caps['deviceName'] = self._getSutFullFileName("app.device.name")
-    #     desired_caps['version'] = self._getSutFullFileName("app.device.version")
-    #     desired_caps['newCommandTimeout'] = self._getSutFullFileName("app.command.timeout")
-    #     desired_caps['app'] = PATH(self._getSutFullFileName("app.path"))
-    #     desired_caps['app-package'] = self._getSutFullFileName("app.package")
-    #     desired_caps['app-activity'] = self._getSutFullFileName("app.activity")
-    #     self._driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
-    #     self._waitByTimeOut(5000)"""
-    #     desired_caps = {}
-    #     desired_caps['platformName'] = self._getSutFullFileName("app.device.platformName")
-    #     desired_caps['version'] = self._getSutFullFileName("app.device.version")
-    #     desired_caps['deviceName'] = self._getSutFullFileName("app.device.name")
-    #     desired_caps['newCommandTimeout'] = self._getSutFullFileName("app.command.timeout")
-    #     desired_caps['browserName'] = "chrome"
-    #     self._driver = webdriver.Remote("http://" + self._getSutFullFileName("app.appium.serverIP") + ":" + self._getSutFullFileName("app.appium.serverPort") + "/wd/hub", desired_caps)
-    #     UIFramework.sleep(5)
     def updateCurrentElementStatus(self, element_name, uiMap, page_name):
         if self.CurrentElement.name != element_name:
             self.LastElement.object = self.CurrentElement.object

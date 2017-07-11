@@ -232,6 +232,9 @@ class UiBaseFwk(object):
     def getLastElementObject(self):
         return self.LastElement.object
 
+    def setLastElementObject(self, element=None):
+        self.LastElement.object = element
+
     def setCurrentElementCollectionName(self, elementCollection_name):
         self.CurrentElementCollection.name = elementCollection_name
 
