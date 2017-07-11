@@ -25,15 +25,17 @@ class WebFwk(UiFwk):
         return self._driver
 
     def updateCurrentElementStatus(self, element_name, uiMap, page_name):
-        if self.CurrentElement.element_name != element_name:
-            self.LastElement.element_object = self.CurrentElement.element_object
+        if self.CurrentElement.name != element_name:
+            self.LastElement.object = self.CurrentElement.object
             self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
             self.LastElement.page_name = self.CurrentElement.page_name
-            self.CurrentElement.element_object = None
+            self.LastElement.list_locators = self.CurrentElement.list_locators
+            self.CurrentElement.object = None
+            self.CurrentElement.list_locators = None
         self.CurrentElement.page_uiMap = uiMap
-        self.LastElement.element_name = self.CurrentElement.element_name
+        self.LastElement.name = self.CurrentElement.name
         self.CurrentElement.page_name = page_name
-        self.CurrentElement.element_name = element_name
+        self.CurrentElement.name = element_name
         return self
 
 

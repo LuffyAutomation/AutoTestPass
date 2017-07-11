@@ -42,14 +42,8 @@ class Page_appSettings_model(AndroidCommonPage):
     def text_HPSuppliesShopping5(self):
         return self.get(inspect.stack()[0][3])
 
-    def checkBox_usageTracking_forNearby1(self):
-        return self.get(inspect.stack()[0][3])
-
-    def checkBox_usageTracking_forNearby2(self):
+    def checkBox_HPSuppliesShopping_forNearby1(self):
         return self.get(inspect.stack()[0][3])
 
     def text_HPSuppliesShopping_forNearby1(self):
-        return self.get(inspect.stack()[0][3])
-
-    def text_HPSuppliesShopping_forNearby2(self):
         return self.get(inspect.stack()[0][3])

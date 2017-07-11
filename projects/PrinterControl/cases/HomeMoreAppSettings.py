@@ -86,8 +86,7 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
-        self.Pages.Page_appSettings.checkBox_usageTracking_forNearby1().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
-        self.Pages.Page_appSettings.checkBox_usageTracking_forNearby2().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby2()).waitForShown()
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
 
         self.Pages.Page_appSettings.text_HPSuppliesShopping1().waitForShown()
         self.Pages.Page_appSettings.text_HPSuppliesShopping2().waitForShown()

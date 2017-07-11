@@ -180,25 +180,25 @@ class UiBaseFwk(object):
         if len(list) == len(currentElements):
             return currentElements
         else:
-            raise Exception("There are duplicated pages exist. [" + xpath + "].")
+            raise Exception("There are duplicated pages existing. [" + xpath + "].")
 
     def _getUiMapRoot(self):
         return self._root
 
     # there are 3 same functions in AndroidFwk, IosFwk, WebFwk
-    def updateCurrentElementStatus(self, element_name, uiMap, page_name):
-        if self.CurrentElement.name != element_name:
-            self.LastElement.object = self.CurrentElement.object
-            self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
-            self.LastElement.page_name = self.CurrentElement.page_name
-            self.LastElement.list_locators = self.CurrentElement.list_locators
-            self.CurrentElement.object = None
-            self.CurrentElement.list_locators = None
-        self.CurrentElement.page_uiMap = uiMap
-        self.LastElement.name = self.CurrentElement.name
-        self.CurrentElement.page_name = page_name
-        self.CurrentElement.name = element_name
-        return self
+    # def updateCurrentElementStatus(self, element_name, uiMap, page_name):
+    #     if self.CurrentElement.name != element_name:
+    #         self.LastElement.object = self.CurrentElement.object
+    #         self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
+    #         self.LastElement.page_name = self.CurrentElement.page_name
+    #         self.LastElement.list_locators = self.CurrentElement.list_locators
+    #         self.CurrentElement.object = None
+    #         self.CurrentElement.list_locators = None
+    #     self.CurrentElement.page_uiMap = uiMap
+    #     self.LastElement.name = self.CurrentElement.name
+    #     self.CurrentElement.page_name = page_name
+    #     self.CurrentElement.name = element_name
+    #     return self
 
     # if define VALUE_PLACEHOLDER in uimap:
     # <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
