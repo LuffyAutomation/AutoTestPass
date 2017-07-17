@@ -328,6 +328,13 @@ class UiFwk(UiBaseWebDriverFwk):
         self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
         return self
 
+
+    def __getNearbyXpathList(self, _list, _value_nearby_, value, _index):
+        _list.append(["xpath", _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, "1"])
+        _list.append(["xpath", _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, "1"])
+        return _list
+
+
     def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
         new_locators_list = []
         element_name = self.LastElement.name
@@ -339,17 +346,28 @@ class UiFwk(UiBaseWebDriverFwk):
         for locatorList_nearby in locators_list_nearby:
             type_value = self._changeCutomizedToOriginal(locatorList_nearby[0], locatorList_nearby[1])
             locatorList_nearby[1] = type_value["locator_value"] + "[%s]" % locatorList_nearby[2]
+            locator_value_nearby = locatorList_nearby[1]
             for locatorList in locators_list:
-                if locatorList[0] == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + locatorList[1] + "[%s]" % locatorList[2], "1"])
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/" + locatorList[1] + "[%s]" % locatorList[2], "1"])
-                elif locatorList[0] == self.LocatorType.ID:
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + "*[@%s='%s']" % (self.LocatorType.RESOURCE_ID, locatorList[1]) + "[%s]" % locatorList[2], "1"])
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/" + "*[@%s='%s']" % (self.LocatorType.RESOURCE_ID, locatorList[1]) + "[%s]" % locatorList[2], "1"])
-                    # locatorList_nearby[1] =
-                elif locatorList[0] == self.LocatorType.TEXT:
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/following-sibling::*/" + "*[@%s='%s']" % (self.LocatorType.TEXT, locatorList[1]) + "[%s]" % locatorList[2], "1"])
-                    new_locators_list.append(["xpath", locatorList_nearby[1] + "/parent::*/" + "*[@%s='%s']" % (self.LocatorType.TEXT, locatorList[1]) + "[%s]" % locatorList[2], "1"])
+                locator_type = locatorList[0]
+                locator_value = locatorList[1]
+                locator_index = locatorList[2]
+                if locator_type == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
+                elif locator_type == self.LocatorType.ID:
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.RESOURCE_ID, locator_value), locator_index)
+                # elif locator_type == self.LocatorType.TEXT:
+                #     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.TEXT, locator_value), locator_index)
+                # elif locator_type == self.LocatorType.NAME:
+                #     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.NAME, locator_value), locator_index)
+                elif locator_type == self.LocatorType.XPATH:
+                    try:
+                        locator_value = locator_value.split("/")[locator_value.split("/").__len__() - 1]
+                    except:
+                        pass
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
+                else:
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (locator_type, locator_value), locator_index)
+
         # self.CurrentElement.object = self._findElementByLocatorsList(element_name, new_locators_list)  # for adding wait for shown, etc
         self.CurrentElement.name = element_name
         self.CurrentElement.list_locators = new_locators_list

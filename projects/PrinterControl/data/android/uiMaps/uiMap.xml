@@ -107,6 +107,8 @@
                 <element name="checkBox_HPSuppliesShopping_forNearby1">
                     <id>android:id/checkbox</id>
                     <class_name index="1">android.widget.CheckBox</class_name>
+                    <xpath index="2">//android.widget.CheckBox</xpath>
+                    <content_desc>sdsdsdsd</content_desc>
                 </element>
                 <element name="text_HPSuppliesShopping_forNearby1">
                     <text>HP Supplies Shopping</text>

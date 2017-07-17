@@ -50,7 +50,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
             return self
         except:
-            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on page [" + str(self.CurrentElement.page_name) + "].")
 
     def tap(self, left_offset=0, right_offset=0, up_offset=0, down_offset=0, duration=100, idx_or_match=None, element_name=None):
         xy = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
