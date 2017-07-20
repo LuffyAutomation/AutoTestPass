@@ -12,6 +12,12 @@ class Sys_general_model(AndroidCommonPage):
     def link_AllowAccessLocation(self):
         return self.get(inspect.stack()[0][3])
 
+    def text_ALLOW(self):
+        return self.get(inspect.stack()[0][3])
+
+    def text_DENY(self):
+        return self.get(inspect.stack()[0][3])
+
     def text_always(self):
         return self.get(inspect.stack()[0][3])
 

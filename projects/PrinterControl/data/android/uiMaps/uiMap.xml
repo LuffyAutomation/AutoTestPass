@@ -57,6 +57,7 @@
                 <element name="button_printerInfo"><id>com.hp.printercontrol:id/printer_info_button</id></element>
                 <element name="tile_printPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
                 <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = 'Personalize']</xpath></element>
+                <element name="tile_PrintFacebookPhotos"><xpath>//android.widget.TextView[@text = 'Print Facebook Photos']</xpath></element>
                 <element name="button_MoreOptions"><accessibility_id>More options</accessibility_id></element>
                 <page name="menu_moreOptions">
                     <element name="menuItem_appSettings_"><xpath>//android.widget.TextView[@text = 'App Settings']</xpath></element>
@@ -147,10 +148,15 @@
                 <element name="text_163"><xpath>//android.widget.TextView[@text = '163']</xpath></element>
                 <element name="text_other"><xpath>//android.widget.TextView[@text = 'Other (POP3/IMAP)']</xpath></element>
 			</page>
+            <page name="page_facebook" description="facebook">
+                <element name="text_EmailOrPhone"><xpath>//android.widget.EditText[@text = 'Email or Phone']</xpath></element>
+			</page>
             <page name="sys_general" description="for android 6.0 'Allow xxxx to access device's location'.">
                 <element name="link_AllowAccessLocation" >
                     <id>com.android.packageinstaller:id/permission_allow_button</id>
                 </element>
+                <element name="text_ALLOW"><id>com.android.packageinstaller:id/permission_allow_button</id></element>
+                <element name="text_DENY"><id>com.android.packageinstaller:id/permission_deny_button</id></element>
                 <element name="text_always"><id>android:id/button_always</id></element>
                 <element name="text_chrome" ><xpath>//android.widget.TextView[@text = 'Chrome']</xpath></element>
                 <element name="text_email" ><xpath>//android.widget.TextView[@text = 'Email']</xpath></element>

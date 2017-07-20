@@ -84,6 +84,18 @@ class HomeMoreAppSettings(CommonUnittest):
         self.Result.setExpectedResult("1. xxxxx.",
                                       "2. xxxx.",
                                       "3. xxxxx.")
+
+        self.Pages.Page_home.tile_PrintFacebookPhotos().waitForShown().click()
+        self.Pages.Page_facebook.text_EmailOrPhone().click()
+
+
+
+
+
+
+
+
+
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
         "How to identify a non-unique element by a nearby unique element, please related uiMaps for details."

@@ -34,6 +34,9 @@ class Page_home_model(AndroidCommonPage):
     def tile_Personalize(self):
         return self.get(inspect.stack()[0][3])
 
+    def tile_PrintFacebookPhotos(self):
+        return self.get(inspect.stack()[0][3])
+
     def button_MoreOptions(self):
         return self.get(inspect.stack()[0][3])
 
