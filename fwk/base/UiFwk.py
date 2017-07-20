@@ -305,8 +305,7 @@ class UiFwk(UiBaseWebDriverFwk):
             self.click(idx_or_match, element_name)
         return self
 
-    def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
-
+    def __getByDirectionUniqueElement(self, uiFwk, idx_or_match=None, direction="Left"):
         element_name_unique = self.CurrentElement.name
         element_unique = self._getLastElementObjectOrSearch(None, element_name_unique)
         element_unique_location = element_unique.location
@@ -318,25 +317,42 @@ class UiFwk(UiBaseWebDriverFwk):
 
         dict_closest = {}
 
-        #for ele in element_collection:
+        # for ele in element_collection:
         for i in range(len(element_collection)):
             ele_location = element_collection[i].location
             ele_x = ele_location["x"]
             ele_y = ele_location["y"]
-            if ele_x > element_unique_x:
+            if direction.lower() == "left" and ele_x > element_unique_x:
                 dict_closest[i] = abs(ele_y - element_unique_y)
+            elif direction.lower() == "right" and ele_x < element_unique_x:
+                dict_closest[i] = abs(ele_y - element_unique_y)
+            elif direction.lower() == "upper" and ele_y < element_unique_y:
+                dict_closest[i] = abs(ele_x - element_unique_x)
+            elif direction.lower() == "lower" and ele_y > element_unique_y:
+                dict_closest[i] = abs(ele_x - element_unique_x)
         dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
         try:
-            index = dict_closest[self.LastElement.index - 1]
+            index = dict_closest[self.LastElement.index - 1][0]
             self.CurrentElement.object = element_collection[index]  # for adding wait for shown, etc
         except:
             raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(
-                self.LastElement.index) + "] on page [" + str(self.getCurrentPageName()) + "].")
+                self.LastElement.index) + "] from " + direction + " element [" + element_name_unique + "] on page [" + str(self.getCurrentPageName()) + "].")
         self.CurrentElement.name = element_name
         self.CurrentElement.page_name = self.LastElement.page_name
         self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
-        return self
 
+    def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
+        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
+        return self
+    def getByRightUniqueElement(self, uiFwk, idx_or_match=None):
+        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Right")
+        return self
+    def getByUpperUniqueElement(self, uiFwk, idx_or_match=None):
+        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Upper")
+        return self
+    def getByLowerUniqueElement(self, uiFwk, idx_or_match=None):
+        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Lower")
+        return self
 
     def __getNearbyXpathList(self, _list, _value_nearby_, value, _index):
         _list.append(["xpath", _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, "1"])

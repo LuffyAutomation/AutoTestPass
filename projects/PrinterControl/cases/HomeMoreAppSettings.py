@@ -87,12 +87,13 @@ class HomeMoreAppSettings(CommonUnittest):
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
         "How to identify a non-unique element by a unique element, please related uiMaps for details."
-        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByLeftUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
-
-
-        "How to identify a non-unique element by a unique element, please related uiMaps for details."
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
 
+        "How to identify a non-unique element by a unique element, please related uiMaps for details. The waitForShown() method won't work with following 4 lines. "
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByLeftUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByRightUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByUpperUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByLowerUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
         '''
         How to use matcher signs, see related uiMaps for details.
         '''
