@@ -263,14 +263,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             return self.getCurrentElementObject()
         if locator_index < 0:  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on [" + str(
-                self.getCurrentPageName()) + "] page.")
+            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on page [" + str(
+                self.getCurrentPageName()) + "].")
         elif locator_index == 0:  # When <id/xpath...>android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] on [" + str(
-                self.getCurrentPageName()) + "] page.")
+            raise Exception("Failed to find element [" + str(ori_element_name) + "] on page [" + str(
+                self.getCurrentPageName()) + "].")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(
-                locator_index + 1) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+                locator_index + 1) + "] on page [" + str(self.getCurrentPageName()) + "].")
 
     def _findElement(self, element_name, marks=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
@@ -294,9 +294,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find element [ " + str(
-                    element_name) + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+                    element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
             elif len(elements)!=1:
-                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) +"] on [" + str(self.CurrentElement.page_name) + "] page.")
+                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
             else:
                 return elements[0]
         else:
@@ -356,7 +356,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         element_name = self._getCurrentElementNameWhenNone(element_name)
         return int(self._getCurrentElementObjectOrSearch(item, element_name).size["width"])
 
-    def getElementWidthHeight(self, item=None, element_name=None):
+    def getElementHeight(self, item=None, element_name=None):
         element_name = self._getCurrentElementNameWhenNone(element_name)
         return int(self._getCurrentElementObjectOrSearch(item, element_name).size["height"])
 
