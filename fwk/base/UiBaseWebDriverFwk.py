@@ -226,14 +226,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             locator_value = self._getLocatorValueByLocalString(element_name, locator_value)
             if marks == "findElements":
-                locator_index = -1
+                locator_index = -2
             else:
                 locator_index = self._getElementIndex(locatorList)
             try:
                 type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
                 locator_type = type_value["locator_type"]
                 locator_value = type_value["locator_value"]
-
+                self.setCurrentElementIndex(locator_index + 1)
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if locator_index < 0:
                         self.setCurrentElementCollectionName(element_name)
@@ -241,10 +241,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             self._driver.find_elements_by_accessibility_id(locator_value))
                         return self.getCurrentElementCollectionObject()
                     elif locator_index == 0:
+                        self.setCurrentElementIndex(1)
                         self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
-                        self.setCurrentElementObject(
-                            self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
                         self.setCurrentElementObject(
                             self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
                 else:
@@ -253,6 +252,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                         self.setCurrentElementCollectionObject(self._driver.find_elements(locator_type, locator_value))
                         return self.getCurrentElementCollectionObject()
                     elif locator_index == 0:
+                        self.setCurrentElementIndex(1)
                         self.setCurrentElementObject(self._driver.find_element(locator_type, locator_value))
                     else:
                         self.setCurrentElementObject(
@@ -295,7 +295,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             elif len(elements) == 0:
                 raise IndexError("Cannot find element [ " + str(
                     element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
-            elif len(elements)!=1:
+            elif len(elements) != 1:
                 raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
             else:
                 return elements[0]

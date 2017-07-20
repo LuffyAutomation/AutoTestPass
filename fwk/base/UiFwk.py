@@ -307,23 +307,32 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
 
-        element_name_reference = self.CurrentElement.name
-        element_reference = self._getLastElementObjectOrSearch(None, element_name_reference)
-        element_location = element_reference.location
-        element_x = element_location["x"]
-        element_y = element_location["y"]
+        element_name_unique = self.CurrentElement.name
+        element_unique = self._getLastElementObjectOrSearch(None, element_name_unique)
+        element_unique_location = element_unique.location
+        element_unique_x = element_unique_location["x"]
+        element_unique_y = element_unique_location["y"]
 
         element_name = self.LastElement.name
         element_collection = self.getMatchedElements(idx_or_match, self.LastElement.name)
 
+        dict_closest = {}
 
-
-
-
-
-        # self.CurrentElement.object = self._findElementByLocatorsList(element_name, new_locators_list)  # for adding wait for shown, etc
+        #for ele in element_collection:
+        for i in range(len(element_collection)):
+            ele_location = element_collection[i].location
+            ele_x = ele_location["x"]
+            ele_y = ele_location["y"]
+            if ele_x > element_unique_x:
+                dict_closest[i] = abs(ele_y - element_unique_y)
+        dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
+        try:
+            index = dict_closest[self.LastElement.index - 1]
+            self.CurrentElement.object = element_collection[index]  # for adding wait for shown, etc
+        except:
+            raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(
+                self.LastElement.index) + "] on page [" + str(self.getCurrentPageName()) + "].")
         self.CurrentElement.name = element_name
-
         self.CurrentElement.page_name = self.LastElement.page_name
         self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
         return self

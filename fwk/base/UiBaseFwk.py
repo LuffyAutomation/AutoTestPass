@@ -67,6 +67,7 @@ class UiBaseFwk(object):
         page_uiMap = None
         name = None
         object = None
+        index = None
         list_locators = None
 
     def __init__(self, Init):
@@ -222,6 +223,9 @@ class UiBaseFwk(object):
 
     def setCurrentElementObject(self, element=None):
         self.CurrentElement.object = element
+
+    def setCurrentElementIndex(self, index=None):
+        self.CurrentElement.index = index
 
     def getCurrentElementObject(self):
         return self.CurrentElement.object

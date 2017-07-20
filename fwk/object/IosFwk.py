@@ -37,6 +37,7 @@ class IosFwk(UiFwk):
             self.LastElement.page_uiMap = self.CurrentElement.page_uiMap
             self.LastElement.page_name = self.CurrentElement.page_name
             self.LastElement.list_locators = self.CurrentElement.list_locators
+            self.LastElement.index = self.CurrentElement.index
             self.CurrentElement.object = None
             self.CurrentElement.list_locators = None
         self.CurrentElement.page_uiMap = uiMap
