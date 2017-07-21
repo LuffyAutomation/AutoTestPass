@@ -359,7 +359,6 @@ class UiFwk(UiBaseWebDriverFwk):
         _list.append(["xpath", _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, "1"])
         return _list
 
-
     def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
         new_locators_list = []
         element_name = self.LastElement.name
