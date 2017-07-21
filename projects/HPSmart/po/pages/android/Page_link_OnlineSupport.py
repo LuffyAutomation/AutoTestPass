@@ -10,6 +10,7 @@ class Page_link_OnlineSupport(Page_link_OnlineSupport_model):
             from fwk.object.AndroidFwk import AndroidFwk
             self.UI = AndroidFwk(None)
         Page_link_OnlineSupport_model.__init__(self)
+
     # This is function template of how to write your Business Logic.
     def example(self):
         pass
