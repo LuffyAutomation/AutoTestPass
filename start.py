@@ -121,7 +121,6 @@ if __name__ == '__main__':
             time.sleep(1)
         for i in processes:
             listProcess[i].join()
-            
     elif initFwk.name_project == "IosExample":
         suite.addTest(IosExample("test_flow"))
         suite.addTest(IosExample("test_your_other_flow"))
