@@ -344,6 +344,7 @@ class UiFwk(UiBaseWebDriverFwk):
     def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
         self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
         return self
+    
     def getByRightUniqueElement(self, uiFwk, idx_or_match=None):
         self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Right")
         return self
