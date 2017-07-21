@@ -112,7 +112,6 @@ class HomeMoreAbout(CommonUnittest):
         self.Pages.Page_about.link_endUserLicenseAgreement().verifyIsShown().click().wait(3)
         self.Pages.Sys_general.text_chrome().clickIfVisible().wait(2)
         self.Pages.Sys_general.text_always().clickIfVisible().wait(1)
-        self.Pages.Page_WelcomeToChrome.flow_WelcomeToChromeIsVisible()
         #self.Pages.Page_endUserLicenseAgreement.text_404PageNotFound().verifyIsShown(120)
         self.Pages.Page_endUserLicenseAgreement.image_logo().verifyIsShown(120)
         #' HP® Official Site | Laptops, Computers, Desktops , Printers, and more HP® Official Site | Laptops, Computers, Desktops , Printers, and more'

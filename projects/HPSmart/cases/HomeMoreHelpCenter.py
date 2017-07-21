@@ -17,6 +17,10 @@ class HomeMoreHelpCenter(CommonUnittest):
                                    "3. Go to Home screen.")
         self.Result.setExpectedResult("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
+        # self.Pages.Page_home.button_MoreOptions().waitForShown().click()
+        # self.Pages.Page_home.Menu_moreOptions.menuItem_helpCenter_().waitForShown().click()
+        # self.Pages.Page_helpCenter.option_OnlineSupport().waitForShown().click()
+        # self.Pages.Page_link_OnlineSupport.title_selectCountryHeader().verifyIsShown(120)
 
     def test_HelpCenter(self):
         self.Result.setDescription("Verify that the GA for Help Center from More Options menu is the same as Get HP Help and Support tile;",
@@ -30,8 +34,8 @@ class HomeMoreHelpCenter(CommonUnittest):
         self.Pages.Page_helpCenter.option_OnlineSupport().verifyIsShown()
         self.Pages.Page_helpCenter.option_ContactHPonFacebookMessenger().verifyIsShown()
         self.UI_Android.back()
-        self.UI_Android.swipeUpFromBottomToTop().wait(3)
-        self.Pages.Page_home.tile_GetHPHelpAndSupport().waitForShown().click().wait(3)
+        self.UI_Android.swipeOfType(self.UI_Android.SwipeTo.UP)
+        self.Pages.Page_home.tile_GetHPHelpAndSupport().waitForShown().click()
         self.Pages.Page_GetHPHelpAndSupport.option_HowToPrint_().verifyIsShown()
         self.Pages.Page_GetHPHelpAndSupport.option_ConnectionIssues().verifyIsShown()
         self.Pages.Page_GetHPHelpAndSupport.option_OnlineSupport().verifyIsShown()
@@ -45,15 +49,14 @@ class HomeMoreHelpCenter(CommonUnittest):
         self.Result.setExpectedResult(
             "1. For this test case, just need to verify that the 'How to Print' page can be launched from Help Center."
             "2. The How to Print focused test plan will test that page more in-depth.")
+        self.UI_Android.swipeOfType(self.UI_Android.SwipeTo.UP)
+        self.Pages.Page_home.tile_HowToPrint().waitForShown().click()
+        self.Pages.Page_HowToPrint.button_Cancel().waitForShown().click()
+        self.Pages.Page_HowToPrint.title_HowToPrint_().waitForShown().click()
         self.Pages.Page_home.button_MoreOptions().click()
         self.Pages.Page_home.Menu_moreOptions.menuItem_helpCenter_().waitForShown().click()
         self.Pages.Page_helpCenter.option_HowToPrint_().waitForShown().click()
-        self.Pages.Page_HowToPrint.button_Cancel().clickIfVisible()  #anroid 4.4.4 don't popup
-        self.Pages.Page_HowToPrint.title_HowToPrint_().verifyIsShown()
-        self.UI_Android.back()
-        self.UI_Android.swipeUpFromBottomToTop().wait(3)
-        self.Pages.Page_home.tile_HowToPrint().waitForShown().click()
-        self.Pages.Page_HowToPrint.button_Cancel().clickIfVisible()  #anroid 4.4.4 don't popup
+        self.Pages.Page_HowToPrint.button_Cancel().waitForShown().click()
         self.Pages.Page_HowToPrint.title_HowToPrint_().verifyIsShown()
         self.UI_Android.back()
 
@@ -64,10 +67,11 @@ class HomeMoreHelpCenter(CommonUnittest):
         self.Result.setExpectedResult(
             "1. The HP support page should open in an external browser",
             "2. and the overlay for choosing country/language should always show on top.")
-        self.Pages.Page_helpCenter.option_OnlineSupport().waitForShown().click().wait(5)
-        self.Pages.Page_WelcomeToChrome.flow_WelcomeToChromeIsVisible()
-        self.Pages.Page_onlineSupport.url_OnlineSupport().verifyIsShown().wait(3)
-        self.Pages.Page_onlineSupport.button_close().verifyIsShown(120)   #anroid 4.4.4 most element no ID
+        self.Pages.Page_helpCenter.option_OnlineSupport().waitForShown().click()
+        self.Pages.Page_link_OnlineSupport.url_OnlineSupport().verifyIsShown().wait(20)
+        self.UI_Android.swipeOfType(self.UI_Android.SwipeTo.DOWN)
+        self.Pages.Page_link_OnlineSupport.title_selectCountryHeader().verifyIsShown()
+        self.UI_Android.back()
 
     # def test_contactHPonFacebookMessager_step1_step2(self):
     #     self.Result.setDescription("1. Mobile device is set to a country which is not supported by Facebook (e.g. China).",
@@ -85,8 +89,6 @@ class HomeMoreHelpCenter(CommonUnittest):
         self.Result.setExpectedResult(
             "1. Verify that the 'Contact HP on Facebook Messenger' popup is shown;",
             "2. Verify the popup is dismissed and app returns to Help Center;")
-        self.Result.setStepContinueFromFailorBlock()
-        self.UI_Android.back()
         self.Pages.Page_helpCenter.option_ContactHPonFacebookMessenger().click()
         self.Pages.Page_contactHPonFacebookMessager.button_Cancel().waitForShown().click()
         self.Pages.Page_helpCenter.option_ContactHPonFacebookMessenger().verifyIsShown()
@@ -102,7 +104,7 @@ class HomeMoreHelpCenter(CommonUnittest):
     #
     #     self.Pages.Page_helpCenter.option_ContactHPonFacebookMessenger().click()
     #     self.Pages.Popup_contactHPonFacebookMessager.button_Message().waitForShown().click()
-    #     self.Pages.link_contactHPonFacebookMessager.button_OpenInMessenger().verifyIsShown()
+    #     self.Pages.Page_link_contactHPonFacebookMessager.button_OpenInMessenger().verifyIsShown()
 
     def test_contactHPonFacebookMessager_step5(self):
         self.Result.setDescription("1. Click on 'Contact HP on Facebook Messenger' option on Help Center page;",
@@ -136,15 +138,7 @@ class HomeMoreHelpCenter(CommonUnittest):
             "App goes back to Help Center when any back button is pressed;")
         self.Pages.Page_helpCenter.option_ConnectionIssues().waitForShown().click()
         self.Pages.Page_ConnectionIssues.button_HelpSetUpANewPrinter().waitForShown().click()
-
-        if self.Pages.Sys_general.button_ok().isVisible():    #  phone: ZTEBV0720T  version: [Android6.0]
-            self.Pages.Sys_general.button_ok().click()        #  popup  page_Location Services
-            self.Pages.Sys_general.checkbox_onOrOff().waitForShown().click()
-            self.UI_Android.back()
-        if self.Pages.Page_printer.button_aLLOW().isVisible():  #  phone: ZTEBV0720T  version: [Android6.0]
-            self.Pages.Page_printer.button_aLLOW().click()      #  popup  dialog
-            self.Pages.Page_printer.button_alwaysallow().click()
-        self.Pages.Page_HelpSetUpANewPrinter.button_image_back().clickIfVisible()
+        self.Pages.Page_HelpSetUpANewPrinter.button_image_back().waitForShown().click()
         self.Pages.Page_helpCenter.option_ConnectionIssues().verifyIsShown()
 
     def test_connectionIssues_step3(self):
@@ -171,28 +165,26 @@ class HomeMoreHelpCenter(CommonUnittest):
             "1. The Printer List page should show when Try Again;",
             "2. App goes back to Help Center when any back button is pressed;")
         self.Pages.Page_HelpSearchForANetworkPrinter.button_tryAgain().click()
-        self.Pages.Page_printer.button_LookingForWiFiDirectPrinters().verifyIsShown()
+        self.Pages.Page_printer.button_addPrinter().verifyIsShown()
         self.Pages.Page_printer.button_image_back().click()
+        #self.UI.back()
+
+    def test_PrintQualityTools_step1(self):
+        self.Result.setDescription("1. App is connected to a EWS-available printer;",
+                                   "2. Go to Home page > More Options > Help Center;",
+                                   "3. Verify there is a 'Print Quality Tools' option;" ,
+                                   "4. Tap on 'Print Quality Tools'.")
+        self.Result.setExpectedResult("Verify the corresponding EWS page is launched via an extrenal browser;")
         self.UI_Android.back()
 
-    # def test_PrintQualityTools_step1(self):
-    #     self.Result.setDescription("1. App is connected to a EWS-available printer;",
-    #                                "2. Go to Home page > More Options > Help Center;",
-    #                                "3. Verify there is a 'Print Quality Tools' option;" ,
-    #                                "4. Tap on 'Print Quality Tools'.")
-    #     self.Result.setExpectedResult("Verify the corresponding EWS page is launched via an extrenal browser;")
-    #     self.Pages.Page_home.button_image_unavailablePrinter().waitForShown().click()
-    #     self.Pages.Page_home.button_SelectADifferentPrinter().waitForShown().click().wait(5)
-    #     self.Pages.Page_printer.printers_1().waitForShown().click().wait(3)
-    #
-    #     self.Pages.Page_home.button_MoreOptions().waitForShown().click()
-    #     self.Pages.Page_home.Menu_moreOptions.menuItem_helpCenter_().waitForShown().click().wait(3)
-    #
-    #     self.Pages.Page_helpCenter.option_PrintQualityTools().waitForShown().click().wait(10)
-    #     if self.Pages.Page_WelcomeToChrome.button_AcceptOrContinue().isVisible():    #anroid 4.4.4 popup chrome
-    #         self.Pages.Page_WelcomeToChrome.button_AcceptOrContinue().click()
-    #         self.Pages.Page_WelcomeToChrome.button_NoThanks().waitForShown().click()
-    #     self.Pages.Page_PrintQualityTools.url_PrintQualityTools().verifyIsShown()
+        self.UI_Android.swipeOfType(self.UI_Android.SwipeTo.DOWN)
+        self.Pages.Page_home.button_add_printer_link_gray().waitForShown().click()
+        self.Pages.Page_printer.printers_1().waitForShown().click()
+
+        self.Pages.Page_home.button_MoreOptions().waitForShown().click()
+        self.Pages.Page_home.Menu_moreOptions.menuItem_helpCenter_().waitForShown().click()
+        self.Pages.Page_helpCenter.option_PrintQualityTools().verifyIsShown().click().wait(10)
+        self.Pages.Page_link_PrintQualityTools.url_PrintQualityTools().verifyIsShown()
 
     # def test_PrintQualityTools_step2(self):
     #     self.Result.setDescription("Precondition:App is connected to a EWS-unavailable printer;",

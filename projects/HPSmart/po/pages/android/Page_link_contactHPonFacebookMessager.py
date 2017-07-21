@@ -1,19 +1,15 @@
 # coding: utf-8
-from projects.HPSmart.po.models.android.Page_WelcomeToChrome_model import Page_WelcomeToChrome_model
+from projects.HPSmart.po.models.android.Page_link_contactHPonFacebookMessager_model import Page_link_contactHPonFacebookMessager_model
 
 
-'''Welcome to Chrome page.'''
-class Page_WelcomeToChrome(Page_WelcomeToChrome_model):
+'''contact HP on facebook messager page.'''
+class Page_link_contactHPonFacebookMessager(Page_link_contactHPonFacebookMessager_model):
     def __init__(self, UI):
         self.UI = UI
         if 1 > 1:
             from fwk.object.AndroidFwk import AndroidFwk
             self.UI = AndroidFwk(None)
-        Page_WelcomeToChrome_model.__init__(self)
-
-    def flow_WelcomeToChromeIsVisible(self):
-        self.button_AcceptOrContinue().click().wait(5)  # anroid 4.4.4 popup chrome
-        self.button_NoThanks().clickIfVisible()  # anroid 6.0 no popup
+        Page_link_contactHPonFacebookMessager_model.__init__(self)
 
     # This is function template of how to write your Business Logic.
     def example(self):

@@ -1,8 +1,4 @@
-from projects.HPSmart.po.pages.android.Page_facebook import Page_facebook
-from projects.HPSmart.po.pages.android.Page_PrintQualityTools import Page_PrintQualityTools
-from projects.HPSmart.po.pages.android.Link_contactHPonFacebookMessager import Link_contactHPonFacebookMessager
-from projects.HPSmart.po.pages.android.Page_onlineSupport import Page_onlineSupport
-from projects.HPSmart.po.pages.android.Page_WelcomeToChrome import Page_WelcomeToChrome
+from projects.HPSmart.po.pages.android.Page_link_PrintQualityTools import Page_link_PrintQualityTools
 from projects.HPSmart.po.pages.android.Page_printer import Page_printer
 from projects.HPSmart.po.pages.android.Page_HelpSearchForANetworkPrinter import Page_HelpSearchForANetworkPrinter
 from projects.HPSmart.po.pages.android.Page_HelpSetUpANewPrinter import Page_HelpSetUpANewPrinter
@@ -10,7 +6,9 @@ from projects.HPSmart.po.pages.android.Page_ConnectionIssues import Page_Connect
 from projects.HPSmart.po.pages.android.Page_helpCenter import Page_helpCenter
 from projects.HPSmart.po.pages.android.Page_MyFile import Page_MyFile
 from projects.HPSmart.po.pages.android.Page_file import Page_file
+from projects.HPSmart.po.pages.android.Page_link_contactHPonFacebookMessager import Page_link_contactHPonFacebookMessager
 from projects.HPSmart.po.pages.android.Page_contactHPonFacebookMessager import Page_contactHPonFacebookMessager
+from projects.HPSmart.po.pages.android.Page_link_OnlineSupport import Page_link_OnlineSupport
 from projects.HPSmart.po.pages.android.Page_HowToPrint import Page_HowToPrint
 from projects.HPSmart.po.pages.android.Page_GetHPHelpAndSupport import Page_GetHPHelpAndSupport
 from projects.HPSmart.po.pages.android.Sys_general import Sys_general
@@ -34,11 +32,7 @@ from projects.HPSmart.po.pages.android.Page_agreements import Page_agreements
 class Pages_Android:
     def __init__(self, UI):
         self._UI = UI
-        self.Page_facebook = Page_facebook(self._UI)
-        self.Page_PrintQualityTools = Page_PrintQualityTools(self._UI)
-        self.Link_contactHPonFacebookMessager = Link_contactHPonFacebookMessager(self._UI)
-        self.Page_onlineSupport = Page_onlineSupport(self._UI)
-        self.Page_WelcomeToChrome = Page_WelcomeToChrome(self._UI)
+        self.Page_link_PrintQualityTools = Page_link_PrintQualityTools(self._UI)
         self.Page_printer = Page_printer(self._UI)
         self.Page_HelpSearchForANetworkPrinter = Page_HelpSearchForANetworkPrinter(self._UI)
         self.Page_HelpSetUpANewPrinter = Page_HelpSetUpANewPrinter(self._UI)
@@ -46,7 +40,9 @@ class Pages_Android:
         self.Page_helpCenter = Page_helpCenter(self._UI)
         self.Page_MyFile = Page_MyFile(self._UI)
         self.Page_file = Page_file(self._UI)
+        self.Page_link_contactHPonFacebookMessager = Page_link_contactHPonFacebookMessager(self._UI)
         self.Page_contactHPonFacebookMessager = Page_contactHPonFacebookMessager(self._UI)
+        self.Page_link_OnlineSupport = Page_link_OnlineSupport(self._UI)
         self.Page_HowToPrint = Page_HowToPrint(self._UI)
         self.Page_GetHPHelpAndSupport = Page_GetHPHelpAndSupport(self._UI)
         self.Sys_general = Sys_general(self._UI)
