@@ -20,3 +20,9 @@ class Sys_general_model(AndroidCommonPage):
 
     def text_email(self):
         return self.get(inspect.stack()[0][3])
+
+    def button_ok(self):
+        return self.get(inspect.stack()[0][3])
+
+    def checkbox_onOrOff(self):
+        return self.get(inspect.stack()[0][3])

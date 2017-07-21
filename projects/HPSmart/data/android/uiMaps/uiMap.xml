@@ -49,7 +49,11 @@
                 <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
 			</page>
              <page name="page_home" description="main page.">
-                <element name="button_add_printer_link_gray" page="page_printerList"><id>com.hp.printercontrol:id/add_printer_link_gray</id></element><element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element><element name="button_capture"><id>com.hp.printercontrol:id/capture_button</id></element>
+                <element name="button_image_unavailablePrinter" ><id>com.hp.printercontrol:id/printer_image</id></element>
+                <element name="button_SelectADifferentPrinter" ><xpath>//android.widget.TextView[@text = 'Select a different Printer']</xpath></element>
+                <element name="button_add_printer_link_gray" page="page_printerList"><id>com.hp.printercontrol:id/add_printer_link_gray</id></element>
+                <element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element>
+                <element name="button_capture"><id>com.hp.printercontrol:id/capture_button</id></element>
                 <element name="button_action_add_printer" page="page_printerList"><id>com.hp.printercontrol:id/action_add_printer_iv</id></element>
                 <element name="button_file" ><id>com.hp.printercontrol:id/file_button</id></element>
                 <element name="button_photos"><id>android:id/photos_button</id></element>
@@ -57,6 +61,7 @@
                 <element name="tile_printPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
                 <element name="tile_HowToPrint"><xpath>//android.widget.TextView[@text = 'How to Print']</xpath></element>
                 <element name="tile_GetHPHelpAndSupport"><xpath>//android.widget.TextView[@text = 'Get HP Help and Support']</xpath></element>
+                <element name="tile_printFacebookPhotos"><id>com.hp.printercontrol:id/tile_title</id></element>
                 <element name="button_MoreOptions"><accessibility_id>More options</accessibility_id></element>
                 <page name="menu_moreOptions">
                     <element name="menuItem_helpCenter_"><xpath>//android.widget.TextView[@text = 'Help Center']</xpath></element>
@@ -66,6 +71,11 @@
                     <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
                 </page>
 			</page>
+            <page name="page_WelcomeToChrome" description="Welcome to Chrome page.">
+                <element name="button_AcceptOrContinue"><id>com.android.chrome:id/terms_accept</id></element>
+                <element name="button_NoThanks"><id>com.android.chrome:id/negative_button</id></element>
+                <element name="button_Continue"><id>com.android.chrome:id/positive_button</id></element>
+             </page>
             <page name="page_printer" description="add_printer_link_gray page.">
                 <element name="printers_1"><id index="1">com.hp.printercontrol:id/ssid</id></element>
                 <element name="printers_2"><id index="2">com.hp.printercontrol:id/ssid</id></element>
@@ -73,7 +83,11 @@
                 <element name="button_image_back"><xpath>//android.widget.ImageButton[@content-desc = 'Navigate up']</xpath></element>
                 <element name="button_addPrinter"><id>com.hp.printercontrol:id/addPrinterTextView</id></element>
                 <element name="button_LookingForWiFiDirectPrinters"><id>com.hp.printercontrol:id/showWifiDirectPrintersButton</id></element>
-             </page>
+                <element name="button_aLLOW" page ="Location"><id>com.hp.printercontrol:id/moobe_dialog_button_center</id></element>
+                <element name="button_dONALLOW" page ="Location"><id>com.hp.printercontrol:id/moobe_dialog_button_left</id></element>
+                <element name="button_alwaysallow" page ="allow Location"><id>com.android.packageinstaller:id/permission_allow_button</id></element>
+                <element name="button_search"><id>com.hp.printercontrol:id/search_button</id></element>
+            </page>
             <page name="page_helpCenter" description="helpCenter page.">
                 <element name="option_HowToPrint_"><xpath>//android.widget.TextView[@text = 'How to Print']</xpath></element>
                 <element name="option_PrintQualityTools"><xpath>//android.widget.TextView[@text = 'Print Quality Tools']</xpath></element>
@@ -81,6 +95,9 @@
                 <element name="option_OnlineSupport"><xpath>//android.widget.TextView[@text = 'Online Support']</xpath></element>\
                 <element name="option_ContactHPonFacebookMessenger"><xpath>//android.widget.TextView[@text = 'Contact HP on Facebook Messenger']</xpath></element>
                 <element name="option_SendFeedback"><xpath>//android.widget.TextView[@text = 'Send Feedback']</xpath></element>
+            </page>
+            <page name="page_facebook" description="facebook web page">
+                <element name="web_facebook"><className>android.webkit.WebView</className></element>
             </page>
             <page name="page_about" description="about page.">
                 <element name="text_versionLable" page="page_printerList"><id>com.hp.printercontrol:id/version_label</id></element>
@@ -134,7 +151,9 @@
                 <element name="text_always" page="page_about"><id>android:id/button_always</id></element>
                 <element name="text_chrome" ><xpath>//android.widget.TextView[@text = 'Chrome']</xpath></element>
                 <element name="text_email" ><xpath>//android.widget.TextView[@text = 'Email']</xpath></element>
-			</page>
+                <element name="button_ok" page="page_Location Services"><id>android:id/button1</id></element>
+			    <element name="checkbox_onOrOff" page="page_Location Services"><id>com.android.settings:id/switch_widget</id></element>
+            </page>
             <page name="page_appSettings" description="moreOptions then app settings page.">
                 <!--index="0" means return all specified elements, here is return all checkboxes-->
                 <element name="checkBox_All_noIndex"><id>android:id/checkbox</id></element>
@@ -170,11 +189,12 @@
                 <element name="checkBox_3"><id>com.hp.printercontrol:id/printersetup_phonewifi_checkBox</id></element>
                 <element name="button_tryAgain"><id>com.hp.printercontrol:id/existing_printersetup_tryagain_button</id></element>
             </page>
-            <page name="page_link_OnlineSupport" description="OnlineSupport page.">
+            <page name="page_onlineSupport" description="OnlineSupport page.">
                 <element name="url_OnlineSupport"><id>com.android.chrome:id/url_bar</id></element>
-                <element name="title_selectCountryHeader"><id>select-country-header</id></element>
+                <element name="title_selectCountryHeader"><xpath>//android.view.View[@content-desc = 'select-country-header']</xpath></element>
+                <element name="button_close"><xpath>//android.widget.Button[@content-desc = 'Close']</xpath></element>
 			</page>
-            <page name="page_link_PrintQualityTools" description="Print Quality Tools page.">
+            <page name="page_PrintQualityTools" description="Print Quality Tools page.">
                 <element name="url_PrintQualityTools"><id>com.android.chrome:id/url_bar</id></element>
 			</page>
             <page name="page_contactHPonFacebookMessager" description="contact HP on facebook messager page.">
@@ -182,7 +202,7 @@
                 <element name="button_Cancel"><id>android:id/button2</id></element>
                 <element name="button_Message"><id>android:id/button1</id></element>
             </page>
-            <page name="page_link_contactHPonFacebookMessager" description="contact HP on facebook messager page.">
+            <page name="link_contactHPonFacebookMessager" description="contact HP on facebook messager page.">
                 <element name="button_OpenInMessenger "><xpath>//android.view.View[@content-desc = 'Open In Messenger']</xpath></element>
                 <element name="button_GetTheMessengerApp "><xpath>//android.view.View[@content-desc = 'Get the Messenger App']</xpath></element>
 			</page>

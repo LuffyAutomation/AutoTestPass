@@ -3,8 +3,8 @@ from fwk.page.AndroidCommonPage import AndroidCommonPage
 
 
 '''OnlineSupport page.'''
-class Page_link_OnlineSupport_model(AndroidCommonPage):
-    page_name = 'page_link_OnlineSupport'
+class Page_onlineSupport_model(AndroidCommonPage):
+    page_name = 'page_onlineSupport'
 
     def __init__(self):
         self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
@@ -13,4 +13,7 @@ class Page_link_OnlineSupport_model(AndroidCommonPage):
         return self.get(inspect.stack()[0][3])
 
     def title_selectCountryHeader(self):
+        return self.get(inspect.stack()[0][3])
+
+    def button_close(self):
         return self.get(inspect.stack()[0][3])
