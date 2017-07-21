@@ -10,12 +10,6 @@ class Page_home_model(AndroidCommonPage):
         self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
         self.Menu_moreOptions = self._Menu_moreOptions_model(self.__AndroidCommonPage)
 
-    def button_image_unavailablePrinter(self):
-        return self.get(inspect.stack()[0][3])
-
-    def button_SelectADifferentPrinter(self):
-        return self.get(inspect.stack()[0][3])
-
     def button_add_printer_link_gray(self):
         return self.get(inspect.stack()[0][3])
 
@@ -44,9 +38,6 @@ class Page_home_model(AndroidCommonPage):
         return self.get(inspect.stack()[0][3])
 
     def tile_GetHPHelpAndSupport(self):
-        return self.get(inspect.stack()[0][3])
-
-    def tile_printFacebookPhotos(self):
         return self.get(inspect.stack()[0][3])
 
     def button_MoreOptions(self):

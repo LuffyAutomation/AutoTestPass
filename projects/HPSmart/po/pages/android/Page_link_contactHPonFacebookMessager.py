@@ -1,15 +1,15 @@
 # coding: utf-8
-from projects.HPSmart.po.models.android.Page_facebook_model import Page_facebook_model
+from projects.HPSmart.po.models.android.Page_link_contactHPonFacebookMessager_model import Page_link_contactHPonFacebookMessager_model
 
 
-'''facebook web page'''
-class Page_facebook(Page_facebook_model):
+'''contact HP on facebook messager page.'''
+class Page_link_contactHPonFacebookMessager(Page_link_contactHPonFacebookMessager_model):
     def __init__(self, UI):
         self.UI = UI
         if 1 > 1:
             from fwk.object.AndroidFwk import AndroidFwk
             self.UI = AndroidFwk(None)
-        Page_facebook_model.__init__(self)
+        Page_link_contactHPonFacebookMessager_model.__init__(self)
 
     # This is function template of how to write your Business Logic.
     def example(self):

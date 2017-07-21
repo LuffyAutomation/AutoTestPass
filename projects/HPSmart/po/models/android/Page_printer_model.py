@@ -26,15 +26,3 @@ class Page_printer_model(AndroidCommonPage):
 
     def button_LookingForWiFiDirectPrinters(self):
         return self.get(inspect.stack()[0][3])
-
-    def button_aLLOW(self):
-        return self.get(inspect.stack()[0][3])
-
-    def button_dONALLOW(self):
-        return self.get(inspect.stack()[0][3])
-
-    def button_alwaysallow(self):
-        return self.get(inspect.stack()[0][3])
-
-    def button_search(self):
-        return self.get(inspect.stack()[0][3])

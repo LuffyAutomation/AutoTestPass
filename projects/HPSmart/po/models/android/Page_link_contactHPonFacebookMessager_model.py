@@ -3,8 +3,8 @@ from fwk.page.AndroidCommonPage import AndroidCommonPage
 
 
 '''contact HP on facebook messager page.'''
-class Link_contactHPonFacebookMessager_model(AndroidCommonPage):
-    page_name = 'link_contactHPonFacebookMessager'
+class Page_link_contactHPonFacebookMessager_model(AndroidCommonPage):
+    page_name = 'page_link_contactHPonFacebookMessager'
 
     def __init__(self):
         self.__AndroidCommonPage = AndroidCommonPage.__init__(self)
