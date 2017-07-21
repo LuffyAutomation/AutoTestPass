@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+	<UiMap>
+		<pages>
+            <page name="dialog_legalInformation" description="Allow/ok button">
+                <element name="dialog_all" description = "Don't Allow, Allow"><accessibility_id>Allow</accessibility_id></element>
+                <element name="dialog_ok" description = "Don't Allow, Allow"><accessibility_id>OK</accessibility_id></element>
+            </page>
+
+            <page name="page_agreements" description = "Default first page." >
+                <element name="checkbox_accept">
+                    <accessibility_id>Ctrl Checkbox Empty</accessibility_id>
+                </element>
+                <element name="button_continue">
+                    <accessibility_id>Continue</accessibility_id>
+                    <enabled>true</enabled>
+                </element>
+			</page>
+
+			<page name="page_welcome" description="Welcome page">
+                <element name="button_start" page="page_foundYourPrinter"><accessibility_id>Start</accessibility_id></element>
+            </page>
+
+            <page name="page_home" description="home page">
+                <element name="button_home"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[1]</xpath></element>
+                <element name="button_file"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[2]</xpath></element>
+                <element name="button_scanner"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[3]</xpath></element>
+                <element name="button_photo"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[4]</xpath></element>
+                <element name="button_settings"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[5]</xpath></element>
+                <element name="button_add_printer">
+                    <accessibility_id>Add Printer Blue icon</accessibility_id>
+                    <type>XCUIElementTypeButton</type>
+                </element>
+                <element name="button_notifications">
+                    <accessibility_id>NotificationIcon-gray</accessibility_id>
+                    <type>XCUIElementTypeImage</type>
+                </element>
+                <element name="image_printer"><xpath>/var/mobile/Containers/Data/Application/7B4CFBC8-150E-4ED0-9600-95F4E8CA87BB/Library/Caches/CN7413Q0T7067X_icon</xpath></element>
+                <element name="image_Cartridge"><accessibility_id>Estimated Cartridge Levels</accessibility_id></element>
+                <element name="button_addPrinter_small"><accessibility_id>Add Printer Gray icon</accessibility_id></element>
+                <element name="image_status"><xpath>//XCUIElementTypeNavigationBar[@name="MPiPhoneHomeScreenView"]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeImage</xpath></element>
+                <element name="tile_PrintPhotos"><accessibility_id>PrintPhotosTile_3</accessibility_id></element>
+                <element name="tile_ScanToEmail"><accessibility_id>TilesScanToEmailIcon</accessibility_id></element>
+                <element name="tile_PrintDocuments"><accessibility_id>PrintDocsTile_3</accessibility_id></element>
+                <element name="tile_PrintFacebookPhotos"><accessibility_id>PrintFBTile_3</accessibility_id></element>
+                <element name="tile_HPHelpAndSupport"><accessibility_id>TilesHelpIcon</accessibility_id></element>
+                <element name="tile_PrinterSettings"><accessibility_id>TilesPrintSettingsIcon</accessibility_id></element>
+                <element name="tile_Personalize"><accessibility_id>TilesPersonalizeIcon</accessibility_id></element>
+                <element name="tile_Scan"><accessibility_id>TilesScanIcon</accessibility_id></element>
+            </page>
+            <page name="page_photos" description="Touch 'button_photo' on page_home">
+                <element name="text_myPhotos"><accessibility_id>My Photos</accessibility_id></element>
+                <element name="text_addAccount"><accessibility_id>Add Account</accessibility_id></element>
+            </page>
+            <page name="page_myPhotos" description="">
+                <element name="text_myPhotoStream"><accessibility_id>My Photo Stream</accessibility_id></element>
+            </page>
+            <page name="page_myPhotoStream" description="">
+                <element name="picture_1"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeCollectionView/XCUIElementTypeImage[20]</xpath></element>
+            </page>
+            <page name="page_printPhotos" description="">
+                <element name="button_print"><accessibility_id>Print</accessibility_id></element>
+                <element name="button_changSettings"><accessibility_id>Change print settings</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+                <element name="button_share"><accessibility_id>Share</accessibility_id></element>
+            </page>
+            <page name="page_edit" description="">
+                <element name="text_edit"><accessibility_id>Edit</accessibility_id></element>
+                <element name="text_copies"><accessibility_id>Number of copies</accessibility_id></element>
+                <element name="copies1"><accessibility_id>1</accessibility_id></element>
+                <element name="copies2"><accessibility_id>2</accessibility_id></element>
+                <element name="copies3"><accessibility_id>3</accessibility_id></element>
+                <element name="copies4"><accessibility_id>4</accessibility_id></element>
+                <element name="copies5"><accessibility_id>5</accessibility_id></element>
+                <element name="text_colorAndQuality"><accessibility_id>Color and quality</accessibility_id></element>
+                <element name="quality"><accessibility_id>Quality</accessibility_id></element>
+                <element name="quality_draft"><accessibility_id>quality draft</accessibility_id></element>
+                <element name="quality_normal"><accessibility_id>quality normal</accessibility_id></element>
+                <element name="quality_best"><accessibility_id>quality best</accessibility_id></element>
+                <element name="colorOption"><accessibility_id>Color mode</accessibility_id></element>
+                <element name="colorOption_color"><accessibility_id>colorMode color</accessibility_id></element>
+                <element name="colorOption_black"><accessibility_id>Black Only</accessibility_id></element>
+                <element name="colorOption_grayscale"><accessibility_id>Grayscale</accessibility_id></element>
+                <element name="text_paper"><accessibility_id>Paper</accessibility_id></element>
+                <element name="size"><accessibility_id>Paper options</accessibility_id></element>
+                <element name="A4"><accessibility_id>A4</accessibility_id></element>
+                <element name="letter"><accessibility_id>Letter - 8.5x11 in</accessibility_id></element>
+                <element name="usLegal"><accessibility_id>US Legal</accessibility_id></element>
+
+                <element name="source"><accessibility_id>Paper source</accessibility_id></element>
+                <element name="automatic"><accessibility_id>Automatic</accessibility_id></element>
+                <element name="main_tray"><accessibility_id>Main Tray</accessibility_id></element>
+                <element name="type"><accessibility_id>Media type</accessibility_id></element>
+                <element name="photoPaper"><accessibility_id>Photo Paper</accessibility_id></element>
+                <element name="plainPage"><accessibility_id>Plain Paper</accessibility_id></element>
+                <element name="text_resizeAndMove"><accessibility_id>Resize and move</accessibility_id></element>
+                <element name="manual"><accessibility_id>Resize manual</accessibility_id></element>
+                <element name="original_size"><accessibility_id>Resize original size</accessibility_id></element>
+                <element name="fitToPage"><accessibility_id>Resize fit to page</accessibility_id></element>
+                <element name="fillPage"><accessibility_id>Resize fill to page</accessibility_id></element>
+                <element name="button_done"><accessibility_id>Done</accessibility_id></element>
+                <element name="button_cancel"><accessibility_id>Cancel</accessibility_id></element>
+
+            </page>
+            <page name="page_files" description="Touch button_file on 'page_home'">
+                <element name="text_myFiles"><accessibility_id>My Files</accessibility_id></element>
+                <element name="text_addAccount"><accessibility_id>Add Account</accessibility_id></element>
+                <element name="text_GoogleDrive"><accessibility_id>Google Drive</accessibility_id></element>
+            </page>
+            <page name="page_GoogleDrive" description="">
+                <element name="document_1"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]</xpath></element>
+            </page>
+            <page name="page_addAccount_pageFiles" description="This screen is add account from files page">
+                <element name="text_box"><accessibility_id>Box</accessibility_id></element>
+                <element name="text_dropbox"><accessibility_id>Dropbox</accessibility_id></element>
+                <element name="text_evernote"><accessibility_id>Evernote</accessibility_id></element>
+                <element name="text_GoogleDrive"><accessibility_id>Google Drive</accessibility_id></element>
+                <element name="text_Other"><accessibility_id>Other</accessibility_id></element>
+            </page>
+            <page name="page_googleDriveSafari" description="Google Drive safari">
+                <element name="text_useAnotherAccount"><accessibility_id>Use another account</accessibility_id></element>
+                <element name="text_inputEmail"><accessibility_id>Email or phone</accessibility_id></element>
+                <element name="button_next"><accessibility_id>NEXT</accessibility_id></element>
+                <element name="text_enterPassword"><accessibility_id>Enter your password</accessibility_id></element>
+                <element name="button_allow"><accessibility_id>ALLOW</accessibility_id></element>
+            </page>
+             <page name="page_scan" description="">
+                <element name="button_settings"><accessibility_id>Scan Settings</accessibility_id></element>
+                <element name="text_scanner"><accessibility_id>SCANNER</accessibility_id></element>
+                <element name="text_camera"><accessibility_id>CAMERA</accessibility_id></element>
+                <element name="button_capture"><accessibility_id>Capture</accessibility_id></element>
+                <element name="button_picture"><accessibility_id>Import for Capture</accessibility_id></element>
+                <element name="button_cancel"><accessibility_id>Cancel</accessibility_id></element>
+                <element name="button_scanner" description="Scan Images/Documets dialog"><accessibility_id>Scanner</accessibility_id></element>
+                <element name="button_camera" description="Scan Images/Documets dialog"><accessibility_id>Camera</accessibility_id></element>
+            </page>
+            <page name="page_scanSettings" description="Touch button_settings go to here">
+                <element name="text_inputType"><accessibility_id>Input Type</accessibility_id></element>
+                <element name="text_inputSourece"><accessibility_id>Input Source</accessibility_id></element>
+                <element name="text_quality"><accessibility_id>Quality</accessibility_id></element>
+                <element name="text_color"><accessibility_id>Color</accessibility_id></element>
+                <element name="button_done"><accessibility_id>Done</accessibility_id></element>
+            </page>
+            <page name="page_inputTpye" description="Touch inputType go to there">
+                <element name="text_JPG"><accessibility_id>Image or JPG</accessibility_id></element>
+                <element name="text_PDF"><accessibility_id>Document or PDF</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+            </page>
+            <page name="page_inputSource" description="Touch inputSource go to here">
+                <element name="text_automatic"><accessibility_id>Automatic</accessibility_id></element>
+                <element name="text_scannerGlass"><accessibility_id>Scanner Glass</accessibility_id></element>
+                <element name="text_documentFeeder"><accessibility_id>Document Feeder</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+            </page>
+            <page name="page_quality" description="Touch quality go to here">
+                <element name="text_draft"><accessibility_id>Draft (100 dpi)</accessibility_id></element>
+                <element name="text_normal"><accessibility_id>Normal (200 dpi)</accessibility_id></element>
+                <element name="text_best"><accessibility_id>Best (300 dpi)</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+            </page>
+             <page name="page_color" description="Touch color go to there">
+                <element name="text_color"><accessibility_id>Color</accessibility_id></element>
+                <element name="text_grayscale"><accessibility_id>Grayscale</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+            </page>
+            <page name="page_scanComplete" description="">
+                <element name="button_save"><accessibility_id>icon save normal</accessibility_id></element>
+                <element name="button_addJob"><accessibility_id>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeButton</accessibility_id></element>
+            </page>
+            <page name="page_appsettings" description="Touch button_settings go to APP Settings">
+                <element name="notifications_settings"><accessibility_id>Notifications Settings</accessibility_id></element>>
+                <element name="privacy_settings"><accessibility_id>Privacy Settings</accessibility_id></element>>
+                <element name="heplp_center"><accessibility_id>Help Center</accessibility_id></element>>
+                <element name="contactHPOnFacebookMessenger"><accessibility_id>Contact HP on Facebook Messenger</accessibility_id></element>>
+                <element name="tweetUsforSupport"><accessibility_id>Tweet Us for Support</accessibility_id></element>>
+                <element name="send_feedback"><accessibility_id>Send Feedback</accessibility_id></element>>
+                <!--<element name="shakeTosendFeedback"><accessibility_id></accessibility_id></element>>-->
+                <!--<element name="offerToreduceSize"><accessibility_id></accessibility_id></element>>-->
+                <!--<element name="whatIsNew"><accessibility_id></accessibility_id></element>>-->
+                <element name="more_about"><accessibility_id>About</accessibility_id></element>>
+            </page>
+
+		    <page name="page_about" description="Touch 'more_about' go to about screen">
+                <element name="image_appIcon"><accessibility_id>AboutIcon</accessibility_id></element>
+                <element name="text_appName"><accessibility_id>HP Smart</accessibility_id></element>
+                <element name="text_versionLable"><accessibility_id>Version 5.4</accessibility_id>
+
+                </element>
+                <element name="text_copyRightCompany"><accessibility_id>© Copyright 2011-2017 HP Development Company, L.P.</accessibility_id></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+                <element name="link_hpOnlinePrivacyStatement"><accessibility_id>HP Online Privacy Statement</accessibility_id></element>
+                <element name="link_endUserLicenseAgreement"><accessibility_id>HP Online Privacy Statement</accessibility_id></element>
+                <element name="link_legalInformation"><accessibility_id>Legal Information</accessibility_id></element>
+                <element name="rate_us">
+                    <accessibility_id>Rate Us!</accessibility_id>
+                    <type>XCUIElementTypeButton</type>
+                </element>
+            </page>
+            <page name="page_printerInfor" description="touch printer image">
+                <element name="test_differentPrinter"><accessibility_id>Select a Different Printer</accessibility_id></element>
+            </page>
+            <page name="page_personalize" description="Touch personalize button on home screen">
+                <element name="button_done"><accessibility_id>Done</accessibility_id></element>
+
+                <element name="text_printPhotos"><accessibility_id>Print Photos</accessibility_id></element>
+                <element name="text_scanToEmail"><accessibility_id>Scan to Email</accessibility_id></element>
+                <element name="text_printFacebookPhotos"><accessibility_id>Print Facebook Photos</accessibility_id></element>
+                <element name="text_printDocuments"><accessibility_id>Print Documents</accessibility_id></element>
+                <element name="text_printerSettings"><accessibility_id>Printer Settings</accessibility_id></element>
+                <element name="text_hpHelpandSupport"><accessibility_id>HP Help and Support</accessibility_id></element>
+                <element name="text_scan"><accessibility_id>Scan</accessibility_id></element>
+                <element name="text_printfromGoogleDrive"><accessibility_id>Print from Google Drive</accessibility_id></element>
+                <element name="text_printfromDropbox"><accessibility_id>Print from Dropbox</accessibility_id></element>
+                <element name="text_scanTocloud"><accessibility_id>Scan to Cloud</accessibility_id></element>
+
+                <element name="printPhotos_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeSwitch</xpath></element>
+                <element name="scanToEmail_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeSwitch</xpath></element>
+                <element name="printFacebookPhotos_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[3]/XCUIElementTypeSwitch</xpath></element>
+                <element name="printDocuments_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[4]/XCUIElementTypeSwitch</xpath></element>
+                <element name="printerSettings_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[5]/XCUIElementTypeSwitch</xpath>></element>
+                <element name="hpHelpandSupport_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[6]/XCUIElementTypeSwitch</xpath>></element>
+                <element name="scan_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[7]/XCUIElementTypeSwitch</xpath></element>
+                <element name="printfromGoogleDrive_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[8]/XCUIElementTypeSwitch</xpath></element>
+                <element name="printfromDropbox_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[9]/XCUIElementTypeSwitch</xpath></element>
+                <element name="scanTocloud_switchButton"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[10]/XCUIElementTypeSwitch</xpath></element>
+
+                <element name="reorderbutton_printPhotos"><accessibility_id>Reorder Print Photos</accessibility_id></element>
+                <element name="reorderbutton_scanToEmail"><accessibility_id>Reorder Scan to Email</accessibility_id></element>
+                <element name="reorderbutton_printFacebookPhotos"><accessibility_id>Reorder Print Facebook Photos</accessibility_id></element>
+                <element name="reorderbutton_printDocuments"><accessibility_id>Reorder Print Documents</accessibility_id></element>
+                <element name="reorderbutton_printerSettings"><accessibility_id>Reorder Printer Settings</accessibility_id></element>
+                <element name="reorderbutton_hpHelpandSupport"><accessibility_id>Reorder HP Help and Support</accessibility_id></element>
+                <element name="reorderbutton_scan"><accessibility_id>Reorder Scan</accessibility_id></element>
+                <element name="reorderbutton_printfromGoogleDrive"><accessibility_id>Reorder Print from Google Drive</accessibility_id></element>
+                <element name="reorderbutton_printfromDropbox"><accessibility_id>Reorder Print from Dropbox</accessibility_id></element>
+                <element name="reorderbutton_scanTocloud"><accessibility_id>Reorder Scan to Cloud</accessibility_id></element>
+            </page>
+            <page name="page_printers" description="all printer list screen">
+                <element name="button_addPrinter"><accessibility_id>+ Add Printer</accessibility_id></element>
+                <element name="printer_1"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[1]</xpath></element>
+                <element name="printer_2"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[2]</xpath></element>
+                <element name="printer_3"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[3]</xpath></element>
+                <element name="printer_4"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[4]</xpath></element>
+                <element name="button_back"><accessibility_id>Back</accessibility_id></element>
+            </page>
+
+            <page name="page_addPrinter" description="">
+                <element name="text_agreements"><accessibility_id>Agreements</accessibility_id></element>
+                <element name="button_addaNewPrinter"><accessibility_id>Set Up and Add a New Printer</accessibility_id></element>
+                <element name="button_connectPrinterIPaddress"><accessibility_id>Connect the Printer using the IP Address</accessibility_id></element>
+                <element name="button_moreDtails" description="REVIEW SETTINGS AND PRIVACY STATEMENT"><accessibility_id>REVIEW SETTINGS AND PRIVACY STATEMENT</accessibility_id></element>
+
+                <element name="area_improvementProgram"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[6]//</xpath></element>
+                <element name="text_improvementProgram"><accessibility_id>App Improvement Program</accessibility_id></element>
+                <element name="checkbox_improvementProgram"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[6]</xpath></element>
+                <!--<element name="checkbox_improvementProgram"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[6]//XCUIElementTypeButton</xpath></element>-->
+
+                <!--<element name="text_sendPrinterInfoToHP"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[8]//XCUIElementTypeStaticText[@accessibility id="Send printer info to HP]/ancestor::XCUIElementTypeButton</xpath></element>-->
+
+
+                <element name="text_suppliesShopping"><accessibility_id>HP Supplies Shopping</accessibility_id></element>
+                <element name="checkbox_suppliesShopping"><accessibility_id>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[7]//XCUIElementTypeButton</accessibility_id></element>
+                <element name="text_specialOffers"><accessibility_id>Check for Special Offers</accessibility_id></element>
+                <element name="checkbox_specialOffers"><accessibility_id>Ctrl Checkbox Empty</accessibility_id></element>
+                <element name="link_hpOnlinePrivacyStatement"><accessibility_id>HP Online Privacy Statement</accessibility_id></element>
+                <element name="checkbox_agreement"><accessibility_id>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[8]//XCUIElementTypeButton</accessibility_id></element>
+                <element name="button_Continue"><accessibility_id>Continue</accessibility_id></element>
+
+            </page>
+            <page name="page_connectThePrinter" description="Touch Add printer button from printers page.">
+                <element name="enterComment"><xpath>//XCUIElementTypeApplication[@name="HP Smart"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField</xpath></element>
+                <element name="keyboard_done"><accessibility_id>Done</accessibility_id></element>
+            </page>
+            <page name="page_parinterFound" description="">
+                <element name="button_yes"><accessibility_id>Yes</accessibility_id></element>
+                 <element name="button_no"><accessibility_id>No</accessibility_id></element>
+            </page>
+            <page name="page_linkPrivacyStatement" description="touch HP Online Privacy Statement">
+                <element name="text_privacyStatement"><accessibility_id>HP Privacy Statement Worldwide</accessibility_id></element>
+                <element name="button_close"><accessibility_id>Close</accessibility_id></element>
+                <element name="link_privacy"><accessibility_id>Privacy</accessibility_id></element>
+                <element name="link_siteTerms"><accessibility_id>Site terms</accessibility_id></element>
+                <!--<element name=""><accessibility_id>Recalls & Replacements</accessibility_id></element>-->
+                <element name="text_termsAndConditions"><accessibility_id>© Copyright 2016 HP Development Company, L.P.</accessibility_id></element>
+
+            </page>
+            <page name="page_mainHome" description="Mobility phone home screen">
+                <element name="home_settings"><accessibility_id>Settings</accessibility_id></element>
+            </page>
+
+            <page name="page_other" description="main page.">
+                <element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element>
+                <page name="menu_moreOptions" description = "You can add one level of subpage here." >
+                    <element name="menuItem_about_" description = "Add _ at the end of the Name if its value will be localized." >
+                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
+                    </element>
+                </page>
+			</page>
+		</pages>
+	</UiMap>
+</test-data>
