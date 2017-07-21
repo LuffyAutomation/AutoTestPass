@@ -305,7 +305,7 @@ class UiFwk(UiBaseWebDriverFwk):
             self.click(idx_or_match, element_name)
         return self
 
-    def __getByDirectionUniqueElement(self, uiFwk, idx_or_match=None, direction="Left"):
+    def _getByDirectionUniqueElement(self, uiFwk, idx_or_match=None, direction="Left"):
         element_name_unique = self.CurrentElement.name
         element_unique = self._getLastElementObjectOrSearch(None, element_name_unique)
         element_unique_location = element_unique.location
@@ -333,49 +333,44 @@ class UiFwk(UiBaseWebDriverFwk):
         dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
         try:
             index = dict_closest[self.LastElement.index - 1][0]
+            self.CurrentElement.name = element_name
+            self.CurrentElement.page_name = self.LastElement.page_name
+            self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
             self.CurrentElement.object = element_collection[index]  # for adding wait for shown, etc
+            return self.CurrentElement.object
         except:
             raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(
                 self.LastElement.index) + "] from " + direction + " element [" + element_name_unique + "] on page [" + str(self.getCurrentPageName()) + "].")
-        self.CurrentElement.name = element_name
-        self.CurrentElement.page_name = self.LastElement.page_name
-        self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
 
     def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
-        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
+        self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
         return self
 
     def getByRightUniqueElement(self, uiFwk, idx_or_match=None):
-        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Right")
+        self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Right")
         return self
     def getByUpperUniqueElement(self, uiFwk, idx_or_match=None):
-        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Upper")
+        self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Upper")
         return self
     def getByLowerUniqueElement(self, uiFwk, idx_or_match=None):
-        self.__getByDirectionUniqueElement(uiFwk, idx_or_match, "Lower")
+        self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Lower")
         return self
 
     def __getNearbyXpathList(self, _list, _value_nearby_, value, _index):
-        _list.append(["xpath", _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, "1"])
-        _list.append(["xpath", _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, "1"])
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
         return _list
 
-    def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
+    def _getLocatorListByNearbyUniqueElement(self, element_name, locators_list, locators_list_nearby, idx_or_match=None):
         new_locators_list = []
-        element_name = self.LastElement.name
-        locators_list = self._getElementLocatorsList(element_name, self.LastElement)
-
-        element_name_nearby = self.getCurrentElementName()
-        locators_list_nearby = self._getElementLocatorsList(element_name_nearby)
-
         for locatorList_nearby in locators_list_nearby:
-            type_value = self._changeCutomizedToOriginal(locatorList_nearby[0], locatorList_nearby[1])
-            locatorList_nearby[1] = type_value["locator_value"] + "[%s]" % locatorList_nearby[2]
-            locator_value_nearby = locatorList_nearby[1]
+            type_value = self._changeCutomizedToOriginal(locatorList_nearby[self.Locator.TYPE], locatorList_nearby[self.Locator.VALUE])
+            locatorList_nearby[self.Locator.VALUE] = type_value["locator_value"] + "[%s]" % locatorList_nearby[self.Locator.INDEX]
+            locator_value_nearby = locatorList_nearby[self.Locator.VALUE]
             for locatorList in locators_list:
-                locator_type = locatorList[0]
-                locator_value = locatorList[1]
-                locator_index = locatorList[2]
+                locator_type = locatorList[self.Locator.TYPE]
+                locator_value = locatorList[self.Locator.VALUE]
+                locator_index = locatorList[self.Locator.INDEX]
                 if locator_type == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
                     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
                 elif locator_type == self.LocatorType.ID:
@@ -392,13 +387,22 @@ class UiFwk(UiBaseWebDriverFwk):
                     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
                 else:
                     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (locator_type, locator_value), locator_index)
-
         # self.CurrentElement.object = self._findElementByLocatorsList(element_name, new_locators_list)  # for adding wait for shown, etc
         self.CurrentElement.name = element_name
         self.CurrentElement.list_locators = new_locators_list
         self.CurrentElement.page_name = self.LastElement.page_name
         self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
+        return new_locators_list
+
+    def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
+        new_locators_list = []
+        element_name = self.LastElement.name
+        locators_list = self._getElementLocatorsDictList(element_name, self.LastElement)
+        element_name_nearby = self.getCurrentElementName()
+        locators_list_nearby = self._getElementLocatorsDictList(element_name_nearby)
+        self._getLocatorListByNearbyUniqueElement(element_name, locators_list, locators_list_nearby, idx_or_match)
         return self
+
 
     def __swipeOrDragDrop(self, uiFwk, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
         element_name_destination = self.getCurrentElementName()

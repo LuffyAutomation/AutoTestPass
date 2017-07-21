@@ -47,3 +47,9 @@ class Page_appSettings_model(AndroidCommonPage):
 
     def text_HPSuppliesShopping_forNearby1(self):
         return self.get(inspect.stack()[0][3])
+
+    def checkBox_HPSuppliesShopping_refNearby(self):
+        return self.get(inspect.stack()[0][3])
+
+    def checkBox_HPSuppliesShopping_refLeft(self):
+        return self.get(inspect.stack()[0][3])

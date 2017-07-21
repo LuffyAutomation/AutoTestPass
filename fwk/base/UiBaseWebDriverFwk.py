@@ -274,10 +274,19 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def _findElement(self, element_name, marks=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
-            locatorsList = self.CurrentElement.list_locators  # for
+            list_locator = self.CurrentElement.list_locators  # for
         else:
-            locatorsList = self._getElementLocatorsList(element_name)
-        return self._findElementByLocatorsList(element_name, locatorsList, marks)
+            list_locator = self._getElementLocatorsDictList(element_name)
+            if list_locator[0][self.Locator.REF] is not None:
+                ref_type = list_locator[0][self.Locator.REF].split(":")[0]
+                ref_name = list_locator[0][self.Locator.REF].split(":")[1]
+                #  self.RefElement.name = ref_name
+                ref_locatorsList = self._getElementLocatorsDictList(ref_name)
+                if self.Ref.NEARBY.lower() == ref_type.lower():
+                    list_locator = self._getLocatorListByNearbyUniqueElement(element_name, list_locator, ref_locatorsList)
+                else:
+                    pass
+        return self._findElementByLocatorsList(element_name, list_locator, marks)
 
     # def getElementsSize(self, name):
     #     return len(self.getElements(name))

@@ -38,6 +38,19 @@ class UiBaseFwk(object):
         VERIFY = "Verify"
         WAITINGFOR = "Waiting for"
 
+    class Locator:
+        TYPE = "type"
+        VALUE = "value"
+        INDEX = "index"
+        REF = "ref"
+
+    class Ref:
+        NEARBY = "Nearby"
+        LEFT = "Left"
+        LOWER = "Lower"
+        UPPER = "Upper"
+        RIGHT = "Right"
+
     class LocatorType:
         ID = "id"
         XPATH = "xpath"
@@ -88,7 +101,7 @@ class UiBaseFwk(object):
         self.CurrentElement = self.ElementStruct()
         self.LastElement = self.ElementStruct()
         self.CurrentElementCollection = self.ElementStruct()
-
+        self.RefElement = self.ElementStruct()
         # self._lastElementName = None
         # self._lastElementObject = None
 
@@ -258,13 +271,13 @@ class UiBaseFwk(object):
         return self.CurrentElement.page_name
 
     def _getElementType(self, element_locators_list):
-        return element_locators_list[0]
+        return element_locators_list[self.Locator.TYPE]
 
     def _getElementValue(self, element_locators_list):
-        return element_locators_list[1]
+        return element_locators_list[self.Locator.VALUE]
 
     def _getElementIndex(self, element_locators_list):
-        t = element_locators_list[2]
+        t = element_locators_list[self.Locator.INDEX]
         try:
             return int(t) - 1
         except:
@@ -308,7 +321,7 @@ class UiBaseFwk(object):
         self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))
         return self.getCurrentElementCollectionObject()
 
-    def _getElementLocatorsList(self, element_name, WhichElement=None):
+    def _getElementLocatorsDictList(self, element_name, WhichElement=None):
         dynamic_string = None
         ori_element_name = element_name
         if WhichElement is None:
@@ -316,7 +329,13 @@ class UiBaseFwk(object):
         if self.StringConverter.MARK_DYNAMIC_VALUE in element_name:
             dynamic_string = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[1]
             element_name = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[0]
-        locators = WhichElement.page_uiMap.get(element_name)['locators']
+        uiMapByName = WhichElement.page_uiMap.get(element_name)
+        locators = uiMapByName['locators']
+        locator_ref = None
+        try:
+            locator_ref = uiMapByName[self.Locator.REF]
+        except:
+            pass
         list = []
         for locator in locators:
             locator_type = self.UtilXml.getTagName(locator)
@@ -330,7 +349,7 @@ class UiBaseFwk(object):
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:
                 locator_value = locator_value.replace(self.StringConverter.VALUE_PLACEHOLDER, dynamic_string)
             #self.logger.info("............Finding element [" + name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
-            list.append([locator_type, locator_value, locator_index])
+            list.append({self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value, self.Locator.INDEX: locator_index, self.Locator.REF: locator_ref})
         if locators == None:
             raise Exception("Can not find element [" + ori_element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
         return list
