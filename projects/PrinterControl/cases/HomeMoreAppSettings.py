@@ -86,16 +86,16 @@ class HomeMoreAppSettings(CommonUnittest):
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()
 
+        "How to identify a non-unique element by a nearby/Left/Right/Upper/Lower unique element, please related uiMaps for details."
+        "*uiMap.xml configuration Method*"
+        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_refNearby().click()
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_refLeft().click()
 
-        self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_refNearby().click().tap()
-
-
-
         "How to identify a non-unique element by a nearby unique element, please related uiMaps for details."
+        "*Code Method*"
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByNearbyUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
-
         "How to identify a non-unique element by a unique element, please related uiMaps for details. The waitForShown() method does not take effect on following 4 lines. "
+        "*Code Method*"
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByLeftUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByRightUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
         self.Pages.Page_appSettings.checkBox_HPSuppliesShopping_forNearby1().getByUpperUniqueElement(self.Pages.Page_appSettings.text_HPSuppliesShopping_forNearby1()).waitForShown().click()
