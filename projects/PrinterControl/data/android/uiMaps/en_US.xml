@@ -2,17 +2,174 @@
 <test-data>
 	<UiMap>
 		<pages>
+            <page name="page_agreements" description = "Default first page." >
+                <element name="checkbox_accept">
+                    <id>com.hp.printercontrol:id/moobe_review_accept_agreements_checkbox</id>
+                </element>
+                <element name="button_continue">
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                </element>
+			</page>
 			<page name="page_welcome" description="Welcome page">
-                <element name="button_a_">
-                    abc
+                <element name="button_start" page="page_foundYourPrinter">
+                    <id>com.hp.printercontrol:id/moobe_welcome_start_button</id>
                 </element>
-                <element name="button_b_">
-                    def
-                </element>
-                <element name="button_c_">
-                    hij
+                <element name="link_setupLater">
+                     <id>com.hp.printercontrol:id/moobe_setup_later</id>
                 </element>
             </page>
+            <page name="page_findNewPrinter" description="We find new printer.">
+                <element name="button_continue" >
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                </element>
+			</page>
+            <page name="page_foundANetworkPrinter" description="We found a network printer!">
+                <element name="button_continue" >
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+                </element>
+			</page>
+            <page name="sys_packageinstaller" description="for android 6.0 'Allow xxxx to access device's location'.">
+                <element name="link_AllowAccessLocation" >
+                    <id>com.android.packageinstaller:id/permission_allow_button</id>
+                </element>
+			</page>
+            <page name="page_foundYourPrinter" description="We found your printer.">
+                <element name="link_changePrinter"><id>com.hp.printercontrol:id/change_printer</id></element>
+                <element name="button_continue"><id>com.hp.printercontrol:id/moobe_welcome_continue_button</id></element>
+                <element name="button_later"><id>com.hp.printercontrol:id/moobe_welcome_later_button</id></element>
+			</page>
+            <page name="page_setup" description="set up printer.">
+                <element name="button_ExitSetup" >
+                    <id>com.hp.printercontrol:id/ap_selection_printer_not_present</id>
+                </element>
+			</page>
+            <page name="page_printerList" description="Printer list.">
+                <element name="button_search"><id>android:id/search_button</id></element>
+                <element name="Edit_search"><id>android:id/search_src_text</id></element>
+                <element name="text_printerIp"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
+			</page>
+            <page name="page_home" description="main page.">
+                <element name="link_selectAPrinter"><id>com.hp.printercontrol:id/error_msg_link</id></element>
+                <element name="button_scan"><id>com.hp.printercontrol:id/scan_button</id></element>
+                <element name="button_capture"><id>com.hp.printercontrol:id/capture_button</id></element>
+                <element name="button_file" ><id>com.hp.printercontrol:id/file_button</id></element>
+                <element name="button_photos"><id>android:id/photos_button</id></element>
+                <element name="button_printerInfo"><id>com.hp.printercontrol:id/printer_info_button</id></element>
+                <element name="tile_printPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
+                <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = 'Personalize']</xpath></element>
+                <element name="tile_PrintFacebookPhotos"><xpath>//android.widget.TextView[@text = 'Print Facebook Photos']</xpath></element>
+                <element name="button_MoreOptions"><accessibility_id>More options</accessibility_id></element>
+                <page name="menu_moreOptions">
+                    <element name="menuItem_appSettings_"><xpath>//android.widget.TextView[@text = 'App Settings']</xpath></element>
+                    <element name="menuItem_giveFeedback_"><xpath>//android.widget.TextView[@text = 'Give Feedback']</xpath></element>
+                    <element name="menuItem_about_">
+                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
+                    </element>
+                    <element name="menuItem_showWelcomeScreen_"><xpath>//android.widget.TextView[@text = 'Show Welcome screen']</xpath></element>
+                    <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
+                </page>
+			</page>
+            <page name="page_Personalize" description="Personalize page.">
+                <element name="buttonOrder_1"><id index="1">com.hp.printercontrol:id/generic_list_right_image</id></element>
+                <element name="buttonOrder_2"><id index="2">com.hp.printercontrol:id/generic_list_right_image</id></element>
+                <element name="text_CameraScanToEmail"><xpath>//android.widget.TextView[@text = 'Camera Scan to Email']</xpath></element>
+                <element name="text_PrintPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
+			</page>
+            <page name="page_about" description="about page.">
+                <element name="text_versionLable"><id>com.hp.printercontrol:id/version_label</id></element>
+                <element name="text_title_about"><id>android:id/action_bar_title</id></element>
+                <element name="text_version"><id>com.hp.printercontrol:id/version</id></element>
+                <element name="button_back"><id>android:id/up</id></element>
+                <element name="text_appName"><id>com.hp.printercontrol:id/app_name</id></element>
+                <element name="image_appIcon"><id>com.hp.printercontrol:id/app_icon</id></element>
+                <element name="text_copyRightCompany"><id>com.hp.printercontrol:id/editText1</id></element>
+                <element name="link_hpOnlinePrivacyStatement"><id>com.hp.printercontrol:id/moobe_online_privacy</id></element>
+                <element name="link_endUserLicenseAgreement"><id>com.hp.printercontrol:id/moobe_online_eula</id></element>
+                <element name="link_legalInformation"><id>com.hp.printercontrol:id/legalInfoTextView</id></element>
+                <element name="button_shareThisApp"><id>com.hp.printercontrol:id/button_mail</id></element>
+			</page>
+            <page name="page_appSettings" description="moreOptions then app settings page.">
+                <!--no index and index=1 attributes mean returning the first matched element-->
+                <element name="checkBox_All_noIndex"><id>android:id/checkbox</id></element>
+                <element name="checkBox_usageTracking"><id index="1">android:id/checkbox</id></element>
+                <!--index="0" means returning all specified elements, here is returning all checkboxes-->
+                <element name="checkBox_All_setIndex"><id index="0">android:id/checkbox</id></element>
+                <!--index="2" means returning the second matched element-->
+                <element name="checkBox_hpSuppliesShopping"><id index="2">android:id/checkbox</id></element>
+                <element name="checkBox_wirelessNetwork"><id index="3">android:id/checkbox</id></element>
+                <element name="checkBox_any_one"><id>android:id/checkbox</id></element>
+                <!--How to use text mark. All of below 5 locators return the same result.-->
+                <element name="text_HPSuppliesShopping1"><xpath>//android.widget.TextView[@text = 'HP Supplies Shopping']</xpath></element>
+                <element name="text_HPSuppliesShopping2"><xpath>//android.widget.TextView[contains(@text, 'HP Supplies Shopping')]</xpath></element>
+                <element name="text_HPSuppliesShopping3"><text>HP Supplies Shopping</text></element>
+                <element name="text_HPSuppliesShopping4"><text>HP Supplies S.*</text></element>
+                <element name="text_HPSuppliesShopping5"><text>++HP --ABc++Shopping</text></element>
+                <!--How to search uncertain element (such as below checkboxes) by the element which has unique text or id, etc.-->
+                <element name="checkBox_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+                <element name="text_HPSuppliesShopping_forNearby1">
+                    <text>HP Supplies Shopping</text>
+                    <text index="1">HP Supplies Shopping</text>
+                </element>
+                <element name="checkBox_HPSuppliesShopping_refNearby" ref="nearby:text_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+                <element name="checkBox_HPSuppliesShopping_refLeft" ref="left:text_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+			</page>
+            <page name="dialog_legalInformation" description="dialog_legalInformation">
+                <element name="text_title_legalInformation" ><id>android:id/alertTitle</id></element>
+                <element name="area_content_legalInformation"><xpath>//android.widget.FrameLayout/android.webkit.WebView</xpath></element>
+                <element name="button_ok" page="page_about"><id>android:id/button3</id></element>
+			</page>
+            <page name="page_endUserLicenseAgreement" description="page_endUserLicenseAgreement">
+                <element name="text_404PageNotFound"><accessibility_id>404 Page Not Found</accessibility_id></element>
+                <element name="image_logo" page="page_about">
+                    <xpath>
+                        //android.webkit.WebView/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]/android.view.View[1][contains(@content-desc,'HP® Official Site')]
+                    </xpath>
+                    <xpath>
+                        //android.view.View[1]/android.view.View[1]/android.view.View[2]/android.view.View[1][contains(@content-desc,'HP® Official Site')]
+                    </xpath>
+                </element>
+                <!--<element name="text_always" page="page_about"><id>android:id/button_always</id></element>-->
+                <!--<element name="text_chrome" ><xpath>//android.widget.TextView[@text = 'Chrome']</xpath></element>-->
+            </page>
+            <page name="page_hpOnlinePrivacyStatement" description="page_hpOnlinePrivacyStatement">
+                <element name="text_hpPrivacyStatementWorldwide"><xpath>//android.view.View[@content-desc = 'HP Privacy Statement Worldwide']</xpath></element>
+                <element name="image_logo"><xpath>//android.widget.FrameLayout/android.webkit.WebView[1]/android.view.View[1]/android.view.View[1][@content-desc = 'HP']</xpath></element>
+                <!--<element name="text_always" page="page_about"><id>android:id/button_always</id></element>-->
+                <!--<element name="text_chrome" ><xpath>//android.widget.TextView[@text = 'Chrome']</xpath></element>-->
+            </page>
+            <page name="page_shareThisApp" description="page_shareThisApp">
+                <element name="text_chooseAMailProvider"><xpath>//android.widget.TextView[@text = 'Choose a mail provider']</xpath></element>
+                <element name="text_microsoftExchangeActiveSync"><xpath>//android.widget.TextView[@text = 'Microsoft Exchange ActiveSync']</xpath></element>
+                <element name="text_sina" ><xpath>//android.widget.TextView[@text = 'Sina']</xpath></element>
+                <element name="text_qq"><xpath>//android.widget.TextView[@text = 'QQ']</xpath></element>
+                <element name="text_163"><xpath>//android.widget.TextView[@text = '163']</xpath></element>
+                <element name="text_other"><xpath>//android.widget.TextView[@text = 'Other (POP3/IMAP)']</xpath></element>
+			</page>
+            <page name="page_facebook" description="facebook">
+                <element name="text_EmailOrPhone"><xpath>//android.widget.EditText[@text = 'Email or Phone']</xpath></element>
+			</page>
+            <page name="sys_general" description="for android 6.0 'Allow xxxx to access device's location'.">
+                <element name="link_AllowAccessLocation" >
+                    <id>com.android.packageinstaller:id/permission_allow_button</id>
+                </element>
+                <element name="text_ALLOW"><id>com.android.packageinstaller:id/permission_allow_button</id></element>
+                <element name="text_DENY"><id>com.android.packageinstaller:id/permission_deny_button</id></element>
+                <element name="text_always"><id>android:id/button_always</id></element>
+                <element name="text_chrome" ><xpath>//android.widget.TextView[@text = 'Chrome']</xpath></element>
+                <element name="text_email" ><xpath>//android.widget.TextView[@text = 'Email']</xpath></element>
+			</page>
 		</pages>
 	</UiMap>
 </test-data>

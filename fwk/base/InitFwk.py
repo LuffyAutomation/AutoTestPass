@@ -66,7 +66,7 @@ class InitFwk:
 
         self.path_folder_screenshots = os.path.join(self.path_folder_currentTest, "screenshots")
         self.path_file_xsl_xmlReport = os.path.join(self.path_folder_fwk, "report", "xml", self.NAME_FILE_XSL)
-        try: # (Multiple threads) WindowsError: [Error 183] Cannot create a file when that file already exists: 'D:\\Dev\\DevicePass\\script\\AutoTestPass\\results'
+        try:  # (Multiple threads) WindowsError: [Error 183] Cannot create a file when that file already exists: 'D:\\Dev\\DevicePass\\script\\AutoTestPass\\results'
             self.UtilFolder.createFolder(self.path_folder_results)
         except:
             pass
