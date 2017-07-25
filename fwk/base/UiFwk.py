@@ -365,6 +365,12 @@ class UiFwk(UiBaseWebDriverFwk):
         new_locators_list = []
         for locatorList_nearby in locators_list_nearby:
             type_value = self._changeCutomizedToOriginal(locatorList_nearby[self.Locator.TYPE], locatorList_nearby[self.Locator.VALUE])
+
+            if self.Init.testType.lower() == self.Init.TestType.IOS.lower() and (locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or locatorList_nearby[self.Locator.TYPE] == self.LocatorType.NAME):
+                locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.NAME, str(locatorList_nearby[self.Locator.VALUE]))
+            elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower() and locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
+                locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.CONTENT_DESC, str(locatorList_nearby[self.Locator.VALUE]))
+
             locatorList_nearby[self.Locator.VALUE] = type_value["locator_value"] + "[%s]" % locatorList_nearby[self.Locator.INDEX]
             locator_value_nearby = locatorList_nearby[self.Locator.VALUE]
             for locatorList in locators_list:
