@@ -405,7 +405,7 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __swipeOrDragDrop(self, uiFwk, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
         element_name_destination = self.getCurrentElementName()
-        element_name = self.LastElement.element_name
+        element_name = self.LastElement.name
 
         element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
         element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)

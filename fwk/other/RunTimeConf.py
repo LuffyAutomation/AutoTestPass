@@ -71,7 +71,8 @@ class RunTimeConf:
             self.appWaitActivity = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_WAITACTIVITY)
             self.app = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.APP_PATH)
             try:
-                if not self.app.lower().startswith("/volumes"):
+                #if not self.app.lower().startswith("/volumes"):
+                if self.app.lower().strip().startswith("./") or self.app.lower().strip().startswith(".."):
                     self.app = PATH(self.app)
             except:
                 self.app = None
