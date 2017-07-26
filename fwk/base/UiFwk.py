@@ -357,35 +357,46 @@ class UiFwk(UiBaseWebDriverFwk):
         return self
 
     def __getNearbyXpathList(self, _list, _value_nearby_, value, _index):
+        if not _value_nearby_.strip().startswith("//"):
+            _value_nearby_ = "//*" + _value_nearby_
         _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
-        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/child::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/child::*" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
         _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
         return _list
+
+    def __transformLocatorToXpathForNearby(self, dict_type_value):
+        if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
+            if dict_type_value[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or dict_type_value[
+                self.Locator.TYPE] == self.LocatorType.NAME:
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
+                self.LocatorType.NAME, str(dict_type_value[self.Locator.VALUE]))
+        elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
+            if dict_type_value[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
+                self.LocatorType.CONTENT_DESC, str(dict_type_value[self.Locator.VALUE]))
+            elif dict_type_value[self.Locator.TYPE] == self.LocatorType.ID:
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
+                self.LocatorType.RESOURCE_ID, str(dict_type_value[self.Locator.VALUE]))
+        return dict_type_value
 
     def _getLocatorListByNearbyUniqueElement(self, element_name, locators_list, locators_list_nearby, idx_or_match=None):
         new_locators_list = []
         for locatorList_nearby in locators_list_nearby:
-            type_value = self._changeCutomizedToOriginal(locatorList_nearby[self.Locator.TYPE], locatorList_nearby[self.Locator.VALUE])
+            dict_type_value_nearby = self._changeCutomizedToOriginal(locatorList_nearby[self.Locator.TYPE], locatorList_nearby[self.Locator.VALUE])
+            dict_type_value_nearby = self.__transformLocatorToXpathForNearby(dict_type_value_nearby)
 
-            if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
-                if locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or locatorList_nearby[self.Locator.TYPE] == self.LocatorType.NAME:
-                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.NAME, str(locatorList_nearby[self.Locator.VALUE]))
-            elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
-                if locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
-                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.CONTENT_DESC, str(locatorList_nearby[self.Locator.VALUE]))
-                elif locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ID:
-                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.RESOURCE_ID, str(locatorList_nearby[self.Locator.VALUE]))
-
-            locatorList_nearby[self.Locator.VALUE] = type_value["locator_value"] + "[%s]" % locatorList_nearby[self.Locator.INDEX]
-            locator_value_nearby = locatorList_nearby[self.Locator.VALUE]
+            locator_value_nearby = dict_type_value_nearby[self.Locator.VALUE] + "[%s]" % locatorList_nearby[self.Locator.INDEX]
             for locatorList in locators_list:
-                locator_type = locatorList[self.Locator.TYPE]
-                locator_value = locatorList[self.Locator.VALUE]
+                dict_type_value = self.__transformLocatorToXpathForNearby(locatorList)
+                locator_type = dict_type_value[self.Locator.TYPE]
+                locator_value = dict_type_value[self.Locator.VALUE]
                 locator_index = locatorList[self.Locator.INDEX]
                 if locator_type == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
                     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
                 elif locator_type == self.LocatorType.ID:
-                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.RESOURCE_ID, locator_value), locator_index)
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
+                elif locator_type == self.LocatorType.ACCESSIBILITY_ID:
+                    new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
                 # elif locator_type == self.LocatorType.TEXT:
                 #     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.TEXT, locator_value), locator_index)
                 # elif locator_type == self.LocatorType.NAME:

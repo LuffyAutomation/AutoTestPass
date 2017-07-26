@@ -213,7 +213,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                         locator_value = self._getXpathJoin(locator_value, "@" + self._getSpecialLocatorType(locator_type))
                     else:
                         locator_value = "//*[@text = '%s']" % str(locator_value)
-        return {"locator_type": locator_type, "locator_value": locator_value}
+        return {self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value}
 
     # "//*[@text = 'HP Supplies Shopping']" "//*[contains(@text, 'HP Supplies Shopping')]"  "//*[contains(@text, 'HP Supplies Shopping') and not(contains(@text, 'xxxxxx'))]"
 
@@ -230,9 +230,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             else:
                 locator_index = self._getElementIndex(locatorList)
             try:
-                type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
-                locator_type = type_value["locator_type"]
-                locator_value = type_value["locator_value"]
+                dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
+                locator_type = dict_type_value[self.Locator.TYPE]
+                locator_value = dict_type_value[self.Locator.VALUE]
                 self.setCurrentElementIndex(locator_index + 1)
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if locator_index < 0:
