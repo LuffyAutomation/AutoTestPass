@@ -51,7 +51,7 @@ class HomeFistLaunchiOS(CommonUnittest):
                                       "2. Special Offers Agreement is displayed.",
                                       "3. Supplies Shopping Agreement is displayed.")
 
-
+        self.Pages.Page_addPrinter.checkbox_improvementProgram().getByNearbyUniqueElement(self.Pages.Page_addPrinter.text_improvementProgram()).click()
 #self._driver.find_element('xpath', "//*[@value='A4']")
         #verify text_improvementProgram
         self.Pages_Ios.findElementIsShow(self.Pages.Page_addPrinter.text_improvementProgram())

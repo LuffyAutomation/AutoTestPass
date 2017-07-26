@@ -11,6 +11,7 @@ from projects.WebExample.cases.WebExample import WebExample
 from projects.WebMultipleThreads.cases.TestBrowser1 import TestBrowser1
 from projects.WebMultipleThreads.cases.TestBrowser import TestBrowser
 from projects.IosExample.cases.IosExample import IosExample
+from projects.HPSmartiOS.cases.HomeFistLaunchiOS import HomeFistLaunchiOS
 import multiprocessing
 import unittest
 import time
@@ -103,6 +104,9 @@ if __name__ == '__main__':
         #     suite.addTest(Files(suit))
         # suite.addTest(HomeMoreAppSettings("test_flow"))
         suite.addTest(HomeMoreHelpCenter("test_flow"))
+        test_result = unittest.TextTestRunner(verbosity=2).run(suite)
+    elif initFwk.name_project == "HPSmartiOS":
+        suite.addTest(HomeFistLaunchiOS("test_verifyhpAgreement"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebExample":
         suite.addTest(WebExample("test_flow1"))
