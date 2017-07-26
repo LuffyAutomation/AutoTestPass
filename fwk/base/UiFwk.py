@@ -358,6 +358,7 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __getNearbyXpathList(self, _list, _value_nearby_, value, _index):
         _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/child::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
         _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
         return _list
 
@@ -366,10 +367,14 @@ class UiFwk(UiBaseWebDriverFwk):
         for locatorList_nearby in locators_list_nearby:
             type_value = self._changeCutomizedToOriginal(locatorList_nearby[self.Locator.TYPE], locatorList_nearby[self.Locator.VALUE])
 
-            if self.Init.testType.lower() == self.Init.TestType.IOS.lower() and (locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or locatorList_nearby[self.Locator.TYPE] == self.LocatorType.NAME):
-                locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.NAME, str(locatorList_nearby[self.Locator.VALUE]))
-            elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower() and locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
-                locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.CONTENT_DESC, str(locatorList_nearby[self.Locator.VALUE]))
+            if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
+                if locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or locatorList_nearby[self.Locator.TYPE] == self.LocatorType.NAME:
+                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.NAME, str(locatorList_nearby[self.Locator.VALUE]))
+            elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
+                if locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
+                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.CONTENT_DESC, str(locatorList_nearby[self.Locator.VALUE]))
+                elif locatorList_nearby[self.Locator.TYPE] == self.LocatorType.ID:
+                    locatorList_nearby[self.Locator.VALUE] = "//*[@%s = '%s']" % (self.LocatorType.RESOURCE_ID, str(locatorList_nearby[self.Locator.VALUE]))
 
             locatorList_nearby[self.Locator.VALUE] = type_value["locator_value"] + "[%s]" % locatorList_nearby[self.Locator.INDEX]
             locator_value_nearby = locatorList_nearby[self.Locator.VALUE]
