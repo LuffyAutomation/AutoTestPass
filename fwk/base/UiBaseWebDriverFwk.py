@@ -186,12 +186,13 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     locator_value = locator_value.replace("@text", "@value")
                 elif ("(@" not in locator_value) and ("[@" not in locator_value):
                     if self.Match.INCLUDE in locator_value or self.Match.EXCLUDE in locator_value or self.Match.MATCH in locator_value:
-                        locator_type = self.LocatorType.XPATH
+
                         if self.Match.MATCH in locator_value:
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
                         locator_value = self._getXpathJoin(locator_value, "@" + self._transformLocatorTypeToXpathStyle(locator_type))
+                        locator_type = self.LocatorType.XPATH  #to avoid '//*[contains(@xpath, \\'AppImprovement\\')]', this change must be put here
                     else:
                         locator_type = "name"
             elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
@@ -200,12 +201,12 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 elif ("(@" not in locator_value) and ("[@" not in locator_value):
                     locator_type = self.LocatorType.XPATH
                     if self.Match.INCLUDE in locator_value or self.Match.EXCLUDE in locator_value or self.Match.MATCH in locator_value:
-                        locator_type = self.LocatorType.XPATH
                         if self.Match.MATCH in locator_value:
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
                         locator_value = self._getXpathJoin(locator_value, "@" + self._transformLocatorTypeToXpathStyle(locator_type))
+                        locator_type = self.LocatorType.XPATH
                     else:
                         locator_value = "//*[@text = '%s']" % str(locator_value)
         return {self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value}
