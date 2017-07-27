@@ -332,7 +332,7 @@ class UiFwk(UiBaseWebDriverFwk):
                 dict_closest[i] = abs(ele_x - element_unique_x)
         dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
         try:
-            index = dict_closest[self.LastElement.index - 1][0]
+            index = dict_closest[self.CurrentElementCollection.index - 1][0]
             self.CurrentElement.name = element_name
             self.CurrentElement.page_name = self.LastElement.page_name
             self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
@@ -366,17 +366,13 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __transformLocatorToXpathForNearby(self, dict_type_value):
         if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
-            if dict_type_value[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or dict_type_value[
-                self.Locator.TYPE] == self.LocatorType.NAME:
-                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
-                self.LocatorType.NAME, str(dict_type_value[self.Locator.VALUE]))
+            if dict_type_value[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID or dict_type_value[self.Locator.TYPE] == self.LocatorType.NAME:
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (self.LocatorType.NAME, str(dict_type_value[self.Locator.VALUE]))
         elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
             if dict_type_value[self.Locator.TYPE] == self.LocatorType.ACCESSIBILITY_ID:
-                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
-                self.LocatorType.CONTENT_DESC, str(dict_type_value[self.Locator.VALUE]))
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (self.LocatorType.CONTENT_DESC, str(dict_type_value[self.Locator.VALUE]))
             elif dict_type_value[self.Locator.TYPE] == self.LocatorType.ID:
-                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (
-                self.LocatorType.RESOURCE_ID, str(dict_type_value[self.Locator.VALUE]))
+                dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (self.LocatorType.RESOURCE_ID, str(dict_type_value[self.Locator.VALUE]))
         return dict_type_value
 
     def _getLocatorListByNearbyUniqueElement(self, element_name, locators_list, locators_list_nearby, idx_or_match=None):

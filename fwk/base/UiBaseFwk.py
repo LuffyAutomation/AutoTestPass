@@ -255,6 +255,9 @@ class UiBaseFwk(object):
     def setCurrentElementCollectionName(self, elementCollection_name):
         self.CurrentElementCollection.name = elementCollection_name
 
+    def setCurrentElementCollectionIndex(self, elementCollection_index):
+        self.CurrentElementCollection.index = elementCollection_index
+
     def getCurrentElementCollectionName(self):
         return self.CurrentElementCollection.name
 
@@ -279,9 +282,9 @@ class UiBaseFwk(object):
     def _getElementIndex(self, element_locators_list):
         t = element_locators_list[self.Locator.INDEX]
         try:
-            return int(t) - 1
+            return int(t)
         except:
-            return 0
+            return 1
 
     # for log
     def _getCurrentElementNameWhenNone(self, element_name=None):

@@ -217,7 +217,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     # "//*[@text = 'HP Supplies Shopping']" "//*[contains(@text, 'HP Supplies Shopping')]"  "//*[contains(@text, 'HP Supplies Shopping') and not(contains(@text, 'xxxxxx'))]"
 
-    def _findElementByLocatorsList(self, element_name, locatorsList, marks=None):
+    def _findElementByLocatorsList(self, element_name, locatorsList, findOneOrCollection=None):
         ori_element_name = element_name
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
@@ -225,54 +225,50 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             if locator_value.strip() == "":
                 continue
             locator_value = self._getLocatorValueByLocalString(element_name, locator_value)
-            if marks == "findElements":
-                locator_index = -2
-            else:
-                locator_index = self._getElementIndex(locatorList)
+            locator_index = self._getElementIndex(locatorList)
             try:
                 dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
                 locator_type = dict_type_value[self.Locator.TYPE]
                 locator_value = dict_type_value[self.Locator.VALUE]
-                self.setCurrentElementIndex(locator_index + 1)
+                self.setCurrentElementIndex(locator_index)
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
-                    if locator_index < 0:
+                    if findOneOrCollection == "findElements":
                         self.setCurrentElementCollectionName(element_name)
-                        self.setCurrentElementCollectionObject(
-                            self._driver.find_elements_by_accessibility_id(locator_value))
+                        self.setCurrentElementCollectionIndex(locator_index)
+                        self.setCurrentElementCollectionObject(self._driver.find_elements_by_accessibility_id(locator_value))
                         return self.getCurrentElementCollectionObject()
-                    elif locator_index == 0:
-                        self.setCurrentElementIndex(1)
+                    elif locator_index == 1:
                         self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
                         self.setCurrentElementObject(
-                            self._driver.find_elements_by_accessibility_id(locator_value)[locator_index])
+                            self._driver.find_elements_by_accessibility_id(locator_value)[locator_index - 1])
                 else:
-                    if locator_index < 0:
+                    if findOneOrCollection == "findElements":
                         self.setCurrentElementCollectionName(element_name)
+                        self.setCurrentElementCollectionIndex(locator_index)
                         self.setCurrentElementCollectionObject(self._driver.find_elements(locator_type, locator_value))
                         return self.getCurrentElementCollectionObject()
-                    elif locator_index == 0:
-                        self.setCurrentElementIndex(1)
+                    elif locator_index == 1:
                         self.setCurrentElementObject(self._driver.find_element(locator_type, locator_value))
                     else:
                         self.setCurrentElementObject(
-                            self._driver.find_elements(locator_type, locator_value)[locator_index])
+                            self._driver.find_elements(locator_type, locator_value)[locator_index - 1])
             except Exception as e:
                 # traceback.print_exc()
                 # print e.__str__()
                 continue
             return self.getCurrentElementObject()
-        if locator_index < 0:  # When <id/xpath... index="0">android:id/checkbox</id>
+        if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
             raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on page [" + str(
                 self.getCurrentPageName()) + "].")
-        elif locator_index == 0:  # When <id/xpath...>android:id/checkbox</id>
+        elif locator_index == 1:  # When <id/xpath...>android:id/checkbox</id>
             raise Exception("Failed to find element [" + str(ori_element_name) + "] on page [" + str(
                 self.getCurrentPageName()) + "].")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(
                 locator_index + 1) + "] on page [" + str(self.getCurrentPageName()) + "].")
 
-    def _findElement(self, element_name, marks=None):
+    def _findElement(self, element_name, findOneOrCollection=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
             list_locator = self.CurrentElement.list_locators  # for
         else:
@@ -286,7 +282,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                     list_locator = self._getLocatorListByNearbyUniqueElement(element_name, list_locator, ref_locatorsList)
                 else:
                     pass
-        return self._findElementByLocatorsList(element_name, list_locator, marks)
+        return self._findElementByLocatorsList(element_name, list_locator, findOneOrCollection)
 
     # def getElementsSize(self, name):
     #     return len(self.getElements(name))
