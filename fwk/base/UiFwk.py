@@ -366,11 +366,13 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def _transformLocatorTypeToXpathStyle(self, locator_type):
         if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
-            if locator_type == self.LocatorType.ACCESSIBILITY_ID or locator_type == self.LocatorType.NAME:
+            if locator_type == self.LocatorType.ACCESSIBILITY_ID or locator_type == self.LocatorType.NAME or locator_type == self.LocatorType.TEXT:
                 locator_type = self.LocatorType.NAME
         elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
             if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                 locator_type =self.LocatorType.CONTENT_DESC
+            elif locator_type == self.LocatorType.TEXT:
+                locator_type = self.LocatorType.VALUE
             elif locator_type == self.LocatorType.ID:
                 locator_type = self.LocatorType.RESOURCE_ID
         return locator_type
