@@ -178,11 +178,6 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         t += "]"
         return t
 
-    def _getSpecialLocatorType(self, nativeLocatorType):
-        if nativeLocatorType == "id":
-            return self.LocatorType.RESOURCE_ID
-        return nativeLocatorType
-
     def _changeCutomizedToOriginal(self, locator_type, locator_value):
         if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE or locator_type == self.LocatorType.CONTENT_DESC or locator_type == self.LocatorType.RESOURCE_ID:
             if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
@@ -196,7 +191,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@" + self._getSpecialLocatorType(locator_type))
+                        locator_value = self._getXpathJoin(locator_value, "@" + self.__transformLocatorTypeToXpathStyle(locator_type))
                     else:
                         locator_type = "name"
             elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
@@ -210,7 +205,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                             locator_value = locator_value.replace(self.Match.MATCH, "")
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
-                        locator_value = self._getXpathJoin(locator_value, "@" + self._getSpecialLocatorType(locator_type))
+                        locator_value = self._getXpathJoin(locator_value, "@" + self.__transformLocatorTypeToXpathStyle(locator_type))
                     else:
                         locator_value = "//*[@text = '%s']" % str(locator_value)
         return {self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value}
