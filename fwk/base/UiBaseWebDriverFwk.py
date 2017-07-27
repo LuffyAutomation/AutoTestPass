@@ -179,7 +179,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return t
 
     def _changeCutomizedToOriginal(self, locator_type, locator_value):
-        if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE or locator_type == self.LocatorType.CONTENT_DESC or locator_type == self.LocatorType.RESOURCE_ID:
+        if locator_type == self.LocatorType.TEXT or locator_type == self.LocatorType.VALUE or locator_type == self.LocatorType.CONTENT_DESC or locator_type == self.LocatorType.RESOURCE_ID or locator_type == self.LocatorType.CLASS or locator_type == self.LocatorType.TYPE:
             if self.Init.testType.lower() == self.Init.TestType.IOS.lower():
                 if "@text" in locator_value:
                     locator_type = self.LocatorType.XPATH

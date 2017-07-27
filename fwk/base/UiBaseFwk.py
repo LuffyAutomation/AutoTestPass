@@ -52,19 +52,21 @@ class UiBaseFwk(object):
         RIGHT = "Right"
 
     class LocatorType:
-        ID = "id"
-        XPATH = "xpath"
+        ID = "id"  # all
+        XPATH = "xpath"  # all
         LINK_TEXT = "link_text"
         PARTIAL_LINK_TEXT = "partial_link_text"
         NAME = "name"  # text, but name has been depreated in appium 1.6 for Android ??  But it works in IOS.
         ACCESSIBILITY_ID = "accessibility_id"  #1. equals to content-desc 2. equal to name in some cases. But name has been depreated in appium 1.6
         TAG_NAME = "tag_name"
-        CLASS_NAME = "class_name"
+        CLASS_NAME = "class_name"  # web
         CSS_SELECTOR = "css_selector"
-        CONTENT_DESC = "content-desc"
-        CONTENT_DESC1 = "content_desc"
-        RESOURCE_ID = "resource-id"
-        RESOURCE_ID1 = "resource_id"
+        CONTENT_DESC = "content-desc"  # android, used in uimap
+        CONTENT_DESC1 = "content_desc"  # android, used for xpath
+        RESOURCE_ID = "resource-id"  # android, used in xpath
+        RESOURCE_ID1 = "resource_id"  # android, used in uimap
+        CLASS = "class"  # android
+        TYPE = "type"  # ios
 
         TEXT = "text"  # customized, it is slower than other types
         VALUE = "value"  # customized, it is slower than other types
