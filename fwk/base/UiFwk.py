@@ -315,7 +315,7 @@ class UiFwk(UiBaseWebDriverFwk):
         element_name = self.LastElement.name
         element_collection = self.getMatchedElements(idx_or_match, self.LastElement.name)
 
-        dict_closest = {}
+        dict_closest_elements = {}
 
         # for ele in element_collection:
         for i in range(len(element_collection)):
@@ -323,16 +323,16 @@ class UiFwk(UiBaseWebDriverFwk):
             ele_x = ele_location["x"]
             ele_y = ele_location["y"]
             if direction.lower() == "left" and ele_x > element_unique_x:
-                dict_closest[i] = abs(ele_y - element_unique_y)
+                dict_closest_elements[i] = abs(ele_y - element_unique_y)
             elif direction.lower() == "right" and ele_x < element_unique_x:
-                dict_closest[i] = abs(ele_y - element_unique_y)
+                dict_closest_elements[i] = abs(ele_y - element_unique_y)
             elif direction.lower() == "upper" and ele_y > element_unique_y:
-                dict_closest[i] = abs(ele_x - element_unique_x)
+                dict_closest_elements[i] = abs(ele_x - element_unique_x)
             elif direction.lower() == "lower" and ele_y < element_unique_y:
-                dict_closest[i] = abs(ele_x - element_unique_x)
-        dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
+                dict_closest_elements[i] = abs(ele_x - element_unique_x)
+        dict_closest_elements = sorted(dict_closest_elements.items(), lambda x, y: cmp(x[1], y[1]))
         try:
-            index = dict_closest[self.CurrentElementCollection.index - 1][0]
+            index = dict_closest_elements[self.CurrentElementCollection.index - 1][0]
             self.CurrentElement.name = element_name
             self.CurrentElement.page_name = self.LastElement.page_name
             self.CurrentElement.page_uiMap = self.LastElement.page_uiMap
@@ -345,7 +345,6 @@ class UiFwk(UiBaseWebDriverFwk):
     def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
         self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
         return self
-
     def getByRightUniqueElement(self, uiFwk, idx_or_match=None):
         self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Right")
         return self
@@ -370,7 +369,7 @@ class UiFwk(UiBaseWebDriverFwk):
                 locator_type = self.LocatorType.NAME
         elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
             if locator_type == self.LocatorType.ACCESSIBILITY_ID:
-                locator_type =self.LocatorType.CONTENT_DESC
+                locator_type = self.LocatorType.CONTENT_DESC
             elif locator_type == self.LocatorType.TEXT:
                 locator_type = self.LocatorType.VALUE
             elif locator_type == self.LocatorType.ID:

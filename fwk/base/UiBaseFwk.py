@@ -97,8 +97,8 @@ class UiBaseFwk(object):
         self.UtilConsole = self.Init.UtilConsole
         self.TestType = self.Init.TestType
         self.testType = self.Init.testType
-        self._root = None
-        self._rootLocalXml = None
+        self._xmlRoot = None
+        self._xmlRootLocalXml = None
 
         self.CurrentElement = self.ElementStruct()
         self.LastElement = self.ElementStruct()
@@ -146,10 +146,22 @@ class UiBaseFwk(object):
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
         self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
 
+        self._path_file_uiMap_localized = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_LANGUAGE))
+        if not self._path_file_uiMap_localized.lower().endswith(".xml"):
+            self._path_file_uiMap_localized += ".xml"
+
     def __getConfigurationParameters(self):
         self._xmlTree = self.UtilXml.getTree(self._path_file_uiMap)
-        self._root = self.UtilXml.getRootElement(self._xmlTree)
+        self._xmlRoot = self.UtilXml.getRootElement(self._xmlTree)
         self._elementTimeOut = self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_TIMEOUT_ELEMENT)
+
+        self._xmlTree_localized = None
+        self._xmlRoot_localized = None
+        try:
+            self._xmlTree_localized = self.UtilXml.getTree(self._path_file_uiMap_localized)
+            self._xmlRoot_localized = self.UtilXml.getRootElement(self._xmlTree_localized)
+        except:
+            self.logger.warning("Please make sure if [%s] is needed or correct." % (self._path_file_uiMap_localized))
 
     def __addLogForWaitEvent(self, method, log):
         if ". 0s elapsed" not in log:  # ignore this
@@ -185,7 +197,7 @@ class UiBaseFwk(object):
         return self.getUiMapByXpath(xpath)
 
     def getUiMapByXpath(self, xpath):
-        list = self.UtilXml.getElements(self._root, xpath)
+        list = self.UtilXml.getElements(self._xmlRoot, xpath)
         currentElements = {}
         for index in range(len(list)):
             attributes = self.UtilXml.getAttribute(list[index])
@@ -199,7 +211,7 @@ class UiBaseFwk(object):
             raise Exception("There are duplicated pages existing. [" + xpath + "].")
 
     def _getUiMapRoot(self):
-        return self._root
+        return self._xmlRoot
 
     # there are 3 same functions in AndroidFwk, IosFwk, WebFwk
     # def updateCurrentElementStatus(self, element_name, uiMap, page_name):
@@ -398,7 +410,7 @@ class UiBaseFwk(object):
 
     def _getLocalString(self, element_name):
         try:
-            ele = self.UtilXml.getElement(self._rootLocalXml, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
+            ele = self.UtilXml.getElement(self._xmlRootLocalXml, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
             return self.UtilXml.getText(ele).strip()
         except:
             raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")

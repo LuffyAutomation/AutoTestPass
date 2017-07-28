@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data>
+	<UiMap>
+		<pages>
+            <page name="page_home" description="main page.">
+                <element name="tile_printPhotos"><xpath>打印照片</xpath></element>
+                <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = '个性化']</xpath></element>
+                <element name="tile_PrintFacebookPhotos"><xpath>打印 Facebook 照片</xpath></element>
+                <element name="button_MoreOptions"><accessibility_id>更多选项</accessibility_id></element>
+                <page name="menu_moreOptions">
+                    <!--<element name="menuItem_appSettings_"><xpath>//android.widget.TextView[@text = 'App Settings']</xpath></element>-->
+                    <element name="menuItem_appSettings_"><xpath>应用程序设置</xpath></element>
+                    <element name="menuItem_giveFeedback_"><xpath>//android.widget.TextView[@text = 'Give Feedback']</xpath></element>
+                    <element name="menuItem_about_"><xpath>关于</xpath></element>
+                    <element name="menuItem_showWelcomeScreen_"><xpath>//android.widget.TextView[@text = 'Show Welcome screen']</xpath></element>
+                    <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
+                </page>
+			</page>
+		</pages>
+	</UiMap>
+</test-data>

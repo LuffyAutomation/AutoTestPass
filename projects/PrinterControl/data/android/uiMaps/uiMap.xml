@@ -55,7 +55,7 @@
                 <element name="button_file" ><id>com.hp.printercontrol:id/file_button</id></element>
                 <element name="button_photos"><id>android:id/photos_button</id></element>
                 <element name="button_printerInfo"><id>com.hp.printercontrol:id/printer_info_button</id></element>
-                <element name="tile_printPhotos"><xpath>//android.widget.TextView[@text = 'Print Photos']</xpath></element>
+                <element name="tile_printPhotos"><xpath str="y">//android.widget.TextView[@text = 'Print Photos']</xpath></element>
                 <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = 'Personalize']</xpath></element>
                 <element name="tile_PrintFacebookPhotos"><xpath>//android.widget.TextView[@text = 'Print Facebook Photos']</xpath></element>
                 <element name="button_MoreOptions"><accessibility_id>More options</accessibility_id></element>
