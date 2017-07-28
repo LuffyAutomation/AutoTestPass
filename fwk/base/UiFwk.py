@@ -326,9 +326,9 @@ class UiFwk(UiBaseWebDriverFwk):
                 dict_closest[i] = abs(ele_y - element_unique_y)
             elif direction.lower() == "right" and ele_x < element_unique_x:
                 dict_closest[i] = abs(ele_y - element_unique_y)
-            elif direction.lower() == "upper" and ele_y < element_unique_y:
+            elif direction.lower() == "upper" and ele_y > element_unique_y:
                 dict_closest[i] = abs(ele_x - element_unique_x)
-            elif direction.lower() == "lower" and ele_y > element_unique_y:
+            elif direction.lower() == "lower" and ele_y < element_unique_y:
                 dict_closest[i] = abs(ele_x - element_unique_x)
         dict_closest = sorted(dict_closest.items(), lambda x, y: cmp(x[1], y[1]))
         try:

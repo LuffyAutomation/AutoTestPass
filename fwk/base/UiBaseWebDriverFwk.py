@@ -192,7 +192,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                         if not locator_value.startswith(self.Match.INCLUDE) and not locator_value.startswith(self.Match.EXCLUDE):
                             locator_value = self.Match.INCLUDE + locator_value
                         locator_value = self._getXpathJoin(locator_value, "@" + self._transformLocatorTypeToXpathStyle(locator_type))
-                        locator_type = self.LocatorType.XPATH  #to avoid '//*[contains(@xpath, \\'AppImprovement\\')]', this change must be put here
+                        locator_type = self.LocatorType.XPATH  # to avoid '//*[contains(@xpath, \\'AppImprovement\\')]', this change must be put here
                     else:
                         locator_type = "name"
             elif self.Init.testType.lower() == self.Init.TestType.ANDROID.lower():
