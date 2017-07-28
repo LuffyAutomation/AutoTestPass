@@ -34,7 +34,8 @@ def mutipleProcesses2():
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
-
+    import re
+    matcher_array = re.findall("\'([^\"]*)\'\)\]", "//android.widget.TextView[@text = 'sdsds' qqw 'Choose' a mail' provider')]asdsd")
     suite = unittest.TestSuite()
     initFwk = InitFwk()
     if initFwk.name_project == "PrinterControl":

@@ -109,13 +109,13 @@ class RunTimeConf:
             lines = ['ro.product.locale.language=en', 'ro.product.locale.region=US', 'ro.product.model=' + self.deviceName, 'ro.build.version.release=' + self.platformVersion, 'ro.build.version.sdk=' + self.platformVersion]
         if len(lines) == 0:
             raise Exception("Can not get mobile information. Please check if mobile [%s] connected correctly." % self.deviceName)
-        self.__setMobileDetails(lines)
+        self.__setMobileDetails(lines, self.UI)
 
     def getWebInfo(self, UI):
         self.UI = UI
 
-    def __setMobileDetails(self, lines):
-        #self.UI.logger.info(self.platform.lower().strip() == "android")
+    def __setMobileDetails(self, lines, UI):
+        # self.UI.logger.info(self.platform.lower().strip() == "android")
         if self.platform.lower().strip() == "android" or self.platform.lower().strip() == "ios":
             for line in lines:
                 if line.decode('utf-8').strip().split("=")[0] == "ro.product.locale.language":
@@ -131,12 +131,14 @@ class RunTimeConf:
         if self.language == "" or self.region == "":  # 6.0
             if self.platform.lower().strip() == "android":
                 t = self.UI.getBuildInMobileLanguage(self.deviceName)
+            else:
+                t = self.UI.getLanguage()
+            try:
                 self.language = t.split("-")[0]
                 self.region = t.split("-")[1]
-            else:
-                self.language = "en"
-                self.region = "US"
-        self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps, self.UI.getLanguageRegion() + ".xml")
-        if self.language != "en":  # en_US.xml needn't be loaded.
-            self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
-            self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
+            except:
+                pass
+        # self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps, self.UI.getLanguageRegion() + ".xml")
+        # if self.language != "en":  # en_US.xml needn't be loaded.
+        #     self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
+        #     self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)

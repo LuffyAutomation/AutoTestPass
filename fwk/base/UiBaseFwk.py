@@ -1,6 +1,6 @@
 # from InitFwk import InitFwk
 import os
-
+import re
 from selenium.webdriver.common.by import By
 from fwk.utils.exceller.Exceller import Exceller
 from fwk.other.RunTimeConf import RunTimeConf
@@ -140,15 +140,18 @@ class UiBaseFwk(object):
             self._path_file_runTimeConf = os.path.join(self.Init.path_folder_data, testType, 'runTime.conf')
         except:
             if testType is None:
-                self.logger.error("faild to find [%s] in [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
+                self.logger.error("failed to find [%s] from [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
         self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
         self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
         self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
-
-        self._path_file_uiMap_localized = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_LANGUAGE))
+        self.language = self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_LANGUAGE)
+        self._path_file_uiMap_localized = os.path.join(self._path_folder_uiMaps, self.language)
         if not self._path_file_uiMap_localized.lower().endswith(".xml"):
             self._path_file_uiMap_localized += ".xml"
+
+    def getLanguage(self):
+        return self.language
 
     def __getConfigurationParameters(self):
         self._xmlTree = self.UtilXml.getTree(self._path_file_uiMap)
@@ -394,31 +397,56 @@ class UiBaseFwk(object):
             locator_type = By.CSS_SELECTOR
         return locator_type
 
-    def __getReplacedLocatorByLocalString(self, locator_value, localString):
-        objlocalString = ""
-        tList = ["@ text = '", "@text = '", "@text= '", "@text='", "@ text= '", "@ text='"]# // android.widget.TextView[ @ text = 'Choose a mail provider']
-        for t in tList:
-            if t in locator_value:
-                objlocalString = locator_value.split(t)[1].split("']")[0]
-                return locator_value.replace(objlocalString, localString)
-        tList = ["@ text, '", "@ text,'", "@text,'", "@text, '"]  #// android.widget.TextView[contains( @ text, 'VALUE_PLACEHOLDER')]
-        for t in tList:
-            if t in locator_value:
-                objlocalString = locator_value.split(t)[1].split("')]")[0]
-                return locator_value.replace(objlocalString, localString)
-        return localString
+    def __getReplacedLocatorByLocalString(self, locator_value, local_string):
+        if self._hasXpathText(local_string):
+            return local_string
 
-    def _getLocalString(self, element_name):
+        matcher_array = []
+        if "(@" in locator_value:
+            matcher_array = re.findall("\'([^\"]*)\'\)\]", locator_value)
+            if matcher_array.__len__() == 0:
+                matcher_array = re.findall("\"([^\"]*)\"\)\]", locator_value)
+                if matcher_array.__len__() == 0:
+                    raise Exception("The xpath [" + locator_value + "] for element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+        elif "[@" in locator_value:
+            matcher_array = re.findall("\'([^\"]*)\'\]", locator_value)
+            if matcher_array.__len__() == 0:
+                matcher_array = re.findall("\"([^\"]*)\"\]", locator_value)
+                if matcher_array.__len__() == 0:
+                    raise Exception("The xpath [" + locator_value + "] for element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+        locator_value = locator_value.replace(matcher_array[0], local_string)
+        return locator_value
+
+        # tList = ["@ text = '", "@text = '", "@text= '", "@text='", "@ text= '", "@ text='"]  # // android.widget.TextView[@ text = 'Choose a mail provider']
+        # for t in tList:
+        #     if t in locator_value:
+        #         objlocalString = locator_value.split(t)[1].split("']")[0]
+        #         return locator_value.replace(objlocalString, localString)
+        # tList = ["@ text, '", "@ text,'", "@text,'", "@text, '"]  # // android.widget.TextView[contains(@text, 'VALUE_PLACEHOLDER')]
+        # for t in tList:
+        #     if t in locator_value:
+        #         objlocalString = locator_value.split(t)[1].split("')]")[0]
+        #         return locator_value.replace(objlocalString, localString)
+        # return localString
+
+    def _getLocalStringFromFile(self, element_name):
+        if self._xmlRoot_localized is None:
+            return None
         try:
-            ele = self.UtilXml.getElement(self._xmlRootLocalXml, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
+            ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
             return self.UtilXml.getText(ele).strip()
         except:
-            raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+            return None
+            # raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
 
     def _getLocatorValueByLocalString(self, element_name, locator_value):
-        if element_name.endswith("_") and self.getLanguageRegion() != self.Language.en_US:
-            localString = self.__getLocalString(element_name)
-            return self.__getReplacedLocatorByLocalString(locator_value, localString)
+        localString = self._getLocalStringFromFile(element_name)
+        if localString is None:
+            return locator_value
+        return self.__getReplacedLocatorByLocalString(locator_value, localString)
+        # if element_name.endswith("_") and self.getLanguageRegion() != self.Language.en_US:
+        #     localString = self._getLocalString(element_name)
+        #     return self.__getReplacedLocatorByLocalString(locator_value, localString)
         return locator_value
 
     def getLanguageRegion(self):
@@ -429,6 +457,9 @@ class UiBaseFwk(object):
             return True
         else:
             return False
+
+    def _hasXpathText(self, str):
+        return "".startswith("//") and ("(@" in str or "[@" in str)
 
     def loadTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
         if self._DictTestData is None:
