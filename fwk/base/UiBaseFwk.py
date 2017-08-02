@@ -164,7 +164,7 @@ class UiBaseFwk(object):
             self._xmlTree_localized = self.UtilXml.getTree(self._path_file_uiMap_localized)
             self._xmlRoot_localized = self.UtilXml.getRootElement(self._xmlTree_localized)
         except:
-            self.logger.warning("Please make sure if [%s] is needed or correct." % (self._path_file_uiMap_localized))
+            self.logger.warning("Please make sure if [%s] is existing. Or Please check if the [test.language=] is set correctly in runTime.conf." % (self._path_file_uiMap_localized))
 
     def __addLogForWaitEvent(self, method, log):
         if ". 0s elapsed" not in log:  # ignore this
@@ -401,7 +401,7 @@ class UiBaseFwk(object):
         if self._hasXpathText(local_string):
             return local_string
 
-        matcher_array = []
+        matcher_array = [locator_value]
         if "(@" in locator_value:
             matcher_array = re.findall("\'([^\"]*)\'\)\]", locator_value)
             if matcher_array.__len__() == 0:
@@ -429,18 +429,25 @@ class UiBaseFwk(object):
         #         return locator_value.replace(objlocalString, localString)
         # return localString
 
-    def _getLocalStringFromFile(self, element_name):
+    def _getLocalStringFromFile(self, element_name, locator_type):
         if self._xmlRoot_localized is None:
             return None
         try:
-            ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']")
+            t_page_name = self.getCurrentPageName()
+            if "\\" in t_page_name:
+                list_page_name = t_page_name.split("\\")
+                t_page_name = list_page_name[0] + "']/page[@name='" + list_page_name[1]
+            ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + t_page_name + "']/element[@name='" + element_name + "']/%s" % locator_type)
+            # if ele is None:  # Maybe the locator_type from uiMap is unmatched with the corresponding one from localized uiMap.
+            #     ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']/*[0]")
+            # keep above 2 lines for applying more conditions.
             return self.UtilXml.getText(ele).strip()
         except:
             return None
             # raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
 
-    def _getLocatorValueByLocalString(self, element_name, locator_value):
-        localString = self._getLocalStringFromFile(element_name)
+    def _getLocatorValueByLocalString(self, element_name, locator_type,  locator_value):
+        localString = self._getLocalStringFromFile(element_name, locator_type)
         if localString is None:
             return locator_value
         return self.__getReplacedLocatorByLocalString(locator_value, localString)

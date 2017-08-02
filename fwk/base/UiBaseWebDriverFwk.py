@@ -215,12 +215,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def _findElementByLocatorsList(self, element_name, locatorsList, findOneOrCollection=None):
         ori_element_name = element_name
+        list_for_log = []
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
             locator_value = self._getElementValue(locatorList)
+            locator_value = self._getElementValue(locatorList)
             if locator_value.strip() == "":
                 continue
-            locator_value = self._getLocatorValueByLocalString(element_name, locator_value)
+            locator_value = self._getLocatorValueByLocalString(element_name, locator_type, locator_value)
             locator_index = self._getElementIndex(locatorList)
             try:
                 dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
@@ -263,6 +265,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(
                 locator_index + 1) + "] on page [" + str(self.getCurrentPageName()) + "].")
+
 
     def _findElement(self, element_name, findOneOrCollection=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
