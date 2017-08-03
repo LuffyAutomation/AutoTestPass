@@ -16,6 +16,33 @@
                     <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
                 </page>
 			</page>
+            <page name="page_appSettings" description="moreOptions then app settings page.">
+                <element name="text_HPSuppliesShopping1"><xpath>//android.widget.TextView[@text = 'HP 耗材购买']</xpath></element>
+                <element name="text_HPSuppliesShopping2"><xpath>//android.widget.TextView[contains(@text, 'HP 耗材购买')]</xpath></element>
+                <element name="text_HPSuppliesShopping3"><text>HP 耗材购买</text></element>
+                <element name="text_HPSuppliesShopping4"><text>HP 耗材购.*</text></element>
+                <element name="text_HPSuppliesShopping5"><text>++HP --ABc++耗材购买</text></element>
+                <!--How to search uncertain element (such as below checkboxes) by the element which has unique text or id, etc.-->
+                <element name="checkBox_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+                <element name="text_HPSuppliesShopping_forNearby1">
+                    <text>HP 耗材购买</text>
+                    <text index="1">HP 耗材购买</text>
+                </element>
+                <element name="checkBox_HPSuppliesShopping_refNearby" ref="nearby:text_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+                <element name="checkBox_HPSuppliesShopping_refLeft" ref="left:text_HPSuppliesShopping_forNearby1">
+                    <id>android:id/checkbox</id>
+                    <class_name index="1">android.widget.CheckBox</class_name>
+                    <content_desc>sdsdsdsd</content_desc>
+                </element>
+			</page>
 		</pages>
 	</UiMap>
 </test-data>

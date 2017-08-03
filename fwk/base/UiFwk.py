@@ -1,3 +1,4 @@
+# coding: utf-8
 from UiBaseWebDriverFwk import UiBaseWebDriverFwk
 import inspect
 

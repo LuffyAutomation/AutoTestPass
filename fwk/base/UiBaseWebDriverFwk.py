@@ -1,3 +1,4 @@
+# coding: utf-8
 import os
 import re
 from appium import webdriver
@@ -208,7 +209,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                         locator_value = self._getXpathJoin(locator_value, "@" + self._transformLocatorTypeToXpathStyle(locator_type))
                         locator_type = self.LocatorType.XPATH
                     else:
-                        locator_value = "//*[@text = '%s']" % str(locator_value)
+                        locator_value = "//*[@text = '%s']" % locator_value
+                        # if locator_value is chinese. str(locator_value)  => UnicodeEncodeError: 'ascii' codec can't encode characters in position 3-6: ordinal not in range(128)
+                        # locator_value = "//*[@text = '%s']" % str(locator_value)
         return {self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value}
 
     # "//*[@text = 'HP Supplies Shopping']" "//*[contains(@text, 'HP Supplies Shopping')]"  "//*[contains(@text, 'HP Supplies Shopping') and not(contains(@text, 'xxxxxx'))]"
@@ -219,10 +222,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
             locator_value = self._getElementValue(locatorList)
-            locator_value = self._getElementValue(locatorList)
+            # locator_value = self._getElementValue(locatorList)
             if locator_value.strip() == "":
                 continue
-            locator_value = self._getLocatorValueByLocalString(element_name, locator_type, locator_value)
+
             locator_index = self._getElementIndex(locatorList)
             try:
                 dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)

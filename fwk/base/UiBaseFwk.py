@@ -1,4 +1,4 @@
-# from InitFwk import InitFwk
+# coding: utf-8
 import os
 import re
 from selenium.webdriver.common.by import By
@@ -361,6 +361,7 @@ class UiBaseFwk(object):
             locator_type = self.UtilXml.getTagName(locator)
             locator_type = self._get_native_locator_type(locator_type)
             locator_value = self.UtilXml.getText(locator).strip()
+            locator_value = self._getLocatorValueByLocalString(element_name, locator_type, locator_value)
             global locator_index
             try:
                 locator_index = self.UtilXml.getAttribute(locator)['index']
@@ -454,7 +455,7 @@ class UiBaseFwk(object):
         # if element_name.endswith("_") and self.getLanguageRegion() != self.Language.en_US:
         #     localString = self._getLocalString(element_name)
         #     return self.__getReplacedLocatorByLocalString(locator_value, localString)
-        return locator_value
+        # return locator_value
 
     def getLanguageRegion(self):
         return self.RunTimeConf.language + "_" + self.RunTimeConf.region
