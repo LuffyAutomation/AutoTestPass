@@ -377,7 +377,9 @@ class UiFwk(UiBaseWebDriverFwk):
         return locator_type
 
     def _transformLocatorValueToXpathStyleForNearby(self, dict_type_value):
-        dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (self._transformLocatorTypeToXpathStyle(dict_type_value[self.Locator.TYPE]), str(dict_type_value[self.Locator.VALUE]))
+        # if dict_type_value[self.Locator.TYPE] != self.LocatorType.XPATH:
+        if "[@" not in dict_type_value[self.Locator.VALUE]:
+            dict_type_value[self.Locator.VALUE] = "[@%s = '%s']" % (self._transformLocatorTypeToXpathStyle(dict_type_value[self.Locator.TYPE]), str(dict_type_value[self.Locator.VALUE]))
         return dict_type_value
 
     def _getLocatorListByNearbyUniqueElement(self, element_name, locators_list, locators_list_nearby, idx_or_match=None):
@@ -392,11 +394,7 @@ class UiFwk(UiBaseWebDriverFwk):
                 locator_type = dict_type_value[self.Locator.TYPE]
                 locator_value = dict_type_value[self.Locator.VALUE]
                 locator_index = locatorList[self.Locator.INDEX]
-                if locator_type == self._get_native_locator_type(self.LocatorType.CLASS_NAME):
-                    new_locators_list = self._getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
-                elif locator_type == self.LocatorType.ID:
-                    new_locators_list = self._getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
-                elif locator_type == self.LocatorType.ACCESSIBILITY_ID:
+                if locator_type == self._get_native_locator_type(self.LocatorType.CLASS_NAME) or locator_type == self.LocatorType.ID or locator_type == self.LocatorType.ACCESSIBILITY_ID or locator_type == self.LocatorType.CONTENT_DESC:
                     new_locators_list = self._getNearbyXpathList(new_locators_list, locator_value_nearby, locator_value, locator_index)
                 # elif locator_type == self.LocatorType.TEXT:
                 #     new_locators_list = self.__getNearbyXpathList(new_locators_list, locator_value_nearby, "*[@%s='%s']" % (self.LocatorType.TEXT, locator_value), locator_index)
