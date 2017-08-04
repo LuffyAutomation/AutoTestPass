@@ -372,7 +372,7 @@ class UiBaseFwk(object):
             #self.logger.info("............Finding element [" + name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append({self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value, self.Locator.INDEX: locator_index, self.Locator.REF: locator_ref})
         if locators == None:
-            raise Exception("Can not find element [" + ori_element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception("Can not find the element [" + ori_element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
         return list
 
     def _get_native_locator_type(self, locator_type):
@@ -408,13 +408,13 @@ class UiBaseFwk(object):
             if matcher_array.__len__() == 0:
                 matcher_array = re.findall("\"([^\"]*)\"\)\]", locator_value)
                 if matcher_array.__len__() == 0:
-                    raise Exception("The xpath [" + locator_value + "] for element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.getCurrentElementName()) + "] is unavailable.")
         elif "[@" in locator_value:
             matcher_array = re.findall("\'([^\"]*)\'\]", locator_value)
             if matcher_array.__len__() == 0:
                 matcher_array = re.findall("\"([^\"]*)\"\]", locator_value)
                 if matcher_array.__len__() == 0:
-                    raise Exception("The xpath [" + locator_value + "] for element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.getCurrentElementName()) + "] is unavailable.")
         locator_value = locator_value.replace(matcher_array[0], local_string)
         return locator_value
 
@@ -486,6 +486,3 @@ class UiBaseFwk(object):
             except:
                 return "CanNotFind_" + id
         return "CanNotFind_" + id
-
-
-

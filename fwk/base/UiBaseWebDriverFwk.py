@@ -40,7 +40,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
             return self
         except:
-            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on page [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
 
     def getItem(self, child_element_index):
         try:
@@ -51,7 +51,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
             return self
         except:
-            raise Exception("Can not find element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on page [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception("Can not find the element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
 
     def tap(self, left_offset=0, right_offset=0, up_offset=0, down_offset=0, duration=100, idx_or_match=None, element_name=None):
         xy = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, element_name)
@@ -62,15 +62,15 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         try:
             element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
-            self.logger.info("Click element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "].")
+            self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             if element.is_enabled() is True:
                 element.click()
             else:
-                self.logger.info("The element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "] is not enabled.")
+                self.logger.info("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
         except NoSuchElementException as e:
             self.logger.error(e)
             raise Exception(
-                "Click element [" + element_name + "] on page [" + str(self.CurrentElement.page_name) + "] failed.")
+                "Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] failed.")
         return self
 
     def setValue(self, value, idx_or_match=None, element_name=None):
@@ -265,14 +265,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         for s in list_for_log:
             self.Init.logger.error(s)
         if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on page [" + str(
+            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")
         elif locator_index == 1:  # When <id/xpath...>android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] on page [" + str(
+            raise Exception("Failed to find the element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
-            raise Exception("Failed to find element [" + str(ori_element_name) + "] with index [" + str(
-                locator_index + 1) + "] on page [" + str(self.getCurrentPageName()) + "].")
+            raise Exception("Failed to find the element [" + str(ori_element_name) + "] with index [" + str(
+                locator_index + 1) + "] on the screen [" + str(self.getCurrentPageName()) + "].")
 
     def _findElement(self, element_name, findOneOrCollection=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
@@ -304,10 +304,10 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>": #accessibility_id    webelement is no len(x)
                 return elements
             elif len(elements) == 0:
-                raise IndexError("Cannot find element [ " + str(
-                    element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
+                raise IndexError("Cannot find the element [ " + str(
+                    element_name) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             elif len(elements) != 1:
-                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on page [" + str(self.CurrentElement.page_name) + "].")
+                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             else:
                 return elements[0]
         else:
