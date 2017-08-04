@@ -25,6 +25,7 @@ class InitFwk:
         ANDROID = 'Android'
         IOS = "Ios"
         WEB = "Web"
+
     class Const:
         PLACEHOLDER = 'PLACEHOLDER'
 

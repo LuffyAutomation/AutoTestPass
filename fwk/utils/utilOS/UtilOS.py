@@ -22,15 +22,17 @@ class UtilOS:
             return "Win"
         elif s == "Darwin":
             return "Mac"
+        elif s == "Linux":
+            return "Linux"
         return s
 
     @staticmethod
     def getOSVersion():  # not work in DP
-        return platform.version() # '6.1.7601'
+        return platform.version()  # '6.1.7601'
 
     @staticmethod
     def getOSRelease():
-        return platform.release() # 7
+        return platform.release()  # 7
 
     @staticmethod
     def getOSBit():
@@ -43,11 +45,11 @@ class UtilOS:
 
     @staticmethod
     def getOSNameVersion():
-        return platform.platform() # 'Windows-7-6.1.7601-SP1
+        return platform.platform()  # 'Windows-7-6.1.7601-SP1
 
     # {(6, 0): 'Vista', (6, 2): '8', (5, 1): 'XP', (10, None): 'post10', (5, None): 'post2003', (6, 1): '7',
     #  (6, 3): '8.1', (5, 0): '2000', (10, 0): '10', (6, None): 'post8.1', (5, 2): '2003Server'}
 
     @staticmethod
-    def getCPU(): # 'x86_64' 'AMD64'
+    def getCPU():  # 'x86_64' 'AMD64'
         return platform.machine()
