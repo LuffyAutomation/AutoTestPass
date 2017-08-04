@@ -265,7 +265,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         for s in list_for_log:
             self.Init.logger.error(s)
         if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of element [" + str(ori_element_name) + "] on the screen [" + str(
+            raise Exception("Failed to find all of the element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")
         elif locator_index == 1:  # When <id/xpath...>android:id/checkbox</id>
             raise Exception("Failed to find the element [" + str(ori_element_name) + "] on the screen [" + str(
@@ -275,7 +275,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 locator_index + 1) + "] on the screen [" + str(self.getCurrentPageName()) + "].")
 
     def _findElement(self, element_name, findOneOrCollection=None):
-        if self.CurrentElement.name == element_name and self.CurrentElement.list_locators != None:
+        if self.CurrentElement.name == element_name and self.CurrentElement.list_locators is not None:
             list_locator = self.CurrentElement.list_locators  # for
         else:
             list_locator = self._getElementLocatorsDictList(element_name)
@@ -301,7 +301,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return self._findElement(element_name)
         elements = self._findElements(element_name)
         if idx_or_match == None:
-            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>": #accessibility_id    webelement is no len(x)
+            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>":  # accessibility_id    webelement is no len(x)
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find the element [ " + str(
