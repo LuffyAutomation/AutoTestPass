@@ -12,7 +12,7 @@ from fwk.utils.utilString.UtilString import UtilString
 from fwk.utils.utilTime.UtilWaitEvent import UtilWaitEvent
 from fwk.other.ConfigParser import ConfigParse
 from fwk.utils.utilXml.UtilXml import UtilXml
-
+from fwk.utils.utilCode.UtilCode import UtilCode
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
@@ -29,6 +29,7 @@ class InitFwk:
         PLACEHOLDER = 'PLACEHOLDER'
 
     def __init__(self, name_project=None, path_folder_project=None):
+        self.UtilCode = UtilCode
         self.UtilFolder = UtilFolder
         self.UtilTime = UtilTime
         self.UtilFile = UtilFile

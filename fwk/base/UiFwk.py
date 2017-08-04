@@ -359,9 +359,9 @@ class UiFwk(UiBaseWebDriverFwk):
     def _getNearbyXpathList(self, _list, _value_nearby_, value, _index):
         if not _value_nearby_.strip().startswith("//"):
             _value_nearby_ = "//*" + _value_nearby_
-        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/following-sibling::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
-        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/child::*" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
-        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: _value_nearby_ + "/parent::*/" + value + "[%s]" % _index, self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: "%s/parent::*/following-sibling::*/*%s[%s]" % (_value_nearby_, value, _index), self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: "%s/parent::*/child::*%s[%s]" % (_value_nearby_, value, _index), self.Locator.INDEX: "1"})
+        _list.append({self.Locator.TYPE: "xpath", self.Locator.VALUE: "%s/parent::*/*%s[%s]" % (_value_nearby_, value, _index), self.Locator.INDEX: "1"})
         return _list
 
     def _transformLocatorTypeToXpathStyle(self, locator_type):
