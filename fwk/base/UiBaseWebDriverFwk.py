@@ -301,7 +301,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return self._findElement(element_name)
         elements = self._findElements(element_name)
         if idx_or_match == None:
-            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>":  # accessibility_id    webelement is no len(x)
+            if str(type(elements)) == "<class \'appium.webdriver.webelement.WebElement\'>":  # accessibility_id    webelement has no len(x)
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find the element [ " + str(
