@@ -222,10 +222,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         for locatorList in locatorsList:
             locator_type = self._getElementType(locatorList)
             locator_value = self._getElementValue(locatorList)
-            # locator_value = self._getElementValue(locatorList)
             if locator_value.strip() == "":
                 continue
-
             locator_index = self._getElementIndex(locatorList)
             try:
                 dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
