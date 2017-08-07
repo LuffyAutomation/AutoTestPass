@@ -502,6 +502,7 @@ class UiFwk(UiBaseWebDriverFwk):
             toY = self.__handleAndroidCoordinate(toY, height)
             self.swipeByNative(fromX, fromY, toX, toY, duration)
         return self
+    
     # for android coordinate
     def __handleAndroidCoordinate(self, num, wOrH):
         if num <= 0:
