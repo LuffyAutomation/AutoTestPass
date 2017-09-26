@@ -39,24 +39,19 @@ class UtilFile:
 
     @staticmethod
     def writeFileIfNotExists(path_file, txt="", file_mode=FileMode.W):
-        if UtilFile.isPathExists(path_file):
+        if UtilFile.isPathExisting(path_file):
             return
         with open(path_file, file_mode) as f:
             f.write(txt)
 
     @staticmethod
-    def isPathExists(p):
+    def isPathExisting(p):
            return os.path.exists(p)
 
     @staticmethod
     def copyFile(o_file, dst):
         if os.path.isfile(o_file):
             shutil.copyfile(o_file, dst)
-
-    @staticmethod
-    def rename(o_file, dst):
-        if os.path.isfile(o_file):
-            os.rename(o_file, dst)
 
     @staticmethod
     def rename(o_file, dst):
@@ -81,3 +76,13 @@ class UtilFile:
         if os.path.isfile(path_file):
             lines = open(path_file, UtilFile.FileMode.R).readlines()
         return lines
+
+    def read_file(path):
+        size = 1024
+        with open(path, 'r') as f:
+            while True:
+                block = f.read(size)
+                if block:
+                    yield block
+                else:
+                    return

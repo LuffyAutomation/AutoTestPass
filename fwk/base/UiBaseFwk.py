@@ -146,6 +146,9 @@ class UiBaseFwk(object):
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
         self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
         self.language = self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_LANGUAGE)
+        if self.language is None:
+            self.logger.error("[%s] was not listed in [%s]." % (self.Init.ConfigParser.TEST_LANGUAGE, self._path_file_runTimeConf))
+            raise "[%s] was not listed in [%s]." % (self.Init.ConfigParser.TEST_LANGUAGE, self._path_file_runTimeConf)
         self._path_file_uiMap_localized = os.path.join(self._path_folder_uiMaps, self.language)
         if not self._path_file_uiMap_localized.lower().endswith(".xml"):
             self._path_file_uiMap_localized += ".xml"

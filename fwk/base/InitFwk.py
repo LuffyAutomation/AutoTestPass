@@ -45,7 +45,6 @@ class InitFwk:
 
     def __setup(self):
         self.__getFrameworkBasePaths()
-        self.__getCurrentProjectArgs()
         self.__initializeLogging()
 
     def __addLogForCountDown(self, log, interval):
@@ -54,8 +53,8 @@ class InitFwk:
 
     def log_countDown(self, log, range_max=30, interval=2, range_min=0):
         # reLog = lambda x: self.logger.info(log + " > Time left: %s s." % str(x))
-        fucntion_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %ss." % str(x), interval)
-        self.UtilTime.countDown(range_max, fucntion_reLog, interval, range_min)
+        function_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %ss." % str(x), interval)
+        self.UtilTime.countDown(range_max, function_reLog, interval, range_min)
 
     def __getOSLanguage(self):
         self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp
@@ -90,7 +89,6 @@ class InitFwk:
         # self._path_folder_browserDriver = PATH("./../../../../browserDriver")
         self.path_file_mainConf = os.path.join(self._path_folder_conf, "main.conf")
 
-    def __getCurrentProjectArgs(self):
         self.ConfigParser = ConfigParse()
         self.__MainConfig = self.ConfigParser.getConf(self.path_file_mainConf)
         self.ConfigParser.setMainConfig(self.__MainConfig)
@@ -113,10 +111,6 @@ class InitFwk:
         self.path_file_xlsx_testData_ios = os.path.join(self.path_folder_ios, "testData.xlsx")
 
         self.path_folder_testData = os.path.join(self.path_folder_data, "testData")
-
-        # self.path_folder_xlsx_strings_android = os.path.join(self.path_folder_android, "strings")
-        # self.path_folder_xlsx_strings_web = os.path.join(self.path_folder_web, "strings")
-        # self.path_folder_xlsx_strings_ios = os.path.join(self.path_folder_ios, "strings")
 
         self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
         self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")

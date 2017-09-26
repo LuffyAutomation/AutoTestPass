@@ -158,7 +158,7 @@ class POCreatorBase(object):
         return self._getPOClassName(po_name) + ".py"
 
     def _writeFile(self, path_file, txt=""):
-        if not self._UtilFile.isPathExists(path_file):
+        if not self._UtilFile.isPathExisting(path_file):
             self._UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
 
     def _writeFileAndOverwrite(self, path_file, txt=""):

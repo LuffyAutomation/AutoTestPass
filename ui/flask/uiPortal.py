@@ -64,7 +64,7 @@ def index():
 #     errorMsg = ""
 #     if request.method == 'GET':
 #         if _UiPortal.action_selectProject in request.args:
-#             _UiPortal.name_project = request.args[_UiPortal.action_selectProject]
+#             _UiPortal.name_project = request.args[_UiPortal.action_selectProject] # request.args.get
 #             _InitFwk.ConfigParser.setMainConfigValue(_InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, _InitFwk.ConfigParser.DEFAULT_PROJECT, _UiPortal.name_project)
 #             _InitFwk = InitFwk()
 #         elif _UiPortal.action_createPageObjects in request.args:

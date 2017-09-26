@@ -43,7 +43,7 @@ class UtilFolder:
            return os.path.splitext(p)
 
     @staticmethod
-    def isPathExisted(p):
+    def isPathExisting(p):
            return os.path.exists(p)
 
     class DoMode:

@@ -8,9 +8,9 @@ from fwk.utils.poCreator.POCreatorBase import POCreatorBase
 
 class POCreator(POCreatorBase):
     def __init__(self, path_folder_uiMaps, path_folder_po, isGeneratedInProject=True):
-        if not UtilFile.isPathExists(path_folder_uiMaps):
+        if not UtilFile.isPathExisting(path_folder_uiMaps):
             return
-        if not UtilFile.isPathExists(path_folder_po):
+        if not UtilFile.isPathExisting(path_folder_po):
             UtilFolder.createFolder(path_folder_po)
         POCreatorBase.__init__(self, path_folder_uiMaps, path_folder_po, isGeneratedInProject)
 
