@@ -5,6 +5,7 @@ import time
 from fwk.utils.utilConsole.UtilConsole import UtilConsole
 from fwk.utils.utilString.UtilString import UtilString
 
+
 class UtilFolder:
     def __init__(self, *args):
         pass

@@ -1,5 +1,6 @@
 # coding: utf-8
 from fwk.base.InitFwk import InitFwk
+from fwk.utils.utilMultiple.UtilMultipleThreads import UtilMultipleThreads
 from projects.PrinterControl.cases.HomeMoreAbout import HomeMoreAbout
 from projects.PrinterControl.cases.HomeMoreAppSettings import HomeMoreAppSettings
 from projects.PrinterControl.cases.TilePersonalize import TilePersonalize
@@ -21,13 +22,13 @@ import time
 # sys.setdefaultencoding('utf-8')
 # print platform.python_version()
 
-def mutipleProcesses1():
+def mutipleThread1():
     suite = unittest.TestSuite()
     # suite.addTest(TestBrowser("test_flow"))
     suite.addTest(TestBrowser1("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
-def mutipleProcesses2():
+def mutipleThread2():
     suite = unittest.TestSuite()
     # suite.addTest(TestBrowser("test_flow"))
     suite.addTest(TestBrowser1("test_flow"))
@@ -117,18 +118,7 @@ if __name__ == '__main__':
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebMultipleThreads":
         # MultipleThreads
-        listProcess = []
-        t = multiprocessing.Process(target=mutipleProcesses1)
-        listProcess.append(t)
-        t = multiprocessing.Process(target=mutipleProcesses2)
-        listProcess.append(t)
-        processes = range(len(listProcess))
-        for i in processes:
-            listProcess[i].start()
-            time.sleep(1)
-        for i in processes:
-            listProcess[i].join()
-
+        UtilMultipleThreads.run_multiple_threads(mutipleThread1, mutipleThread2)
     elif initFwk.name_project == "IosExample":
         suite.addTest(IosExample("test_flow"))
         suite.addTest(IosExample("test_your_other_flow"))
