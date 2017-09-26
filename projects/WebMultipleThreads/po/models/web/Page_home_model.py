@@ -14,3 +14,6 @@ class Page_home_model(WebCommonPage):
 
     def button_continue(self):
         return self.get(inspect.stack()[0][3])
+
+    def button_test(self):
+        return self.get(inspect.stack()[0][3])

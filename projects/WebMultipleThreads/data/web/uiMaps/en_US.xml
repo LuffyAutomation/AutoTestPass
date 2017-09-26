@@ -2,17 +2,17 @@
 <test-data>
 	<UiMap>
 		<pages>
-			<page name="page_welcome" description="Welcome page">
-                <element name="button_a_">
-                    abc
+            <page name="page_home" description = "Default home page." >
+                <element name="edit_search">
+                    <id>kw</id>
                 </element>
-                <element name="button_b_">
-                    def
+                <element name="button_continue">
+                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
                 </element>
-                <element name="button_c_">
-                    hij
+                <element name="button_test">
+                    <id>com.hp.printercontrol:id/moobe1</id>
                 </element>
-            </page>
+			</page>
 		</pages>
 	</UiMap>
 </test-data>

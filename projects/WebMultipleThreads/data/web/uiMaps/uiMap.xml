@@ -9,6 +9,9 @@
                 <element name="button_continue">
                     <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
                 </element>
+                <element name="button_test">
+                    <id>com.hp.printercontrol:id/moobe1</id>
+                </element>
 			</page>
 		</pages>
 	</UiMap>

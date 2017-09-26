@@ -184,7 +184,10 @@ class POCreatorBase(object):
 
             for line in list_pagesTemplateHead:
                 if line not in list_existed_pagesTemplateHead:
-                    list_existed_pagesTemplateHead.insert(0, line)
+                    list_existed_pagesTemplateHead.insert(list_existed_pagesTemplateHead.__len__() - 2, line)  # make it befort /n /n
+            # make a new one below the old one avoid duplicate name
+            # from projects.WebMultipleThreads.po.pages.web.Page_home import Page_home
+            # from projects.WebSingle.po.pages.web.Page_home import Page_home
 
             for line in list_pagesTemplateBodyBody:
                 if line not in list_existed_pagesTemplateBodyBody:

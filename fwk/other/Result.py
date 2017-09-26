@@ -195,12 +195,12 @@ class Result:
     def __addLoggingForEachTestCase(self):
         self._UtilFile.writeFile(os.path.join(self.path_folder_currentTest, self.__getResultName() + ".log"), "",
                                  file_mode="a")
-        self.fileHandler = logging.FileHandler(
+        self.log_case_Handler = logging.FileHandler(
             filename=os.path.join("results", os.path.basename(self.path_folder_currentTest),
                                   self.__getResultName() + ".log"), mode='a', encoding="utf-8")
-        self.fileHandler.setLevel(logging.DEBUG)
-        self.fileHandler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
-        logging.getLogger("simpleExample").addHandler(self.fileHandler)
+        self.log_case_Handler.setLevel(logging.DEBUG)
+        self.log_case_Handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
+        logging.getLogger().addHandler(self.log_case_Handler)
 
     def _setBaseInfo(self):
         self._dict_report[self._platform] = self._UI.RunTimeConf.platform
