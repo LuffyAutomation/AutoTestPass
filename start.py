@@ -23,13 +23,13 @@ import time
 
 def mutipleProcesses1():
     suite = unittest.TestSuite()
-    suite.addTest(TestBrowser("test_flow"))
+    # suite.addTest(TestBrowser("test_flow"))
     suite.addTest(TestBrowser1("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
 def mutipleProcesses2():
     suite = unittest.TestSuite()
-    suite.addTest(TestBrowser("test_flow"))
+    # suite.addTest(TestBrowser("test_flow"))
     suite.addTest(TestBrowser1("test_flow"))
     test_result = unittest.TextTestRunner(verbosity=2).run(suite)
 
@@ -116,6 +116,7 @@ if __name__ == '__main__':
         suite.addTest(WebExample("test_flow2"))
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebMultipleThreads":
+        # MultipleThreads
         listProcess = []
         t = multiprocessing.Process(target=mutipleProcesses1)
         listProcess.append(t)
@@ -127,6 +128,7 @@ if __name__ == '__main__':
             time.sleep(1)
         for i in processes:
             listProcess[i].join()
+
     elif initFwk.name_project == "IosExample":
         suite.addTest(IosExample("test_flow"))
         suite.addTest(IosExample("test_your_other_flow"))

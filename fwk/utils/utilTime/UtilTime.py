@@ -38,7 +38,7 @@ class UtilTime:
         time.sleep(seconds)
 
     @staticmethod
-    def countDown(range_max=45, method=None, interval=-3, range_min=0):
+    def countDown(method=None, range_max=45, interval=-3, range_min=0):
         positive = 0
         negative = 0
         if interval > 0:

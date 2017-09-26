@@ -54,7 +54,7 @@ class InitFwk:
     def log_countDown(self, log, range_max=30, interval=2, range_min=0):
         # reLog = lambda x: self.logger.info(log + " > Time left: %s s." % str(x))
         function_reLog = lambda x: self.__addLogForCountDown(log + " > Time left: %ss." % str(x), interval)
-        self.UtilTime.countDown(range_max, function_reLog, interval, range_min)
+        self.UtilTime.countDown(function_reLog, range_max, interval, range_min)
 
     def __getOSLanguage(self):
         self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp
@@ -62,7 +62,7 @@ class InitFwk:
     def createResultFolder(self):
         # self._ConfigParser.getRunTimeConfigArgsValue(self._ConfigParser.TEST_TIMEOUT_ELEMENT)
         self.path_folder_results = os.path.join(self.path_folder_AutoTestPass, "results")
-        #self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())
+        # self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())
         self.path_folder_currentTest = os.path.join(self.path_folder_results, GlobalArgs.getGlobalStartTime())
 
         self.path_folder_screenshots = os.path.join(self.path_folder_currentTest, "screenshots")
@@ -121,7 +121,9 @@ class InitFwk:
 
     def __initializeLogging(self):
         logging.config.fileConfig(os.path.join(self._path_folder_conf, "log.conf"))
-        self.logger = logging.getLogger("simpleExample")
+        # self.logger = logging.getLogger("simpleExample")
+        self.logger = logging.getLogger()
+
 
     # def _getAppInfo(self):
     #     self._DefaultPage = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//DefaultPage"))
@@ -140,13 +142,4 @@ class InitFwk:
     #     self.logger.info("Test NewWork : " + self.__NetWork)
     #     self.logger.info("Description : " + self.__Description)
 
-    # def log(self, message, level=1):
-    #     if level == 1:
-    #         self.logger.info(message)
-    #     if level == 2:
-    #         self.logger.warning(message)
-    #     if level == 3:
-    #         self.logger.debug(message)
-    #     if level == 4:
-    #         self.logger.error(message)
 
