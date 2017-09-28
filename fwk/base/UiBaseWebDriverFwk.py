@@ -261,7 +261,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 continue
             return self.getCurrentElementObject()
         for s in list_for_log:
-            self.Init.logger.error(s)
+            self.Init.logger.info(s)
         if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
             raise Exception("Failed to find all of the element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")

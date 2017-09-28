@@ -19,7 +19,8 @@ class UiBaseFwk(object):
 
     class Language:
         en_US = "en_US"
-        list = (en_US)
+        # list = (en_US)
+
         def __init__(self, language):
             if language.lower() == "en" or language.lower() == self.en_US.lower():
                 return self.en_US
@@ -140,7 +141,7 @@ class UiBaseFwk(object):
             self._path_file_runTimeConf = os.path.join(self.Init.path_folder_data, testType, 'runTime.conf')
         except:
             if testType is None:
-                self.logger.error("failed to find [%s] from [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
+                self.logger.error("Failed to find [%s] from [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
         self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
         self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
@@ -182,15 +183,18 @@ class UiBaseFwk(object):
                 time_out = float(self._elementTimeOut)
             except Exception:
                 time_out = 60
-        self.UtilWaitEvent(time_out, poll_frequency).until(
-            lambda start_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, start_time, time_out, poll_frequency)), error_message
-        )
+        try:
+            self.UtilWaitEvent(time_out, poll_frequency).until(
+                lambda start_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, start_time, time_out, poll_frequency))
+            )
+        except Exception:
+            raise Exception("%s in %ds." % (error_message, error_message))
 
     def wait(self, time):
         try:
             # self.logger.info("Wait " + str(time) + "s.")
             self.UtilTime.sleep(time)
-        except Exception as e:
+        except Exception:
             pass
         return self
 
@@ -308,7 +312,7 @@ class UiBaseFwk(object):
 
     # for log
     def _getCurrentElementNameWhenNone(self, element_name=None):
-        if element_name == None:
+        if element_name is None:
             element_name = self.getCurrentElementName()
         if type(element_name) is not str:  # ElementStruct
             return element_name.name

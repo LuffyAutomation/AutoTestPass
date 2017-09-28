@@ -41,54 +41,6 @@ class UtilWaitEvent:
             time.sleep(self._poll)
             if time.time() > end_time:
                 break
-            #self._UtilConsole.println("%ss elaplsed. Timeout is %ss." % (start_time, self._timeout))
-        raise Exception("%s in %ds." % (message, self._timeout))
-        #raise Exception(message, screen, stacktrace)
+        raise Exception
+        # raise Exception(message, screen, stacktrace)
 
-
-    def until_not(self, method, message=''):
-        """Calls the method provided with the driver as an argument until the \
-        return value is False."""
-        end_time = time.time() + self._timeout
-        while True:
-            try:
-                value = method(self._holder)
-                if not value:
-                    return value
-            except Exception:
-                return True
-            time.sleep(self._poll)
-            if time.time() > end_time:
-                break
-        raise Exception(message)
-
-    # def __reLogForCountDown(self, log, interval):
-    #     self.log(log)
-    #     self.UtilTime.sleep(interval)
-    #
-    # def log_countDown(self, log, range_max=30, interval=5, range_min=0):
-    #     # reLog = lambda x: self.log(log + " > Time left: %s s." % str(x))
-    #     reLog = lambda x: self.__reLogForCountDown(log + " > Time left: %s s." % str(x), interval)
-    #     self.UtilTime.countDown(range_max, reLog, interval, range_min)
-    #
-    # def __HandleWaitEvent(self, method, log):
-    #     self.log(log)
-    #     method()
-    #
-    # def bbbb(self):
-    #     pass
-    #
-    # def aaaa(self):
-    #     self.waitUntil(
-    #         lambda: self.bbbb(), "Cannot find found/find printer screen."
-    #     )
-    #
-    # def waitUntil(self, method, error_message="Wait failed.", time_out=None, poll_frequency=1):
-    #     if time_out is None:
-    #         try:
-    #             time_out = float(self._elementTimeOut)
-    #         except Exception:
-    #             time_out = 60
-    #     HandleWaitEvent(time_out, poll_frequency).until(
-    #         lambda start_time: self.__HandleWaitEvent(method, "%ss elapsed. Timeout is %ss." % (start_time, time_out)), error_message
-    #     )
