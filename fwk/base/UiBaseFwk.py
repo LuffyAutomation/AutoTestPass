@@ -185,7 +185,7 @@ class UiBaseFwk(object):
                 time_out = 60
         try:
             self.UtilWaitEvent(time_out, poll_frequency).until(
-                lambda start_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, start_time, time_out, poll_frequency))
+                lambda elapsed_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, elapsed_time, time_out, poll_frequency))
             )
         except Exception:
             raise Exception("%s in %ds." % (error_message, error_message))

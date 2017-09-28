@@ -70,7 +70,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         except NoSuchElementException as e:
             self.logger.error(e)
             raise Exception(
-                "Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] failed.")
+                "Failed to click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
         return self
 
     def setValue(self, value, idx_or_match=None, element_name=None):
@@ -80,8 +80,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
             self._driver.set_value(element, value)
         except Exception as e:
-            self.logger.error("Set the value of element [" + element_name + "] to [" + value + "] failed.")
-            raise Exception("Set the value of element [" + element_name + "] to [" + value + "] failed.")
+            self.logger.error("Failed to set the value of element [" + element_name + "] to [" + value + "].")
+            raise Exception("Failed to set the value of element [" + element_name + "] to [" + value + "].")
         return self
 
     def setValueBySendKeys(self, value, idx_or_match=None, element_name=None):
