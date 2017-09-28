@@ -73,8 +73,8 @@ class TestBrowser1(CommonUnittest):
         self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
         self.Pages.Page_home.edit_search().setValueBySendKeys("This py file is for testing 2 suits.")
-        # self.Pages.Page_home.edit_search().click()
-        self.Pages.Page_home.button_test().waitForShown()
+        self.Pages.Page_home.edit_search().click()
+        self.Pages.Page_home.edit_search().waitForShown()
 
 
 

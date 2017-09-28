@@ -323,7 +323,7 @@ class UiBaseFwk(object):
             if type(element_name) is not str:  #  ElementStruct
                 return element_name.object
             if self.CurrentElement.name == element_name and self.getCurrentElementObject() is not None:
-                return self.CurrentElement.object
+                return self.getCurrentElementObject()
         elif self.getCurrentElementObject() is not None:
             return self.getCurrentElementObject()
         self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
@@ -493,3 +493,35 @@ class UiBaseFwk(object):
             except:
                 return "CanNotFind_" + id
         return "CanNotFind_" + id
+
+    def getItemsCount(self):
+        try:
+            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
+                self._getCurrentElementObjectOrSearch(None, None)
+                self._getCurrentElementNameWhenNone(None)
+                return len(self.getCurrentElementCollectionObject())
+        except:
+            return 0
+            # raise Exception("Can not get children count of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+
+    def getItems(self):
+        try:
+            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
+                self._getElementCollectionObjectFromCurrentOrSearch(None, None)
+                self._getCurrentElementCollectionName(None)
+            # self.setCurrentElementName(self.getCurrentElementCollectionName())
+            # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
+            return self
+        except:
+            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+
+    def getItem(self, child_element_index):
+        try:
+            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
+                self._getCurrentElementObjectOrSearch(None, None)
+                self._getCurrentElementNameWhenNone(None)
+            self.setCurrentElementName(self.getCurrentElementCollectionName() + "_index_" + str(child_element_index))
+            self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
+            return self
+        except:
+            raise Exception("Can not find the element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
