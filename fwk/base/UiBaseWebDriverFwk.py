@@ -113,6 +113,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return "text"
 
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
+        element_name = self._getCurrentElementNameWhenNone(element_name)
         element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
         return_value = ""
         if self.isVisible(idx_or_match, element_name):
