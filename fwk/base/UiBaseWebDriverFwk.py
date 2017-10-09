@@ -36,8 +36,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def click(self, idx_or_match=None, element_name=None):
         try:
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             element_name = self._getCurrentElementNameWhenNone(element_name)
+            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
             self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             if element.is_enabled() is True:
                 element.click()
