@@ -26,28 +26,28 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.tap([(xy['x'], xy['y'])], duration)
         return self
 
-    @Decorator.handle_action
-    def click(self, idx_or_match=None, element_name=None):
-        if self.getCurrentElementObject().is_enabled() is True:
-            self.getCurrentElementObject().click()
-        else:
-            self.logger.error("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
-        return self
-
-    # def click1(self, idx_or_match=None, element_name=None):
-    #     try:
-    #         element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
-    #         element_name = self._getCurrentElementNameWhenNone(element_name)
-    #         self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
-    #         if element.is_enabled() is True:
-    #             element.click()
-    #         else:
-    #             self.logger.info("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
-    #     except NoSuchElementException as e:
-    #         self.logger.error(e)
-    #         raise Exception(
-    #             "Failed to click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+    # @Decorator.handle_action
+    # def click(self, idx_or_match=None, element_name=None):
+    #     if self.getCurrentElementObject().is_enabled() is True:
+    #         self.getCurrentElementObject().click()
+    #     else:
+    #         self.logger.error("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
     #     return self
+
+    def click(self, idx_or_match=None, element_name=None):
+        try:
+            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+            element_name = self._getCurrentElementNameWhenNone(element_name)
+            self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+            if element.is_enabled() is True:
+                element.click()
+            else:
+                self.logger.info("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
+        except NoSuchElementException as e:
+            self.logger.error(e)
+            raise Exception(
+                "Failed to click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+        return self
 
     def setValue(self, value, idx_or_match=None, element_name=None):
         try:
@@ -366,8 +366,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return {'width': size['width'], 'height': size['height']}
 
     def getElementCenterLocation(self, left_offset_percent=0, right_offset_percent=0, up_offset_percent=0, down_offset_percent=0, item=None, element_name=None):
-        element = self._getCurrentElementObjectOrSearch(item, element_name)
         element_name = self._getCurrentElementNameWhenNone(element_name)
+        element = self._getCurrentElementObjectOrSearch(item, element_name)
         t = element.size["width"]
         centerX = element.location["x"] + t / 2 - t / 2 * left_offset_percent / 100.0 + t / 2 * right_offset_percent / 100.0
         t = element.size["height"]
