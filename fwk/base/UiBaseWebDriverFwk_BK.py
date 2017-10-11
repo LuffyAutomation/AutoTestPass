@@ -31,26 +31,27 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     #     if self.getCurrentElementObject().is_enabled() is True:
     #         self.getCurrentElementObject().click()
     #     else:
-    #         self.logger.error("The element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "] is not enabled.")
+    #         self.logger.error("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
     #     return self
     @Decorator.handle_action
     def click(self, idx_or_match=None, element_name=None):
-        self.logger.info("Click element [{}] on the page [{}].".format(self.ActionElement.get_name(), self.ActionElement.get_page_name()))
-        self.ActionElement.get_object().click()
+        self.ActionElement.object.click()
         return self
+
 
     def click1(self, idx_or_match=None, element_name=None):
         try:
             element_name = self._getCurrentElementNameWhenNone(element_name)
             element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
-            self.logger.info("Click element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "].")
+            self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             if element.is_enabled() is True:
                 element.click()
             else:
-                self.logger.info("The element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "] is not enabled.")
+                self.logger.info("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
         except Exception as e:
             self.logger.error(e)
-            raise Exception("Failed to click element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception(
+                "Failed to click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
         return self
 
     def setValue(self, value, idx_or_match=None, element_name=None):
@@ -244,14 +245,14 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         for s in list_for_log:
             self.Init.logger.info(s)
         if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
-            raise Exception("Failed to find all of the element [" + str(ori_element_name) + "] on the page [" + str(
+            raise Exception("Failed to find all of the element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")
         elif locator_index == 1:  # When <id/xpath...>android:id/checkbox</id>
-            raise Exception("Failed to find the element [" + str(ori_element_name) + "] on the page [" + str(
+            raise Exception("Failed to find the element [" + str(ori_element_name) + "] on the screen [" + str(
                 self.getCurrentPageName()) + "].")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find the element [" + str(ori_element_name) + "] with index [" + str(
-                locator_index + 1) + "] on the page [" + str(self.getCurrentPageName()) + "].")
+                locator_index + 1) + "] on the screen [" + str(self.getCurrentPageName()) + "].")
 
     def _findElement(self, element_name, findOneOrCollection=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators is not None:
@@ -284,9 +285,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 return elements
             elif len(elements) == 0:
                 raise IndexError("Cannot find the element [ " + str(
-                    element_name) + "] on the page [" + str(self.CurrentElement.page_name) + "].")
+                    element_name) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             elif len(elements) != 1:
-                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on the page [" + str(self.CurrentElement.page_name) + "].")
+                raise IndexError("There are multiple matched elements that found, please check element [" + str(element_name) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             else:
                 return elements[0]
         else:

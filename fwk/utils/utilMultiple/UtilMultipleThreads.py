@@ -7,7 +7,7 @@ class UtilMultipleThreads:
         pass
 
     @staticmethod
-    def run_multiple_threads(*funcs):
+    def run_multiple_threads(funcs):
         list_func = []
         for func in funcs:
             list_func.append(multiprocessing.Process(target=func))

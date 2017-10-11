@@ -90,7 +90,9 @@ class WebExample(CommonUnittest):
                                    "2. Go to www.baidu.com.")
         self.Result.setExpectedResult("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
+        self.Pages.Page_home.edit_search().waitForShown()
         self.Pages.Page_home.edit_search().setValueBySendKeys("21212")
-
-
+        self.Pages.Page_home.edit_search().click().click
+        self.Pages.Page_home.button_continue().click()
+        pass
 

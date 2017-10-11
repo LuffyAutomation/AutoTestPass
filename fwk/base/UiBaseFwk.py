@@ -86,6 +86,42 @@ class UiBaseFwk(object):
         index = None
         list_locators = None
 
+        def get_page_name(self):
+            return self.page_name
+
+        def get_page_uiMap(self):
+            return self.page_uiMap
+
+        def get_name(self):
+            return self.name
+
+        def get_object(self):
+            return self.object
+
+        def get_index(self):
+            return self.index
+
+        def get_list_locators(self):
+            return self.list_locators
+
+        def set_page_name(self, page_name):
+            self.page_name = page_name
+
+        def set_page_uiMap(self, page_uiMap):
+            self.page_uiMap = page_uiMap
+
+        def set_name(self, name):
+            self.name = name
+
+        def set_object(self, object):
+            self.object = object
+
+        def set_index(self, index):
+            self.index = index
+
+        def get_list_locators(self, list_locators):
+            self.list_locators = list_locators
+
     def __init__(self, Init):
         self.Init = Init
         self.logger = self.Init.logger
@@ -102,22 +138,11 @@ class UiBaseFwk(object):
         self._xmlRootLocalXml = None
 
         self.CurrentElement = self.ElementStruct()
+        self.ActionElement = self.ElementStruct()
         self.LastElement = self.ElementStruct()
         self.CurrentElementCollection = self.ElementStruct()
         self.RefElement = self.ElementStruct()
-        # self._lastElementName = None
-        # self._lastElementObject = None
 
-        # self._currentFunction = None
-
-        # self._currentElementName = None
-        # self._currentElementObject = None
-
-        self._currentElementCollectionName = None
-        self._currentElementCollectionObject = None
-
-        self._currentPage = None
-        self._currentUiMap = None
         self._elementTimeOut = None
         self._getCurrentTestArgs(self.testType)
         self.__getConfigurationParameters()
@@ -130,8 +155,8 @@ class UiBaseFwk(object):
 
         self.hasGotDriver = False
 
-    def __getConfObject(self, configFileName):
-        return self.Init.ConfigParser.getConf(configFileName)
+    def __getConfObject(self, name_config_file):
+        return self.Init.ConfigParser.getConf(name_config_file)
 
     def _getCurrentTestArgs(self, testType):
         try:
@@ -309,6 +334,23 @@ class UiBaseFwk(object):
             return int(t)
         except:
             return 1
+
+    def _set_action_element(self, idx_or_match=None, element_name=None):
+        if element_name is None:
+            element_name = self.getCurrentElementName()
+        if type(element_name) is not str:  # ElementStruct
+            element_name = element_name.get_name()
+            element_object = element_name.get_object()
+        elif self.CurrentElement.get_name() == element_name and self.CurrentElement.get_object() is not None:
+            element_object = self.CurrentElement.get_object()
+        else:
+            element_object = self.getMatchedElement(idx_or_match, element_name)
+            self.CurrentElement.set_object(element_object)
+
+        self.ActionElement.set_name(element_name)
+        self.ActionElement.set_object(element_object)
+        self.ActionElement.set_page_name(self.CurrentElement.get_page_name())
+
 
     # for log
     def _getCurrentElementNameWhenNone(self, element_name=None):

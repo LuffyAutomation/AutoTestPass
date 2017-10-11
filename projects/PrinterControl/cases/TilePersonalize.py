@@ -83,6 +83,7 @@ class TilePersonalize(CommonUnittest):
         self.Pages.Page_home.tile_Personalize().waitForShown().click()
         self.Pages.Page_Personalize.text_CameraScanToEmail().waitForShown().dragToElementByNative(self.Pages.Page_Personalize.text_PrintPhotos())
         self.Pages.Page_Personalize.text_CameraScanToEmail().waitForShown().dragToElement(self.Pages.Page_Personalize.text_PrintPhotos())
+
         # self.Pages.Page_Personalize.buttonOrder_1().waitForShown().dragToElement(self.Pages.Page_Personalize.buttonOrder_2())
 
 
