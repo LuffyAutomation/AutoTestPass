@@ -18,9 +18,10 @@ def handle_action(method):
         try:
             args_dict = dict(itertools.izip(method.func_code.co_varnames, args), **dict(kwargs.iteritems()))
             self = args_dict.get("self")
-            element_name = args_dict.get("element_name")
-            idx_or_match = args_dict.get("idx_or_match")
-            self._set_action_element(idx_or_match, element_name)
+            if "element_name" in args_dict:
+                element_name = args_dict.get("element_name")
+                idx_or_match = args_dict.get("idx_or_match")
+                self._set_action_element(idx_or_match, element_name)
         except Exception as e:
             self.logger.error(e)
             raise Exception(e)
@@ -28,6 +29,6 @@ def handle_action(method):
             method(*args, **kwargs)
         except Exception as e:
             self.logger.error(e)
-            raise Exception("This action failed. [{}] ".format(self.get_last_log_info()))
+            raise Exception("Failed action. [{}] ".format(self.get_last_log_info()))
         return self
     return wrapper

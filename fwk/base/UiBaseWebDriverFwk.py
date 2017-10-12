@@ -316,8 +316,9 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.drag_and_drop(origin_el, destination_el)
         return self
 
+    @Decorator.handle_action
     def openUrl(self, url):
-        self.logger.info("Navigate to [" + url + "].")
+        self.logger_info_save("Navigate to [{}].".format(url))
         self._driver.get(url)
 
     def getElementWidth(self, item=None, element_name=None):
