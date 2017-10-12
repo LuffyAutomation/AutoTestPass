@@ -28,6 +28,6 @@ def handle_action(method):
             method(*args, **kwargs)
         except Exception as e:
             self.logger.error(e)
-            raise Exception("This action [{}] failed.".format(method.func_name))
+            raise Exception("This action failed. [{}] ".format(self.get_last_log_info()))
         return self
     return wrapper

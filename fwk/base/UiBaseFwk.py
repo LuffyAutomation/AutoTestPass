@@ -155,6 +155,10 @@ class UiBaseFwk(object):
 
         self.hasGotDriver = False
 
+        self._last_log_info = ""
+        self._last_log_warning = ""
+        self._last_log_error = ""
+
     def __getConfObject(self, name_config_file):
         return self.Init.ConfigParser.getConf(name_config_file)
 
@@ -194,6 +198,23 @@ class UiBaseFwk(object):
             self._xmlRoot_localized = self.UtilXml.getRootElement(self._xmlTree_localized)
         except:
             self.logger.warning("Please make sure if [%s] is existing. Or Please check if the [test.language=] is set correctly in runTime.conf." % (self._path_file_uiMap_localized))
+
+
+    def logger_warning_save(self, msg):
+        self._last_log_warning = msg
+        self.logger.warning(msg)
+    def logger_error_save(self, msg):
+        self._last_log_error = msg
+        self.logger.error(msg)
+    def logger_info_save(self, msg):
+        self._last_log_info = msg
+        self.logger.info(msg)
+    def get_last_log_info(self):
+        return self._last_log_info
+    def get_last_log_error(self):
+        return self._last_log_error
+    def get_last_log_warning(self):
+        return self._last_log_warning
 
     def __addLogForWaitEvent(self, method, log):
         if ". 0s elapsed" not in log:  # ignore this
@@ -337,7 +358,7 @@ class UiBaseFwk(object):
 
     def _set_action_element(self, idx_or_match=None, element_name=None):
         if element_name is None:
-            element_name = self.getCurrentElementName()
+            element_name = self.CurrentElement.get_name()
         if type(element_name) is not str:  # ElementStruct
             element_name = element_name.get_name()
             element_object = element_name.get_object()
@@ -399,6 +420,8 @@ class UiBaseFwk(object):
             dynamic_string = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[1]
             element_name = element_name.split(self.StringConverter.MARK_DYNAMIC_VALUE)[0]
         uiMapByName = WhichElement.page_uiMap.get(element_name)
+        if uiMapByName is None:
+            raise Exception("Can not find the element [{}] listed in ui map [{}].".format(element_name, self.CurrentElement.get_page_name()))
         locators = uiMapByName['locators']
         locator_ref = None
         try:

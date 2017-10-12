@@ -35,63 +35,40 @@ class UiBaseWebDriverFwk(UiBaseFwk):
     #     return self
     @Decorator.handle_action
     def click(self, idx_or_match=None, element_name=None):
-        self.logger.info("Click element [{}] on the page [{}].".format(self.ActionElement.get_name(), self.ActionElement.get_page_name()))
+        self.logger_info_save("Click element [{}] on the page [{}].".format(self.ActionElement.get_name(), self.ActionElement.get_page_name()))
         self.ActionElement.get_object().click()
         return self
 
-    def click1(self, idx_or_match=None, element_name=None):
-        try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
-            self.logger.info("Click element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "].")
-            if element.is_enabled() is True:
-                element.click()
-            else:
-                self.logger.info("The element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "] is not enabled.")
-        except Exception as e:
-            self.logger.error(e)
-            raise Exception("Failed to click element [" + element_name + "] on the page [" + str(self.CurrentElement.page_name) + "].")
-        return self
-
+    @Decorator.handle_action
     def setValue(self, value, idx_or_match=None, element_name=None):
-        try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
-            self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
-            self._driver.set_value(element, value)
-        except Exception as e:
-            self.logger.error("Failed to set the value of element [" + element_name + "] to [" + value + "].")
-            raise Exception("Failed to set the value of element [" + element_name + "] to [" + value + "].")
+        self.logger_info_save("Set the value of element [{}] to [{}].".format(self.ActionElement.get_name(), value))
+        self._driver.set_value(self.ActionElement.get_object(), value)
         return self
 
+    @Decorator.handle_action
     def setValueBySendKeys(self, value, idx_or_match=None, element_name=None):
-        try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
-            self.logger.info("Set the value of element [" + element_name + "] to [" + value + "] by sending keys.")
-            elementTagName = self._getElementTagName(element)
-            if elementTagName == "input" or "text" or "password" or "email":
-                try:
+        self.logger_info_save("Set the value of element [{}] to [{}] by sending keys.".format(self.ActionElement.get_name(), value))
+        element = self.ActionElement.get_object()
+        elementTagName = self._getElementTagName(element)
+        if elementTagName == "input" or "text" or "password" or "email":
+            try:
+                element.click()
+                element.clear()
+                element.send_keys(value)
+            except WebDriverException:
+                element.send_keys(value)
+        elif elementTagName == "select":
+            select = Select(element)
+            select.select_by_visible_text(value)
+        elif elementTagName == "checkbox":
+            positiveValues = ["y", "yes", "true", "on", "checked"]
+            negativeValues = ["n", "no", "false", "off", "unchecked"]
+            if positiveValues in value.lower():
+                if not element.is_selected():
                     element.click()
-                    element.clear()
-                    element.send_keys(value)
-                except WebDriverException:
-                    element.send_keys(value)
-            elif elementTagName == "select":
-                select = Select(element)
-                select.select_by_visible_text(value)
-            elif elementTagName == "checkbox":
-                positiveValues = ["y", "yes", "true", "on", "checked"]
-                negativeValues = ["n", "no", "false", "off", "unchecked"]
-                if positiveValues in value.lower():
-                    if not element.is_selected():
-                        element.click()
-                if negativeValues in value.lower():
-                    if element.is_selected():
-                        element.click()
-        except Exception as e:
-            self.logger.error("Set the value of element [" + element_name + "] to [" + value + "] by sending keys failed.")
-            raise Exception("Set the value of element [" + element_name + "] to [" + value + "] by sending keys failed.")
+            if negativeValues in value.lower():
+                if element.is_selected():
+                    element.click()
         return self
 
     def _getElementTagName(self, element):
@@ -116,32 +93,33 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             #raise Exception("get element tag name failed.")
             return "text"
 
+    @Decorator.handle_action
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+        self.logger_info_save("Get the value of element [{}] on the page [{}].".format(self.ActionElement.get_name(), self.ActionElement.get_page_name()))
+        element = self.ActionElement.get_object()
         return_value = ""
-        if self.isVisible(idx_or_match, element_name):
-            if attribute_type is None:
-                element_type = self._getElementTagName(element)
-                if "input" in element_type:
-                    return_value = element.get_attribute(self.AttributeType.VALUE)
-                elif "text" in element_type:
-                    return_value = element.text
-                elif "checkbox" in element_type:
-                    checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
-                    if "true" in checkbox_class:
-                        return_value = "checked"
-                    else:
-                        return_value = "unchecked"
-                elif "select" in element_type:
-                    for index in range(self.getElementSize(element_name)):
-                        select_item = element.find_elements(By.TAG_NAME("option")).get(index)
-                        if select_item.is_selected():
-                            return_value = select_item.text
-                elif return_value is None or return_value == "":
-                    return_value = element.text
-            else:
-                return_value = element.get_attribute(attribute_type)
+        # if self.isVisible(idx_or_match, element_name):
+        if attribute_type is None:
+            element_type = self._getElementTagName(element)
+            if "input" in element_type:
+                return_value = element.get_attribute(self.AttributeType.VALUE)
+            elif "text" in element_type:
+                return_value = element.text
+            elif "checkbox" in element_type:
+                checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
+                if "true" in checkbox_class:
+                    return_value = "checked"
+                else:
+                    return_value = "unchecked"
+            elif "select" in element_type:
+                for index in range(self.getElementSize(element_name)):
+                    select_item = element.find_elements(By.TAG_NAME("option")).get(index)
+                    if select_item.is_selected():
+                        return_value = select_item.text
+            elif return_value is None or return_value == "":
+                return_value = element.text
+        else:
+            return_value = element.get_attribute(attribute_type)
         return return_value
 
     def _findElements(self, element_name):

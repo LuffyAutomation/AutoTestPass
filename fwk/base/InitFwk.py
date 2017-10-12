@@ -121,8 +121,8 @@ class InitFwk:
 
     def __initializeLogging(self):
         logging.config.fileConfig(os.path.join(self._path_folder_conf, "log.conf"))
-        # self.logger = logging.getLogger("simpleExample")
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger("simpleExample")
+        # self.logger = logging.getLogger()
 
 
     # def _getAppInfo(self):
