@@ -359,6 +359,9 @@ class UiBaseFwk(object):
     def _set_action_element(self, idx_or_match=None, element_name=None):
         if element_name is None:
             element_name = self.CurrentElement.get_name()
+            if element_name is None:
+                return
+                # self.Pages.Page_home.open_main_page()  <   No element
         if type(element_name) is not str:  # ElementStruct
             element_name = element_name.get_name()
             element_object = element_name.get_object()

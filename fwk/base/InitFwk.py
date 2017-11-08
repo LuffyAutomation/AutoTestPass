@@ -13,6 +13,8 @@ from fwk.utils.utilTime.UtilWaitEvent import UtilWaitEvent
 from fwk.other.ConfigParser import ConfigParse
 from fwk.utils.utilXml.UtilXml import UtilXml
 from fwk.utils.utilCode.UtilCode import UtilCode
+
+
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
@@ -60,13 +62,6 @@ class InitFwk:
         self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp
 
     def createResultFolder(self):
-        # self._ConfigParser.getRunTimeConfigArgsValue(self._ConfigParser.TEST_TIMEOUT_ELEMENT)
-        self.path_folder_results = os.path.join(self.path_folder_AutoTestPass, "results")
-        # self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())
-        self.path_folder_currentTest = os.path.join(self.path_folder_results, GlobalArgs.getGlobalStartTime())
-
-        self.path_folder_screenshots = os.path.join(self.path_folder_currentTest, "screenshots")
-        self.path_file_xsl_xmlReport = os.path.join(self.path_folder_fwk, "report", "xml", self.NAME_FILE_XSL)
         try:  # (Multiple threads) WindowsError: [Error 183] Cannot create a file when that file already exists: 'D:\\Dev\\DevicePass\\script\\AutoTestPass\\results'
             self.UtilFolder.createFolder(self.path_folder_results)
         except:
@@ -119,11 +114,17 @@ class InitFwk:
         self.testType = self.ConfigParser.getMainConfigValue(self.name_project, self.ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)
 
+        # self._ConfigParser.getRunTimeConfigArgsValue(self._ConfigParser.TEST_TIMEOUT_ELEMENT)
+        self.path_folder_results = os.path.join(self.path_folder_AutoTestPass, "results")
+        # self.Result.path_folder_currentTest = os.path.join(self.Result.path_folder_results, self.UtilTime.getCurrentTime())
+        self.path_folder_currentTest = os.path.join(self.path_folder_results, GlobalArgs.getGlobalStartTime())
+
+        self.path_folder_screenshots = os.path.join(self.path_folder_currentTest, "screenshots")
+        self.path_file_xsl_xmlReport = os.path.join(self.path_folder_fwk, "report", "xml", self.NAME_FILE_XSL)
+
     def __initializeLogging(self):
         logging.config.fileConfig(os.path.join(self._path_folder_conf, "log.conf"))
         self.logger = logging.getLogger("simpleExample")
-        # self.logger = logging.getLogger()
-
 
     # def _getAppInfo(self):
     #     self._DefaultPage = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//DefaultPage"))

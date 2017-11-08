@@ -20,8 +20,13 @@ def handle_action(method):
             self = args_dict.get("self")
             if "element_name" in args_dict:
                 element_name = args_dict.get("element_name")
+            else:
+                element_name = None
+            if "idx_or_match" in args_dict:
                 idx_or_match = args_dict.get("idx_or_match")
-                self._set_action_element(idx_or_match, element_name)
+            else:
+                idx_or_match = None
+            self._set_action_element(idx_or_match, element_name)
         except Exception as e:
             self.logger.error(e)
             raise Exception(e)
