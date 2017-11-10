@@ -193,8 +193,8 @@ class Result:
         return self._dict_report[self._step]
 
     def __addLoggingForEachTestCase(self):
-        self._UtilFile.writeFile(os.path.join(self.path_folder_currentTest, self.__getResultName() + ".log"), "",
-                                 file_mode="a")
+        self._UtilFile.write_file(os.path.join(self.path_folder_currentTest, self.__getResultName() + ".log"), "",
+                                  file_mode="a")
         self.log_case_Handler = logging.FileHandler(
             filename=os.path.join("results", os.path.basename(self.path_folder_currentTest),
                                   self.__getResultName() + ".log"), mode='a', encoding="utf-8")
@@ -346,17 +346,17 @@ class Result:
 
     def afterClass(self, TestCase):
         if self._UI.RunTimeConf.isDevicePassTest:
-            self._UI.UtilFile.copyFile(os.path.join(self.path_folder_currentTest, self._Init.NAME_FILE_XSL),
-                                           os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
+            self._UI.UtilFile.copy_file(os.path.join(self.path_folder_currentTest, self._Init.NAME_FILE_XSL),
+                                        os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self._Init.NAME_FILE_XSL + ".png"))
-            self._UI.UtilFile.copyFile(self.path_file_xsl_xmlReport,
-                                           os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
+            self._UI.UtilFile.copy_file(self.path_file_xsl_xmlReport,
+                                        os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self._Init.NAME_FILE_XSL + ".png"))
-            self._UI.UtilFile.copyFile(self.path_file_xml_xmlReport,
-                                           os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
+            self._UI.UtilFile.copy_file(self.path_file_xml_xmlReport,
+                                        os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self.__getResultName() + ".xml.png"))
-            self._UI.UtilFile.copyFile(self.path_file_xsl_xmlReport,
-                                           os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
+            self._UI.UtilFile.copy_file(self.path_file_xsl_xmlReport,
+                                        os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self._Init.NAME_FILE_XSL + ".png"))
 
     def __getResultName(self):

@@ -57,4 +57,4 @@ class TestDataStringsCreator(object):
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_strings, self.__getTestType() + ".py"), tmp)
 
     def _writeFileAndOverwrite(self, path_file, txt=""):
-            UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+            UtilFile.write_file(path_file, txt, self._UtilFile.FileMode.W)

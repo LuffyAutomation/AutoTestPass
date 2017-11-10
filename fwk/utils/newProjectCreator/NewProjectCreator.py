@@ -39,9 +39,9 @@ class NewProjectCreator:
         os.rename(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"))
         self.fileContentReplace(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"), self.InitFwk.Const.PLACEHOLDER, self.InitFwk.name_project)
         # start file
-        self.InitFwk.UtilFile.copyFile(os.path.join(self.InitFwk.path_folder_templates, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_AutoTestPass, "start_" + self.InitFwk.name_project + ".py"))
+        self.InitFwk.UtilFile.copy_file(os.path.join(self.InitFwk.path_folder_templates, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_AutoTestPass, "start_" + self.InitFwk.name_project + ".py"))
         self.InitFwk.UtilTime.sleep(1)
-        self.InitFwk.UtilFile.fileContentReplace(os.path.join(self.InitFwk.path_folder_AutoTestPass, "start_" + self.InitFwk.name_project + ".py"), self.InitFwk.Const.PLACEHOLDER, self.InitFwk.name_project)
+        self.InitFwk.UtilFile.replace_file_content_by_line(os.path.join(self.InitFwk.path_folder_AutoTestPass, "start_" + self.InitFwk.name_project + ".py"), self.InitFwk.Const.PLACEHOLDER, self.InitFwk.name_project)
         # modify main conf
         self.InitFwk.ConfigParser.setMainConfigValue(self.InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, self.InitFwk.ConfigParser.DEFAULT_PROJECT, self.InitFwk.name_project)
         self.InitFwk.ConfigParser.addProject(self.InitFwk.path_file_mainConf, self.InitFwk.name_project, self.InitFwk.testType)

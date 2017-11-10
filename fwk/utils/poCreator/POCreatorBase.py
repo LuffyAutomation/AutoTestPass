@@ -158,11 +158,11 @@ class POCreatorBase(object):
         return self._getPOClassName(po_name) + ".py"
 
     def _writeFile(self, path_file, txt=""):
-        if not self._UtilFile.isPathExisting(path_file):
-            self._UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+        if not self._UtilFile.is_path_existing(path_file):
+            self._UtilFile.write_file(path_file, txt, self._UtilFile.FileMode.W)
 
     def _writeFileAndOverwrite(self, path_file, txt=""):
-        self._UtilFile.writeFile(path_file, txt, self._UtilFile.FileMode.W)
+        self._UtilFile.write_file(path_file, txt, self._UtilFile.FileMode.W)
 
     def _writePagesFile(self, path_file, list_pagesTemplateHead, txt_PagesBodyHead, list_pagesTemplateBodyBody):
         global lines, list_existed_pagesTemplateHead, list_existed_pagesTemplateBodyBody, part
@@ -171,7 +171,7 @@ class POCreatorBase(object):
         list_existed_pagesTemplateBodyBody = []
         part = 1
         try:
-            lines = self._UtilFile.getLinesFromFile(path_file)
+            lines = self._UtilFile.get_lines_from_file(path_file)
             for line in lines:
                 if part == 3:
                     list_existed_pagesTemplateBodyBody.append(line)

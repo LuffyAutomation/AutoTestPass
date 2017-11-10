@@ -68,7 +68,7 @@ class InitFwk:
             pass
         self.UtilFolder.createFolder(self.path_folder_currentTest)
         # self.UtilFolder.createFolder(self.Result.path_folder_screenshots)
-        self.UtilFile.copyFile(self.path_file_xsl_xmlReport, os.path.join(self.path_folder_currentTest, self.NAME_FILE_XSL))
+        self.UtilFile.copy_file(self.path_file_xsl_xmlReport, os.path.join(self.path_folder_currentTest, self.NAME_FILE_XSL))
 
     def __getFrameworkBasePaths(self):
         self.path_folder_AutoTestPass = PATH("../..")
