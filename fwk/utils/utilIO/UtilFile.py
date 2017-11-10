@@ -71,7 +71,6 @@ class UtilFile:
 
     @staticmethod
     def get_lines_from_file(path_file):
-        global lines
         lines = []
         if os.path.isfile(path_file):
             lines = open(path_file, UtilFile.FileMode.R).readlines()
