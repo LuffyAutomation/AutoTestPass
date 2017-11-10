@@ -33,19 +33,19 @@ class UtilFolder:
 
     @staticmethod
     def get_path_from_url(p):
-           return os.path.dirname(p)
+        return os.path.dirname(p)
 
     @staticmethod
     def get_name_from_url(p):
-           return os.path.basename(p)
+        return os.path.basename(p)
 
     @staticmethod
     def get_url_tuple(p):
-           return os.path.splitext(p)
+        return os.path.splitext(p)
 
     @staticmethod
     def is_path_existing(p):
-           return os.path.exists(p)
+        return os.path.exists(p)
 
     class DoMode:
         LIST_SUB_FOLDER_NAMES = "LIST_SUB_FOLDER_NAMES"
