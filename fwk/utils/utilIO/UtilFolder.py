@@ -47,22 +47,22 @@ class UtilFolder:
     def is_path_existing(p):
         return os.path.exists(p)
 
-    class DoMode:
+    class ActionMode:
         LIST_SUB_FOLDER_NAMES = "LIST_SUB_FOLDER_NAMES"
         LIST_SUB_FILE_NAMES = "LIST_SUB_FILE_NAMES"
         DEL_SPECIFIED = "DEL_SPECIFIED"
 
     @staticmethod
-    def walk_folder(p, folder_access_mode=DoMode.LIST_SUB_FOLDER_NAMES, list_names=[]):
+    def walk_folder(p, folder_action_mode=ActionMode.LIST_SUB_FOLDER_NAMES, list_names=[]):
         for folder_path, list_sub_folder_name, list_sub_file_name in os.walk(p):
-            if folder_access_mode == UtilFolder.DoMode.LIST_SUB_FOLDER_NAMES:
+            if folder_action_mode == UtilFolder.ActionMode.LIST_SUB_FOLDER_NAMES:
                 return list_sub_folder_name
-            elif folder_access_mode == UtilFolder.DoMode.DEL_SPECIFIED:
+            elif folder_action_mode == UtilFolder.ActionMode.DEL_SPECIFIED:
                 for subFolderName in list_sub_folder_name:
                     UtilFolder.remove_specified_file_or_folder(os.path.join(folder_path, subFolderName), list_names)
                 for sub_file_name in list_sub_file_name:
                     UtilFolder.remove_specified_file_or_folder(os.path.join(folder_path, sub_file_name), list_names)
-            elif folder_access_mode == UtilFolder.DoMode.LIST_SUB_FILE_NAMES:
+            elif folder_action_mode == UtilFolder.ActionMode.LIST_SUB_FILE_NAMES:
                 return list_sub_file_name
             # for dirname in list_subFolderName:
             #     pass

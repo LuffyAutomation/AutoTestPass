@@ -6,4 +6,4 @@ PATH = lambda p: os.path.abspath(
 )
 
 if __name__ == '__main__':
-    UtilFolder.walk_folder(os.path.dirname(__file__), UtilFolder.DoMode.DEL_SPECIFIED, [".*.pyc", ".*.log"])
+    UtilFolder.walk_folder(os.path.dirname(__file__), UtilFolder.ActionMode.DEL_SPECIFIED, [".*.pyc", ".*.log"])
