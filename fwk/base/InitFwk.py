@@ -59,7 +59,7 @@ class InitFwk:
         self.UtilTime.countDown(function_reLog, range_max, interval, range_min)
 
     def __getOSLanguage(self):
-        self._osLanguage = self.UtilOS.getOSLocale()  # not work in dp
+        self._osLanguage = self.UtilOS.get_os_locale()  # not work in dp
 
     def createResultFolder(self):
         try:  # (Multiple threads) WindowsError: [Error 183] Cannot create a file when that file already exists: 'D:\\Dev\\DevicePass\\script\\AutoTestPass\\results'

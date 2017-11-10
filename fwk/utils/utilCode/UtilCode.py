@@ -1,10 +1,12 @@
 import inspect
 
+
 class UtilCode:
-         # decode                 encode
+    # decode                 encode
     # str - --------> unicode - -------->str
     class CodeType:
         UTF8 = 'utf-8'
+
     @staticmethod
     def encode(value):
         try:

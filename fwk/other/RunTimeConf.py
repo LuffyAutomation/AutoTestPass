@@ -94,10 +94,10 @@ class RunTimeConf:
             self.deviceModel = "NA"
             self.browser = self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.BROWSER)
             self.browserDriverFolderPath = PATH(self._ConfigParser.getRunTimeConfigCapsValue(self._ConfigParser.TEST_BROWSERDRIVER_FOLDERPATH))
-            self.language = self._UtilOS.getOSLocale().split("_")[0]
-            self.region = self._UtilOS.getOSLocale().split("_")[1]
-            self.platform = self._UtilOS.getOSName()
-            self.platformVersion = self._UtilOS.getOSRelease()
+            self.language = self._UtilOS.get_os_locale().split("_")[0]
+            self.region = self._UtilOS.get_os_locale().split("_")[1]
+            self.platform = self._UtilOS.get_os_name()
+            self.platformVersion = self._UtilOS.get_os_release()
 
     def getMobileInfo(self, UI):
         self.UI = UI

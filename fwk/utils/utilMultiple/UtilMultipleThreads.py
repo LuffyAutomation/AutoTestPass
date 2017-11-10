@@ -2,6 +2,7 @@
 import multiprocessing
 import time
 
+
 class UtilMultipleThreads:
     def __init__(self, *args):
         pass
