@@ -63,11 +63,11 @@ class InitFwk:
 
     def createResultFolder(self):
         try:  # (Multiple threads) WindowsError: [Error 183] Cannot create a file when that file already exists: 'D:\\Dev\\DevicePass\\script\\AutoTestPass\\results'
-            self.UtilFolder.createFolder(self.path_folder_results)
+            self.UtilFolder.create_folder(self.path_folder_results)
         except:
             pass
-        self.UtilFolder.createFolder(self.path_folder_currentTest)
-        # self.UtilFolder.createFolder(self.Result.path_folder_screenshots)
+        self.UtilFolder.create_folder(self.path_folder_currentTest)
+        # self.UtilFolder.create_folder(self.Result.path_folder_screenshots)
         self.UtilFile.copy_file(self.path_file_xsl_xmlReport, os.path.join(self.path_folder_currentTest, self.NAME_FILE_XSL))
 
     def __getFrameworkBasePaths(self):
@@ -76,7 +76,7 @@ class InitFwk:
         self.path_folder_projects = os.path.join(self.path_folder_AutoTestPass, "projects")
         self.path_folder_templates = os.path.join(self.path_folder_AutoTestPass, "templates")
         self.path_folder_PLACEHOLDER = os.path.join(self.path_folder_templates, self.Const.PLACEHOLDER)
-        self.list_all_projects = self.UtilFolder.walkFolder(self.path_folder_projects, self.UtilFolder.DoMode.LIST_SUB_FOLDER_NAMES)
+        self.list_all_projects = self.UtilFolder.walk_folder(self.path_folder_projects, self.UtilFolder.DoMode.LIST_SUB_FOLDER_NAMES)
 
         self._path_folder_env = os.path.join(self.path_folder_fwk, "env")
         self._path_folder_conf = os.path.join(self._path_folder_env, "conf")

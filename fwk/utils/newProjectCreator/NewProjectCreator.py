@@ -33,7 +33,7 @@ class NewProjectCreator:
     def create(self):
         if self.isProjectExisted() is True:
             return
-        self.InitFwk.UtilFolder.copyFolder(self.InitFwk.path_folder_PLACEHOLDER, os.path.join(self.InitFwk.path_folder_projects, self.InitFwk.name_project))
+        self.InitFwk.UtilFolder.copy_folder(self.InitFwk.path_folder_PLACEHOLDER, os.path.join(self.InitFwk.path_folder_projects, self.InitFwk.name_project))
         self.InitFwk.UtilTime.sleep(1)
         # unittest file
         os.rename(os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.Const.PLACEHOLDER + ".py"), os.path.join(self.InitFwk.path_folder_cases, self.InitFwk.name_project + ".py"))

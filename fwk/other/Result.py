@@ -342,7 +342,7 @@ class Result:
             self._setBaseInfo()
             self.printBaseInfo()
             self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest, self.__getResultName())
-            self._UtilFolder.createFolder(self.path_folder_testSuiteNumScreenshots)
+            self._UtilFolder.create_folder(self.path_folder_testSuiteNumScreenshots)
 
     def afterClass(self, TestCase):
         if self._UI.RunTimeConf.isDevicePassTest:

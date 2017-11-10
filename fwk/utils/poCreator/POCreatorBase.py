@@ -35,13 +35,13 @@ class POCreatorBase(object):
 
         self.__path_folder_po = path_folder_po
         self.__path_folder_pages = os.path.join(path_folder_po, self._PO_PAGES, self.scriptFolderName)
-        self._UtilFolder.createFolder(self.__path_folder_pages)
+        self._UtilFolder.create_folder(self.__path_folder_pages)
         self._writeFile(os.path.join(self.__path_folder_pages, "__init__.py"))
         self.__path_folder_models = os.path.join(path_folder_po, self._PO_MODELS, self.scriptFolderName)
-        self._UtilFolder.createFolder(self.__path_folder_models)
+        self._UtilFolder.create_folder(self.__path_folder_models)
         self._writeFile(os.path.join(self.__path_folder_models, "__init__.py"))
         self.__path_folder_wrapper = os.path.join(path_folder_po, self._PO_WRAPPER)
-        self._UtilFolder.createFolder(self.__path_folder_wrapper)
+        self._UtilFolder.create_folder(self.__path_folder_wrapper)
         self._writeFile(os.path.join(self.__path_folder_wrapper, "__init__.py"))
         self._writeFile(os.path.join(self.__path_folder_wrapper, "Pages_Android.py"))
         self._writeFile(os.path.join(self.__path_folder_wrapper, "Pages_Web.py"), "class Pages_Web: pass")
