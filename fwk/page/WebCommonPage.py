@@ -11,5 +11,5 @@ class WebCommonPage(CommonPage):
         return self
 
     def get(self, element_name, child_page_name=None, elementsMap=None):
-        self.updateForSubPage(child_page_name, elementsMap)
+        self.update_for_sub_page(child_page_name, elementsMap)
         return self.UI.updateCurrentElementStatus(element_name, self.elementsMap, self.page_name)
