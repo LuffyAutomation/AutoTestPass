@@ -10,6 +10,6 @@ class AndroidCommonPage(CommonPage):
             self.UI = AndroidFwk
         return self
 
-    def get(self, element_name, child_page_name=None, elementsMap=None):
-        self.update_for_sub_page(child_page_name, elementsMap)
-        return self.UI.updateCurrentElementStatus(element_name, self.elementsMap, self.page_name)
+    def get(self, element_name, child_page_name=None, elements_ui_map=None):
+        self.update_for_sub_page(child_page_name, elements_ui_map)
+        return self.UI.updateCurrentElementStatus(element_name, self.elements_ui_map, self.page_name)
