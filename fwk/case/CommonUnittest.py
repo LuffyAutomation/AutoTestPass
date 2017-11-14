@@ -54,7 +54,7 @@ class CommonUnittest(unittest.TestCase):
             if cls.UI_Web is None:
                 cls.UI_Web = WebFwk(cls.InitFwk)
             cls.Result = Result(cls.UI, cls.InitFwk, cls.__name__)
-            cls.Result.beforeClass()
+            cls.Result.before_class()
         except Exception as e:
             # traceback.print_exc()
             cls.InitFwk.logger.error(traceback.format_exc())
@@ -96,24 +96,24 @@ class CommonUnittest(unittest.TestCase):
             except:
                 pass
             try:
-                cls.Result.afterClass(cls)
+                cls.Result.after_class(cls)
             except:
                 pass
         except Exception as e:
             cls.InitFwk.logger.error(e.__str__())
 
     def setUp(self):
-        # self.Result.beforeEachFunction(self)
+        # self.Result.before_each_function(self)
         try:
-            self.Result.beforeEachFunction(self)
+            self.Result.before_each_function(self)
         except:
-            # self.Result.afterEachFunction(self)
+            # self.Result.after_each_function(self)
             # raise Exception("Skip step.")
             pass
 
     def tearDown(self):
         try:
-            self.Result.afterEachFunction(self)
+            self.Result.after_each_function(self)
         except:
             pass
 

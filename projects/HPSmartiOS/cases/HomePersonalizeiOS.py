@@ -7,7 +7,7 @@ from projects.HPSmartiOS.data.testData.TestData_Ios import TestData_ios
 
 class HomePersonalizeiOS(CommonUnittest):
     '''
-    1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
+    1. self.Result.set_description and self.Result.set_expected_result don't have to be written.
     2. setUpClass(cls) is reserved function, please keep it. Do not write any of tearDownClass, setUp and tearDown.
     3. If other drivers are needed, please select the following statements according to related test requirement:
         cls.UI_.getDriver()
@@ -22,9 +22,9 @@ class HomePersonalizeiOS(CommonUnittest):
     def test_exmaple(self):
         self.Pages_Android = Pages_Android(self.UI_Android)
         self.Pages = self.Pages_Android
-        self.Result.setDescription("1. xxxxx.",
+        self.Result.set_description("1. xxxxx.",
                                    "2. xxxxx.")
-        self.Result.setExpectedResult("xxxxxx is displayed.")
+        self.Result.set_expected_result("xxxxxx is displayed.")
         self.Result.setScreenshot("begin", "This is a begin.")
         self.Result.setComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue())
         self.Pages.xxxxxxxxx
@@ -37,11 +37,11 @@ class HomePersonalizeiOS(CommonUnittest):
         cls.Pages = cls.Pages_Ios  # Just make it simple since generally only one of Android, Ios and Web may be tested.
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
-        cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
-        2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the 
+        cls.Result.load_android_case_info_from_excel()/cls.Result.load_ios_case_info_from_excel()/cls.Result.load_web_case_info_from_excel().
+        2. You also can specify the sheet name cls.Result.load_android_case_info_from_excel("xxxx"), if you leave it as empty, the 
         class name will be the as default sheet name.
         '''
-        # cls.Result.loadAndroidCaseInfoFromExcel()
+        # cls.Result.load_android_case_info_from_excel()
         # TestData_Android.Sheet_example.dp_msg_upload_waiting()
         '''
         1. Test Data will be loaded from testData.xlsx if you invoke
@@ -59,25 +59,25 @@ class HomePersonalizeiOS(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID inthe  excel,
-        self.Result.setDescriptionAndExpectedResultFromExcel() can be omitted.
-        2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
+        1. If cls.Result.load_android_case_info_from_excel() is invoked and the class name matchs the sheet name in the excel and the function name matchs the ID inthe  excel,
+        self.Result.set_description_and_expected_result_from_excel() can be omitted.
+        2. self.Result.set_description_and_expected_result_from_excel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
-        4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
-        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other pepole to check case.
+        4. self.Result.set_description_and_expected_result_from_excel can replace self.Result.set_description and self.Result.set_expected_result.
+        5. self.Result.set_description and self.Result.set_expected_result are be recommenced since it is convenient for other pepole to check case.
         '''
-        # self.Result.setDescriptionAndExpectedResultFromExcel()
+        # self.Result.set_description_and_expected_result_from_excel()
 
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
-        self.Result.addScreenshot(name="homescreenisdisplayed",comment="home screen is displayed")
+        self.Result.add_screenshot(name="homescreenisdisplayed", comment="home screen is displayed")
 
     def test_gotoPersonalizeScreen(self):
-        self.Result.setDescription("1. Verify for the 'Personalize' screen.")
-        self.Result.setExpectedResult("Personalize screen is displayed.")
+        self.Result.set_description("1. Verify for the 'Personalize' screen.")
+        self.Result.set_expected_result("Personalize screen is displayed.")
         #self.UI_Ios.wait()
         self.Pages.swipeDownScreen()
         self.Pages.Page_home.tile_Personalize().click()
@@ -86,9 +86,9 @@ class HomePersonalizeiOS(CommonUnittest):
 
 
     def test_verifyPersonalizeScreen(self):
-        self.Result.setDescription("1. Verify for the all the tiles options avavilable.",
+        self.Result.set_description("1. Verify for the all the tiles options avavilable.",
                                    "2. Tap on the button done, I've got it.")
-        self.Result.setExpectedResult("1. Below tiles options is displayed."
+        self.Result.set_expected_result("1. Below tiles options is displayed."
                                       "- Print Photos"
                                       "- Camera/scan to email"
                                       "- Get HP Help and Support"
@@ -100,7 +100,7 @@ class HomePersonalizeiOS(CommonUnittest):
                                       "- Print Google Drive documents"
                                       "- Print Documents"
                                       "- Print Facebook Photos",
-                                      "Tiles name with option for on/off.",
+                                        "Tiles name with option for on/off.",
                                       "Three lines bar to move the tiles up or down."
                                       "2. The home screen is displayed.")
         self.Pages.Page_personalize.verifyTlesOptions()
@@ -109,21 +109,21 @@ class HomePersonalizeiOS(CommonUnittest):
         self.Pages.Page_home.verifyHomeIsDisplayed()
 
     def chooseSomeTiles(self):
-        self.Result.setDescription("1. Chose some of the tiles and tap on done button.")
-        self.Result.setExpectedResult("1. Home screen should display only the tiles in the order the user is choosen.")
+        self.Result.set_description("1. Chose some of the tiles and tap on done button.")
+        self.Result.set_expected_result("1. Home screen should display only the tiles in the order the user is choosen.")
         self.Pages.Page_personalize().closeSometiles()
         self.Pages.Page_personalize().button_done().click()
-        self.Result.addScreenshot(name="verifyHometiles")
+        self.Result.add_screenshot(name="verifyHometiles")
         print "The home screen is displayed some tiles."
         self.Pages.Page_home.verifySomeTiles()
 
     def test_changPersonalizeSettings(self):
-        self.Result.setDescription("1. Change the order of the tiles and tap on done button.",
+        self.Result.set_description("1. Change the order of the tiles and tap on done button.",
                                    "2. Verify the home screen.")
-        self.Result.setExpectedResult("Home screen should display only the tiles in the order the user is choosen")
+        self.Result.set_expected_result("Home screen should display only the tiles in the order the user is choosen")
         self.Pages.Page_home.verifyHomeIsDisplayed()
 
     def test_verify_close(self):
-        self.Result.setDescription("Follow the last step.",
+        self.Result.set_description("Follow the last step.",
                                    "Tap on the Back icon.")
-        self.Result.setExpectedResult("Screen goes back to AiO Home.")
+        self.Result.set_expected_result("Screen goes back to AiO Home.")

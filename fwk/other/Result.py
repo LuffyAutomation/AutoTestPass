@@ -90,7 +90,7 @@ class Result:
         self._testcaseName = "name"
         self._testcaseClassName = "classname"
         self._testsuitName = "testsuitName"
-        self.__setupENV()
+        self.__setup_env()
         self._dict_report = {self._step: 0, self._description: self.NA, self._expectedResult: self.NA,
                              self._ErrorMessage: self.NA, self._manualCheck: self.NA,
                              self._result: self.NA, self._testName: self.NA, self._platform: self.NA,
@@ -114,7 +114,7 @@ class Result:
 
         self._list_testcaseNode = [self._step, self._description, self._expectedResult, self._manualCheck, self._result]
         self._list_testcaseAttribute = [self._testcaseName, self._testcaseClassName, self._runTime]
-        self.setTestName(testName)
+        self.set_test_name(testName)
 
     def setEnvBlockMsg(self, env_block_msg):
         self._env_block_msg = env_block_msg
@@ -134,7 +134,7 @@ class Result:
     #     except:
     #         str = str
 
-    def addResultToXML(self, xml_Url, strXSl="xmlReport.xsl"):
+    def add_result_to_xml(self, xml_Url, strXSl="xmlReport.xsl"):
         xmlDoc = None
         try:
             if not os.path.exists(xml_Url):
@@ -185,25 +185,25 @@ class Result:
         except Exception as e:
             pass
 
-    def __getNextStep(self):
+    def __get_next_step(self):
         self._dict_report[self._step] += 1
         return self._dict_report[self._step]
 
-    def getCurrentStep(self):
+    def get_current_step(self):
         return self._dict_report[self._step]
 
-    def __addLoggingForEachTestCase(self):
-        self._UtilFile.write_file(os.path.join(self.path_folder_currentTest, self.__getResultName() + ".log"), "",
+    def __add_logging_for_each_test_case(self):
+        self._UtilFile.write_file(os.path.join(self.path_folder_currentTest, self.__get_result_name() + ".log"), "",
                                   file_mode="a")
-        self.log_case_Handler = logging.FileHandler(
+        self.log_case_handler = logging.FileHandler(
             filename=os.path.join("results", os.path.basename(self.path_folder_currentTest),
-                                  self.__getResultName() + ".log"), mode='a', encoding="utf-8")
-        self.log_case_Handler.setLevel(logging.DEBUG)
-        self.log_case_Handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
-        # logging.getLogger().addHandler(self.log_case_Handler)
-        self._UI.logger.addHandler(self.log_case_Handler)
+                                  self.__get_result_name() + ".log"), mode='a', encoding="utf-8")
+        self.log_case_handler.setLevel(logging.DEBUG)
+        self.log_case_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s - %(message)s'))
+        # logging.getLogger().addHandler(self.log_case_handler)
+        self._UI.logger.addHandler(self.log_case_handler)
 
-    def _setBaseInfo(self):
+    def _set_base_info(self):
         self._dict_report[self._platform] = self._UI.RunTimeConf.platform
         self._dict_report[self._platformVersion] = self._UI.RunTimeConf.platformVersion
         self._dict_report[self._sdk] = self._UI.RunTimeConf.sdk
@@ -213,50 +213,50 @@ class Result:
         self._dict_report[self._region] = self._UI.RunTimeConf.region
         self._dict_report[self._project] = self._Init.name_project
 
-    def printBaseInfo(self):
+    def print_base_info(self):
         for info in self._list_baseInfo:
             self._UI.logger.info("%s: [%s]" % (info, self._dict_report[info]))
 
-    def setResultToBlockIfFail(self):  # for skip
+    def set_result_to_block_if_fail(self):  # for skip
         self._value_nonPass_result = self._r_block
 
-    def setStepContinueFromFailorBlock(self):
+    def set_step_continue_from_fail_or_block(self):
         self._value_nonPass_result = self._r_fail
 
-    def setResultToTBD(self):  # for skip
+    def set_result_to_tbd(self):  # for skip
         pass
 
-    def setStepBlockIfLastStepFailorBlock(self, env_block_msg=None):
+    def set_step_block_if_last_step_fail_or_block(self, env_block_msg=None):
         if env_block_msg is not None:
             self._value_nonPass_result == self._r_block
             raise Exception("This step is failed since the test env error. Please check the log file for details.")
         if self._value_nonPass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
 
-    def __loadCaseInfo(self, dictCaseInfo, filePath, name_sheet=None, path_file_excel=None):
+    def __load_case_info(self, dictCaseInfo, filePath, name_sheet=None, path_file_excel=None):
         if path_file_excel is None:
             path_file_excel = filePath
         if dictCaseInfo is None:
             dictCaseInfo = Exceller(path_file_excel, name_sheet).getDictAllCasesInfo()
         self.DictCaseInfo_current = dictCaseInfo
 
-    def loadAndroidCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.__loadCaseInfo(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_android, name_sheet, path_file_excel)
+    def load_android_case_info_from_excel(self, name_sheet=None, path_file_excel=None):
+        self.__load_case_info(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_android, name_sheet, path_file_excel)
 
-    def loadIosCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.__loadCaseInfo(self.DictCaseInfo_ios, self._Init.path_file_xlsx_caseInfo_ios, name_sheet, path_file_excel)
+    def load_ios_case_info_from_excel(self, name_sheet=None, path_file_excel=None):
+        self.__load_case_info(self.DictCaseInfo_ios, self._Init.path_file_xlsx_caseInfo_ios, name_sheet, path_file_excel)
 
-    def loadWebCaseInfoFromExcel(self, name_sheet=None, path_file_excel=None):
-        self.__loadCaseInfo(self.DictCaseInfo_web, self._Init.path_file_xlsx_caseInfo_web, name_sheet, path_file_excel)
+    def load_web_case_info_from_excel(self, name_sheet=None, path_file_excel=None):
+        self.__load_case_info(self.DictCaseInfo_web, self._Init.path_file_xlsx_caseInfo_web, name_sheet, path_file_excel)
 
-    def setDescriptionAndExpectedResultFromExcel(self, id):
+    def set_description_and_expected_result_from_excel(self, id):
         if self.DictCaseInfo_current is not None:
             caseInfo = self.DictCaseInfo_current[id]
-            self.setDescription(*caseInfo.description)
-            self.setExpectedResult(*caseInfo.expectedResult)
-            self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
+            self.set_description(*caseInfo.description)
+            self.set_expected_result(*caseInfo.expectedResult)
+            self.set_step_block_if_last_step_fail_or_block(self._env_block_msg)
 
-    def beforeEachFunction(self, TestCase):
+    def before_each_function(self, TestCase):
         self._UI.logger.info("******************************************************************************")
         self._UI.logger.info("********Start Testcase********************************************************")
         self._dict_report[self._testcaseName] = TestCase._testMethodName
@@ -264,29 +264,29 @@ class Result:
         self._dict_report[self._testsuitName] = TestCase.id().replace("." + TestCase._testMethodName, "")
         self._dict_report[self._project] = self.name_project
         if self._dict_report[self._testName] is None or self._dict_report[self._testName] == self.NA:
-            self.setTestName(self._dict_report[self._testcaseClassName])
-        self._stepNum = self.__getNextStep()
+            self.set_test_name(self._dict_report[self._testcaseClassName])
+        self._stepNum = self.__get_next_step()
         self._dict_report[self._startTime] = self._UtilTime.getDateTime()
-        # self.setDescriptionAndExpectedResultFromExcel(self._dict_report[self._testcaseName])
-        # self.__addBlockIfNoSetExpectedResultFunction(TestCase)
+        # self.set_description_and_expected_result_from_excel(self._dict_report[self._testcaseName])
+        # self.__add_block_if_no_set_expected_result_function(TestCase)
         # for line feed > test_flow (src.projects.PrinterControl.unittestCases.HomeMoreAbout.HomeMoreAbout) ... 2017-04-07 14:54:14,275 INFO - Waiting for the element [checkbox_accept] to be shown on page['page_agreements'].
         # self._UtilConsole.printCmdLn("")
 
-    def __addBlockIfNoSetExpectedResultFunction(self, TestCase):
+    def __add_block_if_no_set_expected_result_function(self, TestCase):
             # enhance_method(TestCase, TestCase._testMethodName, method_changer)
             if self.DictCaseInfo_current is None:
                 try:
                     defContent = inspect.getsource(getattr(TestCase, TestCase._testMethodName))
                     for line in defContent.split("\n"):
                         line = line.strip()
-                        if (not line.startswith("#") and not line.startswith("'''")) and ("setExpectedResult(" in line or "setStepContinueFromFailIfBlock(" in line):
+                        if (not line.startswith("#") and not line.startswith("'''")) and ("set_expected_result(" in line or "setStepContinueFromFailIfBlock(" in line):
                             return
                 except Exception as e:
                     pass
-                self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
+                self.set_step_block_if_last_step_fail_or_block(self._env_block_msg)
 
-    def afterEachFunction(self, TestCase):
-        self.__getTime()
+    def after_each_function(self, TestCase):
+        self.__get_time()
         if hasattr(TestCase, '_outcome'):  # Python 3.4+
             result = TestCase.defaultTestResult()  # these 2 methods have no side effects
             TestCase._feedErrorsToResult(result, TestCase._outcome.errors)
@@ -303,27 +303,27 @@ class Result:
             # print("\n%s: %s\n     %s" % (typ, TestCase.id(), msg))
             self._dict_report[self._failsNum] += 1
             self._dict_report[self._result] = self._r_fail
-            self.setResultToBlockIfFail()
-            self._dict_report[self._ErrorMessage] = self.__getActualReuslt(msg)
+            self.set_result_to_block_if_fail()
+            self._dict_report[self._ErrorMessage] = self.__get_actual_reuslt(msg)
         else:
             self._dict_report[self._passesNum] += 1
             self._dict_report[self._result] = self._r_pass
         self._dict_report[self._testsNum] += 1
-        self.addScreenshot()
-        self._dict_report[self._passesPercent] = self.__getPercent(self._dict_report[self._passesNum],
+        self.add_screenshot()
+        self._dict_report[self._passesPercent] = self.__get_percent(self._dict_report[self._passesNum],
+                                                                    self._dict_report[self._testsNum])
+        self._dict_report[self._failsPercent] = self.__get_percent(self._dict_report[self._failsNum],
                                                                    self._dict_report[self._testsNum])
-        self._dict_report[self._failsPercent] = self.__getPercent(self._dict_report[self._failsNum],
+        self._dict_report[self._errorsPercent] = self.__get_percent(self._dict_report[self._errorsNum],
+                                                                    self._dict_report[self._testsNum])
+        self._dict_report[self._blocksPercent] = self.__get_percent(self._dict_report[self._blocksNum],
+                                                                    self._dict_report[self._testsNum])
+        self._dict_report[self._tbdsPercent] = self.__get_percent(self._dict_report[self._tbdsNum],
                                                                   self._dict_report[self._testsNum])
-        self._dict_report[self._errorsPercent] = self.__getPercent(self._dict_report[self._errorsNum],
-                                                                   self._dict_report[self._testsNum])
-        self._dict_report[self._blocksPercent] = self.__getPercent(self._dict_report[self._blocksNum],
-                                                                   self._dict_report[self._testsNum])
-        self._dict_report[self._tbdsPercent] = self.__getPercent(self._dict_report[self._tbdsNum],
-                                                                 self._dict_report[self._testsNum])
-        # GlobalArgs.setPathXmlResult(os.path.join(self.path_folder_currentTest, self.__getResultName()) + ".xml")
-        self.path_file_xml_xmlReport = os.path.join(self.path_folder_currentTest, self.__getResultName()) + ".xml"
+        # GlobalArgs.setPathXmlResult(os.path.join(self.path_folder_currentTest, self.__get_result_name()) + ".xml")
+        self.path_file_xml_xmlReport = os.path.join(self.path_folder_currentTest, self.__get_result_name()) + ".xml"
 
-        self.addResultToXML(os.path.join(self.path_folder_currentTest, self.__getResultName()) + ".xml")
+        self.add_result_to_xml(os.path.join(self.path_folder_currentTest, self.__get_result_name()) + ".xml")
         self._UI.logger.info("------------------------------------------------------------------------------")
         self._UI.logger.info("[[[Step]]]: %s" % self._dict_report[self._step])
         self._UI.logger.info("[[[Description]]]: %s" % self._dict_report[self._description])
@@ -332,19 +332,19 @@ class Result:
         self._UI.logger.info("[[[ManualCheck]]]: %s" % self._dict_report[self._manualCheck])
         self._UI.logger.info("[[[Result]]]: %s" % self._dict_report[self._result])
         self._UI.logger.info("[[[Time(s)]]]: %s" % self._dict_report[self._runTime])
-        self.__restoreSomeProperties()
+        self.__restore_some_properties()
         self._UI.logger.info("********End Testcase**********************************************************")
         self._UI.logger.info("******************************************************************************")
 
-    def beforeClass(self):
+    def before_class(self):
             self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
-            self.__addLoggingForEachTestCase()
-            self._setBaseInfo()
-            self.printBaseInfo()
-            self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest, self.__getResultName())
+            self.__add_logging_for_each_test_case()
+            self._set_base_info()
+            self.print_base_info()
+            self.path_folder_testSuiteNumScreenshots = os.path.join(self.path_folder_currentTest, self.__get_result_name())
             self._UtilFolder.create_folder(self.path_folder_testSuiteNumScreenshots)
 
-    def afterClass(self, TestCase):
+    def after_class(self, TestCase):
         if self._UI.RunTimeConf.isDevicePassTest:
             self._UI.UtilFile.copy_file(os.path.join(self.path_folder_currentTest, self._Init.NAME_FILE_XSL),
                                         os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
@@ -354,15 +354,15 @@ class Result:
                                                         self._Init.NAME_FILE_XSL + ".png"))
             self._UI.UtilFile.copy_file(self.path_file_xml_xmlReport,
                                         os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
-                                                        self.__getResultName() + ".xml.png"))
+                                                     self.__get_result_name() + ".xml.png"))
             self._UI.UtilFile.copy_file(self.path_file_xsl_xmlReport,
                                         os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"),
                                                         self._Init.NAME_FILE_XSL + ".png"))
 
-    def __getResultName(self):
+    def __get_result_name(self):
         return "%s_%s" % (str(self.globalTestSuiteNum), self._dict_report[self._testName])
 
-    def addScreenshot(self, name="stepEnd", comment="Step ended"):
+    def add_screenshot(self, name="stepEnd", comment="Step ended"):
         try:
             path_screenShot = self._UI.__getScreenShot(name, self)
             if self._UI.RunTimeConf.isDevicePassTest:
@@ -377,19 +377,19 @@ class Result:
         except:
             pass
 
-    def addComment(self, comment=""):
+    def add_comment(self, comment=""):
         if self._dict_report[self._manualCheck] == self.NA:
             self._dict_report[self._manualCheck] = ""
         self._dict_report[self._manualCheck] += self._setLine(comment)
         return self._dict_report[self._manualCheck]
 
-    def __getActualReuslt(self, str):
+    def __get_actual_reuslt(self, str):
         return str.replace("Exception: ", "").replace("AssertionError: ", "").replace("AttributeError: ", "")
 
-    def __getPercent(self, num1, num2):
+    def __get_percent(self, num1, num2):
         return "%.1f%%" % (float(num1 * 100) / num2)
 
-    def __getTime(self):
+    def __get_time(self):
         self._dict_report[self._runTime] = self._UtilTime.dateDiff(self._dict_report[self._startTime],
                                                                    self._UtilTime.getDateTime())
         if self._dict_report[self._runTimeTotal] == self.NA:
@@ -397,7 +397,7 @@ class Result:
         else:
             self._dict_report[self._runTimeTotal] += self._dict_report[self._runTime]
 
-    def __restoreSomeProperties(self):
+    def __restore_some_properties(self):
         self._dict_report[self._ErrorMessage] = self.NA
         self._dict_report[self._manualCheck] = self.NA
         self._dict_report[self._description] = self.NA
@@ -407,10 +407,10 @@ class Result:
         if exc_list and exc_list[-1][0] is TestCase:
             return exc_list[-1][1]
 
-    def setTestName(self, name):
+    def set_test_name(self, name):
         self._dict_report[self._testName] = name
 
-    def setExpectedResult(self, *expectedResult):
+    def set_expected_result(self, *expectedResult):
         tmp = ""
         for idx in range(len(expectedResult)):
             if idx + 1 != len(expectedResult):
@@ -418,9 +418,9 @@ class Result:
             else:
                 tmp += expectedResult[idx]
         self._dict_report[self._expectedResult] = tmp
-        self.setStepBlockIfLastStepFailorBlock(self._env_block_msg)
+        self.set_step_block_if_last_step_fail_or_block(self._env_block_msg)
 
-    def setDescription(self, *description):
+    def set_description(self, *description):
         tmp = ""
         for idx in range(len(description)):
             if idx + 1 != len(description):
@@ -429,15 +429,15 @@ class Result:
                 tmp += description[idx]
         self._dict_report[self._description] = tmp
 
-    def getMobileInfo(self, UI):
+    def get_mobile_info(self, UI):
         self.UI = UI
         lines = self.UI.getMobilePropReadlines(self.deviceName)
         self.__setMobileDetails(lines)
 
-    def getWebInfo(self, UI):
+    def get_web_info(self, UI):
         self.UI = UI
 
-    def __setupENV(self):
+    def __setup_env(self):
         self.name_project = self._Init.name_project
         self.path_folder_results = self._Init.path_folder_results
 

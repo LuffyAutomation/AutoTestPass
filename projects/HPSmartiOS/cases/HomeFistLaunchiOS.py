@@ -15,25 +15,25 @@ class HomeFistLaunchiOS(CommonUnittest):
 
 
     def test_flow(self):
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
-        self.Result.addScreenshot(name="homescreenisdisplayed",comment="home screen is displayed")
+        self.Result.add_screenshot(name="homescreenisdisplayed", comment="home screen is displayed")
 
     def test_gotoAddPrinterScreen(self):
-        self.Result.setDescription("1. There are no printer in OOBE mode and go to add printer screen.")
-        self.Result.setExpectedResult("The add printer screen is displayed.")
+        self.Result.set_description("1. There are no printer in OOBE mode and go to add printer screen.")
+        self.Result.set_expected_result("The add printer screen is displayed.")
         self.Pages.Page_home.button_add_printer().wait(5).click()
         self.Pages.Page_printers.button_addPrinter().click()
         self.Pages.Page_addPrinter.button_addaNewPrinter().wait(2).click()
 
 
     def test_verfiylinkpage(self):
-        self.Result.setDescription("1. Verify that the link Displays the HP Privacy Statement in a Safari browser window.",
+        self.Result.set_description("1. Verify that the link Displays the HP Privacy Statement in a Safari browser window.",
                                    "2. Users can tap the Close button in the upper-right corner of the screen to return to the app.")
-        self.Result.setExpectedResult("1. The HP Privacy Statement is displayed.",
+        self.Result.set_expected_result("1. The HP Privacy Statement is displayed.",
                                       "2. Return to app successfully.")
         #self.UI.swipeUpFromMid()
         self.Pages_Ios.findElementIsShow(self.Pages.Page_addPrinter.button_moreDtails())
@@ -44,10 +44,10 @@ class HomeFistLaunchiOS(CommonUnittest):
         self.Pages.Page_linkPrivacyStatement.button_close().click()
 
     def test_verifyhpAgreement(self):
-        self.Result.setDescription("1. Tap on check App Improvement Program Agreement.",
+        self.Result.set_description("1. Tap on check App Improvement Program Agreement.",
                                    "2. Tap on check for Special Offers Agreement.",
                                    "3. Tap on check for Supplies Shopping Agreement.")
-        self.Result.setExpectedResult("1. App Improvement Program Agreement is displayed.",
+        self.Result.set_expected_result("1. App Improvement Program Agreement is displayed.",
                                       "2. Special Offers Agreement is displayed.",
                                       "3. Supplies Shopping Agreement is displayed.")
 
@@ -69,6 +69,6 @@ class HomeFistLaunchiOS(CommonUnittest):
 
 
     def test_verify_close(self):
-        self.Result.setDescription("Follow the last step.",
+        self.Result.set_description("Follow the last step.",
                                    "Tap on the Back icon.")
-        self.Result.setExpectedResult("Screen goes back to AiO Home.")
+        self.Result.set_expected_result("Screen goes back to AiO Home.")

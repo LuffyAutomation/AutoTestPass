@@ -15,16 +15,16 @@ class scaniOS(CommonUnittest):
 
 
     def test_flow(self):
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
-        self.Result.addScreenshot(name="homescreenisdisplayed",comment="home screen is displayed")
+        self.Result.add_screenshot(name="homescreenisdisplayed", comment="home screen is displayed")
 
     def test_addPrinter(self):
-        self.Result.setDescription("1. Added printer")
-        self.Result.setExpectedResult("The printer is added successfully.")
+        self.Result.set_description("1. Added printer")
+        self.Result.set_expected_result("The printer is added successfully.")
         self.Pages.Page_home.button_add_printer().click()
         self.Pages.Page_printers.button_addPrinter().click()
         self.Pages.Page_addPrinter.button_connectPrinterIPaddress().click()
@@ -36,12 +36,12 @@ class scaniOS(CommonUnittest):
 
 
     def test_verifyScanSettings(self):
-        self.Result.setDescription("1. Verif the Scan settings displays",
+        self.Result.set_description("1. Verif the Scan settings displays",
                                    "-Input Type   ->Image   ->Document",
                                    "-Input Source ->Scanner Glass  ->Document Feeder(If support)",
                                    "Quality  ->Normal  ->Draft",
-                                   "Color  ->Color   ->Black",)
-        self.Result.setExpectedResult("They are displayed.")
+                                   "Color  ->Color   ->Black", )
+        self.Result.set_expected_result("They are displayed.")
         self.Pages.Page_home.tile_ScanToEmail().waitForShown().click()
         self.Pages.Page_scan.text_scanner().verifyIsShown()
         self.Pages.Page_scan.text_scanner().click()
@@ -66,9 +66,9 @@ class scaniOS(CommonUnittest):
     def test_scanTwoWays(self):
         #  glass
         #  feeder
-        self.Result.setDescription("1. Initiate a scan job with Scanner Glass.",
+        self.Result.set_description("1. Initiate a scan job with Scanner Glass.",
                                    "2. Initiate a scan job with Document Feeder.")
-        self.Result.setExpectedResult("1. Successfully, Glass Scan function.",
+        self.Result.set_expected_result("1. Successfully, Glass Scan function.",
                                       "2. Successfully, Feeder Scan function.")
 
 
@@ -101,6 +101,6 @@ class scaniOS(CommonUnittest):
 
 
     def test_verify_close(self):
-        self.Result.setDescription("Follow the last step.",
+        self.Result.set_description("Follow the last step.",
                                    "Tap on the Back icon.")
-        self.Result.setExpectedResult("Screen goes back to AiO Home.")
+        self.Result.set_expected_result("Screen goes back to AiO Home.")

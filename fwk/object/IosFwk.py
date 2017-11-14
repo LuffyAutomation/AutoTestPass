@@ -26,7 +26,7 @@ class IosFwk(UiFwk):
         self._getCurrentTestArgs(self.TestType.IOS)
         if self._driver is None:
            self.__launch_app()
-           self.RunTimeConf.getMobileInfo(self)
+           self.RunTimeConf.get_mobile_info(self)
         else:
             self.logger.info("The Ios driver has existed.")
         return self._driver

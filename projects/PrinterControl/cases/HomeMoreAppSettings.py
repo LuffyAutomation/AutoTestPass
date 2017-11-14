@@ -7,7 +7,7 @@ from projects.PrinterControl.data.testData.TestData_Android import TestData_Andr
 
 class HomeMoreAppSettings(CommonUnittest):
     '''
-    1. self.Result.setDescription and self.Result.setExpectedResult don't have to be written.
+    1. self.Result.set_description and self.Result.set_expected_result don't have to be written.
     2. setUpClass(cls) is reserved function, please keep it. Do not write any of tearDownClass, setUp and tearDown.
     3. If other drivers are needed, please select the following statements according to related test requirement:
         cls.UI_Android.getDriver()
@@ -23,11 +23,11 @@ class HomeMoreAppSettings(CommonUnittest):
     def test_exmaple(self):
         self.Pages_Android = Pages_Android(self.UI_Android)
         self.Pages = self.Pages_Android
-        self.Result.setDescription("1. xxxxx.",
+        self.Result.set_description("1. xxxxx.",
                                    "2. xxxxx.")
-        self.Result.setExpectedResult("xxxxxx is displayed.")
-        self.Result.addScreenshot("begin", "This is a begin.")  # Add a screenshot. It can be added more.
-        self.Result.addComment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue()) #  It can be added more.
+        self.Result.set_expected_result("xxxxxx is displayed.")
+        self.Result.add_screenshot("begin", "This is a begin.")  # Add a screenshot. It can be added more.
+        self.Result.add_comment("The Aio application version is %s?" % self.Pages.Page_about.text_version().getValue()) #  It can be added more.
         self.Pages.xxxxxxxxx
     '''
 
@@ -42,11 +42,11 @@ class HomeMoreAppSettings(CommonUnittest):
             cls.Result.setEnvBlockMsg(e.__str__())
         '''
         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
-        cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
-        2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the 
+        cls.Result.load_android_case_info_from_excel()/cls.Result.load_ios_case_info_from_excel()/cls.Result.load_web_case_info_from_excel().
+        2. You also can specify the sheet name cls.Result.load_android_case_info_from_excel("xxxx"), if you leave it as empty, the 
         class name will be the as default sheet name.
         '''
-        # cls.Result.loadAndroidCaseInfoFromExcel()
+        # cls.Result.load_android_case_info_from_excel()
         # TestData_Android.Sheet_example.dp_msg_upload_waiting()
         '''
         1. Test Data will be loaded from testData.xlsx if you invoke
@@ -64,24 +64,24 @@ class HomeMoreAppSettings(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.loadAndroidCaseInfoFromExcel() is invoked and the class name matchs the sheet name in the excel and the function name matches the ID in the excel.
-        2. self.Result.setDescriptionAndExpectedResultFromExcel("test_flow") can select any case from caseInfo.xlsx.
+        1. If cls.Result.load_android_case_info_from_excel() is invoked and the class name matchs the sheet name in the excel and the function name matches the ID in the excel.
+        2. self.Result.set_description_and_expected_result_from_excel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
-        4. self.Result.setDescriptionAndExpectedResultFromExcel can replace self.Result.setDescription and self.Result.setExpectedResult.
-        5. self.Result.setDescription and self.Result.setExpectedResult are be recommenced since it is convenient for other people to check case.
+        4. self.Result.set_description_and_expected_result_from_excel can replace self.Result.set_description and self.Result.set_expected_result.
+        5. self.Result.set_description and self.Result.set_expected_result are be recommenced since it is convenient for other people to check case.
         '''
-        # self.Result.setDescriptionAndExpectedResultFromExcel()
+        # self.Result.set_description_and_expected_result_from_excel()
 
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
 
     def test_verifyCheckbox(self):
-        self.Result.setDescription("1. XXXX.",
+        self.Result.set_description("1. XXXX.",
                                    "2. XXXXXX.")
-        self.Result.setExpectedResult("1. xxxxx.",
+        self.Result.set_expected_result("1. xxxxx.",
                                       "2. xxxx.",
                                       "3. xxxxx.")
         self.Pages.Page_home.flow_open_menuItemAppSettings()

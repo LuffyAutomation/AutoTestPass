@@ -317,11 +317,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return
         self.wait(1)
         if self.RunTimeConf.isDevicePassTest is True:
-            self._driver.get_screenshot_as_file(os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"), str(Result.getCurrentStep()) + "_" + name + ".png"))
+            self._driver.get_screenshot_as_file(os.path.join(os.getenv("APPIUM_SCREENSHOT_DIR"), str(Result.get_current_step()) + "_" + name + ".png"))
         else:
-            self._driver.get_screenshot_as_file(os.path.join(Result.path_folder_testSuiteNumScreenshots, str(Result.getCurrentStep()) + "_" + name + ".png"))
+            self._driver.get_screenshot_as_file(os.path.join(Result.path_folder_testSuiteNumScreenshots, str(Result.get_current_step()) + "_" + name + ".png"))
         self.wait(1)
-        return os.path.join(Result.path_folder_testSuiteNumScreenshots, str(Result.getCurrentStep()) + "_" + name + ".png")
+        return os.path.join(Result.path_folder_testSuiteNumScreenshots, str(Result.get_current_step()) + "_" + name + ".png")
 
     def quit(self):
         try:

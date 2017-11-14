@@ -33,10 +33,10 @@ class Page_personalize(Page_personalize_model):
     def turnoffONswitchButton(self):
         print "Turn off scan function on personalize scsreen."
         self.scan_switchButton().click()
-        self.result.addScreenshot(name="turn off scan switch button")
+        self.result.add_screenshot(name="turn off scan switch button")
         time.sleep(2)
         self.scan_switchButton().click()
-        self.result.addScreenshot(name="turn on scan switch button")
+        self.result.add_screenshot(name="turn on scan switch button")
         print "Turn on scan function on personalize scsreen."
         time.sleep(2)
 
@@ -47,7 +47,7 @@ class Page_personalize(Page_personalize_model):
         self.printerSettings_switchButton().click()
         self.hpHelpandSupport_switchButton().click()
         self.scan_switchButton().click()
-        self.result.addScreenshot(name="turn off all switch button")
+        self.result.add_screenshot(name="turn off all switch button")
 
     def moveThreeTilesUpOrDown(self):
         self.reorderbutton_scan().swipeUpFromMid()

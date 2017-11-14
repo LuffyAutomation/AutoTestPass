@@ -63,7 +63,7 @@ class HPSmartiOS():
 # #         cls.Pages = cls.Pages_Web
 #         '''
 #         1. Description and Expected Result will be loaded automatically from caseInfo.xlsx if you invoke
-#         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.loadIosCaseInfoFromExcel()/cls.Result.loadWebCaseInfoFromExcel().
+#         cls.Result.loadAndroidCaseInfoFromExcel()/cls.Result.load_ios_case_info_from_excel()/cls.Result.loadWebCaseInfoFromExcel().
 #         2. You also can specify the sheet name cls.Result.loadAndroidCaseInfoFromExcel("xxxx"), if you leave it as empty, the
 #         class name will be the as default sheet name.
 #         '''

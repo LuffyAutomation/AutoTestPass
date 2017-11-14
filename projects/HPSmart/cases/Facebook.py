@@ -12,17 +12,17 @@ class Files(CommonUnittest):
         cls.Pages = cls.Pages_Android  # Just make it simple since generally only one of Android, Ios and Web may be tested.
 
     def test_flow(self):
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
 
     def test_SignInOrOutOf_FaceBook_step1(self):
-        self.Result.setDescription("1. 'Print Facebook Photos' tile has been enabled via Personalize tile;"
+        self.Result.set_description("1. 'Print Facebook Photos' tile has been enabled via Personalize tile;"
                                    "2. Not logged into Facebook yet via AiO, or Reset Data."
                                    "3. Tap on 'Print Facebook Photos' tile from Home page."    
                                    "4. Tap Allow if prompted against file permissions.")
-        self.Result.setExpectedResult("Verify a webview is launched to the Facebook login page.")
+        self.Result.set_expected_result("Verify a webview is launched to the Facebook login page.")
 
         self.Pages.Page_home.tile_PrintFacebookPhotos().waitForShown().click()

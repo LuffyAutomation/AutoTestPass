@@ -15,16 +15,16 @@ class PrintingiOS(CommonUnittest):
 
 
     def test_flow(self):
-        self.Result.setDescription("1. Install AiO app / clear data of AiO app.",
+        self.Result.set_description("1. Install AiO app / clear data of AiO app.",
                                    "2. Launch AiO app.",
                                    "3. Go to Home screen.")
-        self.Result.setExpectedResult("AiO Home screen is displayed.")
+        self.Result.set_expected_result("AiO Home screen is displayed.")
         self.Pages.flow_goTo_PageHomeWithoutPrinter()
-        self.Result.addScreenshot(name="homescreenisdisplayed",comment="home screen is displayed")
+        self.Result.add_screenshot(name="homescreenisdisplayed", comment="home screen is displayed")
 
     def test_addPrinter(self):
-        self.Result.setDescription("1. Added printer")
-        self.Result.setExpectedResult("The printer is added successfully.")
+        self.Result.set_description("1. Added printer")
+        self.Result.set_expected_result("The printer is added successfully.")
         self.Pages.Page_home.button_add_printer().waitForShown().click()
         self.Pages.Page_printers.button_addPrinter().click()
         self.Pages.Page_addPrinter.button_connectPrinterIPaddress().click()
@@ -35,10 +35,10 @@ class PrintingiOS(CommonUnittest):
         self.Pages.Page_parinterFound.button_yes().waitForShown().click()
 
     def test_printingPhoto(self):
-        self.Result.setDescription("1. Select an image to preview.",
+        self.Result.set_description("1. Select an image to preview.",
                                    "2. Tap the Settings icon on the Print Preview screen.",
                                    "3. print job via WifIpath with the print settings.")
-        self.Result.setExpectedResult("1. The print job can be completed.",
+        self.Result.set_expected_result("1. The print job can be completed.",
                                       "2. The printout is correct according to the print settings.")
         self.Pages.Page_home.button_photo().waitForShown().click()
         self.Pages.Dialog_legalInformation.ok()#dialog ok
@@ -58,10 +58,10 @@ class PrintingiOS(CommonUnittest):
 
     def test_printingDocument(self):
         self.Pages_Ios.aa()
-        self.Result.setDescription("1. Select a document to preview.",
+        self.Result.set_description("1. Select a document to preview.",
                                    "2. chang the print settings.",
                                    "3. print job via WiFi path with the prnt settings.")
-        self.Result.setExpectedResult("1. The print job can be completed.",
+        self.Result.set_expected_result("1. The print job can be completed.",
                                       "2. The printout is correct according to the print settings.")
         self.Pages.Page_home.button_file().click()
         self.Pages.Dialog_legalInformation.ok()  # dialog ok
@@ -90,6 +90,6 @@ class PrintingiOS(CommonUnittest):
 
 
     def test_verify_close(self):
-        self.Result.setDescription("Follow the last step.",
+        self.Result.set_description("Follow the last step.",
                                    "Tap on the Back icon.")
-        self.Result.setExpectedResult("Screen goes back to AiO Home.")
+        self.Result.set_expected_result("Screen goes back to AiO Home.")
