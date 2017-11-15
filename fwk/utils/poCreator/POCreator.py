@@ -86,7 +86,7 @@ class POCreator(POCreatorBase):
             + self._newLine + self._getIndent(level) + "class %s(%s):" % (self._getPOClassName(po_name), self._getPOModelClassName(po_name)) \
             + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, UI):" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.UI = UI" \
-            + self._newLine + self._getIndent(level) + self._indent + self._indent + "if 1 > 1:" \
+            + self._newLine + self._getIndent(level) + self._indent + self._indent + "if False:" \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "from fwk.object.%s import %s" % (self.__getWhichFwk(), self.__getWhichFwk()) \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + self._indent + "self.UI = %s(None)" % self.__getWhichFwk() \
             + self._newLine + self._getIndent(level) + self._indent + self._indent + "%s.__init__(self)" % self._getPOModelClassName(po_name) \
@@ -111,11 +111,18 @@ class POCreator(POCreatorBase):
         # A few elements' properties may be changed after a while. It should be searched again by using refreshMe()
         # self.image_appIcon().waitForShown().refreshMe().click()
         # self.text_version().verifyEqual(self.text_version().getValue(), "4.3.19")''' \
+            + self._newLine + self._newLine + self._getIndent(level) + self._indent \
+            + \
+        '''def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass''' \
             + self._newLine
         return tmp
 
-    # def _getPagesTemplateHead(self, po_name):
-    #     tmp =  self._getPagesClassImportString(po_name)
-    #     tmp = ""
-    #     tmp += "%s.%s import %s" % (importPath, self._getPOClassName(po_name), self._getPOClassName(po_name))
-    #     return tmp
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

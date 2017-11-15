@@ -52,32 +52,32 @@ class POCreatorBase(object):
         self.__xmlTree = self._UtilXml.getTree(self.__path_folder_uiMaps)
         self._root = self._UtilXml.getRootElement(self.__xmlTree)
 
-        self.__classImportStringHead = self.__getClassImportStringHead()
+        self.__class_import_string_head = self.__getClassImportStringHead()
 
     def create(self):
         try:
-            list = self._UtilXml.getElements(self._root, ".//pages/")
+            list_element = self._UtilXml.getElements(self._root, ".//pages/")
         except:
             return
-        list_pagesTemplateHead = []
-        pagesTemplateHead = ""
-        list_pagesTemplateBodyBody = []
-        pagesTemplateBodyBody = ""
-        for index in range(len(list)):
-            attributes = self._UtilXml.getAttribute(list[index])
-            children = self._UtilXml.getChildren(list[index])
+        list_pages_template_head = []
+        pages_template_head = ""
+        list_pages_template_body_body = []
+        pages_template_body_body = ""
+        for index in range(len(list_element)):
+            attributes = self._UtilXml.getAttribute(list_element[index])
+            children = self._UtilXml.getChildren(list_element[index])
             name = attributes.get(self.uiMapMarks.NAME)
-            pagesTemplateHead += self._getPagesClassImportString(name)
-            list_pagesTemplateHead.append(self._getPagesClassImportString(name))
-            pagesTemplateBodyBody += self._getPagesBodyBody(name)
-            list_pagesTemplateBodyBody.append(self._getPagesBodyBody(name))
+            pages_template_head += self._getPagesClassImportString(name)
+            list_pages_template_head.append(self._getPagesClassImportString(name))
+            pages_template_body_body += self._getPagesBodyBody(name)
+            list_pages_template_body_body.append(self._getPagesBodyBody(name))
             description = attributes.get(self.uiMapMarks.DESCRIPION)
             self._writeFile(os.path.join(self.__path_folder_pages, self._getPOFileName(name)), self._getPOHead(name, description))
             _pOModelHead = self._getPOModelHead(name, None, description)
             _pOModelHeadSubClass = ""
             list_subClass = []
-            _pOModelModelBody = ""
-            _pOModelSubModelBody = ""
+            _po_model_model_body = ""
+            _po_model_sub_model_body = ""
             for idx in range(len(children)):
                 level = 0
                 children_name = self._UtilXml.getAttribute(children[idx]).get(self.uiMapMarks.NAME)
@@ -89,40 +89,40 @@ class POCreatorBase(object):
                     _pOModelHeadSubClass += self._getPOModelHead(name, children_name, children_description, level)
                     for c_idx in range(len(children_children)):
                         children_children_name = self._UtilXml.getAttribute(children_children[c_idx]).get(self.uiMapMarks.NAME)
-                        _pOModelSubModelBody += self._getPOModelBody(children_children_name, level)
-                    _pOModelHeadSubClass += _pOModelSubModelBody
-                    _pOModelSubModelBody = ""
+                        _po_model_sub_model_body += self._getPOModelBody(children_children_name, level)
+                    _pOModelHeadSubClass += _po_model_sub_model_body
+                    _po_model_sub_model_body = ""
                 else:
-                    _pOModelModelBody += self._getPOModelBody(children_name, 0)
+                    _po_model_model_body += self._getPOModelBody(children_name, 0)
             _pOModelHead += self._getPOModelHeadSubClass(list_subClass, level)
-            tmpStr = _pOModelHead + _pOModelModelBody + _pOModelHeadSubClass + _pOModelSubModelBody
+            tmpStr = _pOModelHead + _po_model_model_body + _pOModelHeadSubClass + _po_model_sub_model_body
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_models, self._getPOModelFileName(name)), tmpStr)
-        self._writePagesFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pagesTemplateHead, self._getPagesBodyHead(), list_pagesTemplateBodyBody)
+        self._writePagesFile(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), list_pages_template_head, self._getPagesBodyHead(), list_pages_template_body_body)
 
     def __getClassImportStringHead(self):
         if self.__isGeneratedInProject == True:
-            # tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
-            tmpPath = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
-            self.__classImportStringHead = "from " + tmpPath.replace("/", ".").replace("\\", ".")
-            return self.__classImportStringHead
+            # tmp_path = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
+            tmp_path = self.__IMPORT_STRING_BEGIN_WITH + self.__path_folder_po.split(self.__IMPORT_STRING_BEGIN_WITH)[1]
+            self.__class_import_string_head = "from " + tmp_path.replace("/", ".").replace("\\", ".")
+            return self.__class_import_string_head
 
     def _getPOModelClassImportString(self, po_name):
         po_name = self._getPOClassName(po_name)
-        classImportString = self.__classImportStringHead
-        pOModelClassName = self._getPOModelClassName(po_name)
-        if self._COMMONPAGE not in pOModelClassName:
-            classImportString += "." + self._PO_MODELS
-            classImportString += "." + self.scriptFolderName
+        class_import_string = self.__class_import_string_head
+        po_model_class_name = self._getPOModelClassName(po_name)
+        if self._COMMONPAGE not in po_model_class_name:
+            class_import_string += "." + self._PO_MODELS
+            class_import_string += "." + self.scriptFolderName
         tmp = "# coding: utf-8" + self._newLine
         # tmp = "import inspect" + self._newLine
-        return tmp + "%s.%s import %s" % (classImportString, pOModelClassName, pOModelClassName)
+        return tmp + "%s.%s import %s" % (class_import_string, po_model_class_name, po_model_class_name)
 
     def _getPagesClassImportString(self, po_name):
         po_name = self._getPOClassName(po_name)
-        classImportString = self.__classImportStringHead
+        class_import_string = self.__class_import_string_head
         # pOModelClassName = self._getPOModelClassName(po_name)
-        classImportString += "." + self._PO_PAGES + "." + self.scriptFolderName
-        return "%s.%s import %s" % (classImportString, po_name, po_name) + self._newLine
+        class_import_string += "." + self._PO_PAGES + "." + self.scriptFolderName
+        return "%s.%s import %s" % (class_import_string, po_name, po_name) + self._newLine
 
     def _getIndent(self, level=0):
         tmp = ""
@@ -164,41 +164,41 @@ class POCreatorBase(object):
     def _writeFileAndOverwrite(self, path_file, txt=""):
         self._UtilFile.write_file(path_file, txt, self._UtilFile.FileMode.W)
 
-    def _writePagesFile(self, path_file, list_pagesTemplateHead, txt_PagesBodyHead, list_pagesTemplateBodyBody):
-        global lines, list_existed_pagesTemplateHead, list_existed_pagesTemplateBodyBody, part
+    def _writePagesFile(self, path_file, list_pagesTemplateHead, txt_PagesBodyHead, list_pages_template_body_body):
+        # global lines, list_existed_pages_template_head, list_existed_pages_template_body_body, part
         lines = []
-        list_existed_pagesTemplateHead = []
-        list_existed_pagesTemplateBodyBody = []
+        list_existed_pages_template_head = []
+        list_existed_pages_template_body_body = []
         part = 1
         try:
             lines = self._UtilFile.get_lines_from_file(path_file)
             for line in lines:
                 if part == 3:
-                    list_existed_pagesTemplateBodyBody.append(line)
+                    list_existed_pages_template_body_body.append(line)
                 if "class Pages_" in line:
                     part = 2
                 elif "self._UI = UI" in line:
                     part = 3
                 if part == 1:
-                    list_existed_pagesTemplateHead.append(line)
+                    list_existed_pages_template_head.append(line)
 
             for line in list_pagesTemplateHead:
-                if line not in list_existed_pagesTemplateHead:
-                    list_existed_pagesTemplateHead.insert(list_existed_pagesTemplateHead.__len__() - 2, line)  # make it befort /n /n
+                if line not in list_existed_pages_template_head:
+                    list_existed_pages_template_head.insert(list_existed_pages_template_head.__len__() - 2, line)  # make it befort /n /n
             # make a new one below the old one avoid duplicate name
             # from projects.WebMultipleThreads.po.pages.web.Page_home import Page_home
             # from projects.WebSingle.po.pages.web.Page_home import Page_home
 
-            for line in list_pagesTemplateBodyBody:
-                if line not in list_existed_pagesTemplateBodyBody:
-                    list_existed_pagesTemplateBodyBody.insert(0, line)
+            for line in list_pages_template_body_body:
+                if line not in list_existed_pages_template_body_body:
+                    list_existed_pages_template_body_body.insert(0, line)
 
-            txt_pagesTemplateHead = "".join(list_existed_pagesTemplateHead)
-            txt_existed_pagesTemplateBodyBody = "".join(list_existed_pagesTemplateBodyBody)
-            if not txt_pagesTemplateHead.endswith(self._newLine + self._newLine):
+            txt_pages_template_head = "".join(list_existed_pages_template_head)
+            txt_existed_pages_template_body_body = "".join(list_existed_pages_template_body_body)
+            if not txt_pages_template_head.endswith(self._newLine + self._newLine):
                 # txt_PagesBodyHead = txt_PagesBodyHead.replace(self._newLine, "", 1)
-                txt_pagesTemplateHead = txt_pagesTemplateHead + self._newLine + self._newLine
-            self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), txt_pagesTemplateHead + txt_PagesBodyHead + txt_existed_pagesTemplateBodyBody)
+                txt_pages_template_head = txt_pages_template_head + self._newLine + self._newLine
+            self._writeFileAndOverwrite(os.path.join(self.__path_folder_wrapper, "Pages_%s.py" % (self._UtilString.capitalizeFirstLetter(self.scriptFolderName))), txt_pages_template_head + txt_PagesBodyHead + txt_existed_pages_template_body_body)
         except:
             return
 
