@@ -16,3 +16,9 @@ class Page_welcome(Page_welcome_model):
 
     def flow_welcome_setupLater(self):
         self.link_setupLater().waitForShown().click()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

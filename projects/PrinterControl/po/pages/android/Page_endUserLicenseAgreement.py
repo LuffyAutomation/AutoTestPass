@@ -25,3 +25,9 @@ class Page_endUserLicenseAgreement(Page_endUserLicenseAgreement_model):
         self.UI.back()
         self.UI.setPage("page_about")
         self.UI.verifyIsShown("text_title_About")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

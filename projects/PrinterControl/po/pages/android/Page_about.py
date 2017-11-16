@@ -19,3 +19,9 @@ class Page_about(Page_about_model):
 
     def verify_CopyRight(self):
         self.text_copyRightCompany().verifyEqual(self.text_copyRightCompany().getValue(), 'Copyright © 2012–2017 \nHP Inc.')
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

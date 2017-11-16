@@ -15,3 +15,9 @@ class Page_agreements(Page_agreements_model):
         # self.UI.wait(30)
         self.checkbox_accept().waitForShown().wait(3).click()
         self.button_continue().click()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

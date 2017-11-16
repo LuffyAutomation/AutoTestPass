@@ -15,3 +15,9 @@ class Page_printerList(Page_printerList_model):
         self.button_search().waitForShown().click().wait(1)
         self.Edit_search().setValueBySendKeys("10.10.63.128")
         self.text_printerIp().replacePlaceholder("10.10.63.128").click()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

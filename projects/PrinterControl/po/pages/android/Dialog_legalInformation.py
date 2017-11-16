@@ -15,6 +15,11 @@ class Dialog_legalInformation(Dialog_legalInformation_model):
         self.text_title_legalInformation().verifyIsShown()
         self.area_content_legalInformation().verifyIsShown()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass
 
 
 

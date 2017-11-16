@@ -33,3 +33,9 @@ class Page_agreements(Page_agreements_model):
         # A few elements' properties may be changed after a while. It should be searched again by using refreshMe()
         # self.image_appIcon().waitForShown().refreshMe().click()
         # self.text_version().verifyEqual(self.text_version().getValue(), "4.3.19")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass

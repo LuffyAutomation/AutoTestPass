@@ -33,3 +33,9 @@ class Page_home(Page_home_model):
     def flow_open_menuItemShowWelcomeScreen(self):
         self.__open_menuMoreOptions()
         self.Menu_moreOptions.menuItem_showWelcomeScreen_().waitForShown().click()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass
