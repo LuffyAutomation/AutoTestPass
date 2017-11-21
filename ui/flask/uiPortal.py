@@ -19,7 +19,8 @@ app = Flask(__name__)
 # The default value for root path parameters of whole script
 # app.config['PROJECT_ROOT'] = FLASK_ROOT_PATH
 
-class UiPortal():
+
+class UiPortal:
     result_rate_color_set = ["#4BC0C0", "#FF6384", "#FFCE56"]
     name_project = "name_project"
     action_selectProject = "action_selectProject"
@@ -35,13 +36,15 @@ class UiPortal():
     def reload_by_view(self, view_name):
         pass
 
-    def getLocators(self):
+    def get_locators(self):
         # list_locators = []
         # for locatorTuple in UiBaseFwk.LocatorType.__dict__.items():
         #     if not locatorTuple[0].startswith("__"):
         #         list_locators.append(locatorTuple[1])
         # return list_locators
         return ['id', 'accessibility_id', 'text']
+
+
 _UiPortal = UiPortal()
 
 pass
@@ -93,7 +96,6 @@ def index():
 def config():
     """Display the index.html in the browser, post some new information to the decorator '/step-2'."""
     if request.method == 'POST':
-
         if _UiPortal.handleWhat == _UiPortal.event_edit:
             _UiPortal.handleWhat = ''
             return redirect('/setSettings')

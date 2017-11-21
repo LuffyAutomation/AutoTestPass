@@ -1,3 +1,28 @@
+var whichRowLaunchedAddLocatorsModal = 0;
+var list_locators = [];
+
+$("#table_cases td").click(function(){
+    $('#table_locators tr').remove();
+//      var tdSeq = $(this).parent().find("td").index($(this)[0]);
+    whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("tr").index($(this).parent()[0]);
+});
+
+
+
+function appendLocatorRow(locatorType, tableId){
+	alert(whichRowLaunchedAddLocatorsModal);
+	var newRow="<tr>" +
+                    "<td style='width:120px;'>" + locatorType + "</td>" +
+                    "<td><input type='text' class='form-control'/></td>" +
+                    "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
+                "</tr>";
+	$('#' + tableId).append(newRow);
+}
+
+function removeLocatorRow(rowNeedRemove){
+    rowNeedRemove.remove();
+}
+
 var clearFlag = 0;
 var count = 3;
 var showModal = function(){
@@ -241,19 +266,7 @@ function tableDropdown()
 //function delRow(id, rowInnerHtml){
 //    $(id).append(rowInnerHtml);
 //}
-function appendLocatorRow(locatorType, tableId){
-//	 alert(locatorType);
-	var newRow="<tr>" +
-                    "<td style='width:120px;'>" + locatorType + "</td>" +
-                    "<td><input type='text' class='form-control'/></td>" +
-                    "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
-                "</tr>";
-	$('#' + tableId).append(newRow);
-}
 
-function removeLocatorRow(rowNeedRemove){
-    rowNeedRemove.remove();
-}
 
 var removeContentOfDialog = 'Are you sure to delete?'
 
@@ -293,8 +306,8 @@ $(document).ready(function(){
                 + removeContentOfDialog
                 + "</div>"
                 + "<div class='modal-footer' style=''>"
-                + "<button class='btn btn-primary' id='confirmOk'>Confirm<tton>"
-                + "<button class='btn btn-default' data-dismiss='modal'>Cancel<tton>"
+                + "<button class='btn btn-primary' id='confirmOk'>Confirm<Button>"
+                + "<button class='btn btn-default' data-dismiss='modal'>Cancel<Button>"
                 + "</div>" + "</div></div></div>";
             $("body").append(html);
             $("#myConfirm").modal("show");
