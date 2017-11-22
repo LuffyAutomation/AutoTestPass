@@ -22,11 +22,14 @@
                                     <tr>
                                         <td onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></td>
                                     </tr>
-                                    <tr class="disabled" title="Create test scripts without coding. Manual testers can use this function to create test script.">
-                                        <td>Create Test Cases</td>
-                                    </tr>
+                                    <!--<tr class="disabled" title="Create test scripts without coding. Manual testers can use this function to create test script.">-->
+                                        <!--<td>Create Test Cases</td>-->
+                                    <!--</tr>-->
                                     <tr>
                                         <td><a href="/?action_createPageObjects={{name_project}}">Create Page Objects</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/?action_createTestCases">Create Test Cases</a></td>
                                     </tr>
                                     <tr>
                                         <td><a href="/?action_createTestData={{name_project}}">Create Test Data Objects</a></td>
@@ -60,7 +63,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <span>Current Project: <u>{{_InitFwk.name_project}}</u></span>
+                                <span>Current Project: <b>{{_InitFwk.name_project}}</b></span>
                             </h3>
                         </div>
                         <div class="panel-body">
@@ -77,7 +80,7 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon" id="NewProjectName"><b>New Project Name:</b></span>
-                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
+                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/^[_]/g,'').replace(/[^a-zA-Z_]/g,'')">
                                                 </div>
                                             </td>
                                         </tr>
