@@ -103,7 +103,7 @@
                         <div class="input-group">
                             <span class="input-group-addon" id="NewPageName"><b>New Project Name:</b></span>
                             <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: Page_home" aria-describedby="NewPageName"
-                                   onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
+                                   onkeyup="this.value=this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'')">
                         </div>
                     </td>
                 </tr>

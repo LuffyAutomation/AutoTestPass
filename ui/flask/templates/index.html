@@ -74,13 +74,13 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div class="alert alert-info" role="alert">1. Please input New Project Name. Note: Only letters allowed.<p>
+                                                <div class="alert alert-info" role="alert">1. Please input New Project Name. Note: Only letters and underscore allowed and doesn't begin with underscore.<p>
                                                     2. Please select a default Test type. Other Test type can be added in script.
                                                 </p>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon" id="NewProjectName"><b>New Project Name:</b></span>
-                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/^[_]/g,'').replace(/[^a-zA-Z_]/g,'')">
+                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest OR Web_Test" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'')">
                                                 </div>
                                             </td>
                                         </tr>
