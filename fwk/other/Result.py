@@ -364,11 +364,11 @@ class Result:
 
     def add_screenshot(self, name="stepEnd", comment="Step ended"):
         try:
-            path_screenShot = self._UI.__getScreenShot(name, self)
+            path_screenshot = self._UI.__get_screenshot(name, self)
             if self._UI.RunTimeConf.isDevicePassTest:
-                tmp = os.path.join(path_screenShot.replace(self.path_folder_testSuiteNumScreenshots, "")[1:])
+                tmp = os.path.join(path_screenshot.replace(self.path_folder_testSuiteNumScreenshots, "")[1:])
             else:
-                tmp = os.path.join(path_screenShot.replace(self.path_folder_currentTest, "")[1:])
+                tmp = os.path.join(path_screenshot.replace(self.path_folder_currentTest, "")[1:])
             tmp = self.__setManualCheck(comment, tmp)
             if self._dict_report[self._manualCheck] == self.NA:
                 self._dict_report[self._manualCheck] = ""

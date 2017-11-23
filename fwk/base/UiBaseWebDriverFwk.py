@@ -289,7 +289,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             index = idx_or_match - 1
         return index
 
-    def __getScreenShot(self, name, Result):
+    def __get_screenshot(self, name, Result):
         if self._driver is None:  # debug
             return
         self.wait(1)
