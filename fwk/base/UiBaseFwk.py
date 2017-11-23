@@ -452,7 +452,7 @@ class UiBaseFwk(object):
                 locator_value = locator_value.replace(self.StringConverter.VALUE_PLACEHOLDER, dynamic_string)
             #self.logger.info("............Finding element [" + name + "] of page [" + str(self.getCurrentPage()) + "]. locator_type is [" + locator_type + "] locator_value is [" + locator_value + "].")
             list.append({self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value, self.Locator.INDEX: locator_index, self.Locator.REF: locator_ref})
-        if locators == None:
+        if locators is None:
             raise Exception("Can not find the element [" + ori_element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
         return list
 

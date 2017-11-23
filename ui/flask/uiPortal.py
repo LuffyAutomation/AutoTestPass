@@ -5,12 +5,15 @@ Description: This module is background processing code about setting the configu
 from flask import Flask, render_template, request, redirect
 import os
 from fwk.base.InitFwk import InitFwk
-from fwk.base.UiBaseFwk import UiBaseFwk
 from fwk.utils.newProjectCreator.NewProjectCreator import NewProjectCreator
 import createPageObjects
 import createTestDataStrings
+from fwk.object.AndroidFwk import AndroidFwk
+from fwk.object.IosFwk import IosFwk
+from fwk.object.WebFwk import WebFwk
 
 _InitFwk = InitFwk()
+_UiFwk = None
 errorMsg = ""
 successMsg = ""
 FLASK_ROOT_PATH = os.path.dirname(__file__)  # 'D:/Dev/DevicePass/script/AutoTestPass\\ui\\flask'
@@ -52,6 +55,14 @@ pass
 # TODO----------------------------Drive------------------------------------------------------------------
 
 
+def getUiFwk(_InitFwk):
+    if _InitFwk.TestType.ANDROID.lower() == _InitFwk.testType.lower():
+        return AndroidFwk(_InitFwk)
+    elif _InitFwk.TestType.IOS.lower() == _InitFwk.testType.lower():
+        return IosFwk(_InitFwk)
+    elif _InitFwk.TestType.WEB.lower() == _InitFwk.testType.lower():
+        return WebFwk(_InitFwk)
+
 @app.template_filter('space')
 def space(value):
     return value.replace(' ', '&nbsp;')
@@ -62,7 +73,7 @@ def space(value):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global _InitFwk, errorMsg, successMsg
+    global _InitFwk, errorMsg, successMsg, _UiFwk
     errorMsg = ""
     if request.method == 'GET':
         if _UiPortal.action_selectProject in request.args:
@@ -95,7 +106,10 @@ def index():
 
 @app.route('/createTestCases', methods=['GET', 'POST'])
 def createTestCases():
-    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg)
+    global _InitFwk, errorMsg, successMsg, _UiFwk
+    _InitFwk = InitFwk()
+    _UiFwk = getUiFwk(_InitFwk)
+    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk)
 
 
 

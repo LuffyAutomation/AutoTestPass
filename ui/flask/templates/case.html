@@ -87,11 +87,11 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-btn">
-                                <button style="width:150px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span>
+                                <button style="width:150px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Page <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    {% for job_name in list_no_result %}
-                                    <li class="list-group-item">{{job_name.keys()[0]}}</li>
+                                    {% for page_name in _UiFwk.get_page_names_from_uimap() %}
+                                    <li><a href="#">{{page_name}}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div><!-- /btn-group -->
