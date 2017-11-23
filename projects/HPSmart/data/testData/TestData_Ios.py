@@ -11,12 +11,12 @@ class TestData_Ios:
 
         # ID: [pageTitle] value:[in hand]
         def pageTitle(self):
-            return self.UI.getTestData('pageTitle')
+            return self.UI.get_test_data('pageTitle')
 
         # ID: [dp_msg_upload_success] value:[SuccessUpload App Successfully.]
         def dp_msg_upload_success(self):
-            return self.UI.getTestData('dp_msg_upload_success')
+            return self.UI.get_test_data('dp_msg_upload_success')
 
         # ID: [dp_msg_upload_waiting] value:[WaitingThe server is parsing the files you uploaded. It won't take long, please wait a moment.]
         def dp_msg_upload_waiting(self):
-            return self.UI.getTestData('dp_msg_upload_waiting')
+            return self.UI.get_test_data('dp_msg_upload_waiting')

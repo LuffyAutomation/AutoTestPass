@@ -127,13 +127,13 @@ class InitFwk:
         self.logger = logging.getLogger("simpleExample")
 
     # def _getAppInfo(self):
-    #     self._DefaultPage = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//DefaultPage"))
-    #     self.__appConfFolderName = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//AppName"))
-    #     self.__Version = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Version"))
-    #     self.__Environment = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Environment"))
-    #     self.__TestCategory = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//TestCategory"))
-    #     self.__NetWork = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Network"))
-    #     self.__Description = self.UtilXml.getEelmentText(self.UtilXml.getElementByXpath(self._root, ".//Description"))
+    #     self._DefaultPage = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//DefaultPage"))
+    #     self.__appConfFolderName = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//AppName"))
+    #     self.__Version = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//Version"))
+    #     self.__Environment = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//Environment"))
+    #     self.__TestCategory = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//TestCategory"))
+    #     self.__NetWork = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//Network"))
+    #     self.__Description = self.UtilXml.get_element_text(self.UtilXml.get_element_by_xpath(self._root, ".//Description"))
     #
     #     self.logger.info("Default Page : " + self._DefaultPage)
     #     self.logger.info("App Name : " + self.__appConfFolderName)

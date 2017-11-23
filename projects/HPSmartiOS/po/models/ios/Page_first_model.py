@@ -16,7 +16,7 @@ class Page_first_model(IosCommonPage):
         def __init__(self, outer=IosCommonPage):
             self.page_name = 'page_agreements'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def checkbox_accept(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -29,7 +29,7 @@ class Page_first_model(IosCommonPage):
         def __init__(self, outer=IosCommonPage):
             self.page_name = 'page_welcome'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def button_start(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)

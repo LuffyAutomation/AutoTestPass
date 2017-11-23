@@ -56,7 +56,7 @@ class POCreator(POCreatorBase):
                 + self._newLine + self._getIndent(level) + self._indent + "def __init__(self, outer=%s):" % self.__getWhichPage() \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.page_name = '%s'" % child_page_name \
                 + self._newLine + self._getIndent(level) + self._indent + self._indent + "self.__outer = outer" \
-                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)" \
+                + self._newLine + self._getIndent(level) + self._indent + self._indent + "self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)" \
                 + self._newLine
         return tmp
 
@@ -104,12 +104,12 @@ class POCreator(POCreatorBase):
         
         # if VALUE_PLACEHOLDER was defined in uimap.xml like:
         # <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
-        # you can find the element by  xxx.replacePlaceholder("10").click
-        # self.text_printerIp().replacePlaceholder("10.10.63.128").click()
+        # you can find the element by  xxx.replace_placeholder("10").click
+        # self.text_printerIp().replace_placeholder("10.10.63.128").click()
         
         # self.image_appIcon().verifyIsShown()
-        # A few elements' properties may be changed after a while. It should be searched again by using refreshMe()
-        # self.image_appIcon().waitForShown().refreshMe().click()
+        # A few elements' properties may be changed after a while. It should be searched again by using refresh_element()
+        # self.image_appIcon().waitForShown().refresh_element().click()
         # self.text_version().verifyEqual(self.text_version().getValue(), "4.3.19")''' \
             + self._newLine + self._newLine + self._getIndent(level) + self._indent \
             + \

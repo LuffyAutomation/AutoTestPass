@@ -45,15 +45,15 @@ class HomeMoreAppSettings(CommonUnittest):
         # TestData_Android.Sheet_example.dp_msg_upload_waiting()
         '''
         1. Test Data will be loaded from testData.xlsx if you invoke
-        cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
+        cls.UI_Android.load_test_data_from_excel()/cls.UI_Web.load_test_data_from_excel()/cls.UI_Ios.load_test_data_from_excel().
         2. There are 2 methods to get test data strings.
-            2.1 testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+            2.1 testData_string_1 = cls.UI_Android.get_test_data("dp_msg_upload_waiting")
             2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
                 Invoke cls.TestData_Android = TestData_Android(cls.UI_Android) 
                 Invoke testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
         '''
-        # cls.UI_Android.loadTestDataFromExcel()
-        # testData_string_1 = cls.UI_Android.getTestData("dp_msg_upload_waiting")
+        # cls.UI_Android.load_test_data_from_excel()
+        # testData_string_1 = cls.UI_Android.get_test_data("dp_msg_upload_waiting")
         # cls.TestData_Android = TestData_Android(cls.UI_Android)
         # testData_string_1 = cls.TestData_Android.Sheet_example.dp_msg_upload_waiting()
 
@@ -105,25 +105,25 @@ class HomeMoreAppSettings(CommonUnittest):
         '''
         How to verify count.
         '''
-        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_setIndex().getItemsCount(), 3)
+        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_setIndex().get_items_count(), 3)
 
         '''
         How to handle the elements that have the same property. There are 3 ways to do it.
         '''
         '''1 Set the index of the element <= 0 in uiMap.xml.'''
-        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(1).click()
-        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(2).click()
-        self.Pages.Page_appSettings.checkBox_All_setIndex().getItem(3).click()
+        self.Pages.Page_appSettings.checkBox_All_setIndex().get_item(1).click()
+        self.Pages.Page_appSettings.checkBox_All_setIndex().get_item(2).click()
+        self.Pages.Page_appSettings.checkBox_All_setIndex().get_item(3).click()
         '''2 Set the value of the index of the element according to the actual sequence in uiMap.xml.'''
         self.Pages.Page_appSettings.checkBox_usageTracking().click()
         self.Pages.Page_appSettings.checkBox_hpSuppliesShopping().click()
         self.Pages.Page_appSettings.checkBox_wirelessNetwork().click()
         '''3 Have not set index in uiMap.xml.'''
-        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(1).click()
-        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(2).click()
-        self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItem(3).click()
+        self.Pages.Page_appSettings.checkBox_All_noIndex().get_items().get_item(1).click()
+        self.Pages.Page_appSettings.checkBox_All_noIndex().get_items().get_item(2).click()
+        self.Pages.Page_appSettings.checkBox_All_noIndex().get_items().get_item(3).click()
 
-        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_noIndex().getItems().getItemsCount(), 3)
+        self.UI_Android.verifyCount(self.Pages.Page_appSettings.checkBox_All_noIndex().get_items().get_items_count(), 3)
 
     def test_02_check_usage_tracking(self):
         self.Result.set_description("1. Launch the application for the first time.",

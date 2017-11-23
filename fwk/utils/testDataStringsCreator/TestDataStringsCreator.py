@@ -53,7 +53,7 @@ class TestDataStringsCreator(object):
                 t = self.DictTestDataOfAllSheets[page_key][testData_string]
                 tmp += self._newLine + self._indent + self._indent + "# ID: [%s] value:[%s]" % (UtilString.toCodeName(testData_string), t) + self._newLine
                 tmp += self._indent + self._indent + "def %s(self):" % UtilString.toCodeName(testData_string) + self._newLine
-                tmp += self._indent + self._indent + self._indent + ("return self.UI.getTestData('%s')" % testData_string) + self._newLine
+                tmp += self._indent + self._indent + self._indent + ("return self.UI.get_test_data('%s')" % testData_string) + self._newLine
             self._writeFileAndOverwrite(os.path.join(self.__path_folder_strings, self.__getTestType() + ".py"), tmp)
 
     def _writeFileAndOverwrite(self, path_file, txt=""):

@@ -43,7 +43,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'menu_DropDownOption'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def menuItem_All(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -65,7 +65,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'page_menuItem_All'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def checkBox_All_setIndex(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -87,7 +87,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'page_menuItem_PDF'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def checkBox_pdf_setIndex(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -103,7 +103,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'page_menuItem_JPEG'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def checkBox_pdf_setIndex(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -119,7 +119,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'tile_share'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def title_BlueTooth(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -132,7 +132,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'page_Mail'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def title_MicrosoftExchangeActiveSync(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -142,7 +142,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'tile_print'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def button_Cancel(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -155,7 +155,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'menu_MoreOptions'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def menuItem_Delete(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -174,7 +174,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'tile_Delete'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def button_Yes(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -187,7 +187,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'tile_SortBy'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def button_Date(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)
@@ -200,7 +200,7 @@ class Page_MyFile_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'tile_Rename'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def dialog_rename(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)

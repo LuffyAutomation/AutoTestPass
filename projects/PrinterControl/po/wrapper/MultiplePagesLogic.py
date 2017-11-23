@@ -32,7 +32,7 @@ class MultiplePagesLogic:
             return right_flow
 
     def flow_foundYourPrinter_multiplePages(self):
-        self._Portal.waitUntil(
+        self._Portal.wait_until(
             lambda: self._event_handleMultipleFindPrinterPages(), "Cannot find found/find printer screen."
         )
 

@@ -49,22 +49,22 @@ class WebExample(CommonUnittest):
     # TestData_Android.Sheet_example.dp_msg_upload_waiting()
     '''
     1. Test Data will be loaded from testData.xlsx if you invoke
-    cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
+    cls.UI_Android.load_test_data_from_excel()/cls.UI_Web.load_test_data_from_excel()/cls.UI_Ios.load_test_data_from_excel().
     2. There are 2 methods to get test data strings.
-        2.1 testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
+        2.1 testData_string_1 = cls.UI_Web.get_test_data("dp_msg_upload_waiting")
         2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
             Invoke cls.TestData_Web = TestData_Web(cls.UI_Web) 
             Invoke testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
     '''
 
-    # cls.UI_Web.loadTestDataFromExcel()
-    # testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
+    # cls.UI_Web.load_test_data_from_excel()
+    # testData_string_1 = cls.UI_Web.get_test_data("dp_msg_upload_waiting")
     # cls.TestDataWeb = TestData_Web(cls.UI_Web)
     # testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
 
     def test_flow1(self):
         self.Result.set_description("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
-                                   "2. Go to www.baidu.com.")
+                                    "2. Go to www.baidu.com.")
         self.Result.set_expected_result("Page 'www.baidu.com' is displayed.")
         raise Exception("Fail this step and see whether the next step will be blocked.")
 
@@ -77,7 +77,7 @@ class WebExample(CommonUnittest):
         5. self.Result.set_description and self.Result.set_expected_result are be recommenced since it is convenient for other people to check case.
         '''
         self.Result.set_description("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
-                                   "2. Go to www.baidu.com.")
+                                    "2. Go to www.baidu.com.")
         self.Result.set_expected_result("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
         self.Pages.Page_home.edit_search().setValueBySendKeys("21212")
@@ -87,14 +87,13 @@ class WebExample(CommonUnittest):
         self.Result.set_step_continue_from_fail_or_block()
 
         self.Result.set_description("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
-                                   "2. Go to www.baidu.com.")
+                                    "2. Go to www.baidu.com.")
         self.Result.set_expected_result("Page 'www.baidu.com' is displayed.")
         self.Pages.Page_home.open_main_page()
-        self.Pages.Page_home.edit_search().waitForShown()
-        # self.Pages.Page_home.edit_search().setValueBySendKeys("21212").click()
         with self.Pages.Page_home as p:
-            p.edit_search().setValueBySendKeys("21212").click()
-            p.button_continue().click()
+            p.edit_search().waitForShown().setValueBySendKeys("21212").click().wait(1)
+
+            # p.button_continue().click()
         # self.Pages.Page_home.button_continue().click()
 
 

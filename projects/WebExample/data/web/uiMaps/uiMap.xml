@@ -10,6 +10,14 @@
                     <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
                 </element>
 			</page>
+            <page name="page_home2" description="main page.">
+                <element name="link_selectAPrinter"><id>com.hp.printercontrol:id/error_msg_link</id></element>
+                <page name="page_home3">
+                    <element name="menuItem_about_">
+                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
+                    </element>
+                </page>
+			</page>
 		</pages>
 	</UiMap>
 </test-data>

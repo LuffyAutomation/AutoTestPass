@@ -35,9 +35,9 @@ class Common:
 '''config = Common.configParser("D:/localGit/repositories/Python/ePint-Demo/resources/data/main.data")
 value = config.get("ePrint","data.ePrint.Android")
 print(value)
-tree = Common.getTree("D:/localGit/repositories/Python/ePint-Demo/resources/data/ePrint/uiMaps/Android/ePrint.xml")
-root = Common.getRootElement(tree)
-list = Common.getElementByXpath(root,".//AppName")
+tree = Common.get_tree("D:/localGit/repositories/Python/ePint-Demo/resources/data/ePrint/uiMaps/Android/ePrint.xml")
+root = Common.get_root_element(tree)
+list = Common.get_element_by_xpath(root,".//AppName")
 print(list.text)'''
 '''
 for index in range(len(list)):
@@ -49,7 +49,7 @@ for index in range(len(list)):
     print(type)
     print(value)'''
 
-'''tree = Common.getTree("D:/localGit/repositories/Python/ePint-Demo/resources/data/ePrint/uiMaps/Android/ePrint.xml")
-root = Common.getRootElement(tree)
+'''tree = Common.get_tree("D:/localGit/repositories/Python/ePint-Demo/resources/data/ePrint/uiMaps/Android/ePrint.xml")
+root = Common.get_root_element(tree)
 list = Common.getEelements(root,".//page[@name='aa2']/element")
 print(len(list))'''

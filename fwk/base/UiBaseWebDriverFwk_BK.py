@@ -28,8 +28,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     # @Decorator.handle_action
     # def click(self, idx_or_match=None, element_name=None):
-    #     if self.getCurrentElementObject().is_enabled() is True:
-    #         self.getCurrentElementObject().click()
+    #     if self.get_current_element_object().is_enabled() is True:
+    #         self.get_current_element_object().click()
     #     else:
     #         self.logger.error("The element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "] is not enabled.")
     #     return self
@@ -41,8 +41,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def click1(self, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+            element_name = self._get_current_element_name_when_none(element_name)
+            element = self._get_current_element_object_or_search(idx_or_match, element_name)
             self.logger.info("Click element [" + element_name + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
             if element.is_enabled() is True:
                 element.click()
@@ -56,8 +56,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValue(self, value, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+            element_name = self._get_current_element_name_when_none(element_name)
+            element = self._get_current_element_object_or_search(idx_or_match, element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "].")
             self._driver.set_value(element, value)
         except Exception as e:
@@ -67,8 +67,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
 
     def setValueBySendKeys(self, value, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+            element_name = self._get_current_element_name_when_none(element_name)
+            element = self._get_current_element_object_or_search(idx_or_match, element_name)
             self.logger.info("Set the value of element [" + element_name + "] to [" + value + "] by sending keys.")
             elementTagName = self._getElementTagName(element)
             if elementTagName == "input" or "text" or "password" or "email":
@@ -118,8 +118,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             return "text"
 
     def getValue(self, attribute_type=None, idx_or_match=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+        element_name = self._get_current_element_name_when_none(element_name)
+        element = self._get_current_element_object_or_search(idx_or_match, element_name)
         return_value = ""
         if self.isVisible(idx_or_match, element_name):
             if attribute_type is None:
@@ -202,68 +202,68 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         ori_element_name = element_name
         list_for_log = []
         for locatorList in locatorsList:
-            locator_type = self._getElementType(locatorList)
-            locator_value = self._getElementValue(locatorList)
+            locator_type = self._get_element_type(locatorList)
+            locator_value = self._get_element_value(locatorList)
             if locator_value.strip() == "":
                 continue
-            locator_index = self._getElementIndex(locatorList)
+            locator_index = self._get_element_index(locatorList)
             try:
                 dict_type_value = self._changeCutomizedToOriginal(locator_type, locator_value)
                 locator_type = dict_type_value[self.Locator.TYPE]
                 locator_value = dict_type_value[self.Locator.VALUE]
-                self.setCurrentElementIndex(locator_index)
+                self.set_current_element_index(locator_index)
 
                 list_for_log.append({self.Locator.TYPE: locator_type, self.Locator.VALUE: locator_value, self.Locator.INDEX: locator_index, "element_name": element_name})
 
                 if locator_type == self.LocatorType.ACCESSIBILITY_ID:
                     if findOneOrCollection == "findElements":
-                        self.setCurrentElementCollectionName(element_name)
-                        self.setCurrentElementCollectionIndex(locator_index)
-                        self.setCurrentElementCollectionObject(self._driver.find_elements_by_accessibility_id(locator_value))
-                        return self.getCurrentElementCollectionObject()
+                        self.set_current_element_collection_name(element_name)
+                        self.set_current_element_collection_index(locator_index)
+                        self.set_current_element_collection_object(self._driver.find_elements_by_accessibility_id(locator_value))
+                        return self.get_current_element_collection_object()
                     elif locator_index == 1:
-                        self.setCurrentElementObject(self._driver.find_element_by_accessibility_id(locator_value))
+                        self.set_current_element_object(self._driver.find_element_by_accessibility_id(locator_value))
                     else:
-                        self.setCurrentElementObject(
+                        self.set_current_element_object(
                             self._driver.find_elements_by_accessibility_id(locator_value)[locator_index - 1])
                 else:
                     if findOneOrCollection == "findElements":
-                        self.setCurrentElementCollectionName(element_name)
-                        self.setCurrentElementCollectionIndex(locator_index)
-                        self.setCurrentElementCollectionObject(self._driver.find_elements(locator_type, locator_value))
-                        return self.getCurrentElementCollectionObject()
+                        self.set_current_element_collection_name(element_name)
+                        self.set_current_element_collection_index(locator_index)
+                        self.set_current_element_collection_object(self._driver.find_elements(locator_type, locator_value))
+                        return self.get_current_element_collection_object()
                     elif locator_index == 1:
-                        self.setCurrentElementObject(self._driver.find_element(locator_type, locator_value))
+                        self.set_current_element_object(self._driver.find_element(locator_type, locator_value))
                     else:
-                        self.setCurrentElementObject(
+                        self.set_current_element_object(
                             self._driver.find_elements(locator_type, locator_value)[locator_index - 1])
             except Exception as e:
                 # traceback.print_exc()
                 # print e.__str__()
                 continue
-            return self.getCurrentElementObject()
+            return self.get_current_element_object()
         for s in list_for_log:
             self.Init.logger.info(s)
         if findOneOrCollection == "findElements":  # When <id/xpath... index="0">android:id/checkbox</id>
             raise Exception("Failed to find all of the element [" + str(ori_element_name) + "] on the screen [" + str(
-                self.getCurrentPageName()) + "].")
+                self.get_current_page_name()) + "].")
         elif locator_index == 1:  # When <id/xpath...>android:id/checkbox</id>
             raise Exception("Failed to find the element [" + str(ori_element_name) + "] on the screen [" + str(
-                self.getCurrentPageName()) + "].")
+                self.get_current_page_name()) + "].")
         else:  # When <id/xpath... index="1/2/3.....">android:id/checkbox</id>
             raise Exception("Failed to find the element [" + str(ori_element_name) + "] with index [" + str(
-                locator_index + 1) + "] on the screen [" + str(self.getCurrentPageName()) + "].")
+                locator_index + 1) + "] on the screen [" + str(self.get_current_page_name()) + "].")
 
     def _findElement(self, element_name, findOneOrCollection=None):
         if self.CurrentElement.name == element_name and self.CurrentElement.list_locators is not None:
             list_locator = self.CurrentElement.list_locators  # for
         else:
-            list_locator = self._getElementLocatorsDictList(element_name)
+            list_locator = self._get_element_locators_dict_list(element_name)
             if list_locator[0][self.Locator.REF] is not None:
                 ref_type = list_locator[0][self.Locator.REF].split(":")[0]
                 ref_name = list_locator[0][self.Locator.REF].split(":")[1]
                 #  self.RefElement.name = ref_name
-                ref_locatorsList = self._getElementLocatorsDictList(ref_name)
+                ref_locatorsList = self._get_element_locators_dict_list(ref_name)
                 if self.Ref.NEARBY.lower() == ref_type.lower():
                     list_locator = self._getLocatorListByNearbyUniqueElement(element_name, list_locator, ref_locatorsList)
                 else:
@@ -271,7 +271,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return self._findElementByLocatorsList(element_name, list_locator, findOneOrCollection)
 
     # def getElementsSize(self, name):
-    #     return len(self.getElements(name))
+    #     return len(self.get_elements(name))
 
     def getMatchedElements(self, match=None, element_name=None):
         return self._findElements(element_name)
@@ -344,20 +344,20 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         self._driver.get(url)
 
     def getElementWidth(self, item=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        return int(self._getCurrentElementObjectOrSearch(item, element_name).size["width"])
+        element_name = self._get_current_element_name_when_none(element_name)
+        return int(self._get_current_element_object_or_search(item, element_name).size["width"])
 
     def getElementHeight(self, item=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        return int(self._getCurrentElementObjectOrSearch(item, element_name).size["height"])
+        element_name = self._get_current_element_name_when_none(element_name)
+        return int(self._get_current_element_object_or_search(item, element_name).size["height"])
 
     def getElemenX(self, item=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        return self._getCurrentElementObjectOrSearch(item, element_name).location["x"]
+        element_name = self._get_current_element_name_when_none(element_name)
+        return self._get_current_element_object_or_search(item, element_name).location["x"]
 
     def getElementY(self, item=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        return self._getCurrentElementObjectOrSearch(item, element_name).location["y"]
+        element_name = self._get_current_element_name_when_none(element_name)
+        return self._get_current_element_object_or_search(item, element_name).location["y"]
 
     def getWindowWidth(self):
         width = self._driver.get_window_size()['width']
@@ -372,8 +372,8 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         return {'width': size['width'], 'height': size['height']}
 
     def getElementCenterLocation(self, left_offset_percent=0, right_offset_percent=0, up_offset_percent=0, down_offset_percent=0, item=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
-        element = self._getCurrentElementObjectOrSearch(item, element_name)
+        element_name = self._get_current_element_name_when_none(element_name)
+        element = self._get_current_element_object_or_search(item, element_name)
         t = element.size["width"]
         centerX = element.location["x"] + t / 2 - t / 2 * left_offset_percent / 100.0 + t / 2 * right_offset_percent / 100.0
         t = element.size["height"]

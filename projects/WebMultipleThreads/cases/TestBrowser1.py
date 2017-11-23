@@ -46,16 +46,16 @@ class TestBrowser1(CommonUnittest):
     # TestData_Android.Sheet_example.dp_msg_upload_waiting()
     '''
     1. Test Data will be loaded from testData.xlsx if you invoke
-    cls.UI_Android.loadTestDataFromExcel()/cls.UI_Web.loadTestDataFromExcel()/cls.UI_Ios.loadTestDataFromExcel().
+    cls.UI_Android.load_test_data_from_excel()/cls.UI_Web.load_test_data_from_excel()/cls.UI_Ios.load_test_data_from_excel().
     2. There are 2 methods to get test data strings.
-        2.1 testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
+        2.1 testData_string_1 = cls.UI_Web.get_test_data("dp_msg_upload_waiting")
         2.2 Run createTestDataStrings.py to create TestData_Android/TestData_Ios/TestData_Web. 
             Invoke cls.TestData_Web = TestData_Web(cls.UI_Web) 
             Invoke testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
     '''
 
-    # cls.UI_Web.loadTestDataFromExcel()
-    # testData_string_1 = cls.UI_Web.getTestData("dp_msg_upload_waiting")
+    # cls.UI_Web.load_test_data_from_excel()
+    # testData_string_1 = cls.UI_Web.get_test_data("dp_msg_upload_waiting")
     # cls.TestDataWeb = TestData_Web(cls.UI_Web)
     # testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
 

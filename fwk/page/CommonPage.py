@@ -1,6 +1,6 @@
 class CommonPage:
     def __init__(self):
-        self._elements_map = self.UI.getUiMap(self.page_name)
+        self._elements_map = self.UI.get_uimap(self.page_name)
         return self
 
     def update_for_sub_page(self, child_page_name=None, elements_ui_map=None):

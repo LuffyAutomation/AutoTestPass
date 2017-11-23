@@ -23,7 +23,7 @@ class IosFwk(UiFwk):
 
     def getDriver(self):
         self.logger.info("Connecting Ios driver.")
-        self._getCurrentTestArgs(self.TestType.IOS)
+        self._get_current_test_args(self.TestType.IOS)
         if self._driver is None:
            self.__launch_app()
            self.RunTimeConf.get_mobile_info(self)

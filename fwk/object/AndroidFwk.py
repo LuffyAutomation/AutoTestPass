@@ -24,7 +24,7 @@ class AndroidFwk(UiFwk):
 
     def getDriver(self):
         self.logger.info("Connecting Android driver.")
-        self._getCurrentTestArgs(self.TestType.ANDROID)
+        self._get_current_test_args(self.TestType.ANDROID)
         if self._driver is None:
            self.__launch_app()
            self.RunTimeConf.get_mobile_info(self)

@@ -18,7 +18,7 @@ class Page_other_model(AndroidCommonPage):
         def __init__(self, outer=AndroidCommonPage):
             self.page_name = 'menu_moreOptions'
             self.__outer = outer
-            self._elementsMap = self.__outer.UI.getUiMapOfSubPage(self.__outer.page_name, self.page_name)
+            self._elementsMap = self.__outer.UI.get_uimap_of_subpage(self.__outer.page_name, self.page_name)
 
         def menuItem_about_(self):
             return self.__outer.get(inspect.stack()[0][3], self.page_name, self._elementsMap)

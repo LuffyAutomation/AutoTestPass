@@ -16,7 +16,7 @@ class UiFwk(UiBaseWebDriverFwk):
         UNSELETED = "unselected"
 
     def waitForShown(self, time_out=None, idx_or_match=None, element_name=None, verify_shown=True, log_head=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
+        element_name = self._get_current_element_name_when_none(element_name)
         if log_head is None:
             log_head = self._LogHead.WAITINGFOR
         # log_head = self._LogHead.WAITINGFOR if log_head is None else None
@@ -34,12 +34,12 @@ class UiFwk(UiBaseWebDriverFwk):
             if log_head == self._LogHead.VERIFY:
                 self.logger.info("Failed!")
 
-        raise Exception("The element['" + element_name + "'] is" + (" not" if verify_shown else " still") + " found on page['" + self.getCurrentPageName() + "'] in " + str(time_out) + "s.")
+        raise Exception("The element['" + element_name + "'] is" + (" not" if verify_shown else " still") + " found on page['" + self.get_current_page_name() + "'] in " + str(time_out) + "s.")
 
     def __verifyIs(self, time_out=None, verify_shownOrNot=True, idx_or_match=None, element_name=None, log_head="Verify"):
-        self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.getCurrentPageName() + "'].")
+        self.logger.info(log_head + " the element [" + element_name + "] is" + ("" if verify_shownOrNot else " not") + " shown on page['" + self.get_current_page_name() + "'].")
         try:
-            self.waitUntil(
+            self.wait_until(
                 lambda: self.isExistent(idx_or_match, element_name) if verify_shownOrNot else not self.isExistent(idx_or_match, element_name), "NA", time_out
             )
         except Exception as e:
@@ -80,7 +80,7 @@ class UiFwk(UiBaseWebDriverFwk):
         return value
 
     def __verifyEqual(self, value, objectValue, func_name=None, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
+        element_name = self._get_current_element_name_when_none(element_name)
         try:
             objectValue = str(objectValue)
         except:
@@ -198,9 +198,9 @@ class UiFwk(UiBaseWebDriverFwk):
     def __isChecked(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             if not isCollection:
-                element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+                element = self._get_current_element_object_or_search(idx_or_match, element_name)
             else:
-                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+                element = self._get_element_collection_object_from_current_or_search(idx_or_match, element_name)
             if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
                     if "true" not in ele.get_attribute(self.AttributeType.CHECKED):
@@ -217,8 +217,8 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def __isVisible(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
-            element_name = self._getCurrentElementNameWhenNone(element_name)
-            element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+            element_name = self._get_current_element_name_when_none(element_name)
+            element = self._get_current_element_object_or_search(idx_or_match, element_name)
             if element is None:
                 if not isCollection:
                     element = self.getMatchedElement(idx_or_match, element_name)
@@ -250,9 +250,9 @@ class UiFwk(UiBaseWebDriverFwk):
     def __isExistent(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             if not isCollection:
-                element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+                element = self._get_current_element_object_or_search(idx_or_match, element_name)
             else:
-                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+                element = self._get_element_collection_object_from_current_or_search(idx_or_match, element_name)
             if type(element) is list and isCollection:  # set index = 0 in uimaps
                 return True
             elif type(element) is not list and not isCollection and element is not None:
@@ -264,9 +264,9 @@ class UiFwk(UiBaseWebDriverFwk):
     def __isEnabled(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             if not isCollection:
-                element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+                element = self._get_current_element_object_or_search(idx_or_match, element_name)
             else:
-                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+                element = self._get_element_collection_object_from_current_or_search(idx_or_match, element_name)
             if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
                     if ele.is_enabled() is False:
@@ -287,9 +287,9 @@ class UiFwk(UiBaseWebDriverFwk):
     def __isSelected(self, isCollection=False, idx_or_match=None, element_name=None):
         try:
             if not isCollection:
-                element = self._getCurrentElementObjectOrSearch(idx_or_match, element_name)
+                element = self._get_current_element_object_or_search(idx_or_match, element_name)
             else:
-                element = self._getElementCollectionObjectFromCurrentOrSearch(idx_or_match, element_name)
+                element = self._get_element_collection_object_from_current_or_search(idx_or_match, element_name)
             if type(element) is list:  # set index = 0 in uimaps
                 for ele in element:
                     if ele.is_selected() is False:
@@ -311,7 +311,7 @@ class UiFwk(UiBaseWebDriverFwk):
 
     def _getByDirectionUniqueElement(self, uiFwk, idx_or_match=None, direction="Left"):
         element_name_unique = self.CurrentElement.name
-        element_unique = self._getLastElementObjectOrSearch(None, element_name_unique)
+        element_unique = self._get_last_element_object_or_search(None, element_name_unique)
         element_unique_location = element_unique.location
         element_unique_x = element_unique_location["x"]
         element_unique_y = element_unique_location["y"]
@@ -344,7 +344,7 @@ class UiFwk(UiBaseWebDriverFwk):
             return self.CurrentElement.object
         except:
             raise Exception("Failed to find element [" + str(element_name) + "] with index [" + str(
-                self.LastElement.index) + "] from " + direction + " element [" + element_name_unique + "] on page [" + str(self.getCurrentPageName()) + "].")
+                self.LastElement.index) + "] from " + direction + " element [" + element_name_unique + "] on page [" + str(self.get_current_page_name()) + "].")
 
     def getByLeftUniqueElement(self, uiFwk, idx_or_match=None):
         self._getByDirectionUniqueElement(uiFwk, idx_or_match, "Left")
@@ -422,18 +422,18 @@ class UiFwk(UiBaseWebDriverFwk):
     def getByNearbyUniqueElement(self, uiFwk, idx_or_match=None):
         new_locators_list = []
         element_name = self.LastElement.name
-        locators_list = self._getElementLocatorsDictList(element_name, self.LastElement)
-        element_name_nearby = self.getCurrentElementName()
-        locators_list_nearby = self._getElementLocatorsDictList(element_name_nearby)
+        locators_list = self._get_element_locators_dict_list(element_name, self.LastElement)
+        element_name_nearby = self.get_current_element_name()
+        locators_list_nearby = self._get_element_locators_dict_list(element_name_nearby)
         self._getLocatorListByNearbyUniqueElement(element_name, locators_list, locators_list_nearby, idx_or_match)
         return self
 
     def __swipeOrDragDrop(self, uiFwk, left_offset_destination=0, right_offset_destination=0, up_offset_destination=0, down_offset_destination=0, idx_or_match_destination=None, left_offset=0, right_offset=0, up_offset=0, down_offset=0, idx_or_match=None, element_name=None):
-        element_name_destination = self.getCurrentElementName()
+        element_name_destination = self.get_current_element_name()
         element_name = self.LastElement.name
 
-        element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
-        element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
+        element = self._get_last_element_object_or_search(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
+        element_destination = self._get_current_element_object_or_search(idx_or_match_destination, element_name_destination)
 
         fromXY = self.getElementCenterLocation(left_offset, right_offset, up_offset, down_offset, idx_or_match, self.LastElement)
         fromX = fromXY['x']
@@ -455,10 +455,10 @@ class UiFwk(UiBaseWebDriverFwk):
         return self
 
     def dragToElementByNative(self, uiFwk, idx_or_match_destination=None, idx_or_match=None, element_name=None):
-        element_name_destination = self.getCurrentElementName()
+        element_name_destination = self.get_current_element_name()
         element_name = self.LastElement.element_name
-        element = self._getLastElementObjectOrSearch(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
-        element_destination = self._getCurrentElementObjectOrSearch(idx_or_match_destination, element_name_destination)
+        element = self._get_last_element_object_or_search(idx_or_match, element_name)  # put here before getting element_destination since maybe the element object has existed.
+        element_destination = self._get_current_element_object_or_search(idx_or_match_destination, element_name_destination)
         self._dragByNative(element, element_destination)
         return self
 

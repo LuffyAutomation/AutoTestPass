@@ -17,7 +17,7 @@ class WebFwk(UiFwk):
 
     def getDriver(self):
         self.logger.info("Connecting Web > %s driver." % self.RunTimeConf.browser.lower())
-        self._getCurrentTestArgs(self.TestType.WEB)
+        self._get_current_test_args(self.TestType.WEB)
         if self._driver is None:
             self._driver = WebDriver(self).getDriver()
             self.wait(2)

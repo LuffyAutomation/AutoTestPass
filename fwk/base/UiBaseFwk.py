@@ -144,8 +144,8 @@ class UiBaseFwk(object):
         self.RefElement = self.ElementStruct()
 
         self._elementTimeOut = None
-        self._getCurrentTestArgs(self.testType)
-        self.__getConfigurationParameters()
+        self._get_current_test_args(self.testType)
+        self.__get_config_parameters()
         self.RunTimeConf = RunTimeConf(self.Init.ConfigParser)
         self._driver = None
 
@@ -159,10 +159,10 @@ class UiBaseFwk(object):
         self._last_log_warning = ""
         self._last_log_error = ""
 
-    def __getConfObject(self, name_config_file):
+    def __get_config_object(self, name_config_file):
         return self.Init.ConfigParser.getConf(name_config_file)
 
-    def _getCurrentTestArgs(self, testType):
+    def _get_current_test_args(self, testType):
         try:
             # local pc /opt/devicepass/android/automation-workspace/1adaa521831046b985b39f5ea27b30b3/python-work-HC43YWW01974/projects/PrinterControl/data/Android/runTime.conf
             # both Android/ android are right. But in DP Android will fail.
@@ -171,7 +171,7 @@ class UiBaseFwk(object):
         except:
             if testType is None:
                 self.logger.error("Failed to find [%s] from [%s]." % (self.Init._name_project, self.Init._path_file_mainConf))
-        self.__RunTimeConfig = self.__getConfObject(self._path_file_runTimeConf)
+        self.__RunTimeConfig = self.__get_config_object(self._path_file_runTimeConf)
         self.Init.ConfigParser.setRunTimeConfig(self.__RunTimeConfig)
         self._path_folder_uiMaps = os.path.join(self.Init.path_folder_data, testType, 'uiMaps')
         self._path_file_uiMap = os.path.join(self._path_folder_uiMaps, self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_UIMAP_FILENAME))
@@ -183,47 +183,51 @@ class UiBaseFwk(object):
         if not self._path_file_uiMap_localized.lower().endswith(".xml"):
             self._path_file_uiMap_localized += ".xml"
 
-    def getLanguage(self):
+    def get_language(self):
         return self.language
 
-    def __getConfigurationParameters(self):
-        self._xmlTree = self.UtilXml.getTree(self._path_file_uiMap)
-        self._xmlRoot = self.UtilXml.getRootElement(self._xmlTree)
+    def __get_config_parameters(self):
+        self._xmlTree = self.UtilXml.get_tree(self._path_file_uiMap)
+        self._xmlRoot = self.UtilXml.get_root_element(self._xmlTree)
         self._elementTimeOut = self.Init.ConfigParser.getRunTimeConfigArgsValue(self.Init.ConfigParser.TEST_TIMEOUT_ELEMENT)
 
         self._xmlTree_localized = None
         self._xmlRoot_localized = None
         try:
-            self._xmlTree_localized = self.UtilXml.getTree(self._path_file_uiMap_localized)
-            self._xmlRoot_localized = self.UtilXml.getRootElement(self._xmlTree_localized)
+            self._xmlTree_localized = self.UtilXml.get_tree(self._path_file_uiMap_localized)
+            self._xmlRoot_localized = self.UtilXml.get_root_element(self._xmlTree_localized)
         except:
             self.logger.warning("Please make sure if [%s] is existing. Or Please check if the [test.language=] is set correctly in runTime.conf." % (self._path_file_uiMap_localized))
-
 
     def logger_warning_save(self, msg):
         self._last_log_warning = msg
         self.logger.warning(msg)
+
     def logger_error_save(self, msg):
         self._last_log_error = msg
         self.logger.error(msg)
+
     def logger_info_save(self, msg):
         self._last_log_info = msg
         self.logger.info(msg)
+
     def get_last_log_info(self):
         return self._last_log_info
+
     def get_last_log_error(self):
         return self._last_log_error
+
     def get_last_log_warning(self):
         return self._last_log_warning
 
-    def __addLogForWaitEvent(self, method, log):
+    def __add_log_for_wait_event(self, method, log):
         if ". 0s elapsed" not in log:  # ignore this
             self.logger.info(log)
         return method()
 
-    def waitUntil(self, method, error_message="Wait failed.", time_out=None, poll_frequency=2, log_prefix=None):
+    def wait_until(self, method, error_message="Wait failed.", time_out=None, poll_frequency=2, log_prefix=None):
         if log_prefix is None:
-            log_prefix = "Finding element [" + str(self.getCurrentElementName()) + "] of page [" + str(self.getCurrentPageName()) + "]."
+            log_prefix = "Finding element [" + str(self.get_current_element_name()) + "] of page [" + str(self.get_current_page_name()) + "]."
         if time_out is None:
             try:
                 time_out = float(self._elementTimeOut)
@@ -231,7 +235,7 @@ class UiBaseFwk(object):
                 time_out = 60
         try:
             self.UtilWaitEvent(time_out, poll_frequency).until(
-                lambda elapsed_time: self.__addLogForWaitEvent(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, elapsed_time, time_out, poll_frequency))
+                lambda elapsed_time: self.__add_log_for_wait_event(method, "......%s %ss elapsed. Timeout is %ss. Interval is %ss." % (log_prefix, elapsed_time, time_out, poll_frequency))
             )
         except Exception:
             raise Exception("%s in %ds." % (error_message, error_message))
@@ -244,20 +248,20 @@ class UiBaseFwk(object):
             pass
         return self
 
-    def getUiMap(self, page):
+    def get_uimap(self, page):
         xpath = ".//page[@name='"+page+"']/element"
-        return self.getUiMapByXpath(xpath)
+        return self.get_uimap_by_xpath(xpath)
 
-    def getUiMapOfSubPage(self, page, subPage):
+    def get_uimap_of_subpage(self, page, subPage):
         xpath = ".//page[@name='"+page+"']/page[@name='"+subPage+"']/element"
-        return self.getUiMapByXpath(xpath)
+        return self.get_uimap_by_xpath(xpath)
 
-    def getUiMapByXpath(self, xpath):
-        list = self.UtilXml.getElements(self._xmlRoot, xpath)
+    def get_uimap_by_xpath(self, xpath):
+        list = self.UtilXml.get_elements(self._xmlRoot, xpath)
         currentElements = {}
         for index in range(len(list)):
-            attributes = self.UtilXml.getAttribute(list[index])
-            children = self.UtilXml.getChildren(list[index])
+            attributes = self.UtilXml.get_attribute(list[index])
+            children = self.UtilXml.get_children(list[index])
             name = attributes.get("name")
             attributes["locators"] = children
             currentElements[name] = attributes
@@ -266,8 +270,11 @@ class UiBaseFwk(object):
         else:
             raise Exception("There are duplicated pages existing. [" + xpath + "].")
 
-    def _getUiMapRoot(self):
+    def _get_uimap_root(self):
         return self._xmlRoot
+
+    def get_page_names_from_uimap(self, xpath='.//page/@name'):
+        return self.UtilXml.get_list_by_xpath(self._get_uimap_root(), xpath)
 
     # there are 3 same functions in AndroidFwk, IosFwk, WebFwk
     # def updateCurrentElementStatus(self, element_name, uiMap, page_name):
@@ -286,70 +293,70 @@ class UiBaseFwk(object):
 
     # if define VALUE_PLACEHOLDER in uimap:
     # <element name="text_printerIp" page="page_home"><xpath>//android.widget.TextView[contains(@text,'VALUE_PLACEHOLDER')]</xpath></element>
-    # you can find the element by  xxx.replacePlaceholder("10").click
-    def replacePlaceholder(self, dynamic_value, element_name=None):
-        element_name = self._getCurrentElementNameWhenNone(element_name)
+    # you can find the element by  xxx.replace_placeholder("10").click
+    def replace_placeholder(self, dynamic_value, element_name=None):
+        element_name = self._get_current_element_name_when_none(element_name)
         self.CurrentElement.name = element_name + self.StringConverter.MARK_DYNAMIC_VALUE + dynamic_value
         return self
 
     #some elements' status may change after they appear. So need to clear the found ele and re-find.
-    def refreshMe(self):
-        self.setCurrentElementObject(None)
-        self.setCurrentElementCollectionObject(None)
+    def refresh_element(self):
+        self.set_current_element_object(None)
+        self.set_current_element_collection_object(None)
         return self
 
-    def setCurrentElementName(self, element_name):
+    def set_current_element_name(self, element_name):
         self.CurrentElement.name = element_name
 
-    def getCurrentElementName(self):
+    def get_current_element_name(self):
         return self.CurrentElement.name
 
-    def setCurrentElementObject(self, element=None):
+    def set_current_element_object(self, element=None):
         self.CurrentElement.object = element
 
-    def setCurrentElementIndex(self, index=None):
+    def set_current_element_index(self, index=None):
         self.CurrentElement.index = index
 
-    def getCurrentElementObject(self):
+    def get_current_element_object(self):
         return self.CurrentElement.object
 
-    def getLastElementName(self):  # when using this kind of method  .swithToElement
+    def get_last_element_name(self):  # when using this kind of method  .swithToElement
         return self.LastElement.name
 
-    def getLastElementObject(self):
+    def get_last_element_object(self):
         return self.LastElement.object
 
-    def setLastElementObject(self, element=None):
+    def set_last_element_object(self, element=None):
         self.LastElement.object = element
 
-    def setCurrentElementCollectionName(self, elementCollection_name):
+    def set_current_element_collection_name(self, elementCollection_name):
         self.CurrentElementCollection.name = elementCollection_name
 
-    def setCurrentElementCollectionIndex(self, elementCollection_index):
+    def set_current_element_collection_index(self, elementCollection_index):
         self.CurrentElementCollection.index = elementCollection_index
 
-    def getCurrentElementCollectionName(self):
+    def get_current_element_collection_name(self):
         return self.CurrentElementCollection.name
 
-    def setCurrentElementCollectionObject(self, element=None):
+    def set_current_element_collection_object(self, element=None):
         self.CurrentElementCollection.object = element
 
-    def getCurrentElementCollectionObject(self):
+    def get_current_element_collection_object(self):
         return self.CurrentElementCollection.object
 
-    def _setCurrentPageName(self, page_name):
+    def _set_current_page_name(self, page_name):
         self.CurrentElement.page_name = page_name
 
-    def getCurrentPageName(self):
+    def get_current_page_name(self):
         return self.CurrentElement.page_name
 
-    def _getElementType(self, element_locators_list):
+    def _get_element_type(self, element_locators_list):
         return element_locators_list[self.Locator.TYPE]
 
-    def _getElementValue(self, element_locators_list):
+    def _get_element_value(self, element_locators_list):
         return element_locators_list[self.Locator.VALUE]
 
-    def _getElementIndex(self, element_locators_list):
+    def _get_element_index(self, element_locators_list):
         t = element_locators_list[self.Locator.INDEX]
         try:
             return int(t)
@@ -370,51 +377,49 @@ class UiBaseFwk(object):
         else:
             element_object = self.getMatchedElement(idx_or_match, element_name)
             self.CurrentElement.set_object(element_object)
-
         self.ActionElement.set_name(element_name)
         self.ActionElement.set_object(element_object)
         self.ActionElement.set_page_name(self.CurrentElement.get_page_name())
 
-
     # for log
-    def _getCurrentElementNameWhenNone(self, element_name=None):
+    def _get_current_element_name_when_none(self, element_name=None):
         if element_name is None:
-            element_name = self.getCurrentElementName()
+            element_name = self.get_current_element_name()
         if type(element_name) is not str:  # ElementStruct
             return element_name.name
         return element_name
 
-    def _getCurrentElementObjectOrSearch(self, idx_or_match=None, element_name=None):
+    def _get_current_element_object_or_search(self, idx_or_match=None, element_name=None):
         if element_name is not None:
             if type(element_name) is not str:  #  ElementStruct
                 return element_name.object
-            if self.CurrentElement.name == element_name and self.getCurrentElementObject() is not None:
-                return self.getCurrentElementObject()
-        elif self.getCurrentElementObject() is not None:
-            return self.getCurrentElementObject()
-        self.setCurrentElementObject(self.getMatchedElement(idx_or_match, self.getCurrentElementName()))
-        return self.getCurrentElementObject()
+            if self.CurrentElement.name == element_name and self.get_current_element_object() is not None:
+                return self.get_current_element_object()
+        elif self.get_current_element_object() is not None:
+            return self.get_current_element_object()
+        self.set_current_element_object(self.getMatchedElement(idx_or_match, self.get_current_element_name()))
+        return self.get_current_element_object()
 
-    def _getLastElementObjectOrSearch(self, idx_or_match=None, element_name=None):
+    def _get_last_element_object_or_search(self, idx_or_match=None, element_name=None):
         if type(element_name) is not str:  # ElementStruct
             return element_name
-        if self.getLastElementObject() is not None and self.LastElement.name == element_name:
-            return self.getLastElementObject()
-        self.setLastElementObject(self.getMatchedElement(idx_or_match, element_name))
-        return self.getLastElementObject()
+        if self.get_last_element_object() is not None and self.LastElement.name == element_name:
+            return self.get_last_element_object()
+        self.set_last_element_object(self.getMatchedElement(idx_or_match, element_name))
+        return self.get_last_element_object()
 
-    def _getCurrentElementCollectionName(self, element_name=None):
+    def _get_current_element_collection_name(self, element_name=None):
         if element_name == None:
-            element_name = self.getCurrentElementCollectionName()
+            element_name = self.get_current_element_collection_name()
         return element_name
 
-    def _getElementCollectionObjectFromCurrentOrSearch(self, idx_or_match=None, element_name=None):
-        if self.getCurrentElementCollectionObject() is not None:
-            return self.getCurrentElementCollectionObject()
-        self.setCurrentElementCollectionObject(self.getMatchedElements(idx_or_match, self.getCurrentElementName()))
-        return self.getCurrentElementCollectionObject()
+    def _get_element_collection_object_from_current_or_search(self, idx_or_match=None, element_name=None):
+        if self.get_current_element_collection_object() is not None:
+            return self.get_current_element_collection_object()
+        self.set_current_element_collection_object(self.getMatchedElements(idx_or_match, self.get_current_element_name()))
+        return self.get_current_element_collection_object()
 
-    def _getElementLocatorsDictList(self, element_name, WhichElement=None):
+    def _get_element_locators_dict_list(self, element_name, WhichElement=None):
         dynamic_string = None
         ori_element_name = element_name
         if WhichElement is None:
@@ -433,13 +438,13 @@ class UiBaseFwk(object):
             pass
         list = []
         for locator in locators:
-            locator_type = self.UtilXml.getTagName(locator)
+            locator_type = self.UtilXml.get_tag_name(locator)
             locator_type = self._get_native_locator_type(locator_type)
-            locator_value = self.UtilXml.getText(locator).strip()
-            locator_value = self._getLocatorValueByLocalString(element_name, locator_type, locator_value)
+            locator_value = self.UtilXml.get_text(locator).strip()
+            locator_value = self._get_locator_value_by_local_string(element_name, locator_type, locator_value)
             global locator_index
             try:
-                locator_index = self.UtilXml.getAttribute(locator)['index']
+                locator_index = self.UtilXml.get_attribute(locator)['index']
             except:
                 locator_index = "1"
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:
@@ -473,8 +478,8 @@ class UiBaseFwk(object):
             locator_type = By.CSS_SELECTOR
         return locator_type
 
-    def __getReplacedLocatorByLocalString(self, locator_value, local_string):
-        if self._hasXpathText(local_string):
+    def __get_replaced_locator_by_local_string(self, locator_value, local_string):
+        if self._has_xpath_text(local_string):
             return local_string
 
         matcher_array = [locator_value]
@@ -483,13 +488,13 @@ class UiBaseFwk(object):
             if matcher_array.__len__() == 0:
                 matcher_array = re.findall("\"([^\"]*)\"\)\]", locator_value)
                 if matcher_array.__len__() == 0:
-                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.get_current_element_name()) + "] is unavailable.")
         elif "[@" in locator_value:
             matcher_array = re.findall("\'([^\"]*)\'\]", locator_value)
             if matcher_array.__len__() == 0:
                 matcher_array = re.findall("\"([^\"]*)\"\]", locator_value)
                 if matcher_array.__len__() == 0:
-                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.getCurrentElementName()) + "] is unavailable.")
+                    raise Exception("The xpath [" + locator_value + "] for the element [" + str(self.get_current_element_name()) + "] is unavailable.")
         locator_value = locator_value.replace(matcher_array[0], local_string)
         return locator_value
 
@@ -505,53 +510,53 @@ class UiBaseFwk(object):
         #         return locator_value.replace(objlocalString, localString)
         # return localString
 
-    def _getLocalStringFromFile(self, element_name, locator_type):
+    def _get_local_string_from_file(self, element_name, locator_type):
         if self._xmlRoot_localized is None:
             return None
         try:
-            t_page_name = self.getCurrentPageName()
+            t_page_name = self.get_current_page_name()
             if "\\" in t_page_name:
                 list_page_name = t_page_name.split("\\")
                 t_page_name = list_page_name[0] + "']/page[@name='" + list_page_name[1]
-            ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + t_page_name + "']/element[@name='" + element_name + "']/%s" % locator_type)
+            ele = self.UtilXml.get_element(self._xmlRoot_localized, ".//page[@name='" + t_page_name + "']/element[@name='" + element_name + "']/%s" % locator_type)
             # if ele is None:  # Maybe the locator_type from uiMap is unmatched with the corresponding one from localized uiMap.
-            #     ele = self.UtilXml.getElement(self._xmlRoot_localized, ".//page[@name='" + self.getCurrentPageName() + "']/element[@name='" + element_name + "']/*[0]")
+            #     ele = self.UtilXml.get_element(self._xmlRoot_localized, ".//page[@name='" + self.get_current_page_name() + "']/element[@name='" + element_name + "']/*[0]")
             # keep above 2 lines for applying more conditions.
-            return self.UtilXml.getText(ele).strip()
+            return self.UtilXml.get_text(ele).strip()
         except:
             return None
-            # raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.getCurrentPageName()) + "] page.")
+            # raise Exception("Failed to get local string, please check element [" + str(element_name) + "] on [" + str(self.get_current_page_name()) + "] page.")
 
-    def _getLocatorValueByLocalString(self, element_name, locator_type,  locator_value):
-        localString = self._getLocalStringFromFile(element_name, locator_type)
+    def _get_locator_value_by_local_string(self, element_name, locator_type, locator_value):
+        localString = self._get_local_string_from_file(element_name, locator_type)
         if localString is None:
             return locator_value
-        return self.__getReplacedLocatorByLocalString(locator_value, localString)
-        # if element_name.endswith("_") and self.getLanguageRegion() != self.Language.en_US:
+        return self.__get_replaced_locator_by_local_string(locator_value, localString)
+        # if element_name.endswith("_") and self.get_language_region() != self.Language.en_US:
         #     localString = self._getLocalString(element_name)
-        #     return self.__getReplacedLocatorByLocalString(locator_value, localString)
+        #     return self.__get_replaced_locator_by_local_string(locator_value, localString)
         # return locator_value
 
-    def getLanguageRegion(self):
+    def get_language_region(self):
         return self.RunTimeConf.language + "_" + self.RunTimeConf.region
 
-    def _isEmpty(self, obj):
+    def _is_empty(self, obj):
         if obj == "" or obj is None:
             return True
         else:
             return False
 
-    def _hasXpathText(self, str):
+    def _has_xpath_text(self, str):
         return "".startswith("//") and ("(@" in str or "[@" in str)
 
-    def loadTestDataFromExcel(self, name_sheet=None, path_file_excel=None):
+    def load_test_data_from_excel(self, name_sheet=None, path_file_excel=None):
         if self._DictTestData is None:
             self._HasSearchedTestData = True
             if path_file_excel is None:
                 path_file_excel = self.path_file_xlsx_testData
             self._DictTestData = Exceller(path_file_excel, name_sheet).getDictTestData("placeholder")
 
-    def getTestData(self, id):
+    def get_test_data(self, id):
         if self._DictTestData is not None:
             try:
                 r = self._DictTestData[self.UtilString.toCodeName(id)]
@@ -562,34 +567,34 @@ class UiBaseFwk(object):
                 return "CanNotFind_" + id
         return "CanNotFind_" + id
 
-    def getItemsCount(self):
+    def get_items_count(self):
         try:
-            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self._getCurrentElementObjectOrSearch(None, None)
-                self._getCurrentElementNameWhenNone(None)
-                return len(self.getCurrentElementCollectionObject())
+            if self.get_current_element_name() != self.get_current_element_collection_name():
+                self._get_current_element_object_or_search(None, None)
+                self._get_current_element_name_when_none(None)
+                return len(self.get_current_element_collection_object())
         except:
             return 0
-            # raise Exception("Can not get children count of element [" + self.getCurrentElementCollectionName() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
+            # raise Exception("Can not get children count of element [" + self.get_current_element_collection_name() + "] on [" + str(self.CurrentElement.page_name) + "] page.")
 
-    def getItems(self):
+    def get_items(self):
         try:
-            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self._getElementCollectionObjectFromCurrentOrSearch(None, None)
-                self._getCurrentElementCollectionName(None)
-            # self.setCurrentElementName(self.getCurrentElementCollectionName())
-            # self.setCurrentElementObject(self.getCurrentElementCollectionObject())
+            if self.get_current_element_name() != self.get_current_element_collection_name():
+                self._get_element_collection_object_from_current_or_search(None, None)
+                self._get_current_element_collection_name(None)
+            # self.set_current_element_name(self.get_current_element_collection_name())
+            # self.set_current_element_object(self.get_current_element_collection_object())
             return self
         except:
-            raise Exception("Can not find all of element [" + self.getCurrentElementCollectionName() + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception("Can not find all of element [" + self.get_current_element_collection_name() + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
 
-    def getItem(self, child_element_index):
+    def get_item(self, child_element_index):
         try:
-            if self.getCurrentElementName() != self.getCurrentElementCollectionName():
-                self._getCurrentElementObjectOrSearch(None, None)
-                self._getCurrentElementNameWhenNone(None)
-            self.setCurrentElementName(self.getCurrentElementCollectionName() + "_index_" + str(child_element_index))
-            self.setCurrentElementObject(self.getCurrentElementCollectionObject()[child_element_index - 1])
+            if self.get_current_element_name() != self.get_current_element_collection_name():
+                self._get_current_element_object_or_search(None, None)
+                self._get_current_element_name_when_none(None)
+            self.set_current_element_name(self.get_current_element_collection_name() + "_index_" + str(child_element_index))
+            self.set_current_element_object(self.get_current_element_collection_object()[child_element_index - 1])
             return self
         except:
-            raise Exception("Can not find the element [" + self.getCurrentElementCollectionName() + "] with index [" + str(child_element_index) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")
+            raise Exception("Can not find the element [" + self.get_current_element_collection_name() + "] with index [" + str(child_element_index) + "] on the screen [" + str(self.CurrentElement.page_name) + "].")

@@ -132,13 +132,13 @@ class RunTimeConf:
             if self.platform.lower().strip() == "android":
                 t = self.UI.getBuildInMobileLanguage(self.deviceName)
             else:
-                t = self.UI.getLanguage()
+                t = self.UI.get_language()
             try:
                 self.language = t.split("-")[0]
                 self.region = t.split("-")[1]
             except:
                 pass
-        # self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps, self.UI.getLanguageRegion() + ".xml")
+        # self._path_file_localXml = os.path.join(self.UI._path_folder_uiMaps, self.UI.get_language_region() + ".xml")
         # if self.language != "en":  # en_US.xml needn't be loaded.
-        #     self._xmlTreeLocalXml = self.UI.UtilXml.getTree(self._path_file_localXml)
-        #     self._rootLocalXml = self.UI.UtilXml.getRootElement(self._xmlTreeLocalXml)
+        #     self._xmlTreeLocalXml = self.UI.UtilXml.get_tree(self._path_file_localXml)
+        #     self._rootLocalXml = self.UI.UtilXml.get_root_element(self._xmlTreeLocalXml)

@@ -49,14 +49,14 @@ class POCreatorBase(object):
         self.__path_folder_po = path_folder_po
         self.__path_folder_uiMaps = path_folder_uiMaps
 
-        self.__xmlTree = self._UtilXml.getTree(self.__path_folder_uiMaps)
-        self._root = self._UtilXml.getRootElement(self.__xmlTree)
+        self.__xmlTree = self._UtilXml.get_tree(self.__path_folder_uiMaps)
+        self._root = self._UtilXml.get_root_element(self.__xmlTree)
 
         self.__class_import_string_head = self.__getClassImportStringHead()
 
     def create(self):
         try:
-            list_element = self._UtilXml.getElements(self._root, ".//pages/")
+            list_element = self._UtilXml.get_elements(self._root, ".//pages/")
         except:
             return
         list_pages_template_head = []
@@ -64,8 +64,8 @@ class POCreatorBase(object):
         list_pages_template_body_body = []
         pages_template_body_body = ""
         for index in range(len(list_element)):
-            attributes = self._UtilXml.getAttribute(list_element[index])
-            children = self._UtilXml.getChildren(list_element[index])
+            attributes = self._UtilXml.get_attribute(list_element[index])
+            children = self._UtilXml.get_children(list_element[index])
             name = attributes.get(self.uiMapMarks.NAME)
             pages_template_head += self._getPagesClassImportString(name)
             list_pages_template_head.append(self._getPagesClassImportString(name))
@@ -80,15 +80,15 @@ class POCreatorBase(object):
             _po_model_sub_model_body = ""
             for idx in range(len(children)):
                 level = 0
-                children_name = self._UtilXml.getAttribute(children[idx]).get(self.uiMapMarks.NAME)
-                if self._UtilXml.getTagName(children[idx]) == self.uiMapMarks.PAGE:
+                children_name = self._UtilXml.get_attribute(children[idx]).get(self.uiMapMarks.NAME)
+                if self._UtilXml.get_tag_name(children[idx]) == self.uiMapMarks.PAGE:
                     level += 1
                     list_subClass.append(children_name)
-                    children_description = self._UtilXml.getAttribute(children[idx]).get(self.uiMapMarks.DESCRIPION)
-                    children_children = self._UtilXml.getChildren(children[idx])
+                    children_description = self._UtilXml.get_attribute(children[idx]).get(self.uiMapMarks.DESCRIPION)
+                    children_children = self._UtilXml.get_children(children[idx])
                     _pOModelHeadSubClass += self._getPOModelHead(name, children_name, children_description, level)
                     for c_idx in range(len(children_children)):
-                        children_children_name = self._UtilXml.getAttribute(children_children[c_idx]).get(self.uiMapMarks.NAME)
+                        children_children_name = self._UtilXml.get_attribute(children_children[c_idx]).get(self.uiMapMarks.NAME)
                         _po_model_sub_model_body += self._getPOModelBody(children_children_name, level)
                     _pOModelHeadSubClass += _po_model_sub_model_body
                     _po_model_sub_model_body = ""

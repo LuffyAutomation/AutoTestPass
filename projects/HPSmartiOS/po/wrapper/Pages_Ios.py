@@ -143,7 +143,7 @@ class Pages_Ios:
 
         # statTime = time.time()
         # while True:
-        #     element_name = self._getCurrentElementNameWhenNone(element_name)
+        #     element_name = self._get_current_element_name_when_none(element_name)
         #     returnValue = self.__verifyIs(time_out, verify_shown, idx_or_match, element_name, log_head)
         #     if returnValue == True:
         #         self.logger.info("Passed!")
