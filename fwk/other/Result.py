@@ -48,7 +48,7 @@ class Result:
         self._UtilFile = self._UI.UtilFile
         self._r_pass = "Pass"
         self._r_fail = "Fail"
-        self._value_nonPass_result = self._r_fail
+        self._value_non_pass_result = self._r_fail
         self._value_pass_result = self._r_pass
         self._r_tbd = "TBD"
         self._r_flow = "Flow"
@@ -218,27 +218,27 @@ class Result:
             self._UI.logger.info("%s: [%s]" % (info, self._dict_report[info]))
 
     def set_result_to_block_if_fail(self):  # for skip
-        self._value_nonPass_result = self._r_block
+        self._value_non_pass_result = self._r_block
 
     def set_step_continue_from_fail_or_block(self):
-        self._value_nonPass_result = self._r_fail
+        self._value_non_pass_result = self._r_fail
 
     def set_result_to_tbd(self):  # for skip
         pass
 
     def set_step_block_if_last_step_fail_or_block(self, env_block_msg=None):
         if env_block_msg is not None:
-            self._value_nonPass_result == self._r_block
+            self._value_non_pass_result == self._r_block
             raise Exception("This step is failed since the test env error. Please check the log file for details.")
-        if self._value_nonPass_result == self._r_block:
+        if self._value_non_pass_result == self._r_block:
             raise Exception("This step is failed since the last step was not successful.")
 
-    def __load_case_info(self, dictCaseInfo, filePath, name_sheet=None, path_file_excel=None):
+    def __load_case_info(self, dict_case_info, file_path, name_sheet=None, path_file_excel=None):
         if path_file_excel is None:
-            path_file_excel = filePath
-        if dictCaseInfo is None:
-            dictCaseInfo = Exceller(path_file_excel, name_sheet).getDictAllCasesInfo()
-        self.DictCaseInfo_current = dictCaseInfo
+            path_file_excel = file_path
+        if dict_case_info is None:
+            dict_case_info = Exceller(path_file_excel, name_sheet).get_dict_all_cases_info()
+        self.DictCaseInfo_current = dict_case_info
 
     def load_android_case_info_from_excel(self, name_sheet=None, path_file_excel=None):
         self.__load_case_info(self.DictCaseInfo_android, self._Init.path_file_xlsx_caseInfo_android, name_sheet, path_file_excel)
@@ -337,7 +337,7 @@ class Result:
         self._UI.logger.info("******************************************************************************")
 
     def before_class(self):
-            self.globalTestSuiteNum = GlobalArgs.getGlobalTestSuiteNum()
+            self.global_test_suite_num = GlobalArgs.getGlobalTestSuiteNum()
             self.__add_logging_for_each_test_case()
             self._set_base_info()
             self.print_base_info()
@@ -360,7 +360,7 @@ class Result:
                                                         self._Init.NAME_FILE_XSL + ".png"))
 
     def __get_result_name(self):
-        return "%s_%s" % (str(self.globalTestSuiteNum), self._dict_report[self._testName])
+        return "%s_%s" % (str(self.global_test_suite_num), self._dict_report[self._testName])
 
     def add_screenshot(self, name="stepEnd", comment="Step ended"):
         try:

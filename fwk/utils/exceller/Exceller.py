@@ -10,7 +10,7 @@ class Exceller:
         self._path_file_excel = path_file_excel
         self._name_sheet = name_sheet
         self.UtilString = UtilString
-        # self._all_cases_info = self.getDictAllCasesInfo()
+        # self._all_cases_info = self.get_dict_all_cases_info()
 
     # def hasCases(self):
     #     if self._all_cases_info is None:
@@ -75,7 +75,7 @@ class Exceller:
         except:
             return None
 
-    def getDictAllCasesInfo(self):
+    def get_dict_all_cases_info(self):
         try:
             self.__getWorkSheet()
             max_row = self._WorkSheet.max_row
