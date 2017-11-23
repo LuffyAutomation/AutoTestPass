@@ -64,7 +64,7 @@ class POCreatorBase(object):
         list_pages_template_body_body = []
         pages_template_body_body = ""
         for index in range(len(list_element)):
-            attributes = self._UtilXml.get_attribute(list_element[index])
+            attributes = self._UtilXml.get_attributes_list(list_element[index])
             children = self._UtilXml.get_children(list_element[index])
             name = attributes.get(self.uiMapMarks.NAME)
             pages_template_head += self._getPagesClassImportString(name)
@@ -80,15 +80,15 @@ class POCreatorBase(object):
             _po_model_sub_model_body = ""
             for idx in range(len(children)):
                 level = 0
-                children_name = self._UtilXml.get_attribute(children[idx]).get(self.uiMapMarks.NAME)
+                children_name = self._UtilXml.get_attributes_list(children[idx]).get(self.uiMapMarks.NAME)
                 if self._UtilXml.get_tag_name(children[idx]) == self.uiMapMarks.PAGE:
                     level += 1
                     list_subClass.append(children_name)
-                    children_description = self._UtilXml.get_attribute(children[idx]).get(self.uiMapMarks.DESCRIPION)
+                    children_description = self._UtilXml.get_attributes_list(children[idx]).get(self.uiMapMarks.DESCRIPION)
                     children_children = self._UtilXml.get_children(children[idx])
                     _pOModelHeadSubClass += self._getPOModelHead(name, children_name, children_description, level)
                     for c_idx in range(len(children_children)):
-                        children_children_name = self._UtilXml.get_attribute(children_children[c_idx]).get(self.uiMapMarks.NAME)
+                        children_children_name = self._UtilXml.get_attributes_list(children_children[c_idx]).get(self.uiMapMarks.NAME)
                         _po_model_sub_model_body += self._getPOModelBody(children_children_name, level)
                     _pOModelHeadSubClass += _po_model_sub_model_body
                     _po_model_sub_model_body = ""

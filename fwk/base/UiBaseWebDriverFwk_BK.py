@@ -100,7 +100,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
         try:
             elementType = element.tag_name
             try:
-                elementType += element.get_attribute("type")
+                elementType += element.get_attributes_list("type")
             except NoSuchElementException as e:
                 pass
             elementType = elementType.lower()
@@ -125,11 +125,11 @@ class UiBaseWebDriverFwk(UiBaseFwk):
             if attribute_type is None:
                 element_type = self._getElementTagName(element)
                 if "input" in element_type:
-                    return_value = element.get_attribute(self.AttributeType.VALUE)
+                    return_value = element.get_attributes_list(self.AttributeType.VALUE)
                 elif "text" in element_type:
                     return_value = element.text
                 elif "checkbox" in element_type:
-                    checkbox_class = element.get_attribute(self.AttributeType.CHECKED)
+                    checkbox_class = element.get_attributes_list(self.AttributeType.CHECKED)
                     if "true" in checkbox_class:
                         return_value = "checked"
                     else:
@@ -142,7 +142,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 elif return_value is None or return_value == "":
                     return_value = element.text
             else:
-                return_value = element.get_attribute(attribute_type)
+                return_value = element.get_attributes_list(attribute_type)
         return return_value
 
     def _findElements(self, element_name):
@@ -304,7 +304,7 @@ class UiBaseWebDriverFwk(UiBaseFwk):
                 if "text" in attribute:
                     getAttText = element.text
                 elif ("name" in attribute) or ("content-desc" in attribute):
-                    getAttText = element.get_attribute("name")
+                    getAttText = element.get_attributes_list("name")
                 if idx_or_match in getAttText:
                     index = i
                     break

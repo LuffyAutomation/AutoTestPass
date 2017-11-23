@@ -260,10 +260,11 @@ class UiBaseFwk(object):
         list = self.UtilXml.get_elements(self._xmlRoot, xpath)
         currentElements = {}
         for index in range(len(list)):
-            attributes = self.UtilXml.get_attribute(list[index])
+            attributes = self.UtilXml.get_attributes_list(list[index])
             children = self.UtilXml.get_children(list[index])
             name = attributes.get("name")
             attributes["locators"] = children
+            # attributes.set("locators") = children
             currentElements[name] = attributes
         if len(list) == len(currentElements):
             return currentElements
@@ -444,7 +445,7 @@ class UiBaseFwk(object):
             locator_value = self._get_locator_value_by_local_string(element_name, locator_type, locator_value)
             global locator_index
             try:
-                locator_index = self.UtilXml.get_attribute(locator)['index']
+                locator_index = self.UtilXml.get_attributes_list(locator)['index']
             except:
                 locator_index = "1"
             if dynamic_string is not None and self.StringConverter.VALUE_PLACEHOLDER in locator_value:

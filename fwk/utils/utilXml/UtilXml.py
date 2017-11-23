@@ -20,8 +20,13 @@ class UtilXml:
     def get_text(element):
         return element.text
     @staticmethod
-    def get_attribute(element):
-        return element.attrib
+    def get_attributes_list(element):
+        attributes = element.attrib
+        if type(attributes) != dict:
+            attributes = dict(attributes)  # for lxml
+        return attributes
+        # native   get  dict
+        # lxml    get attrib
     @staticmethod
     def get_children(element):
         return element.getchildren()

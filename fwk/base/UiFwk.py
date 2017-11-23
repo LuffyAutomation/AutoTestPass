@@ -203,12 +203,12 @@ class UiFwk(UiBaseWebDriverFwk):
                 element = self._get_element_collection_object_from_current_or_search(idx_or_match, element_name)
             if type(element) is list and isCollection:  # set index = 0 in uimaps
                 for ele in element:
-                    if "true" not in ele.get_attribute(self.AttributeType.CHECKED):
+                    if "true" not in ele.get_attributes_list(self.AttributeType.CHECKED):
                         return False
                 return True
             elif type(element) is list and not isCollection:
-                return False if "true" not in element[0].get_attribute(self.AttributeType.CHECKED) else True
-            return True if "true" in element.get_attribute(self.AttributeType.CHECKED) else False
+                return False if "true" not in element[0].get_attributes_list(self.AttributeType.CHECKED) else True
+            return True if "true" in element.get_attributes_list(self.AttributeType.CHECKED) else False
         except Exception as e:
             return False
 
