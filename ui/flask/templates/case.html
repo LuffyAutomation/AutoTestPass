@@ -87,9 +87,9 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-btn">
-                                <button style="width:150px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Page <span class="caret"></span>
+                                <button id="button_select_page" style="width:200px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Page <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" id="ul_page_names">
                                     {% for page_name in _UiFwk.get_page_names_from_uimap() %}
                                     <li><a href="#">{{page_name}}</a></li>
                                     {% endfor %}

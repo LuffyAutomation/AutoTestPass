@@ -26,6 +26,7 @@ app = Flask(__name__)
 class UiPortal:
     result_rate_color_set = ["#4BC0C0", "#FF6384", "#FFCE56"]
     name_project = "name_project"
+    name_page = "name_page"
     action_selectProject = "action_selectProject"
     action_createPageObjects = "action_createPageObjects"
     action_createTestData = "action_createTestData"
@@ -77,7 +78,7 @@ def index():
     errorMsg = ""
     if request.method == 'GET':
         if _UiPortal.action_selectProject in request.args:
-            _UiPortal.name_project = request.args[_UiPortal.action_selectProject] # request.args.get
+            _UiPortal.name_project = request.args[_UiPortal.action_selectProject]  # request.args.get
             _InitFwk.ConfigParser.setMainConfigValue(_InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, _InitFwk.ConfigParser.DEFAULT_PROJECT, _UiPortal.name_project)
             _InitFwk = InitFwk()
         elif _UiPortal.action_createTestCases in request.args:
