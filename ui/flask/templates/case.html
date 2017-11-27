@@ -48,8 +48,7 @@
                         <p></p>
                         <h4 class="modal-title" id="addLocatorModalLabel">
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown_locatorName"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown_locatorName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Add locator(s)
                                     <span class="caret"></span>
                                 </button>
@@ -70,11 +69,25 @@
                         </table>
                     </div>
                     <div class="modal-footer">
+                        <table>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown_change_to_existed_element" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Change to an existed element
+                                        <span class="caret"></span>
+                                    </button>
+                                </td>
+                                <td>&nbsp;Or&nbsp;</td>
+                                <td style="width:400px;">
+                                    <input type="text" name="edit_add_new_element" id="edit_add_element_name" class="form-control" placeholder="Add new element. For example: btnNext OR btn_next" aria-describedby="NewElement"/>
+                                </td>
+                            </tr>
+                        </table>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                         </button>
-                        <button type="button" class="btn btn-primary">
-                            Save
+                        <button id="button_confirm_add_locator" type="button" class="btn btn-primary">
+                            Confirm
                         </button>
                     </div>
                 </div>
@@ -87,7 +100,8 @@
                     <td>
                         <div class="input-group">
                             <div class="input-group-btn">
-                                <button id="button_select_page" style="width:200px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Page <span class="caret"></span>
+                                <button id="button_select_page" style="width:200px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Page
+                                    <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" id="ul_page_names">
                                     {% for page_name in _UiFwk.get_page_names_from_uimap() %}
@@ -115,7 +129,7 @@
                             <tbody>
                             <tr>
                                 <td style="width:50px;">1</td>
-                                <td>Wait for <a style=";" data-toggle="modal" data-target="#addLocatorModal">button_example</a> to appear in <a style=";">30</a>s.
+                                <td>Wait for <a data-toggle="modal" data-target="#addLocatorModal">button_example</a> to appear in <a>30</a>s.
                                 </td>
                                 <td style="width:80px;">
                                     <a href="#" class="glyphicon glyphicon-plus"></a>&nbsp;
@@ -124,7 +138,7 @@
                             </tr>
                             <tr>
                                 <td style="width:50px;">2</td>
-                                <td>Click <a style=";" data-toggle="modal" data-target="#addLocatorModal">button_example</a>.</td>
+                                <td>Click <a data-toggle="modal" data-target="#addLocatorModal">button_example</a>.</td>
                                 <td style="width:80px;">
                                     <a href="#" class="glyphicon glyphicon-plus"></a>&nbsp;
                                     <a href="#" class="glyphicon glyphicon-remove"/>

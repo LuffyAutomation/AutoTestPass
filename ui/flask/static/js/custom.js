@@ -1,13 +1,25 @@
 var whichRowLaunchedAddLocatorsModal = 0;
+var whichElementClicked = "";
 var list_locators = [];
 
-$("#table_cases td").click(function(){
-    $('#table_locators tr').remove();
-//      var tdSeq = $(this).parent().find("td").index($(this)[0]);
-    whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("tr").index($(this).parent()[0]);
+$("#table_cases td a").click(function(){
+    if("#addLocatorModal" == $(this).attr("data-target")){
+        whichElementClicked = $(this).html();
+         $("#button_select_page").html(name_page + "<span class='caret'></span>");
+    }
+});
+$("#button_confirm_add_locator").click(function(){
+    if("#addLocatorModal" == $(this).attr("data-target")){
+        whichElementClicked = $(this).html();
+         $("#button_select_page").html(name_page + "<span class='caret'></span>");
+    }
 });
 
-
+//$("#table_cases td").click(function(){
+//    $('#table_locators tr').remove();
+////      var tdSeq = $(this).parent().find("td").index($(this)[0]);
+//    whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("tr").index($(this).parent()[0]);
+//});
 
 function appendLocatorRow(locatorType, tableId){
 	alert(whichRowLaunchedAddLocatorsModal);
@@ -22,6 +34,8 @@ function appendLocatorRow(locatorType, tableId){
 function removeLocatorRow(rowNeedRemove){
     rowNeedRemove.remove();
 }
+
+
 
 var clearFlag = 0;
 var count = 3;
