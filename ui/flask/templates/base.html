@@ -109,6 +109,7 @@ jQuery(function($){
                 $("#xxxx").html($("<div>内容</div>").fadeIn(3000));
             });
 
+
 </script>
 {% if errorMsg != "" and errorMsg != None %}
 <div id="errorMsg" class="alert alert-danger">
@@ -154,15 +155,10 @@ jQuery(function($){
         </div><!-- /.modal-content -->
     </div>
 </div><!-- /.modal -->
-{% block content %}
-
-{% endblock %}
-
 {% block jslibs %}
 <script type=text/javascript>
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
-
 <script src="/static/js/jquery-3.1.1.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/configure.js"></script>
@@ -171,6 +167,11 @@ jQuery(function($){
 <script src="/static/js/main.js"></script>
 <script src="/static/js/jquery-confirm.min.js"></script>
 {% endblock %}
+{% block content %}
+
+{% endblock %}
+
+
 {% block localjs %}
 {% endblock %}
 </body>

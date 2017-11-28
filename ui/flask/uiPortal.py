@@ -62,7 +62,8 @@ class UiPortal:
             current_uimap = _InitFwk.path_file_xml_uiMap_web
         with open(current_uimap, 'r') as f:
             xml_string = f.read()
-        return json.dumps(xmltodict.parse(xml_string), indent=4)
+        # return json.dumps(xmltodict.parse(xml_string), indent=4)
+        return json.dumps(xmltodict.parse(xml_string))
 
 _UiPortal = UiPortal()
 
@@ -94,7 +95,6 @@ def space(value):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global _InitFwk, errorMsg, successMsg, _UiFwk
-    _UiPortal.xml_to_json_string()
     errorMsg = ""
     if request.method == 'GET':
         if _UiPortal.action_selectProject in request.args:
@@ -133,10 +133,10 @@ def index():
 @app.route('/createTestCases', methods=['GET', 'POST'])
 def createTestCases():
     global _InitFwk, errorMsg, successMsg, _UiFwk
-
-
-    # _UiFwk = getUiFwk(_InitFwk)
-    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk, aaa={""})
+    json_ui_map = _UiPortal.xml_to_json_string()
+    _UiFwk = getUiFwk(_InitFwk)
+    # print json_ui_map
+    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk, json_ui_map=json_ui_map)
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():
@@ -152,14 +152,12 @@ def config():
             return redirect('/setLoopScan')
     return render_template('config.html', numRightList=_UiPortal.numberRightList, right_list=_UiPortal.listRightList, handleEvent=_UiPortal.handleWhat)
 
-
 @app.route('/setLoopScan', methods=['GET', 'POST'])
 def set_loopscan_settings():
     """Display the index.html in the browser, post some new information to the decorator '/step-2'."""
     if request.method == 'POST':
         return redirect('/config')
     return render_template('setLoopScan.html')
-
 
 @app.route('/setSettings', methods=['GET', 'POST'])
 def set_settings():

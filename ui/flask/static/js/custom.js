@@ -1,12 +1,14 @@
 var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
 var list_locators = [];
-
+var jsonUiMap = "";
 $("#table_cases td a").click(function(){
+    alert(1);
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked = $(this).html();
          $("#button_select_page").html(name_page + "<span class='caret'></span>");
     }
+    alert(jsonUiMap);
 });
 $("#button_confirm_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){

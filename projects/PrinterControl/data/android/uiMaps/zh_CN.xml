@@ -1,48 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<test-data>
-	<UiMap>
-		<pages>
-            <page name="page_home" description="main page.">
-                <element name="tile_printPhotos"><xpath>打印照片</xpath></element>
-                <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = '个性化']</xpath></element>
-                <element name="tile_PrintFacebookPhotos"><xpath>打印 Facebook 照片</xpath></element>
-                <element name="button_MoreOptions"><accessibility_id>更多选项</accessibility_id></element>
-                <page name="menu_moreOptions">
-                    <!--<element name="menuItem_appSettings_"><xpath>//android.widget.TextView[@text = 'App Settings']</xpath></element>-->
-                    <element name="menuItem_appSettings_"><xpath>应用程序设置</xpath></element>
-                    <element name="menuItem_giveFeedback_"><xpath>//android.widget.TextView[@text = 'Give Feedback']</xpath></element>
-                    <element name="menuItem_about_"><xpath>关于</xpath></element>
-                    <element name="menuItem_showWelcomeScreen_"><xpath>//android.widget.TextView[@text = 'Show Welcome screen']</xpath></element>
-                    <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
-                </page>
-			</page>
-            <page name="page_appSettings" description="moreOptions then app settings page.">
-                <element name="text_HPSuppliesShopping1"><xpath>//android.widget.TextView[@text = 'HP 耗材购买']</xpath></element>
-                <element name="text_HPSuppliesShopping2"><xpath>//android.widget.TextView[contains(@text, 'HP 耗材购买')]</xpath></element>
-                <element name="text_HPSuppliesShopping3"><text>HP 耗材购买</text></element>
-                <element name="text_HPSuppliesShopping4"><text>HP 耗材购.*</text></element>
-                <element name="text_HPSuppliesShopping5"><text>++HP --ABc++耗材购买</text></element>
-                <!--How to search uncertain element (such as below checkboxes) by the element which has unique text or id, etc.-->
-                <element name="checkBox_HPSuppliesShopping_forNearby1">
-                    <id>android:id/checkbox</id>
-                    <class_name index="1">android.widget.CheckBox</class_name>
-                    <content_desc>sdsdsdsd</content_desc>
-                </element>
-                <element name="text_HPSuppliesShopping_forNearby1">
-                    <text>HP 耗材购买</text>
-                    <text index="1">HP 耗材购买</text>
-                </element>
-                <element name="checkBox_HPSuppliesShopping_refNearby" ref="nearby:text_HPSuppliesShopping_forNearby1">
-                    <id>android:id/checkbox</id>
-                    <class_name index="1">android.widget.CheckBox</class_name>
-                    <content_desc>sdsdsdsd</content_desc>
-                </element>
-                <element name="checkBox_HPSuppliesShopping_refLeft" ref="left:text_HPSuppliesShopping_forNearby1">
-                    <id>android:id/checkbox</id>
-                    <class_name index="1">android.widget.CheckBox</class_name>
-                    <content_desc>sdsdsdsd</content_desc>
-                </element>
-			</page>
-		</pages>
-	</UiMap>
-</test-data>
+<pages>
+    <page name="page_home" description="main page.">
+        <element name="tile_printPhotos"><xpath>打印照片</xpath></element>
+        <element name="tile_Personalize"><xpath>//android.widget.TextView[@text = '个性化']</xpath></element>
+        <element name="tile_PrintFacebookPhotos"><xpath>打印 Facebook 照片</xpath></element>
+        <element name="button_MoreOptions"><accessibility_id>更多选项</accessibility_id></element>
+        <page name="menu_moreOptions">
+            <!--<element name="menuItem_appSettings_"><xpath>//android.widget.TextView[@text = 'App Settings']</xpath></element>-->
+            <element name="menuItem_appSettings_"><xpath>应用程序设置</xpath></element>
+            <element name="menuItem_giveFeedback_"><xpath>//android.widget.TextView[@text = 'Give Feedback']</xpath></element>
+            <element name="menuItem_about_"><xpath>关于</xpath></element>
+            <element name="menuItem_showWelcomeScreen_"><xpath>//android.widget.TextView[@text = 'Show Welcome screen']</xpath></element>
+            <element name="menuItem_devInvestigations_"><xpath>//android.widget.TextView[@text = 'Dev Investigations']</xpath></element>
+        </page>
+    </page>
+    <page name="page_appSettings" description="moreOptions then app settings page.">
+        <element name="text_HPSuppliesShopping1"><xpath>//android.widget.TextView[@text = 'HP 耗材购买']</xpath></element>
+        <element name="text_HPSuppliesShopping2"><xpath>//android.widget.TextView[contains(@text, 'HP 耗材购买')]</xpath></element>
+        <element name="text_HPSuppliesShopping3"><text>HP 耗材购买</text></element>
+        <element name="text_HPSuppliesShopping4"><text>HP 耗材购.*</text></element>
+        <element name="text_HPSuppliesShopping5"><text>++HP --ABc++耗材购买</text></element>
+        <!--How to search uncertain element (such as below checkboxes) by the element which has unique text or id, etc.-->
+        <element name="checkBox_HPSuppliesShopping_forNearby1">
+            <id>android:id/checkbox</id>
+            <class_name index="1">android.widget.CheckBox</class_name>
+            <content_desc>sdsdsdsd</content_desc>
+        </element>
+        <element name="text_HPSuppliesShopping_forNearby1">
+            <text>HP 耗材购买</text>
+            <text index="1">HP 耗材购买</text>
+        </element>
+        <element name="checkBox_HPSuppliesShopping_refNearby" ref="nearby:text_HPSuppliesShopping_forNearby1">
+            <id>android:id/checkbox</id>
+            <class_name index="1">android.widget.CheckBox</class_name>
+            <content_desc>sdsdsdsd</content_desc>
+        </element>
+        <element name="checkBox_HPSuppliesShopping_refLeft" ref="left:text_HPSuppliesShopping_forNearby1">
+            <id>android:id/checkbox</id>
+            <class_name index="1">android.widget.CheckBox</class_name>
+            <content_desc>sdsdsdsd</content_desc>
+        </element>
+    </page>
+</pages>

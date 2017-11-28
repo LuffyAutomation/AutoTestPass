@@ -2,7 +2,6 @@
 
 {% block page_title %}Test Results{% endblock %}
 {% block content %}
-
 <div class="container-fluid">
     <div class="row">
         <!--<div class="col-sm-3 col-md-2 sidebar">-->
@@ -38,6 +37,20 @@
         <!--{% endif %}-->
         <!--{% endblock %}-->
         <!--</div>-->
+        <script type=text/javascript>
+            jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')')
+            alert(typeof(jsonUiMap));
+            jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')')
+            <!--jsonUiMap = eval('{{ json_ui_map|tojson }}')-->
+            <!--alert(jsonUiMap["pages"]);-->
+            alert(11);
+            alert(jsonUiMap["pages"].length);
+            alert(22);
+            for(var i=0; i<jsonUiMap["pages"].length; i++){
+                alert(11);
+            }
+
+        </script>
         <div class="modal fade" id="addLocatorModal" tabindex="-1" role="dialog"
              aria-labelledby="addLocatorModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width: 800px">
@@ -90,11 +103,6 @@
                         <button id="button_confirm_add_locator" type="button" class="btn btn-primary">
                             Confirm
                         </button>
-                        <script type=text/javascript>
-                            test1 = {{ aaa|tojson }};
-
-                        </script>
-
                     </div>
                 </div>
             </div>
