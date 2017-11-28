@@ -2,7 +2,7 @@
 RVFlask.py
 Description: This module is background processing code about setting the configuration.
 """
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, json
 import os
 from fwk.base.InitFwk import InitFwk
 from fwk.utils.newProjectCreator.NewProjectCreator import NewProjectCreator
@@ -11,6 +11,7 @@ import createTestDataStrings
 from fwk.object.AndroidFwk import AndroidFwk
 from fwk.object.IosFwk import IosFwk
 from fwk.object.WebFwk import WebFwk
+import xmltodict
 
 _InitFwk = InitFwk()
 _UiFwk = None
@@ -51,6 +52,17 @@ class UiPortal:
         # return list_locators
         return ['id', 'accessibility_id', 'text']
 
+    def xml_to_json_string(self):
+        current_uimap = ""
+        if _InitFwk.TestType.ANDROID.lower() == _InitFwk.testType.lower():
+            current_uimap = _InitFwk.path_file_xml_uiMap_android
+        elif _InitFwk.TestType.IOS.lower() == _InitFwk.testType.lower():
+            current_uimap = _InitFwk.path_file_xml_uiMap_ios
+        elif _InitFwk.TestType.WEB.lower() == _InitFwk.testType.lower():
+            current_uimap = _InitFwk.path_file_xml_uiMap_web
+        with open(current_uimap, 'r') as f:
+            xml_string = f.read()
+        return json.dumps(xmltodict.parse(xml_string), indent=4)
 
 _UiPortal = UiPortal()
 
@@ -82,6 +94,7 @@ def space(value):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global _InitFwk, errorMsg, successMsg, _UiFwk
+    _UiPortal.xml_to_json_string()
     errorMsg = ""
     if request.method == 'GET':
         if _UiPortal.action_selectProject in request.args:
@@ -89,7 +102,8 @@ def index():
             _InitFwk.ConfigParser.setMainConfigValue(_InitFwk.ConfigParser.SECTION_DEFAULTPROJECT, _InitFwk.ConfigParser.DEFAULT_PROJECT, _UiPortal.name_project)
             _InitFwk = InitFwk()
         elif _UiPortal.action_createTestCases in request.args:
-            return redirect('/createTestCases')
+            # return redirect('/createTestCases')
+            return redirect(url_for('createTestCases'))
         elif _UiPortal.action_createPageObjects in request.args:
             createPageObjects.create()
         elif _UiPortal.action_addLocators in request.args:
@@ -116,13 +130,13 @@ def index():
         _InitFwk = InitFwk()
     return render_template('index.html', _InitFwk=_InitFwk, errorMsg=errorMsg, successMsg=successMsg)
 
-
 @app.route('/createTestCases', methods=['GET', 'POST'])
 def createTestCases():
     global _InitFwk, errorMsg, successMsg, _UiFwk
-    _UiFwk = getUiFwk(_InitFwk)
-    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk)
 
+
+    # _UiFwk = getUiFwk(_InitFwk)
+    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk, aaa={""})
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():

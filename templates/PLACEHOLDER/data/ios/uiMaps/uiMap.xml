@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<test-data>
-	<UiMap>
-		<pages>
-            <page name="page_welcome" description = "First Page." >
-                <element name="image_welcome" description = "The launch icon." >
-                    <xpath>
-                        //*[@name="print_launch_icon"]
-                    </xpath>
-                    <xpath>
-                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeImage[1]
-                    </xpath>
-                </element>
-                <element name="button_start">
-                    <xpath>
-                        //*[@name="Start"]
-                    </xpath>
-                    <xpath>
-                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
-                    </xpath>
-                </element>
-			</page>
-            <page name="page_termsAndConditions" description="Terms and Conditions.">
-                <element name="checkbox_1">
-                    <xpath>
-                        //*[@name="Ctrl Checkbox Empty"]
-                    </xpath>
-                    <xpath>
-                        //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
-                    </xpath>
-                </element>
-			</page>
-		</pages>
-	</UiMap>
-</test-data>
+<pages>
+    <page name="page_welcome" description = "First Page." >
+        <element name="image_welcome" description = "The launch icon." >
+            <xpath>
+                //*[@name="print_launch_icon"]
+            </xpath>
+            <xpath>
+                //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeImage[1]
+            </xpath>
+        </element>
+        <element name="button_start">
+            <xpath>
+                //*[@name="Start"]
+            </xpath>
+            <xpath>
+                //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
+            </xpath>
+        </element>
+    </page>
+    <page name="page_termsAndConditions" description="Terms and Conditions.">
+        <element name="checkbox_1">
+            <xpath>
+                //*[@name="Ctrl Checkbox Empty"]
+            </xpath>
+            <xpath>
+                //XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]
+            </xpath>
+        </element>
+    </page>
+</pages>

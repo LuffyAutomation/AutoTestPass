@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<test-data>
-	<UiMap>
-		<pages>
-            <page name="page_home" description = "Default home page." >
-                <element name="edit_search">
-                    <id>kw</id>
-                </element>
-                <element name="button_continue">
-                    <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
-                </element>
-			</page>
-            <page name="page_home2" description="main page.">
-                <element name="link_selectAPrinter"><id>com.hp.printercontrol:id/error_msg_link</id></element>
-                <page name="page_home3">
-                    <element name="menuItem_about_">
-                        <xpath>//android.widget.TextView[@text = 'About']</xpath>
-                    </element>
-                </page>
-			</page>
-		</pages>
-	</UiMap>
-</test-data>
+<pages>
+    <page name="page_home" description = "Default home page." >
+        <element name="edit_search">
+            <id>kw</id>
+        </element>
+        <element name="button_continue">
+            <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
+        </element>
+    </page>
+    <page name="page_home2" description="main page.">
+        <element name="link_selectAPrinter"><id>com.hp.printercontrol:id/error_msg_link</id></element>
+        <page name="page_home3">
+            <element name="menuItem_about_">
+                <xpath>//android.widget.TextView[@text = 'About']</xpath>
+            </element>
+        </page>
+    </page>
+</pages>
