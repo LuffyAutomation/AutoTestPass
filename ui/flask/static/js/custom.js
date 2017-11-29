@@ -2,13 +2,17 @@ var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
 var list_locators = [];
 var jsonUiMap = "";
+var jsonUiMapPages = jsonUiMap.pages.page;
+for(var i=0; i<jsonUiMapPages.length; i++){
+    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
+    alert(jsonUiMapPages[i]["@name"]);
+}
+
 $("#table_cases td a").click(function(){
-    alert(1);
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked = $(this).html();
          $("#button_select_page").html(name_page + "<span class='caret'></span>");
     }
-    alert(jsonUiMap);
 });
 $("#button_confirm_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){

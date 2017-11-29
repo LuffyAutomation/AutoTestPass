@@ -38,18 +38,7 @@
         <!--{% endblock %}-->
         <!--</div>-->
         <script type=text/javascript>
-            jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')')
-            alert(typeof(jsonUiMap));
-            jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')')
-            <!--jsonUiMap = eval('{{ json_ui_map|tojson }}')-->
-            <!--alert(jsonUiMap["pages"]);-->
-            alert(11);
-            alert(jsonUiMap["pages"].length);
-            alert(22);
-            for(var i=0; i<jsonUiMap["pages"].length; i++){
-                alert(11);
-            }
-
+            jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')');
         </script>
         <div class="modal fade" id="addLocatorModal" tabindex="-1" role="dialog"
              aria-labelledby="addLocatorModalLabel" aria-hidden="true">
