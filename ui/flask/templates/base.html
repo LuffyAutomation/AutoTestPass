@@ -75,39 +75,39 @@
 
 <!--<button id="btn" onclick="func()">btn</button>-->
 <script>
-var layer=document.createElement("div");
-layer.id="layer";
-function func()
-{
-    var style=
-    {
-        background:"#f00",
-        position:"absolute",
-        zIndex:10,
-        width:"300px",
-        height:"200px",
-        right:"100px",
-        content: "fdfdfdf",
-        top:"100px"
-    }
-    for(var i in style)
-        layer.style[i]=style[i];
-        layer.innerHTML="sdsadasdsa"
-    if(document.getElementById("layer")==null)
-    {
-        document.body.appendChild(layer);
-        layer.style.display = "none"
-        <!--setTimeout("document.body.removeChild(layer)",5000)-->
-        <!--$("#layer").click(function(){-->
-          <!--$("#layer").fadeIn(3000);-->
-        <!--});-->
-        $("#layer").fadeIn(3000);
-        $("#layer").fadeOut(3000);
-    }
-}
-jQuery(function($){
-                $("#xxxx").html($("<div>内容</div>").fadeIn(3000));
-            });
+<!--var layer=document.createElement("div");-->
+<!--layer.id="layer";-->
+<!--function func()-->
+<!--{-->
+    <!--var style=-->
+    <!--{-->
+        <!--background:"#f00",-->
+        <!--position:"absolute",-->
+        <!--zIndex:10,-->
+        <!--width:"300px",-->
+        <!--height:"200px",-->
+        <!--right:"100px",-->
+        <!--content: "fdfdfdf",-->
+        <!--top:"100px"-->
+    <!--}-->
+    <!--for(var i in style)-->
+        <!--layer.style[i]=style[i];-->
+        <!--layer.innerHTML="sdsadasdsa"-->
+    <!--if(document.getElementById("layer")==null)-->
+    <!--{-->
+        <!--document.body.appendChild(layer);-->
+        <!--layer.style.display = "none"-->
+        <!--&lt;!&ndash;setTimeout("document.body.removeChild(layer)",5000)&ndash;&gt;-->
+        <!--&lt;!&ndash;$("#layer").click(function(){&ndash;&gt;-->
+          <!--&lt;!&ndash;$("#layer").fadeIn(3000);&ndash;&gt;-->
+        <!--&lt;!&ndash;});&ndash;&gt;-->
+        <!--$("#layer").fadeIn(3000);-->
+        <!--$("#layer").fadeOut(3000);-->
+    <!--}-->
+<!--}-->
+<!--jQuery(function($){-->
+                <!--$("#xxxx").html($("<div>内容</div>").fadeIn(3000));-->
+            <!--});-->
 
 
 </script>
@@ -155,6 +155,13 @@ jQuery(function($){
         </div><!-- /.modal-content -->
     </div>
 </div><!-- /.modal -->
+
+
+
+{% block content %}
+
+{% endblock %}
+
 {% block jslibs %}
 <script type=text/javascript>
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -167,11 +174,6 @@ jQuery(function($){
 <script src="/static/js/main.js"></script>
 <script src="/static/js/jquery-confirm.min.js"></script>
 {% endblock %}
-{% block content %}
-
-{% endblock %}
-
-
 {% block localjs %}
 {% endblock %}
 </body>

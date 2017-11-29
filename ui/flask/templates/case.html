@@ -39,6 +39,7 @@
         <!--</div>-->
         <script type=text/javascript>
             jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')');
+            jsonUiMapPages = jsonUiMap.pages.page;
         </script>
         <div class="modal fade" id="addLocatorModal" tabindex="-1" role="dialog"
              aria-labelledby="addLocatorModalLabel" aria-hidden="true">
@@ -107,9 +108,9 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" id="ul_page_names">
-                                    {% for page_name in _UiFwk.get_page_names_from_uimap() %}
-                                    <li><a href="#">{{page_name}}</a></li>
-                                    {% endfor %}
+                                    <!--{% for page_name in _UiFwk.get_page_names_from_uimap() %}-->
+                                    <!--<li><a href="#">{{page_name}}</a></li>-->
+                                    <!--{% endfor %}-->
                                 </ul>
                             </div><!-- /btn-group -->
                             <input type="text" name="edit_newPage" id="edit_newPage" class="form-control" placeholder="Add new page. For example: PageHome OR Page_home" aria-describedby="NewPageName"/>

@@ -1,12 +1,29 @@
 var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
 var list_locators = [];
-var jsonUiMap = "";
-var jsonUiMapPages = jsonUiMap.pages.page;
-for(var i=0; i<jsonUiMapPages.length; i++){
-    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
-    alert(jsonUiMapPages[i]["@name"]);
+var jsonUiMap = null;
+var jsonUiMapPages = null;
+//for(var i=0; i<jsonUiMapPages.length; i++){
+//    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
+//    alert(jsonUiMapPages[i]["@name"]);
+//}
+
+function aaa(){
+    alert(222);
 }
+
+function getListOfUiMapPages(){
+    alert(2);
+    var listOfUiMapPages = new Array();
+    for(var i=0; i<jsonUiMapPages.length; i++){
+        listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
+    }
+    return listOfUiMapPages;
+}
+
+$("#edit_newPage").(function(){
+    alert(jsonUiMapPages);
+});
 
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
