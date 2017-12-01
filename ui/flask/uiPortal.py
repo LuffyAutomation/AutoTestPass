@@ -134,9 +134,9 @@ def index():
 def createTestCases():
     global _InitFwk, errorMsg, successMsg, _UiFwk
     json_ui_map = _UiPortal.xml_to_json_string()
-    _UiFwk = getUiFwk(_InitFwk)
+    # _UiFwk = getUiFwk(_InitFwk)
     # print json_ui_map
-    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, _UiFwk=_UiFwk, json_ui_map=json_ui_map)
+    return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, json_ui_map=json_ui_map)
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():

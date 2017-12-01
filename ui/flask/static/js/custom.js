@@ -1,28 +1,34 @@
 var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
 var list_locators = [];
-var jsonUiMap = null;
-var jsonUiMapPages = null;
+var SELECT_PAGE = "Select Page";
+var SELECT_SUB_PAGE = "Select Sub Page";
+//jsonUiMap = null;
+//jsonUiMapPages = null;
 //for(var i=0; i<jsonUiMapPages.length; i++){
 //    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
 //    alert(jsonUiMapPages[i]["@name"]);
 //}
 
-function aaa(){
-    alert(222);
-}
 
-function getListOfUiMapPages(){
-    alert(2);
-    var listOfUiMapPages = new Array();
+function assemblePagesDropdown(){
+    var newRow="";
+//    var listOfUiMapPages = new Array();
     for(var i=0; i<jsonUiMapPages.length; i++){
-        listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
+//      listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
+        newRow="<li><a href='#'>" + jsonUiMapPages[i]['@name'] + "</a></li>";
+        $('#ul_new_page').html(newRow);
+//        $('#ul_new_page').append(newRow);
     }
-    return listOfUiMapPages;
 }
+$("#ul_new_page li").on("click",function(){
+    alert(1);
+//    alert($(this).html());
+//    alert(2);
+});
 
-$("#edit_newPage").(function(){
-    alert(jsonUiMapPages);
+$("#input_new_page").ready(function(){
+    assemblePagesDropdown();
 });
 
 $("#table_cases td a").click(function(){

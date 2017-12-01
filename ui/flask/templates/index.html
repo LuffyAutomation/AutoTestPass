@@ -20,7 +20,7 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></td>
+                                        <td onclick="showShowCss('div_new_project');setFocus('input_new_project')"><a href="#">Create New Project</a></td>
                                     </tr>
                                     <!--<tr class="disabled" title="Create test scripts without coding. Manual testers can use this function to create test script.">-->
                                         <!--<td>Create Test Cases</td>-->
@@ -67,10 +67,10 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div id="div_newProject">
-                            <!--<div id="div_newProject" style="display:none;">-->
-                                <form name="form_newProject"  action="" method=post>
-                                <table name="table_newProject" id="table_newProject" class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
+                            <div id="div_new_project">
+                            <!--<div id="div_new_project" style="display:none;">-->
+                                <form name="form_new_project"  action="" method=post>
+                                <table name="table_new_project" id="table_new_project" class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon" id="NewProjectName"><b>Create new project:</b></span>
-                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest OR Web_Test" aria-describedby="NewProjectName"/>
+                                                    <input type="text" name="input_new_project" id="input_new_project" class="form-control" placeholder="For example: WebTest OR Web_Test" aria-describedby="NewProjectName"/>
                                                 </div>
                                             </td>
                                         </tr>
@@ -95,7 +95,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="#" role="button" onclick="hideShowCss('div_newProject')">Close</a>
+                                                <a class="btn btn-primary btn-sm" href="#" role="button" onclick="hideShowCss('div_new_project')">Close</a>
                                                 <button class="btn btn-primary btn-sm" type="submit" data-toggle="progress" data-trigger="click">Create</button>
                                             </td>
                                         </tr>

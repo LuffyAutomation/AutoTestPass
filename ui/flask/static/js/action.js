@@ -1,9 +1,9 @@
-$("#edit_newProject, #edit_newPage").keyup(function() {
-  this.value=this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'');
+$("#input_new_project, #input_new_page, #input_new_sub_page").keyup(function() {
+  this.value = this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'');
 });
 
-$("#edit_add_new_element").keyup(function() {
-  this.value=this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'');
+$("#input_new_element").keyup(function() {
+  this.value = this.value.replace(/^_*/g,'').replace(/[^a-zA-Z_]/g,'');
   if(this.value == ""){
 
   }
