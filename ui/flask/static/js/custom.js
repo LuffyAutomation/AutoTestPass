@@ -10,21 +10,25 @@ var SELECT_SUB_PAGE = "Select Sub Page";
 //    alert(jsonUiMapPages[i]["@name"]);
 //}
 
-
 function assemblePagesDropdown(){
     var newRow="";
 //    var listOfUiMapPages = new Array();
     for(var i=0; i<jsonUiMapPages.length; i++){
 //      listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
-        newRow="<li><a href='#'>" + jsonUiMapPages[i]['@name'] + "</a></li>";
-        $('#ul_new_page').html(newRow);
-//        $('#ul_new_page').append(newRow);
+        alert(jsonUiMapPages[i]['@name']);
+        newRow="<li><a href='#' onclick=\"li_new_page_on_click('"  + jsonUiMapPages[i]['@name'] +  "');\">" + jsonUiMapPages[i]['@name'] + "</a></li>";
+        alert(newRow);
+        //$('#ul_new_page').html(newRow);
+        $('#ul_new_page').append(newRow);
     }
 }
+function li_new_page_on_click(){
+    alert(1);
+}
+
 $("#ul_new_page li").on("click",function(){
     alert(1);
-//    alert($(this).html());
-//    alert(2);
+    //Can not find out the ele that created dynamically. Need other method.
 });
 
 $("#input_new_page").ready(function(){
