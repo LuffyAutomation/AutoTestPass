@@ -13,6 +13,15 @@
         <page name="page_home3">
             <element name="menuItem_about_">
                 <xpath>//android.widget.TextView[@text = 'About']</xpath>
+                <xpath>//android.widget.TextView[@text = '2About']</xpath>
+            </element>
+            <element name="menuItem_about_1">
+                <xpath>//android.widget.TextView[@text = '3About']</xpath>
+            </element>
+        </page>
+        <page name="page_home4">
+            <element name="menuItem_about_">
+                <xpath>//android.widget.TextView[@text = '1About']</xpath>
             </element>
         </page>
     </page>
