@@ -20,8 +20,8 @@
             </element>
         </page>
         <page name="page_home4">
-            <element name="menuItem_about_">
-                <xpath>//android.widget.TextView[@text = '1About']</xpath>
+            <element name="menuIte2323">
+                <xpath>//android.widget.TextView[@text = '3About']</xpath>
             </element>
         </page>
     </page>

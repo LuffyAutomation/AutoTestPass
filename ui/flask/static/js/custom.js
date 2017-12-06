@@ -3,67 +3,95 @@ var whichElementClicked = "";
 var list_locators = [];
 var SELECT_PAGE = "Select Page";
 var SELECT_SUB_PAGE = "Select Sub Page";
+var SELECT_ELEMENT = "Select Element";
 //jsonUiMap = null;
 //jsonUiMapPages = null;
 //for(var i=0; i<jsonUiMapPages.length; i++){
 //    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
 //    alert(jsonUiMapPages[i]["@name"]);
 //}
-function addLi(objs, ){
+function reset_ul_pages(){
+    $('#ul_pages li').remove();
+    $('#button_select_page').text(SELECT_PAGE);
+}
+function reset_ul_sub_pages(){
+    $('#ul_sub_pages li').remove();
+    $('#button_select_sub_page').text(SELECT_SUB_PAGE);
+}
+function reset_ul_elements(){
+    $('#ul_elements li').remove();
+    $('#button_select_element').text(SELECT_ELEMENT);
+}
+function addLi(list_objs, name_attri, name_func, ul_obj){
+    if (typeof(list_objs) == "undefined"){
+        return;
+    }
+    try{
+        for(var i=0; i<list_objs.length; i++)
+        {
+            if (typeof(list_objs[i]) == "object")
+            {
+                value = list_objs[i][name_attri]
+                newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+                $(ul_obj).append(newRow);
+            }
+        }
+    }
+    catch(exception){
+            //list_objs.length cannot equal to 1
+            value = list_objs[name_attri]
+            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+            $(ul_obj).append(newRow);
+    }
 
 }
-function assemblePagesDropdown(){
-    var newRow="";
-    var page_name="";
-//  var listOfUiMapPages = new Array();
-//  listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
-    for(var i=0; i<jsonUiMapPages.length; i++){
-        page_name = jsonUiMapPages[i]['@name']
-        newRow="<li><a href='#' onclick=\"li_pages_on_click('"  + page_name +  "');\">" + page_name + "</a></li>";
-        $('#ul_pages').append(newRow);
+function addLi1(list_objs, name_attri, name_func, ul_obj){
+    if (typeof(list_objs) == "undefined")
+    {
+        return;
     }
-}
-function li_pages_on_click(page_name){
-    var newRow="";
-    var sub_page_name="";
-    $('#button_select_page').text(page_name);
-    $('#ul_sub_pages li').remove();
-    $('#ul_elements li').remove();
-    for(var i=0; i<jsonUiMapPages.length; i++){
-        if(jsonUiMapPages[i]["@name"] == page_name){
-            for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                if (typeof(jsonUiMapPages[i]['page'][j]) == "object"){
-                    sub_page_name = jsonUiMapPages[i]['page'][j]['@name'];
-                    newRow="<li><a href='#'>" + sub_page_name + "</a></li>";
-                    $('#ul_sub_pages').append(newRow);
-                }
-            }
-            for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                if (typeof(jsonUiMapPages[i]['page'][j]) == "object"){
-                    sub_page_name = jsonUiMapPages[i]['page'][j]['@name'];
-                    newRow="<li><a href='#'>" + sub_page_name + "</a></li>";
-                    $('#ul_sub_pages').append(newRow);
-                }
-            }
-            return;
+    for(var i=0; i<list_objs.length; i++)
+    {
+        if (typeof(list_objs[i]) == "object")
+        {
+            value = list_objs[i][name_attri]
+            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+            $(ul_obj).append(newRow);
         }
     }
 }
-
-function li_new_page_on_click(page_name){
-    var newRow="";
-    var sub_page_name="";
-    $('#button_select_page').text(page_name);
-    $('#ul_sub_pages li').remove();
+function assemblePagesDropdown(){
+//  var listOfUiMapPages = new Array();
+//  listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
+    addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
+}
+function li_sub_page_on_click(_name){
+    reset_ul_elements();
+    $('#button_select_sub_page').text(_name);
     for(var i=0; i<jsonUiMapPages.length; i++){
-        if(jsonUiMapPages[i]["@name"] == page_name){
+        if(jsonUiMapPages[i]["@name"] == $('#button_select_page').text() ){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                if (typeof(jsonUiMapPages[i]['page'][j]) == "object"){
-                    sub_page_name = jsonUiMapPages[i]['page'][j]['@name'];
-                    newRow="<li><a href='#'>" + sub_page_name + "</a></li>";
-                    $('#ul_sub_pages').append(newRow);
+                if(jsonUiMapPages[i]['page'][j]['@name'] == _name){
+                   alert(jsonUiMapPages[i]['page'][j]['element']['@name']);
+                    addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
+                    return;
                 }
             }
+        }
+    }
+}
+function li_element_on_click(_name){
+    $('#button_select_element').text(_name);
+}
+function li_page_on_click(_name){
+//    reset_ul_pages()
+    reset_ul_sub_pages()
+    reset_ul_elements();
+    $('#button_select_page').text(_name);
+    for(var i=0; i<jsonUiMapPages.length; i++){
+        if(jsonUiMapPages[i]["@name"] == _name){
+            addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
+            addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
             return;
         }
     }
