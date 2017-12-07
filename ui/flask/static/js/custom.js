@@ -10,6 +10,18 @@ var SELECT_ELEMENT = "Select Element";
 //    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
 //    alert(jsonUiMapPages[i]["@name"]);
 //}
+$("button_add_page").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
+$("button_add_sub_page").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
+$("button_add_element").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
 function reset_ul_pages(){
     $('#ul_pages li').remove();
     $('#button_select_page').text(SELECT_PAGE);
@@ -26,30 +38,6 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
     if (typeof(list_objs) == "undefined"){
         return;
     }
-    try{
-        for(var i=0; i<list_objs.length; i++)
-        {
-            if (typeof(list_objs[i]) == "object")
-            {
-                value = list_objs[i][name_attri]
-                newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
-                $(ul_obj).append(newRow);
-            }
-        }
-    }
-    catch(exception){
-            //list_objs.length cannot equal to 1
-            value = list_objs[name_attri]
-            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
-            $(ul_obj).append(newRow);
-    }
-
-}
-function addLi1(list_objs, name_attri, name_func, ul_obj){
-    if (typeof(list_objs) == "undefined"){
-        return;
-    }
-    alert(list_objs.length >= 1);
     if(list_objs.length >= 1){
         for(var i=0; i<list_objs.length; i++)
         {
@@ -67,8 +55,8 @@ function addLi1(list_objs, name_attri, name_func, ul_obj){
             newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
             $(ul_obj).append(newRow);
     }
-    alert(4);
 }
+
 function assemblePagesDropdown(){
 //  var listOfUiMapPages = new Array();
 //  listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
@@ -82,7 +70,7 @@ function li_sub_page_on_click(_name){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                 if(jsonUiMapPages[i]['page'][j]['@name'] == _name){
 //                   alert(jsonUiMapPages[i]['page'][j]['element']['@name']);
-                    addLi1(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
+                    addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
                     return;
                 }
             }
@@ -135,7 +123,6 @@ $("#button_ok_add_locator").click(function(){
 //});
 
 function appendLocatorRow(locatorType, tableId){
-	alert(whichRowLaunchedAddLocatorsModal);
 	var newRow="<tr>" +
                     "<td style='width:120px;'>" + locatorType + "</td>" +
                     "<td><input type='text' class='form-control'/></td>" +
@@ -394,35 +381,8 @@ function tableDropdown()
 //    $(id).append(rowInnerHtml);
 //}
 
-
-var removeContentOfDialog = 'Are you sure to delete?'
-
-$(document).ready(function(){
-//bind remove glyphiconf by table
-    $('#table_locators').on("click",".glyphicon-remove",function(){
-        var rowNeedRemove = $(this).parents("tr:eq(0)");
-        $.confirm({
-            title: '!',
-            content: removeContentOfDialog,
-            draggable: true,
-            buttons: {
-                confirm: {
-                    btnClass: 'btn-blue',
-                    action: function(){
-                        removeLocatorRow(rowNeedRemove);
-                    }
-                },
-                cancel: function () {
-                     return;
-                }
-            }
-        });
-    });
-    //bind all remove glyphiconf
-    $('.glyphicon-remove').click(function(){ // only bind which has existed.
-//        var content = $(this).children("td:eq(0)").text();
-        if ('table_locators' != $(this).parents("table:eq(0)").attr('id')){
-            var html = "<div class='modal fade' id='myConfirm' >"
+function getConfirmModalHtml(content){
+         return   "<div class='modal fade' id='myConfirm' >"
                 + "<div class='modal-backdrop in' style='opacity:0;'></div>"
                 + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
                 + "<div class='modal-content'>"
@@ -430,21 +390,59 @@ $(document).ready(function(){
                 + "<span class='glyphicon glyphicon-info-sign'>&nbsp;</span><button type='button' class='close' data-dismiss='modal'>"
                 + "<span style='font-size:20px;' class='glyphicon glyphicon-remove'></span></button></div>"
                 + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
-                + removeContentOfDialog
+                + content
                 + "</div>"
                 + "<div class='modal-footer' style=''>"
                 + "<button class='btn btn-primary' id='confirmOk'>Confirm<Button>"
                 + "<button class='btn btn-default' data-dismiss='modal'>Cancel<Button>"
                 + "</div>" + "</div></div></div>";
-            $("body").append(html);
-            $("#myConfirm").modal("show");
+}
+
+
+$(document).ready(function(){
+    var confirmDialogContent = "";
+    var removeContentOfDialog = 'Are you sure to delete?'
+    //bind remove glyphiconf by table
+    $('#table_locators, #table_page_sub_page_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
+        var currentObjectId = $(this).parents("table:eq(0)").attr('id');
+        var currentObjectClass = $(this).attr('class');
+        var rowNeedRemove = $(this).parents("tr:eq(0)");
+        if (('table_locators' == currentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
+            confirmDialogContent = removeContentOfDialog;
         }
-        else {
+        $.confirm({
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    action: function(){
+                            if ('table_locators' == currentObjectId && currentObjectClass == "glyphicon glyphicon-remove"){
+                                 removeLocatorRow(rowNeedRemove);
+                                 removeContentOfDialog = "323232";
+                            }
+                            else if('table_page_sub_page_element' == "glyphicon glyphicon-plus"){
 
-        }
-
-
-
-//        $(this).parents("tr:eq(0)").remove();
+                            }
+                    }
+                },
+                cancel: function () {
+                     return;
+                }
+            },
+            title: '!',
+            content: confirmDialogContent,
+            draggable: true
+        });
     });
+    //bind all remove glyphiconf
+//    $('.glyphicon-remove, .glyphicon-plus').click(function(){ // only bind which has existed.
+////        var content = $(this).children("td:eq(0)").text();
+//        if ('table_locators' != $(this).parents("table:eq(0)").attr('id')){
+//            var html = getConfirmModalHtml("");
+//            $("body").append(html);
+//            $("#myConfirm").modal("show");
+//        }
+//        else {
+//
+//        }
+//    });
 });
