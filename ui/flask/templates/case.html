@@ -40,6 +40,7 @@
         <script type=text/javascript>
             var jsonUiMap = eval('(' + {{ json_ui_map|tojson }} + ')');
             var jsonUiMapPages = jsonUiMap.pages.page;
+
         </script>
         <div class="modal fade" id="addLocatorModal" tabindex="-1" role="dialog"
              aria-labelledby="addLocatorModalLabel" aria-hidden="true">
@@ -87,20 +88,28 @@
                                         <input type="text" name="input_new_page" id="input_new_page" class="form-control" placeholder="Add new page. For example: PageHome OR Page_home" aria-describedby="NewPageName"/>
                                     </div>
                                 </td>
+                                <td>
+                                    <a id="button_add_page" href="#" class="glyphicon glyphicon-plus"/>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button id="button_select_sub_page" style="width:200px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button id="button_select_sub_page" style="width:200px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
                                                 Select Sub Page
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" id="ul_sub_pages">
                                             </ul>
                                         </div>
-                                        <input type="text" name="input_new_sub_page" id="input_new_sub_page" class="form-control" placeholder="Add new sub page. For example: PageABC OR Page_abc" aria-describedby="NewSubPageName"/>
+                                        <input type="text" name="input_new_sub_page" id="input_new_sub_page" class="form-control" placeholder="Add new sub page. For example: PageABC OR Page_abc"
+                                               aria-describedby="NewSubPageName"/>
                                     </div>
+                                </td>
+                                <td>
+                                    <a id="button_sub_add_page" href="#" class="glyphicon glyphicon-plus"/>
                                 </td>
                             </tr>
                             <tr>
@@ -118,13 +127,16 @@
                                                aria-describedby="NewElement"/>
                                     </div>
                                 </td>
+                                <td>
+                                    <a id="button_add_element" href="#" class="glyphicon glyphicon-plus"/>
+                                </td>
                             </tr>
                         </table>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                         </button>
-                        <button id="button_confirm_add_locator" type="button" class="btn btn-primary">
-                            Confirm
+                        <button id="button_ok_add_locator" type="button" class="btn btn-primary">
+                            OK
                         </button>
                     </div>
                 </div>

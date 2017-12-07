@@ -46,19 +46,28 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
 
 }
 function addLi1(list_objs, name_attri, name_func, ul_obj){
-    if (typeof(list_objs) == "undefined")
-    {
+    if (typeof(list_objs) == "undefined"){
         return;
     }
-    for(var i=0; i<list_objs.length; i++)
-    {
-        if (typeof(list_objs[i]) == "object")
+    alert(list_objs.length >= 1);
+    if(list_objs.length >= 1){
+        for(var i=0; i<list_objs.length; i++)
         {
-            value = list_objs[i][name_attri]
-            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
-            $(ul_obj).append(newRow);
+            if (typeof(list_objs[i]) == "object")
+            {
+                value = list_objs[i][name_attri]
+                newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+                $(ul_obj).append(newRow);
+            }
         }
     }
+    else{
+            //list_objs.length cannot equal to 1 in this case.
+            value = list_objs[name_attri]
+            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+            $(ul_obj).append(newRow);
+    }
+    alert(4);
 }
 function assemblePagesDropdown(){
 //  var listOfUiMapPages = new Array();
@@ -72,8 +81,8 @@ function li_sub_page_on_click(_name){
         if(jsonUiMapPages[i]["@name"] == $('#button_select_page').text() ){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                 if(jsonUiMapPages[i]['page'][j]['@name'] == _name){
-                   alert(jsonUiMapPages[i]['page'][j]['element']['@name']);
-                    addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
+//                   alert(jsonUiMapPages[i]['page'][j]['element']['@name']);
+                    addLi1(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
                     return;
                 }
             }
@@ -112,7 +121,7 @@ $("#table_cases td a").click(function(){
          $("#button_select_page").html(name_page + "<span class='caret'></span>");
     }
 });
-$("#button_confirm_add_locator").click(function(){
+$("#button_ok_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked = $(this).html();
          $("#button_select_page").html(name_page + "<span class='caret'></span>");
