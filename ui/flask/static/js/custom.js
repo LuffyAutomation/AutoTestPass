@@ -398,33 +398,24 @@ function getConfirmModalHtml(content){
                 + "</div>" + "</div></div></div>";
 }
 
-function get_content_button_page_sub_page_element(obj){
-//    value = $(obj).val();
-//    if(value.trim() == ""){
-//        return "The value can not be empty."
-//    }
-//    $('#button_select_page').text(SELECT_PAGE)
-    alert(obj);
-    alert(obj == "#input_new_page");
+function get_dialog_content_for_add_new(obj){
+    value = $(obj).val();
+    if(value.trim() == ""){
+        return "The value can not be empty."
+    }
     if(obj == "#input_new_page"){
-        alert(2);
-        if($('#button_select_page').text() == SELECT_PAGE || $('#button_select_page').text() == ""){
-            alert(1);
-            return "Please select a item."
+        if($('#button_select_page').text().trim() == SELECT_PAGE || $('#button_select_page').text().trim() == ""){
+            return "Please select an item."
         }
     }
     else if(obj == "#input_new_sub_page"){
-        alert(2);
-        if($('#button_select_sub_page').text() == SELECT_SUB_PAGE || $('#button_select_sub_page').text() == ""){
-                    alert(1);
-            return "Please select a item."
+        if($('#button_select_sub_page').text().trim() == SELECT_SUB_PAGE || $('#button_select_sub_page').text().trim() == ""){
+            return "Please select an item."
         }
     }
     else if(obj == "#input_new_element"){
-        alert(2);
-        if($('#button_select_element').text() == SELECT_ELEMENT || $('#button_select_element').text() == ""){
-                    alert(1);
-            return "Please select a item."
+        if($('#button_select_element').text().trim() == SELECT_ELEMENT || $('#button_select_element').text().trim() == ""){
+            return "Please select an item."
         }
     }
 }
@@ -438,21 +429,21 @@ $(document).ready(function(){
         var currentObjectClass = $(this).attr('class');
         var currentObjectId = $(this).attr('id');
         var rowNeedRemove = $(this).parents("tr:eq(0)");
+
         if (('table_locators' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
             confirmDialogContent = removeContentOfDialog;
         }
         else if('table_page_sub_page_element' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-plus"){
             if (currentObjectId == "button_add_page"){
-                button_page_sub_page_element("#input_new_page")
+                confirmDialogContent = get_dialog_content_for_add_new("#input_new_page");
             }
             else if (currentObjectId == "button_add_sub_page"){
-                button_page_sub_page_element("#input_new_sub_page")
+                confirmDialogContent = get_dialog_content_for_add_new("#input_new_sub_page");
             }
             else if (currentObjectId == "button_add_element"){
-                button_page_sub_page_element("#input_new_element")
+                confirmDialogContent = get_dialog_content_for_add_new("#input_new_element");
             }
         }
-        
         
         $.confirm({
             buttons: {
