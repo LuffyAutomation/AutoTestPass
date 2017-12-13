@@ -1,9 +1,11 @@
 var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
+var pageOfWhichElementClicked = "";
+var subpageOfWhichElementClicked = "";
 var list_locators = [];
-var SELECT_PAGE = "Select Page";
-var SELECT_SUB_PAGE = "Select Sub Page";
-var SELECT_ELEMENT = "Select Element";
+var SELECT_PAGE = "[Select Page]";
+var SELECT_SUB_PAGE = "[Select Sub Page]";
+var SELECT_ELEMENT = "[Select Element]";
 //jsonUiMap = null;
 //jsonUiMapPages = null;
 //for(var i=0; i<jsonUiMapPages.length; i++){
@@ -82,7 +84,7 @@ function li_element_on_click(_name){
 }
 function li_page_on_click(_name){
 //    reset_ul_pages()
-    reset_ul_sub_pages()
+    reset_ul_sub_pages();
     reset_ul_elements();
     $('#button_select_page').text(_name);
     for(var i=0; i<jsonUiMapPages.length; i++){
@@ -106,7 +108,17 @@ $("#input_new_page").ready(function(){
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked = $(this).html();
-         $("#button_select_page").html(name_page + "<span class='caret'></span>");
+        pageOfWhichElementClicked = $(this).attr("page");
+        subpageOfWhichElementClicked = $(this).attr("sub_page");
+        if (typeof(pageOfWhichElementClicked) == "undefined" || pageOfWhichElementClicked == ""){
+            pageOfWhichElementClicked = SELECT_PAGE;
+        }
+        if (typeof(subpageOfWhichElementClicked) == "undefined" || subpageOfWhichElementClicked == ""){
+            subpageOfWhichElementClicked = SELECT_SUB_PAGE;
+        }
+         $("#button_select_page").html(pageOfWhichElementClicked + "<span class='caret'></span>");
+         $("#button_select_sub_page").html(subpageOfWhichElementClicked + "<span class='caret'></span>");
+         $("#button_select_element").html(whichElementClicked + "<span class='caret'></span>");
     }
 });
 $("#button_ok_add_locator").click(function(){
