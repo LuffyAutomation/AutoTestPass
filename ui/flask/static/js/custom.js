@@ -24,6 +24,39 @@ var SELECT_ELEMENT = "[Select Element]";
 //    alert(1);
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
+function getStringForAddPage(page_name, element){
+    return "{'@name':" + page_name + ", 'element':" + element + "}"
+}
+function getStringForAddElement(element_name, element){
+    return "{'@name':" + page_name + ", 'element':" + element + "}"
+}
+$("#button_ok_add_locator").click(function(){
+    if($('#button_select_page').text() != SELECT_PAGE){
+        jsonUiMapPages.push(JSON.parse("{''@name'':'liubei','element':''}"));
+        alert(1);
+//        alert(jsonUiMapPages);
+        alert(JSON.stringify(jsonUiMap));
+        alert(2);
+        return;
+
+        for(var i=0; i<jsonUiMapPages.length; i++){
+              alert(jsonUiMapPages[i]["@name"]);
+//            if(jsonUiMapPages[i]["@name"] == _name){
+//                addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
+//                addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
+//                return;
+//            }
+        }
+        alert(3);
+
+        if($('#button_select_sub_page').text() != SELECT_SUB_PAGE){
+
+        }
+        if($('#button_select_element').text() != button_select_element){
+
+        }
+    }
+});
 function reset_ul_pages(){
     $('#ul_pages li').remove();
     $('#button_select_page').text(SELECT_PAGE);
@@ -52,10 +85,10 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
         }
     }
     else{
-            //list_objs.length cannot equal to 1 in this case.
-            value = list_objs[name_attri]
-            newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
-            $(ul_obj).append(newRow);
+        //list_objs.length cannot equal to 1 in this case.
+        value = list_objs[name_attri]
+        newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+        $(ul_obj).append(newRow);
     }
 }
 
@@ -113,12 +146,18 @@ $("#table_cases td a").click(function(){
         if (typeof(pageOfWhichElementClicked) == "undefined" || pageOfWhichElementClicked == ""){
             pageOfWhichElementClicked = SELECT_PAGE;
         }
+        else{
+            li_page_on_click(pageOfWhichElementClicked);
+        }
         if (typeof(subpageOfWhichElementClicked) == "undefined" || subpageOfWhichElementClicked == ""){
             subpageOfWhichElementClicked = SELECT_SUB_PAGE;
         }
-         $("#button_select_page").html(pageOfWhichElementClicked + "<span class='caret'></span>");
-         $("#button_select_sub_page").html(subpageOfWhichElementClicked + "<span class='caret'></span>");
-         $("#button_select_element").html(whichElementClicked + "<span class='caret'></span>");
+        else{
+            li_page_on_click(subpageOfWhichElementClicked);
+        }
+        $("#button_select_page").html(pageOfWhichElementClicked + "<span class='caret'></span>");
+        $("#button_select_sub_page").html(subpageOfWhichElementClicked + "<span class='caret'></span>");
+        $("#button_select_element").html(whichElementClicked + "<span class='caret'></span>");
     }
 });
 $("#button_ok_add_locator").click(function(){
