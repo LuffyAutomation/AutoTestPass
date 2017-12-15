@@ -24,6 +24,7 @@ var SELECT_ELEMENT = "[Select Element]";
 //    alert(1);
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
+
 function getStringForAddPage(page_name, element){
     return "{'@name':" + page_name + ", 'element':" + element + "}"
 }
@@ -31,6 +32,11 @@ function getStringForAddElement(element_name, element){
     return "{'@name':" + page_name + ", 'element':" + element + "}"
 }
 $("#button_ok_add_locator").click(function(){
+    //alert($("#table_locators input").eq(0).val());
+    $("#table_locators td").each(function() {
+        alert($(this).eq(0).text());
+    });
+    return;
     if($('#button_select_page').text() != SELECT_PAGE){
         jsonUiMapPages.push(JSON.parse("{''@name'':'liubei','element':''}"));
         alert(1);
