@@ -25,20 +25,40 @@ var SELECT_ELEMENT = "[Select Element]";
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 
-function getStringForAddPage(page_name, element){
-    return "{'@name':" + page_name + ", 'element':" + element + "}"
+function getJsonForAddPage(page_name, description, element){
+    return JSON.parse("{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"element\":[" + element + "]}");
 }
-function getStringForAddElement(element_name, element){
-    return "{'@name':" + page_name + ", 'element':" + element + "}"
+function getStringForAddElement(element_name, id){
+    return "{\"@name\":\"" + element_name + "\", \"element\":\"" + id + "\"}";
+}
+function getJsonForAddElement(element_name, id){
+    return JSON.parse(getStringForAddElement(element_name, id));
+}
+function addElementToJson(_name,element_json){
+    for(var i=0; i<jsonUiMapPages.length; i++){
+        if(jsonUiMapPages[i]["@name"] == _name){
+            alert(JSON.stringify(jsonUiMapPages[i]));
+            try{
+//            jsonUiMapPages[i].element = "23232323";
+                jsonUiMapPages[i].element.push(element_json);
+            }
+            catch(e){alert(e);}
+            alert(JSON.stringify(jsonUiMap));
+            return;
+        }
+    }
 }
 $("#button_ok_add_locator").click(function(){
-    //alert($("#table_locators input").eq(0).val());
-    $("#table_locators td").each(function() {
-        alert($(this).eq(0).text());
-    });
-    return;
+//    alert($("#table_locators input").eq(0).val());
+//    $("#table_locators td").each(function() {
+//        alert($(this).eq(0).text());
+//    });
+//    return;
     if($('#button_select_page').text() != SELECT_PAGE){
-        jsonUiMapPages.push(JSON.parse("{''@name'':'liubei','element':''}"));
+//        var newJson='{"name":"liubei","sex":"男"}';
+//        var sss='{"@name":"liubei","element":"222"}';
+        jsonUiMapPages.push(getJsonForAddPage("pagename","hdesaha", getStringForAddElement("e_n", "124")));
+        addElementToJson("pagename", getJsonForAddElement("e_n", "124"));
         alert(1);
 //        alert(jsonUiMapPages);
         alert(JSON.stringify(jsonUiMap));
