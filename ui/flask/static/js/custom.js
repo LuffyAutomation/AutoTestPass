@@ -25,22 +25,34 @@ var SELECT_ELEMENT = "[Select Element]";
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 
-function getJsonForAddPage(page_name, description, element){
+function getJsonForAddPage(page_name, element, description){
+    var description = arguments[2] ? arguments[2] : "NA";
     return JSON.parse("{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"element\":[" + element + "]}");
 }
 function getStringForAddElement(element_name, id){
     return "{\"@name\":\"" + element_name + "\", \"element\":\"" + id + "\"}";
 }
 function getJsonForAddElement(element_name, id){
+
     return JSON.parse(getStringForAddElement(element_name, id));
 }
-function addElementToJson(_name,element_json){
+function addElementToJson(page_name, element_json, sub_page_name){
+    var sub_page_name = arguments[2] ? arguments[2] : null;
     for(var i=0; i<jsonUiMapPages.length; i++){
-        if(jsonUiMapPages[i]["@name"] == _name){
+        if(jsonUiMapPages[i]["@name"] == page_name){
             alert(JSON.stringify(jsonUiMapPages[i]));
             try{
 //            jsonUiMapPages[i].element = "23232323";
-                jsonUiMapPages[i].element.push(element_json);
+                if(sub_page_name != null){
+                    for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
+                        if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
+                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
+                        }
+                     }
+                }
+                else{
+                        jsonUiMapPages[i].element.push(element_json);
+                }
             }
             catch(e){alert(e);}
             alert(JSON.stringify(jsonUiMap));
@@ -48,6 +60,9 @@ function addElementToJson(_name,element_json){
         }
     }
 }
+
+
+
 $("#button_ok_add_locator").click(function(){
 //    alert($("#table_locators input").eq(0).val());
 //    $("#table_locators td").each(function() {
@@ -57,8 +72,9 @@ $("#button_ok_add_locator").click(function(){
     if($('#button_select_page').text() != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
-        jsonUiMapPages.push(getJsonForAddPage("pagename","hdesaha", getStringForAddElement("e_n", "124")));
-        addElementToJson("pagename", getJsonForAddElement("e_n", "124"));
+        jsonUiMapPages.push(getJsonForAddPage("pagename", getStringForAddElement("e_n", "124"), "hdesaha"));
+
+        addElementToJson("page_home2", getJsonForAddElement("e_n", "124"), "page_home3");
         alert(1);
 //        alert(jsonUiMapPages);
         alert(JSON.stringify(jsonUiMap));
@@ -123,14 +139,13 @@ function assemblePagesDropdown(){
 //  listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
     addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
 }
-function li_sub_page_on_click(_name){
+function li_sub_page_on_click(sub_page_name){
     reset_ul_elements();
-    $('#button_select_sub_page').text(_name);
+    $('#button_select_sub_page').text(sub_page_name);
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == $('#button_select_page').text() ){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                if(jsonUiMapPages[i]['page'][j]['@name'] == _name){
-//                   alert(jsonUiMapPages[i]['page'][j]['element']['@name']);
+                if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
                     addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
                     return;
                 }
