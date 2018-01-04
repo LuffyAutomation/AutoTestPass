@@ -47,11 +47,13 @@ function addElementToJson(page_name, element_json, sub_page_name){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
                             jsonUiMapPages[i]['page'][j]['element'].push(element_json);
+                            break;
                         }
                      }
                 }
                 else{
                         jsonUiMapPages[i].element.push(element_json);
+                        delete jsonUiMapPages[i];
                 }
             }
             catch(e){alert(e);}
@@ -73,12 +75,8 @@ $("#button_ok_add_locator").click(function(){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
         jsonUiMapPages.push(getJsonForAddPage("pagename", getStringForAddElement("e_n", "124"), "hdesaha"));
-
         addElementToJson("page_home2", getJsonForAddElement("e_n", "124"), "page_home3");
-        alert(1);
-//        alert(jsonUiMapPages);
         alert(JSON.stringify(jsonUiMap));
-        alert(2);
         return;
 
         for(var i=0; i<jsonUiMapPages.length; i++){
