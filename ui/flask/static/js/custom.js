@@ -25,46 +25,53 @@ var SELECT_ELEMENT = "[Select Element]";
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 
-function getJsonForAddPage(page_name, element, description){
+function getJsonForAddPage(page_name, element_json_string, description){
     var description = arguments[2] ? arguments[2] : "NA";
-    return JSON.parse("{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"element\":[" + element + "]}");
+    return JSON.parse("{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"element\":[" + element_json_string + "]}");
 }
-function getStringForAddElement(element_name, id){
-    return "{\"@name\":\"" + element_name + "\", \"element\":\"" + id + "\"}";
+function getStringForAddElement(element_name, locator_type, element_locator){
+    return "{\"@name\":\"" + element_name + "\", \""+ locator_type +"\":[" + element_locator + "]}";
 }
-function getJsonForAddElement(element_name, id){
-
-    return JSON.parse(getStringForAddElement(element_name, id));
+function toJson(str){
+    return  JSON.parse(str);
+}
+function getJsonForAddElement(element_name, locator_type, element_locator){
+    return JSON.parse(getStringForAddElement(element_name, locator_type, element_locator));
 }
 function addElementToJson(page_name, element_json, sub_page_name){
     var sub_page_name = arguments[2] ? arguments[2] : null;
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
-            alert(JSON.stringify(jsonUiMapPages[i]));
+            //alert(JSON.stringify(jsonUiMapPages[i]));
             try{
 //            jsonUiMapPages[i].element = "23232323";
                 if(sub_page_name != null){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
-                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
+//                            for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
+//                                if(jsonUiMapPages[i]['page'][j]['element']['@name'] == sub_page_name){
+//
+//                                }
+//                            }
+//                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
+                            jsonUiMapPages[i]['page'][j]['element'] = element_json;
+                            alert(sub_page_name);
                             break;
                         }
                      }
                 }
                 else{
+                    alert(1);
                         jsonUiMapPages[i].element.push(element_json);
                         delete jsonUiMapPages[i];
                 }
             }
             catch(e){alert(e);}
-            alert(JSON.stringify(jsonUiMap));
+            //alert(JSON.stringify(jsonUiMap));
             return;
         }
     }
 }
-
-
-
 $("#button_ok_add_locator").click(function(){
 //    alert($("#table_locators input").eq(0).val());
 //    $("#table_locators td").each(function() {
@@ -74,13 +81,13 @@ $("#button_ok_add_locator").click(function(){
     if($('#button_select_page').text() != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
-        jsonUiMapPages.push(getJsonForAddPage("pagename", getStringForAddElement("e_n", "124"), "hdesaha"));
-        addElementToJson("page_home2", getJsonForAddElement("e_n", "124"), "page_home3");
+        jsonUiMapPages.push(getJsonForAddPage("pagename", getStringForAddElement("button_abc", "id", "124"), "hdesaha"));
+        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
         alert(JSON.stringify(jsonUiMap));
         return;
 
         for(var i=0; i<jsonUiMapPages.length; i++){
-              alert(jsonUiMapPages[i]["@name"]);
+              //alert(jsonUiMapPages[i]["@name"]);
 //            if(jsonUiMapPages[i]["@name"] == _name){
 //                addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
 //                addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
@@ -534,7 +541,6 @@ $(document).ready(function(){
                 confirmDialogContent = get_dialog_content_for_add_new("#input_new_element");
             }
         }
-        
         $.confirm({
             buttons: {
                 confirm: {
