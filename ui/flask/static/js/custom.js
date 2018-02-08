@@ -42,21 +42,21 @@ function addElementToJson(page_name, element_json, sub_page_name){
     var sub_page_name = arguments[2] ? arguments[2] : null;
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
-            //alert(JSON.stringify(jsonUiMapPages[i]));
             try{
 //            jsonUiMapPages[i].element = "23232323";
                 if(sub_page_name != null){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
-//                            for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
-//                                if(jsonUiMapPages[i]['page'][j]['element']['@name'] == sub_page_name){
-//
-//                                }
-//                            }
-//                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
-                            jsonUiMapPages[i]['page'][j]['element'] = element_json;
-                            alert(sub_page_name);
-                            break;
+                            for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
+                                alert(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] +"       " +element_json['@name'] );
+                                if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
+                                    jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
+                                    return;
+                                }
+                            }
+                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
+                            //alert(JSON.stringify(jsonUiMapPages[i]['page'][j]['element']));
+                            return;
                         }
                      }
                 }
@@ -81,7 +81,6 @@ $("#button_ok_add_locator").click(function(){
     if($('#button_select_page').text() != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
-        jsonUiMapPages.push(getJsonForAddPage("pagename", getStringForAddElement("button_abc", "id", "124"), "hdesaha"));
         addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
         alert(JSON.stringify(jsonUiMap));
         return;
