@@ -48,7 +48,6 @@ function addElementToJson(page_name, element_json, sub_page_name){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
-                                alert(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] +"       " +element_json['@name'] );
                                 if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
                                     jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
                                     return;
@@ -61,9 +60,15 @@ function addElementToJson(page_name, element_json, sub_page_name){
                      }
                 }
                 else{
-                    alert(1);
-                        jsonUiMapPages[i].element.push(element_json);
-                        delete jsonUiMapPages[i];
+                    for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
+                        if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
+                            jsonUiMapPages[i]['element'][k] = element_json;
+                            return;
+                        }
+                    }
+                    jsonUiMapPages[i].element.push(element_json);
+                    return
+                    //delete jsonUiMapPages[i];
                 }
             }
             catch(e){alert(e);}
