@@ -77,28 +77,35 @@ function addElementToJson(page_name, element_json, sub_page_name){
         }
     }
 }
+function close_add_locator_modal(){
+    $('#button_close_add_locator').click();
+}
 $("#button_ok_add_locator").click(function(){
 //    alert($("#table_locators input").eq(0).val());
-//    $("#table_locators td").each(function() {
-//        alert($(this).eq(0).text());
-//    });
-//    return;
+    var locators = "";
+    var locator_type = "";
+    var locator_value = "";
+    $("#table_locators tr").each(function() {
+        locator_type = $(this).children().eq(0).text().trim();
+        locator_value = $(this).children().eq(1).children().val();
+        if(locator_value != "" && typeof(locator_value) != "undefined"){
+            if(locators != ""){
+                locators += ",";
+            }
+            locators += "\"" + locator_type + "\":\"" + locator_value + "\"";
+        }
+    });
+    if(locators != ""){
+        locators = "{" + locators + "}";
+    }
+    else{
+        return;
+    }
     if($('#button_select_page').text() != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
-        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
-        alert(JSON.stringify(jsonUiMap));
-        return;
-
-        for(var i=0; i<jsonUiMapPages.length; i++){
-              //alert(jsonUiMapPages[i]["@name"]);
-//            if(jsonUiMapPages[i]["@name"] == _name){
-//                addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
-//                addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
-//                return;
-//            }
-        }
-        alert(3);
+//        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
+        addElementToJson($('#button_select_page').text(), getJsonForAddElement("button_abc", "id", "124"));
 
         if($('#button_select_sub_page').text() != SELECT_SUB_PAGE){
 
@@ -107,6 +114,7 @@ $("#button_ok_add_locator").click(function(){
 
         }
     }
+    alert(JSON.stringify(jsonUiMap));
 });
 function reset_ul_pages(){
     $('#ul_pages li').remove();
