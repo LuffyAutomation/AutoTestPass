@@ -101,6 +101,10 @@ $("#button_ok_add_locator").click(function(){
     else{
         return;
     }
+    var input_new_page = $("#input_new_page").val().trim();
+    var input_new_sub_page = $("#input_new_sub_page").val().trim();
+    var input_new_element = $("#input_new_element").val().trim();
+    return;
     if($('#button_select_page').text() != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
@@ -116,6 +120,25 @@ $("#button_ok_add_locator").click(function(){
     }
     alert(JSON.stringify(jsonUiMap));
 });
+
+$("#button_add_new_page").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
+$("#button_add_new_sub_page").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
+$("#button_add_new_element").on("click",function(){
+    alert(1);
+    //Can not find out the ele that created dynamically. Need other method.
+});
+
+
+
+
+
+
 function reset_ul_pages(){
     $('#ul_pages li').remove();
     $('#button_select_page').text(SELECT_PAGE);
