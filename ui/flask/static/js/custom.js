@@ -2,6 +2,8 @@ var whichRowLaunchedAddLocatorsModal = 0;
 var whichElementClicked = "";
 var pageOfWhichElementClicked = "";
 var subpageOfWhichElementClicked = "";
+
+
 var list_locators = [];
 var SELECT_PAGE = "[Select Page]";
 var SELECT_SUB_PAGE = "[Select Sub Page]";
@@ -91,7 +93,6 @@ function addElementToJson(page_name, element_json, sub_page_name){
     element_json = toJson(getStringForAddPageAndSubPage(page_name, getStringForAddPage(sub_page_name, JSON.stringify(element_json), ""), ""));
     }
     jsonUiMapPages.push(element_json);
-    alert(1111);
 }
 function close_add_locator_modal(){
     $('#button_close_add_locator').click();
@@ -244,6 +245,10 @@ $("#table_cases td a").click(function(){
         whichElementClicked = $(this).html();
         pageOfWhichElementClicked = $(this).attr("page");
         subpageOfWhichElementClicked = $(this).attr("sub_page");
+
+        //whichRowLaunchedAddLocatorsModal = $(this).parent().parent().parent().find("tr").index($(this).parent()[0]);
+        whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("td").html();
+        alert(whichRowLaunchedAddLocatorsModal);
         if (typeof(pageOfWhichElementClicked) == "undefined" || pageOfWhichElementClicked == ""){
             pageOfWhichElementClicked = SELECT_PAGE;
         }
