@@ -1,9 +1,9 @@
-var whichRowLaunchedAddLocatorsModal = 0;
-var whichElementClicked = "";
-var pageOfWhichElementClicked = "";
-var subpageOfWhichElementClicked = "";
+var TITLE_DIALOG_TIP = "!";
 
-
+var whichRowClicked_StepsTable = 0;
+var whichElementClicked_StepsTable = "";
+var whichPageByElementClicked_StepsTable = "";
+var whichSubpageByElementClicked_StepsTable = "";
 var list_locators = [];
 var SELECT_PAGE = "[Select Page]";
 var SELECT_SUB_PAGE = "[Select Sub Page]";
@@ -46,6 +46,16 @@ function getJsonForAddElement(element_name, locator_type, element_locator){
 function toJson(str){
     return JSON.parse(str);
 }
+function stringToJson(json){
+    return JSON.stringify(json);
+}
+function changeObjToArrayAndPush(obj, json){
+    var t = obj;
+    obj = [];
+    obj.push(t);
+    obj.push(json);
+    return obj;
+}
 
 function addElementToJson(page_name, element_json, sub_page_name){
     var sub_page_name = arguments[2] ? arguments[2] : null;
@@ -77,7 +87,19 @@ function addElementToJson(page_name, element_json, sub_page_name){
                             return;
                         }
                     }
-                    jsonUiMapPages[i].element.push(element_json);
+//                    alert(jsonUiMapPages[i]['element']['@name']);
+//                    alert(element_json['@name']);
+                    if(jsonUiMapPages[i]['element']['@name'] == element_json['@name'] || typeof(jsonUiMapPages[i]['element']['@name']) == "undefined"){
+                        jsonUiMapPages[i]['element'] = element_json;
+                    }
+                    else
+                    {
+                        jsonUiMapPages[i]['element'] = changeObjToArrayAndPush(jsonUiMapPages[i]['element'], element_json);
+//                        var t = jsonUiMapPages[i]['element'];
+//                        jsonUiMapPages[i]['element'] = [];
+//                        jsonUiMapPages[i]['element'].push(t);
+//                        jsonUiMapPages[i]['element'].push(element_json);
+                    }
                     return
                     //delete jsonUiMapPages[i];
                 }
@@ -102,6 +124,11 @@ $("#button_ok_add_locator").click(function(){
     var locators = "";
     var locator_type = "";
     var locator_value = "";
+
+    var selected_element_name = $('#button_select_element').text().trim();
+    var selected_page_name = $('#button_select_page').text().trim();
+    var selected_subpage_name = $('#button_select_sub_page').text().trim();
+
     $("#table_locators tr").each(function() {
         locator_type = $(this).children().eq(0).text().trim();
         locator_value = $(this).children().eq(1).children().val();
@@ -113,30 +140,47 @@ $("#button_ok_add_locator").click(function(){
         }
     });
     if(locators != ""){
-        locators = "{\"" + "@name\":\"" + $('#button_select_element').text() + "\"," +  locators + "}";
+        locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
     }
     else{
         return;
     }
-//    var input_new_page = $("#input_new_page").val().trim();
-//    var input_new_sub_page = $("#input_new_sub_page").val().trim();
-//    var input_new_element = $("#input_new_element").val().trim();
+    if(selected_element_name == SELECT_ELEMENT){
+        $.confirm({
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    action: function(){
 
-    if($('#button_select_page').text() != SELECT_PAGE){
+                    }
+                },
+                cancel: function () {
+                     return;
+                }
+            },
+            title: TITLE_DIALOG_TIP,
+            content: "Please select or create an element.",
+            draggable: true
+        });
+        return;
+    }
+    if(selected_page_name != SELECT_PAGE){
 //        var newJson='{"name":"liubei","sex":"男"}';
 //        var sss='{"@name":"liubei","element":"222"}';
 //        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
-        if($('#button_select_sub_page').text() != SELECT_SUB_PAGE){
-            addElementToJson($('#button_select_page').text(), toJson(locators), $('#button_select_sub_page').text());
+
+        if(selected_subpage_name != SELECT_SUB_PAGE){
+            addElementToJson(selected_page_name, toJson(locators), selected_subpage_name);
         }
         else{
-            addElementToJson($('#button_select_page').text(), toJson(locators));
+            addElementToJson(selected_page_name, toJson(locators));
         }
-//        if($('#button_select_element').text() != button_select_element){
-//
-//        }
     }
     alert(JSON.stringify(jsonUiMap));
+    //the ele in table_cases needs to be modified if the ele was updated in table_locators
+    if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
+
+    }
 });
 
 $("#button_add_new_page").on("click",function(){
@@ -154,11 +198,6 @@ $("#button_add_new_element").on("click",function(){
         $('#button_select_element').text($("#input_new_element").val().trim());
     }
 });
-
-
-
-
-
 
 function reset_ul_pages(){
     $('#ul_pages li').remove();
@@ -242,41 +281,40 @@ $("#input_new_page").ready(function(){
 
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
-        whichElementClicked = $(this).html();
-        pageOfWhichElementClicked = $(this).attr("page");
-        subpageOfWhichElementClicked = $(this).attr("sub_page");
+        whichElementClicked_StepsTable = $(this).html();
+        whichPageByElementClicked_StepsTable = $(this).attr("page");
+        whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
+        //whichRowClicked_StepsTable = $(this).parent().parent().parent().find("tr").index($(this).parent()[0]);
+        whichRowClicked_StepsTable = $(this).parent().parent().find("td").html();
 
-        //whichRowLaunchedAddLocatorsModal = $(this).parent().parent().parent().find("tr").index($(this).parent()[0]);
-        whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("td").html();
-        alert(whichRowLaunchedAddLocatorsModal);
-        if (typeof(pageOfWhichElementClicked) == "undefined" || pageOfWhichElementClicked == ""){
-            pageOfWhichElementClicked = SELECT_PAGE;
+        if (typeof(whichPageByElementClicked_StepsTable) == "undefined" || whichPageByElementClicked_StepsTable == ""){
+            whichPageByElementClicked_StepsTable = SELECT_PAGE;
         }
         else{
-            li_page_on_click(pageOfWhichElementClicked);
+            li_page_on_click(whichPageByElementClicked_StepsTable);
         }
-        if (typeof(subpageOfWhichElementClicked) == "undefined" || subpageOfWhichElementClicked == ""){
-            subpageOfWhichElementClicked = SELECT_SUB_PAGE;
+        if (typeof(whichSubpageByElementClicked_StepsTable) == "undefined" || whichSubpageByElementClicked_StepsTable == ""){
+            whichSubpageByElementClicked_StepsTable = SELECT_SUB_PAGE;
         }
         else{
-            li_page_on_click(subpageOfWhichElementClicked);
+            li_page_on_click(whichSubpageByElementClicked_StepsTable);
         }
-        $("#button_select_page").html(pageOfWhichElementClicked + "<span class='caret'></span>");
-        $("#button_select_sub_page").html(subpageOfWhichElementClicked + "<span class='caret'></span>");
-        $("#button_select_element").html(whichElementClicked + "<span class='caret'></span>");
+        $("#button_select_page").html(whichPageByElementClicked_StepsTable + "<span class='caret'></span>");
+        $("#button_select_sub_page").html(whichSubpageByElementClicked_StepsTable + "<span class='caret'></span>");
+        $("#button_select_element").html(whichElementClicked_StepsTable + "<span class='caret'></span>");
     }
 });
 $("#button_ok_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
-        whichElementClicked = $(this).html();
-         $("#button_select_page").html(name_page + "<span class='caret'></span>");
+        whichElementClicked_StepsTable = $(this).html();
+        $("#button_select_page").html(name_page + "<span class='caret'></span>");
     }
 });
 
 //$("#table_cases td").click(function(){
 //    $('#table_locators tr').remove();
 ////      var tdSeq = $(this).parent().find("td").index($(this)[0]);
-//    whichRowLaunchedAddLocatorsModal = $(this).parent().parent().find("tr").index($(this).parent()[0]);
+//    whichRowClicked_StepsTable = $(this).parent().parent().find("tr").index($(this).parent()[0]);
 //});
 
 function appendLocatorRow(locatorType, tableId){
@@ -291,8 +329,6 @@ function appendLocatorRow(locatorType, tableId){
 function removeLocatorRow(rowNeedRemove){
     rowNeedRemove.remove();
 }
-
-
 
 var clearFlag = 0;
 var count = 3;
@@ -620,13 +656,15 @@ $(document).ready(function(){
                      return;
                 }
             },
-            title: '!',
+            title: TITLE_DIALOG_TIP,
             content: confirmDialogContent,
             draggable: true
         });
     });
 
+function tipDialog(_content){
 
+}
 
     //bind all remove glyphiconf
 //    $('.glyphicon-remove, .glyphicon-plus').click(function(){ // only bind which has existed.
