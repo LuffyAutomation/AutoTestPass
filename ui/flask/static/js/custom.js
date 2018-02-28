@@ -1,5 +1,6 @@
 var TITLE_DIALOG_TIP = "!";
 
+var whichRowObjClicked = null;
 var whichRowClicked_StepsTable = 0;
 var whichElementClicked_StepsTable = "";
 var whichPageByElementClicked_StepsTable = "";
@@ -56,11 +57,19 @@ function changeObjToArrayAndPush(obj, json){
     obj.push(json);
     return obj;
 }
-
+function addElementToJson_handleNonArrayElement(obj, element_json){
+    if(obj['@name'] == element_json['@name'] || typeof(obj['@name']) == "undefined"){
+        obj = element_json;
+    }
+    else
+    {
+        obj = changeObjToArrayAndPush(obj, element_json);
+    }
+    return obj;
+}
 function addElementToJson(page_name, element_json, sub_page_name){
     var sub_page_name = arguments[2] ? arguments[2] : null;
     var isNewPage = false;
-
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
             try{
@@ -74,8 +83,7 @@ function addElementToJson(page_name, element_json, sub_page_name){
                                     return;
                                 }
                             }
-                            jsonUiMapPages[i]['page'][j]['element'].push(element_json);
-                            //alert(JSON.stringify(jsonUiMapPages[i]['page'][j]['element']));
+                            jsonUiMapPages[i]['page'][j]['element']  = addElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
                             return;
                         }
                      }
@@ -87,20 +95,8 @@ function addElementToJson(page_name, element_json, sub_page_name){
                             return;
                         }
                     }
-//                    alert(jsonUiMapPages[i]['element']['@name']);
-//                    alert(element_json['@name']);
-                    if(jsonUiMapPages[i]['element']['@name'] == element_json['@name'] || typeof(jsonUiMapPages[i]['element']['@name']) == "undefined"){
-                        jsonUiMapPages[i]['element'] = element_json;
-                    }
-                    else
-                    {
-                        jsonUiMapPages[i]['element'] = changeObjToArrayAndPush(jsonUiMapPages[i]['element'], element_json);
-//                        var t = jsonUiMapPages[i]['element'];
-//                        jsonUiMapPages[i]['element'] = [];
-//                        jsonUiMapPages[i]['element'].push(t);
-//                        jsonUiMapPages[i]['element'].push(element_json);
-                    }
-                    return
+                   jsonUiMapPages[i]['element'] = addElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
+                   return;
                     //delete jsonUiMapPages[i];
                 }
             }
@@ -139,13 +135,18 @@ $("#button_ok_add_locator").click(function(){
             locators += "\"" + locator_type + "\":\"" + locator_value + "\"";
         }
     });
+    alert(locators);
+    var dialog_tip = "";
     if(locators != ""){
         locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
     }
     else{
-        return;
+        dialog_tip = "Please add locator(s).";
     }
     if(selected_element_name == SELECT_ELEMENT){
+        dialog_tip = "Please select or create an element.";
+    }
+    if(dialog_tip != ""){
         $.confirm({
             buttons: {
                 confirm: {
@@ -159,7 +160,7 @@ $("#button_ok_add_locator").click(function(){
                 }
             },
             title: TITLE_DIALOG_TIP,
-            content: "Please select or create an element.",
+            content: dialog_tip,
             draggable: true
         });
         return;
@@ -179,7 +180,18 @@ $("#button_ok_add_locator").click(function(){
     alert(JSON.stringify(jsonUiMap));
     //the ele in table_cases needs to be modified if the ele was updated in table_locators
     if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
-
+//        whichElementClicked_StepsTable = $(this).html();
+//        whichPageByElementClicked_StepsTable = $(this).attr("page");
+//        whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
+//        whichRowClicked_StepsTable = $(this).parent().parent().find("td").html();
+//        whichRowObjClicked = $(this);
+        whichRowObjClicked.attr("page", selected_page_name);
+        if(selected_subpage_name == SELECT_SUB_PAGE){
+            selected_subpage_name = "";
+        }
+        whichRowObjClicked.attr("sub_page", selected_subpage_name);
+        whichRowObjClicked.html(selected_element_name);
+        alert(whichRowObjClicked);
     }
 });
 
@@ -284,9 +296,8 @@ $("#table_cases td a").click(function(){
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
         whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
-        //whichRowClicked_StepsTable = $(this).parent().parent().parent().find("tr").index($(this).parent()[0]);
         whichRowClicked_StepsTable = $(this).parent().parent().find("td").html();
-
+        whichRowObjClicked = $(this);
         if (typeof(whichPageByElementClicked_StepsTable) == "undefined" || whichPageByElementClicked_StepsTable == ""){
             whichPageByElementClicked_StepsTable = SELECT_PAGE;
         }
