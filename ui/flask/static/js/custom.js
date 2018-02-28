@@ -124,24 +124,31 @@ $("#button_ok_add_locator").click(function(){
     var selected_element_name = $('#button_select_element').text().trim();
     var selected_page_name = $('#button_select_page').text().trim();
     var selected_subpage_name = $('#button_select_sub_page').text().trim();
-
+    var locators_name_dict = {};
+    var locators_array = {};
     $("#table_locators tr").each(function() {
         locator_type = $(this).children().eq(0).text().trim();
-        locator_value = $(this).children().eq(1).children().val();
-        if(locator_value != "" && typeof(locator_value) != "undefined"){
-            if(locators != ""){
-                locators += ",";
-            }
-            locators += "\"" + locator_type + "\":\"" + locator_value + "\"";
+        locator_value = $(this).children().eq(1).children().val().trim();
+        if(locator_value == ""){
+            locators_array = {};
+            return false;
         }
+        locators_array[locator_type] = locators_array[locator_type]||[];
+        locators_array[locator_type].push("\"" + locator_value + "\"");
     });
-    alert(locators);
+    for(var key in locators_array){
+        if(locators != ""){
+            locators += ",";
+        }
+        locators += "\"" + key + "\":[" + locators_array[key] + "]";
+    }
+
     var dialog_tip = "";
     if(locators != ""){
         locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
     }
     else{
-        dialog_tip = "Please add locator(s).";
+        dialog_tip = "Please add locator(s) or the locator can not be empty.";
     }
     if(selected_element_name == SELECT_ELEMENT){
         dialog_tip = "Please select or create an element.";
