@@ -43,10 +43,10 @@ function getStringForAddElement(element_name, locator_type, element_locator){
 function getJsonForAddElement(element_name, locator_type, element_locator){
     return JSON.parse(getStringForAddElement(element_name, locator_type, element_locator));
 }
-function toJson(str){
+function stringToJson(str){
     return JSON.parse(str);
 }
-function stringToJson(json){
+function jsonToString(json){
     return JSON.stringify(json);
 }
 function changeObjToArrayAndPush(obj, json){
@@ -112,7 +112,7 @@ function addElementToJson(page_name, element_json, sub_page_name){
     if($('#button_select_sub_page').text() == SELECT_SUB_PAGE){
         element_json = getJsonForAddPage(page_name, JSON.stringify(element_json), "");
     } else{
-    element_json = toJson(getStringForAddPageAndSubPage(page_name, getStringForAddPage(sub_page_name, JSON.stringify(element_json), ""), ""));
+    element_json = stringToJson(getStringForAddPageAndSubPage(page_name, getStringForAddPage(sub_page_name, JSON.stringify(element_json), ""), ""));
     }
     jsonUiMapPages.push(element_json);
 }
@@ -170,10 +170,10 @@ $("#button_ok_add_locator").click(function(){
 //        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
 
         if(selected_subpage_name != SELECT_SUB_PAGE){
-            addElementToJson(selected_page_name, toJson(locators), selected_subpage_name);
+            addElementToJson(selected_page_name, stringToJson(locators), selected_subpage_name);
         }
         else{
-            addElementToJson(selected_page_name, toJson(locators));
+            addElementToJson(selected_page_name, stringToJson(locators));
         }
     }
     alert(JSON.stringify(jsonUiMap));
