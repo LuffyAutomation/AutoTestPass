@@ -3,6 +3,7 @@ var TITLE_DIALOG_TIP = "!";
 var whichRowObjClicked = null;
 var whichRowClicked_StepsTable = 0;
 var whichElementClicked_StepsTable = "";
+var whichElementClicked_Json = null;
 var whichPageByElementClicked_StepsTable = "";
 var whichSubpageByElementClicked_StepsTable = "";
 var list_locators = [];
@@ -230,7 +231,7 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
         {
             if (typeof(list_objs[i]) == "object")
             {
-                value = list_objs[i][name_attri]
+                value = list_objs[i][name_attri];
                 newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
                 $(ul_obj).append(newRow);
             }
@@ -238,16 +239,10 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
     }
     else{
         //list_objs.length cannot equal to 1 in this case.
-        value = list_objs[name_attri]
+        value = list_objs[name_attri];
         newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
         $(ul_obj).append(newRow);
     }
-}
-
-function assemblePagesDropdown(){
-//  var listOfUiMapPages = new Array();
-//  listOfUiMapPages.push(jsonUiMapPages[i]["@name"]);
-    addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
 }
 function li_sub_page_on_click(sub_page_name){
     reset_ul_elements();
@@ -257,6 +252,7 @@ function li_sub_page_on_click(sub_page_name){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                 if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
                     addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
+                    whichElementClicked_Json = jsonUiMapPages[i]['page'][j]['element'];
                     return;
                 }
             }
@@ -275,7 +271,29 @@ function li_page_on_click(_name){
         if(jsonUiMapPages[i]["@name"] == _name){
             addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
             addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
+            whichElementClicked_Json = jsonUiMapPages[i]['element'];
             return;
+        }
+    }
+}
+function _assembleLocatorsTableForClickedElement(eleObj, eleName){
+    if(eleObj['@name'] == eleName){
+        for(var key in eleObj){
+            if(key != "@name"){
+                for(var i=0; i<eleObj[key].length; i++){
+                    appendLocatorRow(key, eleObj[key][i]);
+                }
+            }
+        }
+    }
+}
+function assembleLocatorsTableForClickedElement(eleObj, eleName){
+    if(typeof(eleObj.length) == "undefined"){
+        _assembleLocatorsTableForClickedElement(eleObj, eleName);
+    }
+    else{
+        for(var k=0; k<eleObj.length; k++){
+            _assembleLocatorsTableForClickedElement(eleObj[k], eleName);
         }
     }
 }
@@ -284,17 +302,17 @@ $("#ul_new_page li").on("click",function(){
 
     //Can not find out the ele that created dynamically. Need other method.
 });
-
+function assemblePagesDropdown(){
+    addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
+}
 $("#input_new_page").ready(function(){
+    //assemble all Pages in Page Dropdown
     assemblePagesDropdown();
 });
 
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
-
         $("#table_locators tr").remove();
-
-
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
         whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
@@ -315,6 +333,7 @@ $("#table_cases td a").click(function(){
         $("#button_select_page").html(whichPageByElementClicked_StepsTable + "<span class='caret'></span>");
         $("#button_select_sub_page").html(whichSubpageByElementClicked_StepsTable + "<span class='caret'></span>");
         $("#button_select_element").html(whichElementClicked_StepsTable + "<span class='caret'></span>");
+        assembleLocatorsTableForClickedElement(whichElementClicked_Json, whichElementClicked_StepsTable);
     }
 });
 $("#button_ok_add_locator").click(function(){
@@ -330,13 +349,13 @@ $("#button_ok_add_locator").click(function(){
 //    whichRowClicked_StepsTable = $(this).parent().parent().find("tr").index($(this).parent()[0]);
 //});
 
-function appendLocatorRow(locatorType, tableId){
+function appendLocatorRow(locatorType, locatorValue){
 	var newRow="<tr>" +
                     "<td style='width:120px;'>" + locatorType + "</td>" +
-                    "<td><input type='text' class='form-control'/></td>" +
+                    "<td><input type='text' class='form-control' value='" + locatorValue + "'/></td>" +
                     "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
                 "</tr>";
-	$('#' + tableId).append(newRow);
+	$('#table_locators').append(newRow);
 }
 
 function removeLocatorRow(rowNeedRemove){
