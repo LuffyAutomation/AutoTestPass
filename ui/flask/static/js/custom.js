@@ -9,22 +9,17 @@ var list_locators = [];
 var SELECT_PAGE = "[Select Page]";
 var SELECT_SUB_PAGE = "[Select Sub Page]";
 var SELECT_ELEMENT = "[Select Element]";
-//jsonUiMap = null;
-//jsonUiMapPages = null;
-//for(var i=0; i<jsonUiMapPages.length; i++){
-//    alert(typeof(jsonUiMapPages[i]["@name1"]) == "undefined");
-//    alert(jsonUiMapPages[i]["@name"]);
-//}
+
 //$("button_add_page").on("click",function(){
-//    alert(1);
+
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 //$("button_add_sub_page").on("click",function(){
-//    alert(1);
+
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 //$("button_add_element").on("click",function(){
-//    alert(1);
+
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
 function getStringForAddPageAndSubPage(page_name, string_sub_page, description){
@@ -142,7 +137,6 @@ $("#button_ok_add_locator").click(function(){
         }
         locators += "\"" + key + "\":[" + locators_array[key] + "]";
     }
-
     var dialog_tip = "";
     if(locators != ""){
         locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
@@ -152,6 +146,9 @@ $("#button_ok_add_locator").click(function(){
     }
     if(selected_element_name == SELECT_ELEMENT){
         dialog_tip = "Please select or create an element.";
+    }
+    else if(selected_page_name == SELECT_PAGE){
+        dialog_tip = "Please select or create an page.";
     }
     if(dialog_tip != ""){
         $.confirm({
@@ -187,18 +184,12 @@ $("#button_ok_add_locator").click(function(){
     alert(JSON.stringify(jsonUiMap));
     //the ele in table_cases needs to be modified if the ele was updated in table_locators
     if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
-//        whichElementClicked_StepsTable = $(this).html();
-//        whichPageByElementClicked_StepsTable = $(this).attr("page");
-//        whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
-//        whichRowClicked_StepsTable = $(this).parent().parent().find("td").html();
-//        whichRowObjClicked = $(this);
         whichRowObjClicked.attr("page", selected_page_name);
         if(selected_subpage_name == SELECT_SUB_PAGE){
             selected_subpage_name = "";
         }
         whichRowObjClicked.attr("sub_page", selected_subpage_name);
         whichRowObjClicked.html(selected_element_name);
-        alert(whichRowObjClicked);
     }
 });
 
@@ -290,7 +281,7 @@ function li_page_on_click(_name){
 }
 
 $("#ul_new_page li").on("click",function(){
-    alert(1);
+
     //Can not find out the ele that created dynamically. Need other method.
 });
 
@@ -300,6 +291,10 @@ $("#input_new_page").ready(function(){
 
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
+
+        $("#table_locators tr").remove();
+
+
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
         whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
@@ -347,7 +342,7 @@ function appendLocatorRow(locatorType, tableId){
 function removeLocatorRow(rowNeedRemove){
     rowNeedRemove.remove();
 }
-
+//////////////////////////////////////////////////////////////////
 var clearFlag = 0;
 var count = 3;
 var showModal = function(){
