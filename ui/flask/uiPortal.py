@@ -65,6 +65,10 @@ class UiPortal:
         # return json.dumps(xmltodict.parse(xml_string), indent=4)
         return json.dumps(xmltodict.parse(xml_string))
 
+    def string_to_xml(self, jsonString):
+         print(xmltodict.unparse(jsonString, pretty=True))
+
+
 _UiPortal = UiPortal()
 
 pass
@@ -137,6 +141,19 @@ def createTestCases():
     # _UiFwk = getUiFwk(_InitFwk)
     # print json_ui_map
     return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, json_ui_map=json_ui_map)
+
+@app.route('/sendJsonUiMap' , methods=['GET', 'POST'])
+def sendJsonUiMap():
+    if request.method == 'POST':
+        str_jsonUiMap = request.get_data()
+        dict_jsonUiMap = json.loads(str_jsonUiMap)
+        _UiPortal.string_to_xml(dict_jsonUiMap)
+
+        return ""
+    else:
+        return ""
+
+
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():

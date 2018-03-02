@@ -182,7 +182,7 @@ $("#button_ok_add_locator").click(function(){
             addElementToJson(selected_page_name, stringToJson(locators));
         }
     }
-    alert(JSON.stringify(jsonUiMap));
+    //alert(JSON.stringify(jsonUiMap));
     //the ele in table_cases needs to be modified if the ele was updated in table_locators
     if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
         whichRowObjClicked.attr("page", selected_page_name);
@@ -192,6 +192,14 @@ $("#button_ok_add_locator").click(function(){
         whichRowObjClicked.attr("sub_page", selected_subpage_name);
         whichRowObjClicked.html(selected_element_name);
     }
+    $.ajax({
+        url: "/sendJsonUiMap",
+        type: "POST",
+        data: jsonToString(jsonUiMap),
+        success: function (msg) {
+            alert(msg.time)
+        }
+    });
 });
 
 $("#button_add_new_page").on("click",function(){
