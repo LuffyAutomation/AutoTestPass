@@ -229,6 +229,7 @@ function reset_ul_elements(){
     $('#ul_elements li').remove();
     $('#button_select_element').text(SELECT_ELEMENT);
 }
+var li_add_locators_html = "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
 function addLi(list_objs, name_attri, name_func, ul_obj){
     if (typeof(list_objs) == "undefined"){
         return;
@@ -239,7 +240,7 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
             if (typeof(list_objs[i]) == "object")
             {
                 value = list_objs[i][name_attri];
-                newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+                newRow="<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
                 $(ul_obj).append(newRow);
             }
         }
@@ -247,7 +248,7 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
     else{
         //list_objs.length cannot equal to 1 in this case.
         value = list_objs[name_attri];
-        newRow="<li><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li>";
+        newRow="<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
         $(ul_obj).append(newRow);
     }
 }
