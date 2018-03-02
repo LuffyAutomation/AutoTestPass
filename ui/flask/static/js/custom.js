@@ -10,7 +10,7 @@ var list_locators = [];
 var SELECT_PAGE = "[Select Page]";
 var SELECT_SUB_PAGE = "[Select Sub Page]";
 var SELECT_ELEMENT = "[Select Element]";
-
+var DROPDOWN_SIGN = "<span class=\"caret\"></span>";
 //$("button_add_page").on("click",function(){
 
 //    //Can not find out the ele that created dynamically. Need other method.
@@ -209,7 +209,6 @@ $("#button_add_new_element").on("click",function(){
         $('#button_select_element').text($("#input_new_element").val().trim());
     }
 });
-
 function reset_ul_pages(){
     $('#ul_pages li').remove();
     $('#button_select_page').text(SELECT_PAGE);
@@ -261,6 +260,7 @@ function li_sub_page_on_click(sub_page_name){
 }
 function li_element_on_click(_name){
     $('#button_select_element').text(_name);
+    assembleLocatorsTableForClickedElement(whichElementClicked_Json);
 }
 function li_page_on_click(_name){
 //    reset_ul_pages()
@@ -280,20 +280,30 @@ function _assembleLocatorsTableForClickedElement(eleObj, eleName){
     if(eleObj['@name'] == eleName){
         for(var key in eleObj){
             if(key != "@name"){
-                for(var i=0; i<eleObj[key].length; i++){
-                    appendLocatorRow(key, eleObj[key][i]);
+                if(typeof(eleObj[key]) != "string"){ //"string" will evoke   s t r i n g
+                    for(var i=0; i<eleObj[key].length; i++){
+                        appendLocatorRow(key, eleObj[key][i]);
+                    }
+                }
+                else{
+                    appendLocatorRow(key, eleObj[key]);
                 }
             }
         }
     }
 }
-function assembleLocatorsTableForClickedElement(eleObj, eleName){
-    if(typeof(eleObj.length) == "undefined"){
-        _assembleLocatorsTableForClickedElement(eleObj, eleName);
-    }
-    else{
-        for(var k=0; k<eleObj.length; k++){
-            _assembleLocatorsTableForClickedElement(eleObj[k], eleName);
+function assembleLocatorsTableForClickedElement(eleObj){
+    $("#table_locators tr").remove();
+    var eleName = $("#button_select_element").html();
+    eleName = eleName.replace(DROPDOWN_SIGN, "");
+    if(eleName != SELECT_ELEMENT){
+        if(typeof(eleObj.length) == "undefined"){
+            _assembleLocatorsTableForClickedElement(eleObj, eleName);
+        }
+        else{
+            for(var k=0; k<eleObj.length; k++){
+                _assembleLocatorsTableForClickedElement(eleObj[k], eleName);
+            }
         }
     }
 }
@@ -312,7 +322,6 @@ $("#input_new_page").ready(function(){
 
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
-        $("#table_locators tr").remove();
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
         whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
@@ -330,12 +339,13 @@ $("#table_cases td a").click(function(){
         else{
             li_page_on_click(whichSubpageByElementClicked_StepsTable);
         }
-        $("#button_select_page").html(whichPageByElementClicked_StepsTable + "<span class='caret'></span>");
-        $("#button_select_sub_page").html(whichSubpageByElementClicked_StepsTable + "<span class='caret'></span>");
-        $("#button_select_element").html(whichElementClicked_StepsTable + "<span class='caret'></span>");
-        assembleLocatorsTableForClickedElement(whichElementClicked_Json, whichElementClicked_StepsTable);
+        $("#button_select_page").html(whichPageByElementClicked_StepsTable + DROPDOWN_SIGN);
+        $("#button_select_sub_page").html(whichSubpageByElementClicked_StepsTable + DROPDOWN_SIGN);
+        $("#button_select_element").html(whichElementClicked_StepsTable + DROPDOWN_SIGN);
+        assembleLocatorsTableForClickedElement(whichElementClicked_Json);
     }
 });
+
 $("#button_ok_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
@@ -380,7 +390,6 @@ var autoClose = function(){
         $("#myModal").modal('hide');
     }
 }
-
 $(function(){
   var $up = $(".up")
   $up.click(function() {
@@ -388,7 +397,6 @@ $(function(){
     if ($tr.index() != 0) {
       $tr.fadeOut().fadeIn();
       $tr.prev().before($tr);
-
     }
   });
   var $down = $(".down");
