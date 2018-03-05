@@ -8,14 +8,14 @@ var whichPageByElementClicked_StepsTable = "";
 var whichSubpageByElementClicked_StepsTable = "";
 var list_locators = [];
 var SELECT_PAGE = "[Select Page]";
-var SELECT_SUB_PAGE = "[Select Sub Page]";
+var SELECT_SUBPAGE = "[Select Sub Page]";
 var SELECT_ELEMENT = "[Select Element]";
 var DROPDOWN_SIGN = "<span class=\"caret\"></span>";
 //$("button_add_page").on("click",function(){
 
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
-//$("button_add_sub_page").on("click",function(){
+//$("button_add_subpage").on("click",function(){
 
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
@@ -23,9 +23,9 @@ var DROPDOWN_SIGN = "<span class=\"caret\"></span>";
 
 //    //Can not find out the ele that created dynamically. Need other method.
 //});
-function getStringForAddPageAndSubPage(page_name, string_sub_page, description){
+function getStringForAddPageAndSubPage(page_name, string_subpage, description){
     var description = arguments[2] ? arguments[2] : "";
-    return "{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"page\":[" + string_sub_page + "]}";
+    return "{\"@name\":\"" + page_name + "\",\"@description\":\"" + description + "\", \"page\":[" + string_subpage + "]}";
 }
 function getJsonForAddPage(page_name, element_json_string, description){
     return JSON.parse(getStringForAddPage(page_name, element_json_string, description));
@@ -63,16 +63,16 @@ function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
     }
     return obj;
 }
-function addRemoveElementToJson(addOrRemove, page_name, element_json, sub_page_name){
-//    var sub_page_name = arguments[2] ? arguments[2] : null;
+function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_name){
+//    var subpage_name = arguments[2] ? arguments[2] : null;
     var isNewPage = false;
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
             try{
 //            jsonUiMapPages[i].element = "23232323";
-                if(sub_page_name != null){
+                if(subpage_name != null){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                        if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
+                        if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
                                 if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
                                     if(addOrRemove == "add"){
@@ -122,10 +122,10 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, sub_page_n
             return;
         }
     }
-    if($('#button_select_sub_page').text() == SELECT_SUB_PAGE){
+    if($('#button_select_subpage').text() == SELECT_SUBPAGE){
         element_json = getJsonForAddPage(page_name, JSON.stringify(element_json), "");
     } else{
-    element_json = stringToJson(getStringForAddPageAndSubPage(page_name, getStringForAddPage(sub_page_name, JSON.stringify(element_json), ""), ""));
+    element_json = stringToJson(getStringForAddPageAndSubPage(page_name, getStringForAddPage(subpage_name, JSON.stringify(element_json), ""), ""));
     }
     jsonUiMapPages.push(element_json);
 }
@@ -140,7 +140,7 @@ $("#button_ok_add_locator").click(function(){
 
     var selected_element_name = $('#button_select_element').text().trim();
     var selected_page_name = $('#button_select_page').text().trim();
-    var selected_subpage_name = $('#button_select_sub_page').text().trim();
+    var selected_subpage_name = $('#button_select_subpage').text().trim();
     var locators_name_dict = {};
     var locators_array = {};
     $("#table_locators tr").each(function() {
@@ -196,7 +196,7 @@ $("#button_ok_add_locator").click(function(){
 //        var sss='{"@name":"liubei","element":"222"}';
 //        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
 
-        if(selected_subpage_name != SELECT_SUB_PAGE){
+        if(selected_subpage_name != SELECT_SUBPAGE){
             addRemoveElementToJson("add", selected_page_name, stringToJson(locators), selected_subpage_name);
         }
         else{
@@ -207,10 +207,10 @@ $("#button_ok_add_locator").click(function(){
     //the ele in table_cases needs to be modified if the ele was updated in table_locators
     if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
         whichRowObjClicked.attr("page", selected_page_name);
-        if(selected_subpage_name == SELECT_SUB_PAGE){
+        if(selected_subpage_name == SELECT_SUBPAGE){
             selected_subpage_name = "";
         }
-        whichRowObjClicked.attr("sub_page", selected_subpage_name);
+        whichRowObjClicked.attr("subpage", selected_subpage_name);
         whichRowObjClicked.html(selected_element_name);
     }
     $.ajax({
@@ -228,9 +228,9 @@ $("#button_add_new_page").on("click",function(){
         $('#button_select_page').text($("#input_new_page").val().trim());
     }
 });
-$("#button_add_new_sub_page").on("click",function(){
-    if($("#input_new_sub_page").val().trim() != ""){
-        $('#button_select_sub_page').text($("#input_new_sub_page").val().trim());
+$("#button_add_new_subpage").on("click",function(){
+    if($("#input_new_subpage").val().trim() != ""){
+        $('#button_select_subpage').text($("#input_new_subpage").val().trim());
     }
 });
 $("#button_add_new_element").on("click",function(){
@@ -243,10 +243,10 @@ function reset_ul_pages(){
     $('#ul_pages').children().remove()
     $('#button_select_page').text(SELECT_PAGE);
 }
-function reset_ul_sub_pages(){
-//    $('#ul_sub_pages li').remove();
-    $('#ul_sub_pages').children().remove()
-    $('#button_select_sub_page').text(SELECT_SUB_PAGE);
+function reset_ul_subpages(){
+//    $('#ul_subpages li').remove();
+    $('#ul_subpages').children().remove()
+    $('#button_select_subpage').text(SELECT_SUBPAGE);
 }
 function reset_ul_elements(){
     //$('#ul_elements li').remove();
@@ -279,13 +279,13 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
         $(ul_obj).append(newRow);
     }
 }
-function li_sub_page_on_click(sub_page_name){
+function li_subpage_on_click(subpage_name){
     reset_ul_elements();
-    $('#button_select_sub_page').text(sub_page_name);
+    $('#button_select_subpage').text(subpage_name);
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == $('#button_select_page').text() ){
             for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
+                if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
                     addLi(jsonUiMapPages[i]['page'][j]['element'], '@name', 'li_element_on_click', '#ul_elements');
                     whichElementClicked_Json = jsonUiMapPages[i]['page'][j]['element'];
                     return;
@@ -300,12 +300,12 @@ function li_element_on_click(_name){
 }
 function li_page_on_click(_name){
 //    reset_ul_pages()
-    reset_ul_sub_pages();
+    reset_ul_subpages();
     reset_ul_elements();
     $('#button_select_page').text(_name);
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == _name){
-            addLi(jsonUiMapPages[i]['page'], '@name', 'li_sub_page_on_click', '#ul_sub_pages');
+            addLi(jsonUiMapPages[i]['page'], '@name', 'li_subpage_on_click', '#ul_subpages');
             addLi(jsonUiMapPages[i]['element'], '@name', 'li_element_on_click', '#ul_elements');
             whichElementClicked_Json = jsonUiMapPages[i]['element'];
             return;
@@ -360,7 +360,7 @@ $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
-        whichSubpageByElementClicked_StepsTable = $(this).attr("sub_page");
+        whichSubpageByElementClicked_StepsTable = $(this).attr("subpage");
         whichRowClicked_StepsTable = $(this).parent().parent().find("td").html();
         whichRowObjClicked = $(this);
         if (typeof(whichPageByElementClicked_StepsTable) == "undefined" || whichPageByElementClicked_StepsTable == ""){
@@ -370,13 +370,13 @@ $("#table_cases td a").click(function(){
             li_page_on_click(whichPageByElementClicked_StepsTable);
         }
         if (typeof(whichSubpageByElementClicked_StepsTable) == "undefined" || whichSubpageByElementClicked_StepsTable == ""){
-            whichSubpageByElementClicked_StepsTable = SELECT_SUB_PAGE;
+            whichSubpageByElementClicked_StepsTable = SELECT_SUBPAGE;
         }
         else{
             li_page_on_click(whichSubpageByElementClicked_StepsTable);
         }
         $("#button_select_page").html(whichPageByElementClicked_StepsTable + DROPDOWN_SIGN);
-        $("#button_select_sub_page").html(whichSubpageByElementClicked_StepsTable + DROPDOWN_SIGN);
+        $("#button_select_subpage").html(whichSubpageByElementClicked_StepsTable + DROPDOWN_SIGN);
         $("#button_select_element").html(whichElementClicked_StepsTable + DROPDOWN_SIGN);
         assembleLocatorsTableForClickedElement(whichElementClicked_Json);
     }
@@ -398,9 +398,10 @@ $("#button_ok_add_locator").click(function(){
 function appendLocatorRow(locatorType, locatorValue){
 	var newRow="<tr>" +
                     "<td style='width:120px;'>" + locatorType + "</td>" +
-                    "<td><input type='text' class='form-control' value='" + locatorValue + "'/></td>" +
+                    "<td><input type='text' class='form-control' value=\"" + locatorValue + "\"/></td>" +
                     "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
                 "</tr>";
+                            alert(newRow);
 	$('#table_locators').append(newRow);
 }
 
@@ -677,8 +678,8 @@ function get_dialog_content_for_add_new(obj){
             return "Please select an item."
         }
     }
-    else if(obj == "#input_new_sub_page"){
-        if($('#button_select_sub_page').text().trim() == SELECT_SUB_PAGE || $('#button_select_sub_page').text().trim() == ""){
+    else if(obj == "#input_new_subpage"){
+        if($('#button_select_subpage').text().trim() == SELECT_SUBPAGE || $('#button_select_subpage').text().trim() == ""){
             return "Please select an item."
         }
     }
@@ -697,7 +698,7 @@ $(document).ready(function(){
         alert(1234);
     });
 
-//    $('#table_locators, #table_page_sub_page_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
+//    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
     $('#table_locators').on("click",".glyphicon-remove, .glyphicon-plus",function(){
         var currentParentObjectId = $(this).parents("table:eq(0)").attr('id');
         var currentObjectClass = $(this).attr('class');
@@ -707,12 +708,12 @@ $(document).ready(function(){
         if (('table_locators' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
             confirmDialogContent = removeContentOfDialog;
         }
-        else if('table_page_sub_page_element' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-plus"){
+        else if('table_page_subpage_element' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-plus"){
             if (currentObjectId == "button_add_page"){
                 confirmDialogContent = get_dialog_content_for_add_new("#input_new_page");
             }
-            else if (currentObjectId == "button_add_sub_page"){
-                confirmDialogContent = get_dialog_content_for_add_new("#input_new_sub_page");
+            else if (currentObjectId == "button_add_subpage"){
+                confirmDialogContent = get_dialog_content_for_add_new("#input_new_subpage");
             }
             else if (currentObjectId == "button_add_element"){
                 confirmDialogContent = get_dialog_content_for_add_new("#input_new_element");
@@ -726,7 +727,7 @@ $(document).ready(function(){
                             if ('table_locators' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-remove"){
                                  removeLocatorRow(rowNeedRemove);
                             }
-                            else if('table_page_sub_page_element' == "glyphicon glyphicon-plus" && currentObjectClass == "glyphicon glyphicon-plus"){
+                            else if('table_page_subpage_element' == "glyphicon glyphicon-plus" && currentObjectClass == "glyphicon glyphicon-plus"){
 
                             }
                     }
