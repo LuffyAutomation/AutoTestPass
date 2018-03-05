@@ -53,8 +53,8 @@ function changeObjToArrayAndPush(obj, json){
     obj.push(json);
     return obj;
 }
-function addElementToJson_handleNonArrayElement(obj, element_json){
-    if(obj['@name'] == element_json['@name'] || typeof(obj['@name']) == "undefined"){
+function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
+    if(typeof(obj['@name']) == "undefined" || obj['@name'] == element_json['@name'] ){
         obj = element_json;
     }
     else
@@ -63,8 +63,8 @@ function addElementToJson_handleNonArrayElement(obj, element_json){
     }
     return obj;
 }
-function addElementToJson(page_name, element_json, sub_page_name){
-    var sub_page_name = arguments[2] ? arguments[2] : null;
+function addRemoveElementToJson(addOrRemove, page_name, element_json, sub_page_name){
+//    var sub_page_name = arguments[2] ? arguments[2] : null;
     var isNewPage = false;
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
@@ -75,24 +75,45 @@ function addElementToJson(page_name, element_json, sub_page_name){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == sub_page_name){
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
                                 if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
-                                    jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
+                                    if(addOrRemove == "add"){
+                                        jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
+                                    }
+                                    else{
+                                        delete jsonUiMapPages[i]['page'][j]['element'][k];
+                                    }
                                     return;
                                 }
                             }
-                            jsonUiMapPages[i]['page'][j]['element']  = addElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
+                            if(addOrRemove == "add"){
+                                jsonUiMapPages[i]['page'][j]['element']  = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
+                            }
+                            else{
+                                delete jsonUiMapPages[i]['page'][j]['element'];
+                            }
                             return;
                         }
                      }
                 }
                 else{
                     for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
+
                         if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
-                            jsonUiMapPages[i]['element'][k] = element_json;
+                            if(addOrRemove == "add"){
+                                jsonUiMapPages[i]['element'][k] = element_json;
+                            }
+                            else{
+                                delete jsonUiMapPages[i]['element'][k];
+                            }
                             return;
                         }
                     }
-                   jsonUiMapPages[i]['element'] = addElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
-                   return;
+                    if(addOrRemove == "add"){
+                        jsonUiMapPages[i]['element'] = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
+                    }
+                    else{
+                        delete jsonUiMapPages[i]['element'];
+                    }
+                    return;
                     //delete jsonUiMapPages[i];
                 }
             }
@@ -176,13 +197,13 @@ $("#button_ok_add_locator").click(function(){
 //        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
 
         if(selected_subpage_name != SELECT_SUB_PAGE){
-            addElementToJson(selected_page_name, stringToJson(locators), selected_subpage_name);
+            addRemoveElementToJson("add", selected_page_name, stringToJson(locators), selected_subpage_name);
         }
         else{
-            addElementToJson(selected_page_name, stringToJson(locators));
+            addRemoveElementToJson("add", selected_page_name, stringToJson(locators), null);
         }
     }
-    //alert(JSON.stringify(jsonUiMap));
+    alert(JSON.stringify(jsonUiMap));
     //the ele in table_cases needs to be modified if the ele was updated in table_locators
     if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
         whichRowObjClicked.attr("page", selected_page_name);
@@ -197,7 +218,7 @@ $("#button_ok_add_locator").click(function(){
         type: "POST",
         data: jsonToString(jsonUiMap),
         success: function (msg) {
-            alert(msg.time)
+            //alert(msg.time)
         }
     });
 });
@@ -218,18 +239,24 @@ $("#button_add_new_element").on("click",function(){
     }
 });
 function reset_ul_pages(){
-    $('#ul_pages li').remove();
+//    $('#ul_pages li').remove();  because function _addLi_assemble_dropdown_li_html(name_func, value){
+    $('#ul_pages').children().remove()
     $('#button_select_page').text(SELECT_PAGE);
 }
 function reset_ul_sub_pages(){
-    $('#ul_sub_pages li').remove();
+//    $('#ul_sub_pages li').remove();
+    $('#ul_sub_pages').children().remove()
     $('#button_select_sub_page').text(SELECT_SUB_PAGE);
 }
 function reset_ul_elements(){
-    $('#ul_elements li').remove();
+    //$('#ul_elements li').remove();
+    $('#ul_elements').children().remove();
     $('#button_select_element').text(SELECT_ELEMENT);
 }
-var li_add_locators_html = "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
+function _addLi_assemble_dropdown_li_html(name_func, value){
+    return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
+}
+
 function addLi(list_objs, name_attri, name_func, ul_obj){
     if (typeof(list_objs) == "undefined"){
         return;
@@ -240,7 +267,7 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
             if (typeof(list_objs[i]) == "object")
             {
                 value = list_objs[i][name_attri];
-                newRow="<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
+                newRow = _addLi_assemble_dropdown_li_html(name_func, value);
                 $(ul_obj).append(newRow);
             }
         }
@@ -248,7 +275,7 @@ function addLi(list_objs, name_attri, name_func, ul_obj){
     else{
         //list_objs.length cannot equal to 1 in this case.
         value = list_objs[name_attri];
-        newRow="<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
+        newRow = _addLi_assemble_dropdown_li_html(name_func, value);
         $(ul_obj).append(newRow);
     }
 }
@@ -624,20 +651,20 @@ function tableDropdown()
 //}
 
 function getConfirmModalHtml(content){
-         return   "<div class='modal fade' id='myConfirm' >"
-                + "<div class='modal-backdrop in' style='opacity:0;'></div>"
-                + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
-                + "<div class='modal-content'>"
-                + "<div class='modal-header'  style='font-size:16px;'>"
-                + "<span class='glyphicon glyphicon-info-sign'>&nbsp;</span><button type='button' class='close' data-dismiss='modal'>"
-                + "<span style='font-size:20px;' class='glyphicon glyphicon-remove'></span></button></div>"
-                + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
-                + content
-                + "</div>"
-                + "<div class='modal-footer' style=''>"
-                + "<button class='btn btn-primary' id='confirmOk'>Confirm<Button>"
-                + "<button class='btn btn-default' data-dismiss='modal'>Cancel<Button>"
-                + "</div>" + "</div></div></div>";
+     return   "<div class='modal fade' id='myConfirm' >"
+            + "<div class='modal-backdrop in' style='opacity:0;'></div>"
+            + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
+            + "<div class='modal-content'>"
+            + "<div class='modal-header'  style='font-size:16px;'>"
+            + "<span class='glyphicon glyphicon-info-sign'>&nbsp;</span><button type='button' class='close' data-dismiss='modal'>"
+            + "<span style='font-size:20px;' class='glyphicon glyphicon-remove'></span></button></div>"
+            + "<div class='modal-body text-center' id='myConfirmContent' style='font-size:18px; '>"
+            + content
+            + "</div>"
+            + "<div class='modal-footer' style=''>"
+            + "<button class='btn btn-primary' id='confirmOk'>Confirm<Button>"
+            + "<button class='btn btn-default' data-dismiss='modal'>Cancel<Button>"
+            + "</div>" + "</div></div></div>";
 }
 
 function get_dialog_content_for_add_new(obj){
@@ -666,6 +693,9 @@ $(document).ready(function(){
     var confirmDialogContent = "";
     var removeContentOfDialog = 'Are you sure to delete?'
     //bind remove glyphiconf by table
+    $('#table_page_subpage_element').on("click",".glyphicon-minus",function(){
+        alert(1234);
+    });
 
 //    $('#table_locators, #table_page_sub_page_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
     $('#table_locators').on("click",".glyphicon-remove, .glyphicon-plus",function(){
