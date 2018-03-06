@@ -65,12 +65,16 @@ function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
 }
 function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_name){
 //    var subpage_name = arguments[2] ? arguments[2] : null;
+    if (addOrRemove == "remove", typeof(element_json['@name']) == "undefined"){ // for removing simply
+        element_json['@name'] = element_json;
+    }
+
     var isNewPage = false;
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
             try{
 //            jsonUiMapPages[i].element = "23232323";
-                if(subpage_name != null){
+                if(subpage_name != null || subpage_name != SELECT_SUBPAGE){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
@@ -96,7 +100,6 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                 }
                 else{
                     for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
-
                         if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
                             if(addOrRemove == "add"){
                                 jsonUiMapPages[i]['element'][k] = element_json;
@@ -254,7 +257,7 @@ function reset_ul_elements(){
     $('#button_select_element').text(SELECT_ELEMENT);
 }
 function _addLi_assemble_dropdown_li_html(name_func, value){
-    return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-minus\"/>";
+    return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-remove\"/>";
 }
 
 function addLi(list_objs, name_attri, name_func, ul_obj){
@@ -401,7 +404,6 @@ function appendLocatorRow(locatorType, locatorValue){
                     "<td><input type='text' class='form-control' value=\"" + locatorValue + "\"/></td>" +
                     "<td style='width:30px;'><a class='glyphicon glyphicon-remove'/></td>" +
                 "</tr>";
-                            alert(newRow);
 	$('#table_locators').append(newRow);
 }
 
@@ -694,18 +696,22 @@ $(document).ready(function(){
     var confirmDialogContent = "";
     var removeContentOfDialog = 'Are you sure to delete?'
     //bind remove glyphiconf by table
-    $('#table_page_subpage_element').on("click",".glyphicon-minus",function(){
-        alert(1234);
-    });
+//    $('#table_page_subpage_element').on("click",".glyphicon-minus",function(){
+//        alert(1234);
+//    });
 
 //    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
-    $('#table_locators').on("click",".glyphicon-remove, .glyphicon-plus",function(){
-        var currentParentObjectId = $(this).parents("table:eq(0)").attr('id');
-        var currentObjectClass = $(this).attr('class');
-        var currentObjectId = $(this).attr('id');
-        var rowNeedRemove = $(this).parents("tr:eq(0)");
+    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
+        var getThis = $(this); //$(this) is different  in $.confirm({
+        var currentParentObjectId = getThis.parents("table:eq(0)").attr('id');
+        var currentObjectClass = getThis.attr('class');
+        var currentObjectId = getThis.attr('id');
+//        var rowNeedRemove = getThis.parents("tr:eq(0)");
 
         if (('table_locators' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
+            confirmDialogContent = removeContentOfDialog;
+        }
+        else if(('table_page_subpage_element' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
             confirmDialogContent = removeContentOfDialog;
         }
         else if('table_page_subpage_element' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-plus"){
@@ -724,12 +730,34 @@ $(document).ready(function(){
                 confirm: {
                     btnClass: 'btn-blue',
                     action: function(){
-                            if ('table_locators' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-remove"){
-                                 removeLocatorRow(rowNeedRemove);
+                        if ('table_locators' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-remove"){
+                            rowNeedRemove = getThis.parents("tr:eq(0)");
+                            removeLocatorRow(rowNeedRemove);
+                        }
+                        else if(('table_page_subpage_element' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
+                            var ul_clicked_id = getThis.parents("ul:eq(0)").attr('id');
+                            var li_clicked_value = getThis.prev().text();
+                            var subpage_name = $('#button_select_subpage').text().trim();
+                            var page_name = $('#button_select_page').text().trim();
+                            var element_name = $('#button_select_element').text().trim();
+                            getThis.prev().remove();
+                            getThis.remove();
+                            if(ul_clicked_id == "ul_pages"){
+                                //alert(li_clicked_value);
+                                //alert(element_name);
+                                //alert(subpage_name);
+                                addRemoveElementToJson("remove", li_clicked_value, element_name, subpage_name);
+                                //alert(4);
+                                $('#button_select_page').click();
+                                $('#ul_pages').show(5000);
+                                $('#ul_pages').show();
+                                //alert(5);
                             }
-                            else if('table_page_subpage_element' == "glyphicon glyphicon-plus" && currentObjectClass == "glyphicon glyphicon-plus"){
-
+                            else if(ul_clicked_id == "ul_subpages"){
                             }
+                            else if(ul_clicked_id == "ul_elements"){
+                            }
+                        }
                     }
                 },
                 cancel: function () {
@@ -739,6 +767,9 @@ $(document).ready(function(){
             title: TITLE_DIALOG_TIP,
             content: confirmDialogContent,
             draggable: true
+            onClose: function(action){
+                $('#ul_pages').show(5000);
+            }
         });
     });
 
