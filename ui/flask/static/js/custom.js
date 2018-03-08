@@ -66,27 +66,26 @@ function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
 function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_name){
 //    var subpage_name = arguments[2] ? arguments[2] : null;
     if (addOrRemove == "remove" && typeof(element_json['@name']) == "undefined"){ // for removing simply
-        element_json['@name'] = element_json;
+        //element_json['@name'] = element_json;  wrong
+        element_json = getJsonForAddElement(element_json, "forremoving", null);
     }
 
     var isNewPage = false;
-
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
             try{
 //            jsonUiMapPages[i].element = "23232323";
-                alert(6);
                 if(subpage_name != null && subpage_name != SELECT_SUBPAGE){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
+                           alert(jsonUiMapPages[i]['page'][j]['element']);
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
                                 if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
                                     if(addOrRemove == "add"){
                                         jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
                                     }
                                     else{
-                                        alert(0);
-                                        delete jsonUiMapPages[i]['page'][j]['element'][k];
+                                        jsonUiMapPages[i]['page'][j]['element'].splice(k, 1);
                                     }
                                     return;
                                 }
@@ -95,15 +94,19 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                                 jsonUiMapPages[i]['page'][j]['element']  = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
                             }
                             else{
-                                alert(1);
-                                delete jsonUiMapPages[i]['page'][j]['element'];
+                                if (element_json['@name'] != SELECT_ELEMENT){
+                                    delete jsonUiMapPages[i]['page'][j]['element'];
+                                }
+                                else{
+                                    jsonUiMapPages[i]['page'].splice(j,1);
+                                    //delete jsonUiMapPages[i];   deleted but a null left...
+                                }
                             }
                             return;
                         }
                      }
                 }
                 else{
-                    alert(5);
                     if (typeof(jsonUiMapPages[i]['element']) != "undefined"){ // for removing simply
                         for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
                             if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
@@ -111,8 +114,8 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                                     jsonUiMapPages[i]['element'][k] = element_json;
                                 }
                                 else{
-                                    alert(2);
-                                    delete jsonUiMapPages[i]['element'][k];
+                                    jsonUiMapPages[i]['element'].splice(k, 1);
+                                    //delete delete jsonUiMapPages[i]['element'][k];   deleted but a null left...
                                 }
                                 return;
                             }
@@ -122,12 +125,10 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                         jsonUiMapPages[i]['element'] = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
                     }
                     else{
-                        if (typeof(jsonUiMapPages[i]['element']) != "undefined"){
-                                alert(3);
+                        if (element_json['@name'] != SELECT_ELEMENT){
                                 delete jsonUiMapPages[i]['element'];
                         }
                         else{
-                            alert(4);
                             jsonUiMapPages.splice(i,1);
                             //delete jsonUiMapPages[i];   deleted but a null left...
                         }
