@@ -11,6 +11,8 @@ var SELECT_PAGE = "[Select Page]";
 var SELECT_SUBPAGE = "[Select Sub Page]";
 var SELECT_ELEMENT = "[Select Element]";
 var DROPDOWN_SIGN = "<span class=\"caret\"></span>";
+var jsonUiMapPagesForOperation = null;
+var ifReassembleUls = false;
 //$("button_add_page").on("click",function(){
 
 //    //Can not find out the ele that created dynamically. Need other method.
@@ -63,43 +65,54 @@ function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
     }
     return obj;
 }
+function deepCopyJson(obj){
+    try{
+        return stringToJson(jsonToString(obj));
+    }
+    catch(e){alert(e);}
+}
 function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_name){
 //    var subpage_name = arguments[2] ? arguments[2] : null;
+    ifReassembleUls = true;
     if (addOrRemove == "remove" && typeof(element_json['@name']) == "undefined"){ // for removing simply
         //element_json['@name'] = element_json;  wrong
         element_json = getJsonForAddElement(element_json, "forremoving", null);
     }
-
+    if(jsonUiMapPagesForOperation == null){
+        jsonUiMapPagesForOperation = deepCopyJson(jsonUiMapPages);
+    }
+//    alert(JSON.stringify(jsonUiMapPages));
+//    alert(JSON.stringify(jsonUiMapPagesForOperation));
     var isNewPage = false;
-    for(var i=0; i<jsonUiMapPages.length; i++){
-        if(jsonUiMapPages[i]["@name"] == page_name){
+    for(var i=0; i<jsonUiMapPagesForOperation.length; i++){
+        if(jsonUiMapPagesForOperation[i]["@name"] == page_name){
             try{
-//            jsonUiMapPages[i].element = "23232323";
+//            jsonUiMapPagesForOperation[i].element = "23232323";
                 if(subpage_name != null && subpage_name != SELECT_SUBPAGE){
-                    for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
-                        if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
-                           alert(jsonUiMapPages[i]['page'][j]['element']);
-                            for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
-                                if(jsonUiMapPages[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
+                    for(var j=0; j<jsonUiMapPagesForOperation[i]['page'].length; j++){
+                        if(jsonUiMapPagesForOperation[i]['page'][j]['@name'] == subpage_name){
+                           alert(jsonUiMapPagesForOperation[i]['page'][j]['element']);
+                            for(var k=0; k<jsonUiMapPagesForOperation[i]['page'][j]['element'].length; k++){
+                                if(jsonUiMapPagesForOperation[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
                                     if(addOrRemove == "add"){
-                                        jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
+                                        jsonUiMapPagesForOperation[i]['page'][j]['element'][k] = element_json;
                                     }
                                     else{
-                                        jsonUiMapPages[i]['page'][j]['element'].splice(k, 1);
+                                        jsonUiMapPagesForOperation[i]['page'][j]['element'].splice(k, 1);
                                     }
                                     return;
                                 }
                             }
                             if(addOrRemove == "add"){
-                                jsonUiMapPages[i]['page'][j]['element']  = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
+                                jsonUiMapPagesForOperation[i]['page'][j]['element']  = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPagesForOperation[i]['page'][j]['element'] , element_json);
                             }
                             else{
                                 if (element_json['@name'] != SELECT_ELEMENT){
-                                    delete jsonUiMapPages[i]['page'][j]['element'];
+                                    delete jsonUiMapPagesForOperation[i]['page'][j]['element'];
                                 }
                                 else{
-                                    jsonUiMapPages[i]['page'].splice(j,1);
-                                    //delete jsonUiMapPages[i];   deleted but a null left...
+                                    jsonUiMapPagesForOperation[i]['page'].splice(j,1);
+                                    //delete jsonUiMapPagesForOperation[i];   deleted but a null left...
                                 }
                             }
                             return;
@@ -107,34 +120,34 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                      }
                 }
                 else{
-                    if (typeof(jsonUiMapPages[i]['element']) != "undefined"){ // for removing simply
-                        for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
-                            if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
+                    if (typeof(jsonUiMapPagesForOperation[i]['element']) != "undefined"){ // for removing simply
+                        for(var k=0; k<jsonUiMapPagesForOperation[i]['element'].length; k++){
+                            if(jsonUiMapPagesForOperation[i]['element'][k]['@name'] == element_json['@name']){
                                 if(addOrRemove == "add"){
-                                    jsonUiMapPages[i]['element'][k] = element_json;
+                                    jsonUiMapPagesForOperation[i]['element'][k] = element_json;
                                 }
                                 else{
-                                    jsonUiMapPages[i]['element'].splice(k, 1);
-                                    //delete delete jsonUiMapPages[i]['element'][k];   deleted but a null left...
+                                    jsonUiMapPagesForOperation[i]['element'].splice(k, 1);
+                                    //delete delete jsonUiMapPagesForOperation[i]['element'][k];   deleted but a null left...
                                 }
                                 return;
                             }
                         }
                     }
                     if(addOrRemove == "add"){
-                        jsonUiMapPages[i]['element'] = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
+                        jsonUiMapPagesForOperation[i]['element'] = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPagesForOperation[i]['element'], element_json);
                     }
                     else{
                         if (element_json['@name'] != SELECT_ELEMENT){
-                                delete jsonUiMapPages[i]['element'];
+                                delete jsonUiMapPagesForOperation[i]['element'];
                         }
                         else{
-                            jsonUiMapPages.splice(i,1);
-                            //delete jsonUiMapPages[i];   deleted but a null left...
+                            jsonUiMapPagesForOperation.splice(i,1);
+                            //delete jsonUiMapPagesForOperation[i];   deleted but a null left...
                         }
                     }
                     return;
-                    //delete jsonUiMapPages[i];
+                    //delete jsonUiMapPagesForOperation[i];
                 }
             }
             catch(e){alert(e);}
@@ -163,7 +176,11 @@ $("#button_ok_add_locator").click(function(){
     var selected_subpage_name = $('#button_select_subpage').text().trim();
     var locators_name_dict = {};
     var locators_array = {};
-    alert(JSON.stringify(jsonUiMap));
+    alert(JSON.stringify(jsonUiMapPagesForOperation));
+    alert(JSON.stringify(jsonUiMapPages));
+
+    //jsonUiMapPages = jsonUiMapPagesForOperation;
+    return;
     $("#table_locators tr").each(function() {
         locator_type = $(this).children().eq(0).text().trim();
         locator_value = $(this).children().eq(1).children().val().trim();
@@ -371,13 +388,18 @@ $("#ul_new_page li").on("click",function(){
     //Can not find out the ele that created dynamically. Need other method.
 });
 function assemblePagesDropdown(){
+    $("#ul_pages").css("display","");  // closed Add Locators modal and reopen
+    $("#ul_subpages").css("display","");
+    $("#ul_elements").css("display","");
     addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
 }
 $("#input_new_page").ready(function(){
     //assemble all Pages in Page Dropdown
     assemblePagesDropdown();
 });
+function afterCaseElementClicked(){
 
+}
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
@@ -765,10 +787,10 @@ $(document).ready(function(){
                 $("#" + ul_clicked_id).css("display","");
             }
             if(ul_clicked_id == "ul_pages"){
-                addRemoveElementToJson("remove", li_clicked_value, element_name, subpage_name);
+                addRemoveElementToJson("remove", li_clicked_value, SELECT_ELEMENT, SELECT_SUBPAGE);
             }
             else if(ul_clicked_id == "ul_subpages"){
-                addRemoveElementToJson("remove", page_name, element_name, li_clicked_value);
+                addRemoveElementToJson("remove", page_name, SELECT_ELEMENT, li_clicked_value);
             }
             else if(ul_clicked_id == "ul_elements"){
                 addRemoveElementToJson("remove", page_name, li_clicked_value, subpage_name);
@@ -816,10 +838,15 @@ $(document).ready(function(){
     });
 
 function lightCopy(obj){
-    return $.extend({}, o);
+    return $.extend({}, obj);
 }
 function deepCopy(obj){
-    return $.extend(true, {}, o);
+alert(111);
+//    try{
+//        alert(11);
+////        return $.extend(true, {}, obj);
+//    }
+//    catch(e){alert(e);}
 }
 
 
