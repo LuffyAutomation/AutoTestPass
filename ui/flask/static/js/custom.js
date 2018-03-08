@@ -65,16 +65,18 @@ function _addRemoveElementToJson_handleNonArrayElement(obj, element_json){
 }
 function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_name){
 //    var subpage_name = arguments[2] ? arguments[2] : null;
-    if (addOrRemove == "remove", typeof(element_json['@name']) == "undefined"){ // for removing simply
+    if (addOrRemove == "remove" && typeof(element_json['@name']) == "undefined"){ // for removing simply
         element_json['@name'] = element_json;
     }
 
     var isNewPage = false;
+
     for(var i=0; i<jsonUiMapPages.length; i++){
         if(jsonUiMapPages[i]["@name"] == page_name){
             try{
 //            jsonUiMapPages[i].element = "23232323";
-                if(subpage_name != null || subpage_name != SELECT_SUBPAGE){
+                alert(6);
+                if(subpage_name != null && subpage_name != SELECT_SUBPAGE){
                     for(var j=0; j<jsonUiMapPages[i]['page'].length; j++){
                         if(jsonUiMapPages[i]['page'][j]['@name'] == subpage_name){
                             for(var k=0; k<jsonUiMapPages[i]['page'][j]['element'].length; k++){
@@ -83,6 +85,7 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                                         jsonUiMapPages[i]['page'][j]['element'][k] = element_json;
                                     }
                                     else{
+                                        alert(0);
                                         delete jsonUiMapPages[i]['page'][j]['element'][k];
                                     }
                                     return;
@@ -92,6 +95,7 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                                 jsonUiMapPages[i]['page'][j]['element']  = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['page'][j]['element'] , element_json);
                             }
                             else{
+                                alert(1);
                                 delete jsonUiMapPages[i]['page'][j]['element'];
                             }
                             return;
@@ -99,22 +103,34 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                      }
                 }
                 else{
-                    for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
-                        if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
-                            if(addOrRemove == "add"){
-                                jsonUiMapPages[i]['element'][k] = element_json;
+                    alert(5);
+                    if (typeof(jsonUiMapPages[i]['element']) != "undefined"){ // for removing simply
+                        for(var k=0; k<jsonUiMapPages[i]['element'].length; k++){
+                            if(jsonUiMapPages[i]['element'][k]['@name'] == element_json['@name']){
+                                if(addOrRemove == "add"){
+                                    jsonUiMapPages[i]['element'][k] = element_json;
+                                }
+                                else{
+                                    alert(2);
+                                    delete jsonUiMapPages[i]['element'][k];
+                                }
+                                return;
                             }
-                            else{
-                                delete jsonUiMapPages[i]['element'][k];
-                            }
-                            return;
                         }
                     }
                     if(addOrRemove == "add"){
                         jsonUiMapPages[i]['element'] = _addRemoveElementToJson_handleNonArrayElement(jsonUiMapPages[i]['element'], element_json);
                     }
                     else{
-                        delete jsonUiMapPages[i]['element'];
+                        if (typeof(jsonUiMapPages[i]['element']) != "undefined"){
+                                alert(3);
+                                delete jsonUiMapPages[i]['element'];
+                        }
+                        else{
+                            alert(4);
+                            jsonUiMapPages.splice(i,1);
+                            //delete jsonUiMapPages[i];   deleted but a null left...
+                        }
                     }
                     return;
                     //delete jsonUiMapPages[i];
@@ -146,6 +162,7 @@ $("#button_ok_add_locator").click(function(){
     var selected_subpage_name = $('#button_select_subpage').text().trim();
     var locators_name_dict = {};
     var locators_array = {};
+    alert(JSON.stringify(jsonUiMap));
     $("#table_locators tr").each(function() {
         locator_type = $(this).children().eq(0).text().trim();
         locator_value = $(this).children().eq(1).children().val().trim();
@@ -258,6 +275,7 @@ function reset_ul_elements(){
 }
 function _addLi_assemble_dropdown_li_html(name_func, value){
     return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-remove\"/>";
+    //return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-remove\"/><input style=\"float:right;\" id=\"checkBox\" type=\"checkbox\">";
 }
 
 function addLi(list_objs, name_attri, name_func, ul_obj){
@@ -695,13 +713,31 @@ function get_dialog_content_for_add_new(obj){
 $(document).ready(function(){
     var confirmDialogContent = "";
     var removeContentOfDialog = 'Are you sure to delete?'
-    //bind remove glyphiconf by table
-//    $('#table_page_subpage_element').on("click",".glyphicon-minus",function(){
-//        alert(1234);
-//    });
+
+    $("#button_select_page").click(function(){
+        if($("#ul_pages").css("display") == "block"){
+            $("#ul_pages").css("display","");
+            $("#button_select_page").click(); // need click twice to open/close?
+            return;
+        }
+    });
+    $("#button_select_subpage").click(function(){
+        if($("#ul_subpages").css("display") == "block"){
+            $("#ul_subpages").css("display","");
+            $("#button_select_subpage").click(); // need click twice to open/close?
+            return;
+        }
+    });
+    $("#button_select_element").click(function(){
+        if($("#ul_elements").css("display") == "block"){
+            $("#ul_elements").css("display","");
+            $("#button_select_element").click(); // need click twice to open/close?
+            return;
+        }
+    });
 
 //    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
-    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(){
+    $('#table_locators, #table_page_subpage_element').on("click",".glyphicon-remove, .glyphicon-plus",function(e){
         var getThis = $(this); //$(this) is different  in $.confirm({
         var currentParentObjectId = getThis.parents("table:eq(0)").attr('id');
         var currentObjectClass = getThis.attr('class');
@@ -709,12 +745,39 @@ $(document).ready(function(){
 //        var rowNeedRemove = getThis.parents("tr:eq(0)");
 
         if (('table_locators' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
+            rowNeedRemove = getThis.parents("tr:eq(0)");
+            removeLocatorRow(rowNeedRemove);
+            return;
             confirmDialogContent = removeContentOfDialog;
         }
         else if(('table_page_subpage_element' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
+
+            var ul_clicked_id = getThis.parents("ul:eq(0)").attr('id');
+            $("#" + ul_clicked_id).css("display","block");
+            var li_clicked_value = getThis.prev().text();
+            var subpage_name = $('#button_select_subpage').text().trim();
+            var page_name = $('#button_select_page').text().trim();
+            var element_name = $('#button_select_element').text().trim();
+            getThis.prev().remove();
+            getThis.remove();
+            if($("#" + ul_clicked_id + " li").length == 0){
+                $("#" + ul_clicked_id).css("display","");
+            }
+            if(ul_clicked_id == "ul_pages"){
+                addRemoveElementToJson("remove", li_clicked_value, element_name, subpage_name);
+            }
+            else if(ul_clicked_id == "ul_subpages"){
+                addRemoveElementToJson("remove", page_name, element_name, li_clicked_value);
+            }
+            else if(ul_clicked_id == "ul_elements"){
+                addRemoveElementToJson("remove", page_name, li_clicked_value, subpage_name);
+            }
+
+            return;
             confirmDialogContent = removeContentOfDialog;
         }
         else if('table_page_subpage_element' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-plus"){
+            return;
             if (currentObjectId == "button_add_page"){
                 confirmDialogContent = get_dialog_content_for_add_new("#input_new_page");
             }
@@ -731,32 +794,10 @@ $(document).ready(function(){
                     btnClass: 'btn-blue',
                     action: function(){
                         if ('table_locators' == currentParentObjectId && currentObjectClass == "glyphicon glyphicon-remove"){
-                            rowNeedRemove = getThis.parents("tr:eq(0)");
-                            removeLocatorRow(rowNeedRemove);
+
                         }
                         else if(('table_page_subpage_element' == currentParentObjectId) && (currentObjectClass == "glyphicon glyphicon-remove")){
-                            var ul_clicked_id = getThis.parents("ul:eq(0)").attr('id');
-                            var li_clicked_value = getThis.prev().text();
-                            var subpage_name = $('#button_select_subpage').text().trim();
-                            var page_name = $('#button_select_page').text().trim();
-                            var element_name = $('#button_select_element').text().trim();
-                            getThis.prev().remove();
-                            getThis.remove();
-                            if(ul_clicked_id == "ul_pages"){
-                                //alert(li_clicked_value);
-                                //alert(element_name);
-                                //alert(subpage_name);
-                                addRemoveElementToJson("remove", li_clicked_value, element_name, subpage_name);
-                                //alert(4);
-                                $('#button_select_page').click();
-                                $('#ul_pages').show(5000);
-                                $('#ul_pages').show();
-                                //alert(5);
-                            }
-                            else if(ul_clicked_id == "ul_subpages"){
-                            }
-                            else if(ul_clicked_id == "ul_elements"){
-                            }
+
                         }
                     }
                 },
@@ -766,16 +807,20 @@ $(document).ready(function(){
             },
             title: TITLE_DIALOG_TIP,
             content: confirmDialogContent,
-            draggable: true
-            onClose: function(action){
-                $('#ul_pages').show(5000);
-            }
+//            draggable: true,
+//            onOpen: function(action){
+//
+//            }
         });
     });
 
-function tipDialog(_content){
-
+function lightCopy(obj){
+    return $.extend({}, o);
 }
+function deepCopy(obj){
+    return $.extend(true, {}, o);
+}
+
 
     //bind all remove glyphiconf
 //    $('.glyphicon-remove, .glyphicon-plus').click(function(){ // only bind which has existed.

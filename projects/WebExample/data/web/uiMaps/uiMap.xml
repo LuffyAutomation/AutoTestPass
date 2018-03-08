@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages>
-    <page name="page_home" description = "Default home page." >
+    <page name="page_home" description = "description Default home page." >
         <element name="edit_search">
             <id>kw</id>
         </element>
         <element name="button_continue">
             <id>com.hp.printercontrol:id/moobe_welcome_continue_button</id>
         </element>
+    </page>
+    <page name="page_home1" description = "description page_home1." >
+
     </page>
     <page name="page_home2123213131222222222212313123" description="main page.">
         <element name="link_selectAPrinter"><id>com.hp.printercontrol:id/error_msg_link</id></element>
