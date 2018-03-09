@@ -91,7 +91,6 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
                 if(subpage_name != null && subpage_name != SELECT_SUBPAGE){
                     for(var j=0; j<jsonUiMapPagesForOperation[i]['page'].length; j++){
                         if(jsonUiMapPagesForOperation[i]['page'][j]['@name'] == subpage_name){
-                           alert(jsonUiMapPagesForOperation[i]['page'][j]['element']);
                             for(var k=0; k<jsonUiMapPagesForOperation[i]['page'][j]['element'].length; k++){
                                 if(jsonUiMapPagesForOperation[i]['page'][j]['element'][k]['@name'] == element_json['@name']){
                                     if(addOrRemove == "add"){
@@ -165,8 +164,17 @@ function addRemoveElementToJson(addOrRemove, page_name, element_json, subpage_na
 function close_add_locator_modal(){
     $('#button_close_add_locator').click();
 }
-$("#button_ok_add_locator").click(function(){
+$("#button_close_add_locator, #button_x_add_locator").click(function(){
+//    alert("1         " + jsonToString(jsonUiMapPagesForOperation));
+//    alert("1         " + jsonToString(jsonUiMapPages));
+    jsonUiMapPagesForOperation = deepCopyJson(jsonUiMapPages);
+//    alert("2         " + jsonToString(jsonUiMapPagesForOperation));
+//    alert("2         " + jsonToString(jsonUiMapPages));
+});
+
+$("#button_save_add_locator").click(function(){
 //    alert($("#table_locators input").eq(0).val());
+
     var locators = "";
     var locator_type = "";
     var locator_value = "";
@@ -176,11 +184,7 @@ $("#button_ok_add_locator").click(function(){
     var selected_subpage_name = $('#button_select_subpage').text().trim();
     var locators_name_dict = {};
     var locators_array = {};
-    alert(JSON.stringify(jsonUiMapPagesForOperation));
-    alert(JSON.stringify(jsonUiMapPages));
 
-    //jsonUiMapPages = jsonUiMapPagesForOperation;
-    return;
     $("#table_locators tr").each(function() {
         locator_type = $(this).children().eq(0).text().trim();
         locator_value = $(this).children().eq(1).children().val().trim();
@@ -198,17 +202,21 @@ $("#button_ok_add_locator").click(function(){
         locators += "\"" + key + "\":[" + locators_array[key] + "]";
     }
     var dialog_tip = "";
-    if(locators != ""){
-        locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
-    }
-    else{
-        dialog_tip = "Please add locator(s) or the locator can not be empty.";
-    }
-    if(selected_element_name == SELECT_ELEMENT){
-        dialog_tip = "Please select or create an element.";
-    }
-    else if(selected_page_name == SELECT_PAGE){
-        dialog_tip = "Please select or create an page.";
+//    if(locators != ""){
+//        locators = "{\"" + "@name\":\"" + selected_element_name + "\"," +  locators + "}";
+//    }
+//    else{
+//        dialog_tip = "Please add locator(s) or the locator can not be empty.";
+//    }
+//    if(selected_element_name == SELECT_ELEMENT){
+//        dialog_tip = "Please select or create an element.";
+//    }
+//    else if(selected_page_name == SELECT_PAGE){
+//        dialog_tip = "Please select or create an page.";
+//    }
+    if(ifReassembleUls == true)
+    {
+        dialog_tip = "Save the change(s)?";
     }
     if(dialog_tip != ""){
         $.confirm({
@@ -216,41 +224,42 @@ $("#button_ok_add_locator").click(function(){
                 confirm: {
                     btnClass: 'btn-blue',
                     action: function(){
-
+                        ifReassembleUls = false;
+                        if(selected_page_name != SELECT_PAGE && locators != ""){
+                    //        var newJson='{"name":"liubei","sex":"男"}';
+                    //        var sss='{"@name":"liubei","element":"222"}';
+                            if(selected_subpage_name != SELECT_SUBPAGE){
+                                addRemoveElementToJson("add", selected_page_name, stringToJson(locators), selected_subpage_name);
+                            }
+                            else{
+                                addRemoveElementToJson("add", selected_page_name, stringToJson(locators), null);
+                            }
+                        }
+                        //the ele in table_cases needs to be modified if the ele was updated in table_locators
+                        if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
+                            whichRowObjClicked.attr("page", selected_page_name);
+                            if(selected_subpage_name == SELECT_SUBPAGE){
+                                selected_subpage_name = "";
+                            }
+                            whichRowObjClicked.attr("subpage", selected_subpage_name);
+                            whichRowObjClicked.html(selected_element_name);
+                        }
+                        jsonUiMapPages = deepCopyJson(jsonUiMapPagesForOperation);
+                        return;
                     }
                 },
                 cancel: function () {
-                     return;
+                    jsonUiMapPagesForOperation = deepCopyJson(jsonUiMapPages);
+                    return;
                 }
             },
             title: TITLE_DIALOG_TIP,
             content: dialog_tip,
             draggable: true
         });
-        return;
     }
-    if(selected_page_name != SELECT_PAGE){
-//        var newJson='{"name":"liubei","sex":"男"}';
-//        var sss='{"@name":"liubei","element":"222"}';
-//        addElementToJson("page_home2", getJsonForAddElement("button_abc", "id", "124"), "page_home3");
 
-        if(selected_subpage_name != SELECT_SUBPAGE){
-            addRemoveElementToJson("add", selected_page_name, stringToJson(locators), selected_subpage_name);
-        }
-        else{
-            addRemoveElementToJson("add", selected_page_name, stringToJson(locators), null);
-        }
-    }
-    alert(JSON.stringify(jsonUiMap));
-    //the ele in table_cases needs to be modified if the ele was updated in table_locators
-    if(selected_page_name != whichPageByElementClicked_StepsTable || whichElementClicked_StepsTable != selected_element_name || selected_subpage_name != whichSubpageByElementClicked_StepsTable){
-        whichRowObjClicked.attr("page", selected_page_name);
-        if(selected_subpage_name == SELECT_SUBPAGE){
-            selected_subpage_name = "";
-        }
-        whichRowObjClicked.attr("subpage", selected_subpage_name);
-        whichRowObjClicked.html(selected_element_name);
-    }
+
     $.ajax({
         url: "/sendJsonUiMap",
         type: "POST",
@@ -388,20 +397,24 @@ $("#ul_new_page li").on("click",function(){
     //Can not find out the ele that created dynamically. Need other method.
 });
 function assemblePagesDropdown(){
-    $("#ul_pages").css("display","");  // closed Add Locators modal and reopen
-    $("#ul_subpages").css("display","");
-    $("#ul_elements").css("display","");
     addLi(jsonUiMapPages, '@name', 'li_page_on_click', '#ul_pages');
 }
 $("#input_new_page").ready(function(){
     //assemble all Pages in Page Dropdown
-    assemblePagesDropdown();
+    //assemblePagesDropdown();
 });
 function afterCaseElementClicked(){
 
 }
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
+        $("#ul_pages").css("display","");  // closed Add Locators modal and reopen
+        $("#ul_subpages").css("display","");
+        $("#ul_elements").css("display","");
+        $("#ul_pages").empty();
+
+        assemblePagesDropdown();
+
         whichElementClicked_StepsTable = $(this).html();
         whichPageByElementClicked_StepsTable = $(this).attr("page");
         whichSubpageByElementClicked_StepsTable = $(this).attr("subpage");
@@ -426,7 +439,7 @@ $("#table_cases td a").click(function(){
     }
 });
 
-$("#button_ok_add_locator").click(function(){
+$("#button_save_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
         $("#button_select_page").html(name_page + "<span class='caret'></span>");
@@ -788,12 +801,25 @@ $(document).ready(function(){
             }
             if(ul_clicked_id == "ul_pages"){
                 addRemoveElementToJson("remove", li_clicked_value, SELECT_ELEMENT, SELECT_SUBPAGE);
+                if(li_clicked_value == page_name){
+                    $('#button_select_page').text(SELECT_PAGE);
+                    reset_ul_subpages();
+                    reset_ul_elements();
+                }
             }
             else if(ul_clicked_id == "ul_subpages"){
                 addRemoveElementToJson("remove", page_name, SELECT_ELEMENT, li_clicked_value);
+                if(li_clicked_value == subpage_name){
+                    $('#button_select_subpage').text(SELECT_SUBPAGE);
+                    reset_ul_elements();
+                }
             }
             else if(ul_clicked_id == "ul_elements"){
                 addRemoveElementToJson("remove", page_name, li_clicked_value, subpage_name);
+                if(li_clicked_value == element_name){
+                    $('#button_select_element').text(SELECT_ELEMENT);
+                    reset_ul_elements();
+                }
             }
 
             return;
