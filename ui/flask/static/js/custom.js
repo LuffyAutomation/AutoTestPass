@@ -440,10 +440,10 @@ $("#table_cases td a").click(function(){
     else if($(this).attr("trigger") == "digit"){
         //can not use onkeyup as independent function since it is dynamic.
         //onafterpaste=\"this.value=this.value.replace(/[^\\d]/g,'')\"
-        //\"this.value=this.value.replace(/[^\\d]/g,'')\"
+        //replace(/^[^1-9][^\\d]*$/,'').replace(/[^\\d]/g,'')
         //(/^((\d*[1-9])|(0?\.\d{2}))$/g,'')
         ///^[1-9]\\d*$/
-        var html = getModalHtml("<input type='text' min='1' onkeyup=\"this.value=this.value.replace(/^[^1-9][^\\d]*$/,'').replace(/[^\\d]/g,'')\"  id='input_change_digit' class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
+        var html = getModalHtml("<input type='text' min='1' onkeyup=\"this.value=this.value.replace(/^[^1-9]([^\\d]*)$/,'')\"  id='input_change_digit' class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
         $("body").append(html);
         $("#changeDigitModal").modal("show");
     }
