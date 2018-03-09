@@ -437,6 +437,16 @@ $("#table_cases td a").click(function(){
         $("#button_select_element").html(whichElementClicked_StepsTable + DROPDOWN_SIGN);
         assembleLocatorsTableForClickedElement(whichElementClicked_Json);
     }
+    else if($(this).attr("trigger") == "digit"){
+        //can not use onkeyup as independent function since it is dynamic.
+        //onafterpaste=\"this.value=this.value.replace(/[^\\d]/g,'')\"
+        //\"this.value=this.value.replace(/[^\\d]/g,'')\"
+        //(/^((\d*[1-9])|(0?\.\d{2}))$/g,'')
+        ///^[1-9]\\d*$/
+        var html = getModalHtml("<input type='text' min='1' onkeyup=\"this.value=this.value.replace(/^[^1-9][^\\d]*$/,'').replace(/[^\\d]/g,'')\"  id='input_change_digit' class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
+        $("body").append(html);
+        $("#changeDigitModal").modal("show");
+    }
 });
 
 $("#button_save_add_locator").click(function(){
@@ -707,8 +717,8 @@ function tableDropdown()
 //    $(id).append(rowInnerHtml);
 //}
 
-function getConfirmModalHtml(content){
-     return   "<div class='modal fade' id='myConfirm' >"
+function getModalHtml(content){
+     return   "<div class='modal fade' id='changeDigitModal' >"
             + "<div class='modal-backdrop in' style='opacity:0;'></div>"
             + "<div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px;'>"
             + "<div class='modal-content'>"
@@ -719,8 +729,8 @@ function getConfirmModalHtml(content){
             + content
             + "</div>"
             + "<div class='modal-footer' style=''>"
-            + "<button class='btn btn-primary' id='confirmOk'>Confirm<Button>"
-            + "<button class='btn btn-default' data-dismiss='modal'>Cancel<Button>"
+            + "<button id='button_close_dynamic' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"
+            + "<button id='button_save_dynamic' type='button' class='btn btn-primary'>Save</button>"
             + "</div>" + "</div></div></div>";
 }
 
@@ -747,6 +757,7 @@ function get_dialog_content_for_add_new(obj){
 }
 
 $(document).ready(function(){
+
     var confirmDialogContent = "";
     var removeContentOfDialog = 'Are you sure to delete?'
 
@@ -867,7 +878,7 @@ function lightCopy(obj){
     return $.extend({}, obj);
 }
 function deepCopy(obj){
-alert(111);
+
 //    try{
 //        alert(11);
 ////        return $.extend(true, {}, obj);
@@ -876,7 +887,7 @@ alert(111);
 }
 
 
-    //bind all remove glyphiconf
+
 //    $('.glyphicon-remove, .glyphicon-plus').click(function(){ // only bind which has existed.
 ////        var content = $(this).children("td:eq(0)").text();
 //        if ('table_locators' != $(this).parents("table:eq(0)").attr('id')){
