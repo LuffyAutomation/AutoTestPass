@@ -13,6 +13,7 @@ var SELECT_ELEMENT = "[Select Element]";
 var DROPDOWN_SIGN = "<span class=\"caret\"></span>";
 var jsonUiMapPagesForOperation = null;
 var ifReassembleUls = false;
+var digitObjFromCaseClicked = null;
 //$("button_add_page").on("click",function(){
 
 //    //Can not find out the ele that created dynamically. Need other method.
@@ -174,7 +175,6 @@ $("#button_close_add_locator, #button_x_add_locator").click(function(){
 
 $("#button_save_add_locator").click(function(){
 //    alert($("#table_locators input").eq(0).val());
-
     var locators = "";
     var locator_type = "";
     var locator_value = "";
@@ -269,7 +269,6 @@ $("#button_save_add_locator").click(function(){
         }
     });
 });
-
 $("#button_add_new_page").on("click",function(){
     if($("#input_new_page").val().trim() != ""){
         $('#button_select_page').text($("#input_new_page").val().trim());
@@ -304,7 +303,6 @@ function _addLi_assemble_dropdown_li_html(name_func, value){
     return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-remove\"/>";
     //return "<li style=\"float:left;width:80%;\" ><a href='#' onclick=\"" + name_func + "('"  + value +  "');\">" + value + "</a></li><a style=\"float:right;margin-top:4px;\" id=\""+ value +"\" href=\"#\" class=\"glyphicon glyphicon-remove\"/><input style=\"float:right;\" id=\"checkBox\" type=\"checkbox\">";
 }
-
 function addLi(list_objs, name_attri, name_func, ul_obj){
     if (typeof(list_objs) == "undefined"){
         return;
@@ -391,7 +389,6 @@ function assembleLocatorsTableForClickedElement(eleObj){
         }
     }
 }
-
 $("#ul_new_page li").on("click",function(){
 
     //Can not find out the ele that created dynamically. Need other method.
@@ -403,9 +400,6 @@ $("#input_new_page").ready(function(){
     //assemble all Pages in Page Dropdown
     //assemblePagesDropdown();
 });
-function afterCaseElementClicked(){
-
-}
 $("#table_cases td a").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         $("#ul_pages").css("display","");  // closed Add Locators modal and reopen
@@ -443,25 +437,37 @@ $("#table_cases td a").click(function(){
         //replace(/^[^1-9][^\\d]*$/,'').replace(/[^\\d]/g,'')
         //(/^((\d*[1-9])|(0?\.\d{2}))$/g,'')
         ///^[1-9]\\d*$/
-        var html = getModalHtml("<input type='text' min='1' onkeyup=\"this.value=this.value.replace(/^[^1-9]([^\\d]*)$/,'')\"  id='input_change_digit' class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
+        digitObjFromCaseClicked = $(this);
+        var html = getModalHtml("<input id='aaa' type='text' onkeyup=\"this.value=this.value.replace(/^[^1-9]([^\\d]*)$/,'')\" class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
         $("body").append(html);
         $("#changeDigitModal").modal("show");
+
     }
 });
 
+function button_save_dynamic_modal_clicked()
+{
+
+    alert( $("body").find("#aaa").html());
+    if($("#input_change_digit").text().trim() != ""){
+        digitObjFromCaseClicked.text($("#input_change_digit").text().trim());
+    }
+}
+
+$("#button_save_dynamic_modal").click(function(){
+
+});
 $("#button_save_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
         $("#button_select_page").html(name_page + "<span class='caret'></span>");
     }
 });
-
 //$("#table_cases td").click(function(){
 //    $('#table_locators tr').remove();
 ////      var tdSeq = $(this).parent().find("td").index($(this)[0]);
 //    whichRowClicked_StepsTable = $(this).parent().parent().find("tr").index($(this).parent()[0]);
 //});
-
 function appendLocatorRow(locatorType, locatorValue){
 	var newRow="<tr>" +
                     "<td style='width:120px;'>" + locatorType + "</td>" +
@@ -470,10 +476,11 @@ function appendLocatorRow(locatorType, locatorValue){
                 "</tr>";
 	$('#table_locators').append(newRow);
 }
-
 function removeLocatorRow(rowNeedRemove){
     rowNeedRemove.remove();
 }
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 var clearFlag = 0;
 var count = 3;
@@ -519,7 +526,6 @@ $(function(){
     $tr.css("color","#f60");
   });
 });
-
 function showShowCss(id)
 {
     $("#" + id).css('display','block');
@@ -532,8 +538,6 @@ function hideShowCss(id)
 function setFocus(id){
     $("#" + id).focus();
 }
-
-
 $(function() {
     $("[data-toggle='progress']").popover({
         html : true,
@@ -583,7 +587,6 @@ function content2() {
 "</div>");
   return data;
 }
-
 function content1() {
   var data = $("<div id='loginModal' class='modal show'>" +
   "<div class='modal-dialog'>" +
@@ -605,7 +608,6 @@ function content1() {
 "</div>");
   return data;
 }
-
 function content() {
     var data = $("<div>Please wait...</div><div class='progress' style='Width:250px;'>" +
     "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%;'>" +
@@ -708,15 +710,6 @@ function tableDropdown()
         }
     });
 }
-
-//var addLocatorRowInnerHtml = ;
-//function appendRow(id, rowInnerHtml){
-//    $(id).append(rowInnerHtml);
-//}
-//function delRow(id, rowInnerHtml){
-//    $(id).append(rowInnerHtml);
-//}
-
 function getModalHtml(content){
      return   "<div class='modal fade' id='changeDigitModal' >"
             + "<div class='modal-backdrop in' style='opacity:0;'></div>"
@@ -729,11 +722,10 @@ function getModalHtml(content){
             + content
             + "</div>"
             + "<div class='modal-footer' style=''>"
-            + "<button id='button_close_dynamic' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"
-            + "<button id='button_save_dynamic' type='button' class='btn btn-primary'>Save</button>"
+            + "<button id='button_close_dynamic_modal' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"
+            + "<button id='button_save_dynamic_modal' type='button' class='btn btn-primary'  onclick=\"button_save_dynamic_modal_clicked();\">Save</button>"
             + "</div>" + "</div></div></div>";
 }
-
 function get_dialog_content_for_add_new(obj){
     value = $(obj).val();
     if(value.trim() == ""){
