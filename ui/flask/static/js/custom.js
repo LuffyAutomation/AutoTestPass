@@ -438,7 +438,7 @@ $("#table_cases td a").click(function(){
         //(/^((\d*[1-9])|(0?\.\d{2}))$/g,'')
         ///^[1-9]\\d*$/
         digitObjFromCaseClicked = $(this);
-        var html = getModalHtml("<input id='aaa' type='text' onkeyup=\"this.value=this.value.replace(/^[^1-9]([^\\d]*)$/,'')\" class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
+        var html = getModalHtml("<input id='input_change_digit' type='text' onkeyup=\"this.value=this.value.replace(/^[^1-9]([^\\d]*)$/,'')\" class='form-control' placeholder='only digit allowed.' aria-describedby='' value='" + $(this).html() + "'/>");
         $("body").append(html);
         $("#changeDigitModal").modal("show");
 
@@ -447,10 +447,12 @@ $("#table_cases td a").click(function(){
 
 function button_save_dynamic_modal_clicked()
 {
-
-    alert( $("body").find("#aaa").html());
-    if($("#input_change_digit").text().trim() != ""){
-        digitObjFromCaseClicked.text($("#input_change_digit").text().trim());
+    //$("#input_change_digit").text()      doesn't work for dynamic
+    // document.getElementById("input_change_digit").value works
+    // document.querySelector('#input_change_digit').value works
+    var input_value = document.querySelector('#input_change_digit').value;
+    if(input_value.trim() != ""){
+        digitObjFromCaseClicked.text(input_value.trim());
     }
 }
 
@@ -723,7 +725,7 @@ function getModalHtml(content){
             + "</div>"
             + "<div class='modal-footer' style=''>"
             + "<button id='button_close_dynamic_modal' type='button' class='btn btn-default' data-dismiss='modal'>Close</button>"
-            + "<button id='button_save_dynamic_modal' type='button' class='btn btn-primary'  onclick=\"button_save_dynamic_modal_clicked();\">Save</button>"
+            + "<button id='button_save_dynamic_modal' type='button' class='btn btn-primary' data-dismiss='modal' onclick=\"button_save_dynamic_modal_clicked();\">Save</button>"
             + "</div>" + "</div></div></div>";
 }
 function get_dialog_content_for_add_new(obj){
