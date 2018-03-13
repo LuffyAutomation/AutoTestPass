@@ -449,8 +449,8 @@ function button_save_dynamic_modal_clicked()
 {
     //$("#input_change_digit").text()      doesn't work for dynamic
     // document.getElementById("input_change_digit").value works
-    // document.querySelector('#input_change_digit').value works
-    var input_value = document.querySelector('#input_change_digit').value;
+    // document.querySelector('#input_change_digit').value works   document.querySelector document.querySelectorAll   performance is low.
+    var input_value = document.getElementById('input_change_digit').value;
     if(input_value.trim() != ""){
         digitObjFromCaseClicked.text(input_value.trim());
     }
