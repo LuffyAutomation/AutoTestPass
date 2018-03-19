@@ -142,17 +142,24 @@ def createTestCases():
     # print json_ui_map
     return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, json_ui_map=json_ui_map)
 
-@app.route('/sendJsonUiMap' , methods=['GET', 'POST'])
+
+@app.route('/sendJsonUiMap', methods=['GET', 'POST'])
 def sendJsonUiMap():
     if request.method == 'POST':
         str_jsonUiMap = request.get_data()
         dict_jsonUiMap = json.loads(str_jsonUiMap)
         _UiPortal.string_to_xml(dict_jsonUiMap)
-
         return ""
     else:
         return ""
 
+
+@app.route('/getCaseSet', methods=['GET', 'POST'])
+def getCaseSet():
+    if request.method == 'POST':
+        return "123"
+    else:
+        return "321"
 
 
 @app.route('/config', methods=['GET', 'POST'])
