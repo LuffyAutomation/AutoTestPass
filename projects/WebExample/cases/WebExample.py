@@ -70,7 +70,7 @@ class WebExample(CommonUnittest):
 
     def test_flow(self):
         '''
-        1. If cls.Result.load_android_case_info_from_excel() is invoked and the class name matchs the sheet name in the excel and the function name matches the ID in the excel.
+        1. If cls.Result.load_android_case_info_from_excel() is invoked and the class name matches the sheet name in the excel and the function name matches the ID in the excel.
         2. self.Result.set_description_and_expected_result_from_excel("test_flow") can select any case from caseInfo.xlsx.
         3. The function name will be used as the case id if you leave the ("test_flow") as empty.
         4. self.Result.set_description_and_expected_result_from_excel can replace self.Result.set_description and self.Result.set_expected_result.
