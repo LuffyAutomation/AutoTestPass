@@ -462,7 +462,7 @@ $("#button_save_dynamic_modal").click(function(){
 $("#button_save_add_locator").click(function(){
     if("#addLocatorModal" == $(this).attr("data-target")){
         whichElementClicked_StepsTable = $(this).html();
-        $("#button_select_page").html(name_page + "<span class='caret'></span>");
+        $("#button_select_page").html(name_page + DROPDOWN_SIGN);
     }
 });
 //$("#table_cases td").click(function(){
@@ -751,7 +751,16 @@ function get_dialog_content_for_add_new(obj){
 }
 
 $(document).ready(function(){
-
+    /*
+    Cases
+    */
+    $('#ul_case_set').children().remove();
+    $('#button_select_case_set').html(SELECT_CASE_SET + DROPDOWN_SIGN);
+    $('#ul_case').children().remove();
+    $('#button_select_case').html(SELECT_CASE + DROPDOWN_SIGN);
+    /*
+    Element
+    */
     var confirmDialogContent = "";
     var removeContentOfDialog = 'Are you sure to delete?'
 

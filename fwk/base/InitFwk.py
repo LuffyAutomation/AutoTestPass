@@ -93,23 +93,23 @@ class InitFwk:
         self.path_folder_data = os.path.join(self.path_folder_projects, self.name_project, "data")
         self.path_folder_cases = os.path.join(self.path_folder_projects, self.name_project, "cases")
 
-        self.path_folder_android = os.path.join(self.path_folder_data, "android")
-        self.path_folder_web = os.path.join(self.path_folder_data, "web")
-        self.path_folder_ios = os.path.join(self.path_folder_data, "ios")
+        self.path_folder_data_android = os.path.join(self.path_folder_data, "android")
+        self.path_folder_data_web = os.path.join(self.path_folder_data, "web")
+        self.path_folder_data_ios = os.path.join(self.path_folder_data, "ios")
 
-        self.path_file_xlsx_caseInfo_android = os.path.join(self.path_folder_android, "caseInfo.xlsx")
-        self.path_file_xlsx_caseInfo_web = os.path.join(self.path_folder_web, "caseInfo.xlsx")
-        self.path_file_xlsx_caseInfo_ios = os.path.join(self.path_folder_ios, "caseInfo.xlsx")
+        self.path_file_xlsx_caseInfo_android = os.path.join(self.path_folder_data_android, "caseInfo.xlsx")
+        self.path_file_xlsx_caseInfo_web = os.path.join(self.path_folder_data_web, "caseInfo.xlsx")
+        self.path_file_xlsx_caseInfo_ios = os.path.join(self.path_folder_data_ios, "caseInfo.xlsx")
 
-        self.path_file_xlsx_testData_android = os.path.join(self.path_folder_android, "testData.xlsx")
-        self.path_file_xlsx_testData_web = os.path.join(self.path_folder_web, "testData.xlsx")
-        self.path_file_xlsx_testData_ios = os.path.join(self.path_folder_ios, "testData.xlsx")
+        self.path_file_xlsx_testData_android = os.path.join(self.path_folder_data_android, "testData.xlsx")
+        self.path_file_xlsx_testData_web = os.path.join(self.path_folder_data_web, "testData.xlsx")
+        self.path_file_xlsx_testData_ios = os.path.join(self.path_folder_data_ios, "testData.xlsx")
 
         self.path_folder_testData = os.path.join(self.path_folder_data, "testData")
 
-        self.path_file_xml_uiMap_android = os.path.join(self.path_folder_android, "uiMaps", "uiMap.xml")
-        self.path_file_xml_uiMap_web = os.path.join(self.path_folder_web, "uiMaps", "uiMap.xml")
-        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_ios, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_android = os.path.join(self.path_folder_data_android, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_web = os.path.join(self.path_folder_data_web, "uiMaps", "uiMap.xml")
+        self.path_file_xml_uiMap_ios = os.path.join(self.path_folder_data_ios, "uiMaps", "uiMap.xml")
 
         self.testType = self.ConfigParser.getMainConfigValue(self.name_project, self.ConfigParser.CURRENT_TEST_TYPE)
         # self._browser = self._ConfigParser.getMainConfigValue(self._name_project, self._ConfigParser.BROWSER)

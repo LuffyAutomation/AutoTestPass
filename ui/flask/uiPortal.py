@@ -68,14 +68,11 @@ class UiPortal:
     def string_to_xml(self, jsonString):
          print(xmltodict.unparse(jsonString, pretty=True))
 
-
 _UiPortal = UiPortal()
 
 pass
 
-
 # TODO----------------------------Drive------------------------------------------------------------------
-
 
 def getUiFwk(_InitFwk):
     if _InitFwk.TestType.ANDROID.lower() == _InitFwk.testType.lower():
@@ -85,11 +82,9 @@ def getUiFwk(_InitFwk):
     elif _InitFwk.TestType.WEB.lower() == _InitFwk.testType.lower():
         return WebFwk(_InitFwk)
 
-
 @app.template_filter('space')
 def space(value):
     return value.replace(' ', '&nbsp;')
-
 
 # colorSet = [ "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC"  ]
 # "#FF6384","#4BC0C0","#FFCE56","#E7E9ED","#36A2EB"
@@ -142,7 +137,6 @@ def createTestCases():
     # print json_ui_map
     return render_template('case.html', _InitFwk=_InitFwk, _UiPortal=_UiPortal, errorMsg=errorMsg, successMsg=successMsg, json_ui_map=json_ui_map)
 
-
 @app.route('/sendJsonUiMap', methods=['GET', 'POST'])
 def sendJsonUiMap():
     if request.method == 'POST':
@@ -153,14 +147,18 @@ def sendJsonUiMap():
     else:
         return ""
 
-
 @app.route('/getCaseSet', methods=['GET', 'POST'])
 def getCaseSet():
     if request.method == 'POST':
-        return "123"
-    else:
-        return "321"
-
+        str_case_sets = ""
+        list_case_set = _InitFwk.UtilFolder.walk_folder(_InitFwk.path_folder_cases, _InitFwk.UtilFolder.ActionMode.LIST_SUB_FILE_NAMES)
+        for case_set in list_case_set:
+            if case_set.endswith(".py") and "__init__.py" not in case_set:
+                str_case_sets += case_set
+                # with open('/path/to/file', 'r') as f:
+                #     for line in f.readlines():
+                #         print(line.strip())
+        return str_case_sets
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():
