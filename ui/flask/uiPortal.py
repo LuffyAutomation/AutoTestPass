@@ -155,14 +155,22 @@ def getCaseSet():
         for case_set in list_case_set:
             if case_set.endswith(".py") and "__init__.py" not in case_set:
                 str_case_sets += case_set
-                # with open('/path/to/file', 'r') as f:
-                #     for line in f.readlines():
-                #         print(line.strip())
         return str_case_sets
+
 @app.route('/getCasesByCaseSet', methods=['GET', 'POST'])
 def getCasesByCaseSet():
     if request.method == 'POST':
+        file_case_set_head = ""
         tmp_case_set_name = request.get_data()
+        path_file_case_set = os.path.join(_InitFwk.path_folder_cases, tmp_case_set_name)
+        if _InitFwk.UtilFile.is_path_existing(path_file_case_set):
+            with open(path_file_case_set, 'r') as f:
+                for line in f.readlines():
+                    file_case_set_head += line
+                    line = line.strip()
+                    if line.startswith("def ") and not line.startswith("def setUpClass(cls):"):
+                        return file_case_set_head
+
         return ""
 
 
