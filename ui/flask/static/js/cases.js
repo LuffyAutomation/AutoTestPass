@@ -42,10 +42,35 @@ $("#button_select_case_set").click(function(){
 //        cache: false,
     });
 });
-function li_case_set_on_click(_name){
-//    $('#button_select_element').text(_name);
-
-}
 $("#button_select_case").click(function(){
+    var tmp_case_sets = [];
 
 });
+function li_case_set_on_click(_name){
+    $('#button_select_case_set').text(_name);
+}
+function li_case_on_click(_name){
+    $('#button_select_case').text(_name);
+    $.ajax({
+        url: "/getCasesByCaseSet",
+        type: "POST",
+        data: $('#button_select_case_set').text(),
+        error: function (msg) {
+
+        },
+        success: function (msg) {
+            var tmp_button_select_case = $("#button_select_case").html().replace(DROPDOWN_SIGN, "").trim();
+            if(msg != "" && tmp_button_select_case != SELECT_CASE){
+
+//                $("#ul_case_set").children().remove();
+//                for(var i=0; i<tmp_case_sets.length; i++)
+//                {
+//                    if(tmp_case_sets[i] != ""){
+//                        newRow = _addLi_assemble_dropdown_li_html("li_case_set_on_click", tmp_case_sets[i] + ".py");
+//                        $("#ul_case_set").append(newRow);
+//                    }
+//                }
+            }
+        }
+    });
+}

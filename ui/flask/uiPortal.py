@@ -159,6 +159,12 @@ def getCaseSet():
                 #     for line in f.readlines():
                 #         print(line.strip())
         return str_case_sets
+@app.route('/getCasesByCaseSet', methods=['GET', 'POST'])
+def getCasesByCaseSet():
+    if request.method == 'POST':
+        tmp_case_set_name = request.get_data()
+        return ""
+
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():
