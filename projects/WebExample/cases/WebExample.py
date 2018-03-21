@@ -62,11 +62,11 @@ class WebExample(CommonUnittest):
     # cls.TestDataWeb = TestData_Web(cls.UI_Web)
     # testData_string_1 = cls.TestData_Web.Sheet_example.dp_msg_upload_waiting()
 
-    def test_flow1(self):
-        self.Result.set_description("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
-                                    "2. Go to www.baidu.com.")
-        self.Result.set_expected_result("Page 'www.baidu.com' is displayed.")
-        raise Exception("Fail this step and see whether the next step will be blocked.")
+    # def test_flow1(self):
+    #     self.Result.set_description("1. Launch %s." % self.UI_Web.RunTimeConf.browser,
+    #                                 "2. Go to www.baidu.com.")
+    #     self.Result.set_expected_result("Page 'www.baidu.com' is displayed.")
+    #     raise Exception("Fail this step and see whether the next step will be blocked.")
 
     def test_flow(self):
         '''

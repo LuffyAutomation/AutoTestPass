@@ -160,17 +160,27 @@ def getCaseSet():
 @app.route('/getCasesByCaseSet', methods=['GET', 'POST'])
 def getCasesByCaseSet():
     if request.method == 'POST':
+        bl_comment_start = False
         file_case_set_head = ""
         tmp_case_set_name = request.get_data()
         path_file_case_set = os.path.join(_InitFwk.path_folder_cases, tmp_case_set_name)
         if _InitFwk.UtilFile.is_path_existing(path_file_case_set):
             with open(path_file_case_set, 'r') as f:
                 for line in f.readlines():
-                    file_case_set_head += line
-                    line = line.strip()
-                    if line.startswith("def ") and not line.startswith("def setUpClass(cls):"):
-                        return file_case_set_head
+                    strip_line = line.strip()
+                    if strip_line.startswith("'''"):
+                        if bl_comment_start is False:
+                            bl_comment_start = True
+                            if strip_line.startswith("''''''"):
+                                bl_comment_start = False
 
+                        else:
+                            bl_comment_start = False
+                        continue
+                    if bl_comment_start is False:  # ignore commented lines.
+                        if strip_line.startswith("def ") and not strip_line.startswith("def setUpClass(cls):"):
+                            return file_case_set_head
+                    file_case_set_head += line
         return ""
 
 
