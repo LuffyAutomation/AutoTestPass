@@ -157,29 +157,49 @@ def getCaseSet():
                 str_case_sets += case_set
         return str_case_sets
 
+def _handle_file_case_set_for_head(line, bl_comment_found):
+    if bl_comment_found is False:
+        bl_comment_found = True
+        if line.startswith("''''''"):
+            bl_comment_found = False
+    else:
+        bl_comment_found = False
+    return bl_comment_found
 @app.route('/getCasesByCaseSet', methods=['GET', 'POST'])
 def getCasesByCaseSet():
     if request.method == 'POST':
-        bl_comment_start = False
+        bl_in_head_comment = False
+        bl_in_def_comment = False
+        bl_in_def = False
+        case_name = ""
+        case_string = ""
         file_case_set_head = ""
+        file_case_set_body = {}
+
         tmp_case_set_name = request.get_data()
         path_file_case_set = os.path.join(_InitFwk.path_folder_cases, tmp_case_set_name)
         if _InitFwk.UtilFile.is_path_existing(path_file_case_set):
             with open(path_file_case_set, 'r') as f:
                 for line in f.readlines():
                     strip_line = line.strip()
-                    if strip_line.startswith("'''"):
-                        if bl_comment_start is False:
-                            bl_comment_start = True
-                            if strip_line.startswith("''''''"):
-                                bl_comment_start = False
-
-                        else:
-                            bl_comment_start = False
+                    if strip_line.startswith("'''") and bl_in_def is False:
+                        bl_in_head_comment = _handle_file_case_set_for_head(strip_line, bl_in_head_comment)
                         continue
-                    if bl_comment_start is False:  # ignore commented lines.
+                    if bl_in_head_comment is False:  # ignore commented lines.
                         if strip_line.startswith("def ") and not strip_line.startswith("def setUpClass(cls):"):
-                            return file_case_set_head
+                            bl_in_def = True
+                        elif bl_in_def is True and bl_in_def_comment is False:
+                            if strip_line == "":
+                                continue
+                            elif not strip_line.endswith(")"):
+                                case_string += strip_line
+                                continue
+                            else:
+                                return case_string
+                        elif strip_line.startswith("'''"):
+                            bl_in_def_comment = _handle_file_case_set_for_head(strip_line, bl_in_head_comment)
+                            continue
+
                     file_case_set_head += line
         return ""
 
