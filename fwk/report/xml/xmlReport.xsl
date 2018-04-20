@@ -357,7 +357,7 @@
 				var cellExpected = document.getElementById("ResultTable").rows[i].cells[2];
 				cellExpected.innerHTML = cellExpected.innerHTML.replace(/~!~/g, "<br/>")
 				var cellManualCheck = document.getElementById("ResultTable").rows[i].cells[4];
-				cellManualCheck.textContent = cellManualCheck.textContent.replace(/~!~/g, "<br/>");
+				cellManualCheck.innerHTML = cellManualCheck.innerHTML.replace(/~!~/g, "<br/>");
 				tempLinkNumber = 1;
 				while (cellManualCheck.textContent.split("#$#").length > 2) // include link mark #$#
 				{
