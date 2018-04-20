@@ -278,7 +278,6 @@
 			{	
 				  for(var i=1;i<document.getElementById("ResultTable").rows.length;i++)
 				  {
-	
 					var cellDEs = document.getElementById("ResultTable").rows[i].cells(1);
 					cellDEs.innerText = cellDEs.innerText.replace(/~!~/g, "\r\n");
 					var cellExpected = document.getElementById("ResultTable").rows[i].cells(2);
@@ -353,19 +352,16 @@
 		{	
 			  for(var i=1;i<document.getElementById("ResultTable").rows.length;i++)
 			  {
-				//var cellDEs = document.getElementById("ResultTable").rows[i].cells[1];
-				//cellDEs.textContent = cellDEs.textContent.replace(/~!~/g, "\r\n")
-				//var cellExpected = document.getElementById("ResultTable").rows[i].cells[2];
-				//cellExpected.textContent = cellExpected.innerHTML.replace(/~!~/g, "\n");
-				//cellExpected.textContent = cellExpected.textContent.replace(/~!~/g, "\r\n")
-				//cellExpected.textContent = cellExpected.textContent.replace(/\r\n/g, '<br />').replace(/[\r\n]/g, '<br />');
+				var cellDEs = document.getElementById("ResultTable").rows[i].cells[1];
+				cellDEs.innerHTML = cellDEs.innerHTML.replace(/~!~/g, "<br/>");
+				var cellExpected = document.getElementById("ResultTable").rows[i].cells[2];
+				cellExpected.innerHTML = cellExpected.innerHTML.replace(/~!~/g, "<br/>")
 				var cellManualCheck = document.getElementById("ResultTable").rows[i].cells[4];
-				//cellManualCheck.textContent = cellManualCheck.textContent.replace(/~!~/g, "\r\n");
+				cellManualCheck.textContent = cellManualCheck.textContent.replace(/~!~/g, "<br/>");
 				tempLinkNumber = 1;
 				while (cellManualCheck.textContent.split("#$#").length > 2) // include link mark #$#
 				{
 						tmpLink = cellManualCheck.innerText.split("#$#")[1]
-						//alert(cellManualCheck.innerText);
 						//cellManualCheck.innerHTML = cellManualCheck.innerHTML.replace(tmpLink, "Click->Link" + tempLinkNumber +"   ")
 						comment = tmpLink.split("@@@")[0]
 						link = tmpLink.split("@@@")[1]

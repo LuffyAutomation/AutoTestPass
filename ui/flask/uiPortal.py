@@ -24,6 +24,20 @@ app = Flask(__name__)
 # The default value for root path parameters of whole script
 # app.config['PROJECT_ROOT'] = FLASK_ROOT_PATH
 
+#coding=utf-8
+import random
+def list_nums(nums):
+    length = len(nums)
+    for j in range(0,length-1):
+        if nums[j] > nums[j+1]:
+            tmp = nums[j]
+            nums[j] = nums[j+1]
+            nums[j+1] = tmp
+    print nums
+
+nums= [random.randint(0,100) for i in range(10)]
+print nums
+list_nums(nums)
 
 class UiPortal:
     result_rate_color_set = ["#4BC0C0", "#FF6384", "#FFCE56"]
