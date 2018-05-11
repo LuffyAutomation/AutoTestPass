@@ -119,10 +119,10 @@ class Result:
     def setEnvBlockMsg(self, env_block_msg):
         self._env_block_msg = env_block_msg
 
-    def _setAsLink(self, str):
-        return "#$#" + str + "#$#" + self._setLine("")
+    def set_as_link(self, str):
+        return "#$#" + str + "#$#" + self.set_new_line("")
 
-    def _setLine(self, str):
+    def set_new_line(self, str):
         return str + "~!~"
 
     def __setManualCheck(self, comment, link):
@@ -372,15 +372,15 @@ class Result:
             tmp = self.__setManualCheck(comment, tmp)
             if self._dict_report[self._manualCheck] == self.NA:
                 self._dict_report[self._manualCheck] = ""
-            self._dict_report[self._manualCheck] += self._setAsLink(tmp)
-            return self._setAsLink(tmp)
+            self._dict_report[self._manualCheck] += self.set_as_link(tmp)
+            return self.set_as_link(tmp)
         except:
             pass
 
     def add_comment(self, comment=""):
         if self._dict_report[self._manualCheck] == self.NA:
             self._dict_report[self._manualCheck] = ""
-        self._dict_report[self._manualCheck] += self._setLine(comment)
+        self._dict_report[self._manualCheck] += self.set_new_line(comment)
         return self._dict_report[self._manualCheck]
 
     def __get_actual_reuslt(self, str):
@@ -414,7 +414,7 @@ class Result:
         tmp = ""
         for idx in range(len(expectedResult)):
             if idx + 1 != len(expectedResult):
-                tmp += self._setLine(expectedResult[idx])
+                tmp += self.set_new_line(expectedResult[idx])
             else:
                 tmp += expectedResult[idx]
         self._dict_report[self._expectedResult] = tmp
@@ -424,7 +424,7 @@ class Result:
         tmp = ""
         for idx in range(len(description)):
             if idx + 1 != len(description):
-                tmp += self._setLine(description[idx])
+                tmp += self.set_new_line(description[idx])
             else:
                 tmp += description[idx]
         self._dict_report[self._description] = tmp

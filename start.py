@@ -118,7 +118,7 @@ if __name__ == '__main__':
         test_result = unittest.TextTestRunner(verbosity=2).run(suite)
     elif initFwk.name_project == "WebMultipleThreads":
         # MultipleThreads
-        UtilMultipleThreads.run_multiple_threads([mutipleThread1, mutipleThread2])
+        UtilMultipleThreads.run_different_multiprocessing([mutipleThread1, mutipleThread2])
     elif initFwk.name_project == "IosExample":
         suite.addTest(IosExample("test_flow"))
         suite.addTest(IosExample("test_your_other_flow"))
