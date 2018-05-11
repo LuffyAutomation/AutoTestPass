@@ -356,6 +356,8 @@
 				cellDEs.innerHTML = cellDEs.innerHTML.replace(/~!~/g, "<br/>");
 				var cellExpected = document.getElementById("ResultTable").rows[i].cells[2];
 				cellExpected.innerHTML = cellExpected.innerHTML.replace(/~!~/g, "<br/>")
+				var cellErrorMessage = document.getElementById("ResultTable").rows[i].cells[3];
+				cellErrorMessage.innerHTML = cellErrorMessage.innerHTML.replace(/~!~/g, "<br/>");
 				var cellManualCheck = document.getElementById("ResultTable").rows[i].cells[4];
 				cellManualCheck.innerHTML = cellManualCheck.innerHTML.replace(/~!~/g, "<br/>");
 				tempLinkNumber = 1;
