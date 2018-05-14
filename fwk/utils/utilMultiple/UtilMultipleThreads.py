@@ -12,44 +12,33 @@ class UtilMultipleThreads:
         list_func = []
         for func in funcs:
             list_func.append(multiprocessing.Process(target=func))
-        processes = range(len(list_func))
-        for i in processes:
-            list_func[i].start()
-            time.sleep(1)
-        for i in processes:
-            list_func[i].join()
+            UtilMultipleThreads.run_threads_by_list(list_func)
 
     @staticmethod
     def run_same_multiprocessing(func, num):
         list_func = []
         for i in range(1, num + 1):
             list_func.append(multiprocessing.Process(target=func))
-        processes = range(len(list_func))
-        for i in processes:
-            list_func[i].start()
-            time.sleep(1)
-        for i in processes:
-            list_func[i].join()
+            UtilMultipleThreads.run_threads_by_list(list_func)
 
     @staticmethod
-    def _run_thread(list_func):
-        processes = range(len(list_func))
-        for i in processes:
-            list_func[i].start()
-            time.sleep(1)
-        for i in processes:
-            list_func[i].join()
-
-    @staticmethod
-    def run_threads_with_same_func(func, num):
+    def run_threads_with_same_func(func, num, args_in=None):
         list_func = []
         for i in range(1, num + 1):
-            list_func.append(Thread(target=func))
+            if args_in is None:
+                list_func.append(Thread(target=func))
+            else:
+                list_func.append(Thread(target=func, args=args_in))
+        UtilMultipleThreads.run_threads_by_list(list_func)
+
+    @staticmethod
+    def get_run_threads_with_different_arg(func, args_in=None):
+        return Thread(target=func, args=args_in)
+
+    @staticmethod
+    def run_threads_by_list(list_func):
         processes = range(len(list_func))
         for i in processes:
             list_func[i].start()
         for i in processes:
             list_func[i].join()
-
-
-
