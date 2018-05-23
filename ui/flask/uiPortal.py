@@ -33,10 +33,10 @@ def list_nums(nums):
             tmp = nums[j]
             nums[j] = nums[j+1]
             nums[j+1] = tmp
-    print nums
+    print(nums)
 
 nums= [random.randint(0,100) for i in range(10)]
-print nums
+print(nums)
 list_nums(nums)
 
 class UiPortal:
