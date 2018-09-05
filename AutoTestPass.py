@@ -4,9 +4,9 @@ from fwk.utils.utilNetwork.UtilNetwork import UtilNetwork
 from ui.flask.uiPortal import app
 import sys
 import webbrowser
-reload(sys)
+#reload(sys)
 
-sys.setdefaultencoding('utf8')
+#sys.setdefaultencoding('utf8')
 
 
 def startServer(*args):

@@ -49,7 +49,8 @@ class UiPortal:
     action_createTestCases = "action_createTestCases"
     action_addLocators = "action_addLocators"
 
-    EDIT_NEWPROJECT = "edit_newProject"
+    #INPUT_NEWPROJECT = "EDIT_NEWPROJECT"
+    INPUT_NEWPROJECT = "input_new_project"
     RADIOBUTTON_TESTTYPE = "radioButton_testType"
 
     def __init__(self):
@@ -126,7 +127,7 @@ def index():
             createTestDataStrings.create()
             successMsg = "1. The Test Data Objects of <strong>%s</strong> are created successfully.</br>" % _InitFwk.name_project
     elif request.method == 'POST':
-        newProjectName = request.form[_UiPortal.EDIT_NEWPROJECT].strip()
+        newProjectName = request.form[_UiPortal.INPUT_NEWPROJECT].strip()
         if newProjectName != "" and newProjectName is not None:
             testType = request.form[_UiPortal.RADIOBUTTON_TESTTYPE]
             _NewProjectCreator = NewProjectCreator(newProjectName, testType)
