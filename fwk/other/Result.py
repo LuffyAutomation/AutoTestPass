@@ -2,21 +2,21 @@ import logging
 import logging.config
 import os
 import inspect
-import new
+# import new
 from xml.dom import minidom
 
 from fwk.base.GlobalArgs import GlobalArgs
 from fwk.utils.exceller.Exceller import Exceller
 
 
-def enhance_method(klass, method_name, replacement):
-    method = getattr(klass, method_name)
-    setattr(klass, method_name, new.instancemethod(
-        lambda *args, **kwds: replacement(method, *args, **kwds), None, klass))
+# def enhance_method(klass, method_name, replacement):
+#     method = getattr(klass, method_name)
+#     setattr(klass, method_name, new.instancemethod(
+#         lambda *args, **kwds: replacement(method, *args, **kwds), None, klass))
 
 
-def method_changer(old_method, self, *args, **kwds):
-    print 3333
+# def method_changer(old_method, self, *args, **kwds):
+#     print 3333
     # return_value = old_method(self, *args, **kwds)
     # return return_value
 
