@@ -42,3 +42,16 @@ class UtilMultipleThreads:
             list_func[i].start()
         for i in processes:
             list_func[i].join()
+
+    def test1(self, a, b):
+        print(a)
+        print(b)
+
+
+if __name__ == '__main__':
+    aaaaaa = [1,2,3,4,5]
+    aaa = UtilMultipleThreads()
+    list_threads = []
+    list_threads.append(UtilMultipleThreads.get_run_threads_with_different_arg(aaa.test1, ("2", "3",)))
+
+    UtilMultipleThreads.run_threads_by_list(list_threads)

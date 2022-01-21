@@ -12,6 +12,10 @@ class UtilOS:
         pass
 
     @staticmethod
+    def get_os():  # not work in DP
+        return UtilOS.get_os_name() + UtilOS.get_os_release() + UtilOS.get_os_bit()
+
+    @staticmethod
     def get_os_locale():  # not work in DP
         return locale.getdefaultlocale()[0]
 
@@ -36,13 +40,12 @@ class UtilOS:
 
     @staticmethod
     def get_os_bit():
-        if UtilOS.get_os_name() == "Windows":  # 32bit Python always return 32bit no matter 32bit or 64bit os.
+        if UtilOS.get_os_name() == "Windows" or UtilOS.get_os_name() == "Win":  # 32bit Python always return 32bit no matter 32bit or 64bit os.
             if 'PROGRAMFILES(X86)' in os.environ:
-                return "64bit"
-            return "32bit"
+                return "x64"
+            return "x86"
         else:
-            return platform.architecture()[0]
-
+		            return platform.architecture()[0]
     @staticmethod
     def get_os_name_version():
         return platform.platform()  # 'Windows-7-6.1.7601-SP1

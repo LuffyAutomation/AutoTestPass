@@ -59,6 +59,10 @@ class UtilFile:
             os.rename(o_file, dst)
 
     @staticmethod
+    def get_base_name(o_file):
+        return os.path.basename(o_file)
+
+    @staticmethod
     def replace_file_content_by_line(path_file, old_text, new_text):
         if os.path.isfile(path_file):
             lines = open(path_file, UtilFile.FileMode.R).readlines()

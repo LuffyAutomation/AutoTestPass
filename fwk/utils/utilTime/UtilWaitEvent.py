@@ -44,3 +44,45 @@ class UtilWaitEvent:
         raise Exception
         # raise Exception(message, screen, stacktrace)
 
+        '''
+                time.sleep(2)
+                new = self.driver.page_source
+
+                d = difflib.Differ()
+                rel = d.compare(old,new)
+                print(list(rel))
+
+                a = difflib.SequenceMatcher(a=old, b=new).quick_ratio()
+                b = difflib.SequenceMatcher(a=old, b=new).ratio()
+                while True:
+                    new = self.driver.page_source
+                    if difflib.SequenceMatcher(a=old, b=new).quick_ratio() > 0.95:
+                        time.sleep(2)
+                        new = self.driver.page_source
+                        if difflib.SequenceMatcher(a=old, b=new).quick_ratio() > 0.95:
+                            break
+                    old = new
+                    
+         def til(method, timeout, poll=1, message=''):
+            start_time = datetime.datetime.now()
+            while True:
+                try:
+                    value = method()
+                    if value:
+                        return value
+                except Exception as e:
+                    pass
+                wait(poll)
+                if date_diff(start_time, datetime.datetime.now()) >= timeout:
+                    break
+            raise Exception("Timeout." + message)
+
+
+    def date_diff(start_time, current_time, unit="s"):
+        t = current_time - start_time
+        if unit == 's':
+            return t.seconds
+        else:
+            return t.seconds / 60           
+                    
+        '''
