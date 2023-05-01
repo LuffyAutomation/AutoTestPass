@@ -2,6 +2,6 @@ Appium-Python-Client==0.25
 configparser==3.5.0
 selenium==3.7.0
 openpyxl==2.4.7
-Flask==1.0
+Flask==2.3.2
 lxml==4.1.1
 xmltodict==0.11.0
